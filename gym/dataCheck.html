@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数据统计</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dataCheck.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：高级 > 数据统计
+        </div>
+        <div class="row cont-part">
+            <div class="col-sm-5 row-part">
+                <div class="cont-box">
+                    <div class="box-part">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <!-- <label for="monthSel">选择月份:</label> -->
+                                <select name="monthSel" id="monthSel" onchange="refreshData()" class="form-control"></select>
+                            </div>
+                            <div class="col-sm-4">
+                                <b>当月收入/元</b>
+                                <div class="in-ups" id="monthIn">0000</div>
+                            </div>
+                            <div class="col-sm-4">
+                                <b>今日收入/元</b>
+                                <div class="in-up" id="dayIn">0000</div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="in-down" id="openIn">000</div>
+                                开卡收入/元
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="in-down" id="lessonIn">000</div>
+                                课程收入/元
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="in-down" id="payIn">000</div>
+                                充值消费/元
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 row-part">
+                <div class="cont-box">
+                    <div class="box-part">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-sm-12">
+                                    <b>用户总数/人</b>
+                                    <div class="in-ups" id="userTotal">0000</div>
+                                    <hr>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="in-down" id="cardTotal">000</div>
+                                    已办卡
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="in-down" id="likeTotal">000</div>
+                                    未办卡
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="userChart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 row-part">
+                <div class="cont-box-day">
+                    <div class="box-part-day">
+                        <h5 style="text-align:center;">今日签到人数</h5>
+                        <div class="sign-total" id="signTotal">00</div>
+                        <!-- <div class="in-down">男:00人/女:00人</div> -->
+                        <div class="box-time" id="todayDate">2016-3-3 周五</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row cont-part">
+            <div class="col-sm-6 row-part">
+                <div class="cont-box">
+                    <div id="inChart"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 row-part">
+                <div class="cont-box">
+                    <div id="vipChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row cont-part">
+            <div class="col-sm-12 row-part">
+                <div class="cont-box">
+                    <div id="aliveChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/dataCheck.js"></script>
+</body>
+
+</html>

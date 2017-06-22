@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>健身场所管理系统</title>
+<link rel="stylesheet" href="css/easyui2.min.css"></link>
+<link rel="stylesheet" href="css/icon.css"></link>
+<link rel="stylesheet" href="css/theme-simple.css" />
+<link rel="stylesheet" href="css/new.css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css"/>
+<link rel="stylesheet" href="css/gymNew.css" />
+<style type="text/css">
+        
+		.pugong{position: relative; width:60px; height:40px; display:block; float:right;margin-left:5px; margin-bottom:5px; margin-top:4px; border:1px solid #f1f1f1;}
+		.divX
+		{
+   			 z-index:100;
+    		border-style:solid;
+    		border-width:1px;
+    		border-color:#d8d8d8;
+    		background-color:#ffffff;
+    		line-height:12px;
+    		text-align:center;
+    		font-weight:bold;
+    		width:10px;
+    		cursor:pointer;
+    		font-size:5px;
+    		color:#666;
+    		display: none;
+		}
+		.putong_app{
+			width:60px; 
+			height:40px;
+		}
+
+        .certificateList{
+			width:218px;
+			height:45px;
+		}
+		.certificateName{
+			width:130px;
+			height:30px;
+			margin-top:7.5px;
+			margin-bottom:7.5px;
+			display:block;
+			
+			float:left;
+		}
+		.add{
+			width:47px;
+			height:40px;
+			border:1px solid blue;
+			margin-right:2px;
+			float:right;
+		}
+		.img{
+			max-width: 100%;
+			width: 100%;
+			max-height: 100%;
+			height: 100%;
+		}
+		.accordionNew .linkNew{
+			height:45px;
+			display: block;
+			/*padding: 10px 15px 10px 42px;*/
+			padding:0px
+			color:#C8CAC9;
+			line-height:23px;
+			font-size: 12px;
+			border-bottom: 2px solid #272C30;
+			position: relative;
+		}
+
+		.tip{
+			display: inline;
+			padding: .2em .6em .3em;
+			font-size: 75%;
+			font-weight: 700;
+			line-height: 1;
+			color: #fff;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: baseline;
+			background-color: #337ab7;
+			border-radius: .25em;
+		}
+    </style>
+<script>
+
+</script>
+</head>
+<body onselectstart="return false">
+	
+	<div id = "hideDiv" class="center-region" style="background:#fff;z-index:9999;overflow:hidden;">
+		<div style="width:32px;height:32px;margin:250px auto auto auto;">
+			<img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+		</div>
+	</div>
+	
+	<div id="center-region" class="center-region" style="overflow:hidden;">
+		<div style="background-color:#E8E8E8;overflow:hidden">
+			<div id="showMessage" style="width:100%;height:100%;overflow:hidden">
+				<!-- body -->
+				<table id="dg"style="width:100%;height:100%;max-width:100%;overflow-y:auto;overflow-x:hidden;" data-options="rownumbers:true,singleSelect:true,pagination:true,pageSize:'30',idFiel:'id',url:'GymBalanceAction!list.zk',method:'post',toolbar:'#toolbar'">
+					<thead>
+						<tr>
+							<!--<th data-options="field:'id',checkbox:false,width:$('#showMessage').width()*0.02" ></th>-->
+							<th style="white-space: nowrap" data-options="field:'userName',align:'center',">客户</th><!-- width:$('#showMessage').width()*0.1 -->
+							<th style="white-space: nowrap" data-options="field:'amount',align:'center',">收入金额（元）</th><!-- width:$('#showMessage').width()*0.1 -->
+							<th style="white-space: nowrap" data-options="field:'type',align:'center',formatter:formatType">收入类别</th><!-- width:$('#showMessage').width()*0.15 -->
+							<th style="white-space: nowrap" data-options="field:'projectName',align:'center',">收入来源</th><!-- width:$('#showMessage').width()*0.13 -->
+							<th style="white-space: nowrap" data-options="field:'state',align:'center',formatter:formatState,">状态</th><!-- width:$('#showMessage').width()*0.1 -->	
+							<th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter: formatDate,sortable:true,">交易时间</th><!-- width:($('#showMessage').width()-30)* 0.15 -->
+							<!--<th style="white-space: nowrap" data-options="field:'gmtModify',align:'center',formatter: formatDate,sortable:true,">修改时间</th><!-- width:($('#showMessage').width()-30)* 0.15 -->
+							<!--<th style="white-space: nowrap" data-options="field:'id',align:'center',formatter:formatIncomeAction,">操作</th><!-- width:($('#showMessage').width()-30)* 0.1 -->
+						</tr>
+					</thead>
+				</table>
+    <div id="toolbar">
+    <table>
+    	<tr>
+    		<td>
+    			<div style="float:right;width:80px;height:25px;margin-left:20px;">
+    			<div id="addDetail" class="detail" style="" onclick="withdraw()" onmouseOver="onOver('addDetail')" onmouseout="toOut('addDetail')">
+    				<div style="float:left;"><img alt="" src="images/withdrawNew.png" style="width:18px;height:18px;line-height:25px;margin-top:3.5px;"></div>
+    				<span style="margin-left:5px;">提现</span>
+    			</div>
+    			</div>
+    		</td>
+    		<td id="filter" style="padding-right:10px;"><!--筛选：--><select id="incomeType" class="easyui-combobox" data-options="editable:false,valueField:'value',textField:'text',
+    		data: [{
+			text: '全部',
+			value: '',
+			selected:true
+		},{
+			text: '会员卡',
+			value: 'card'
+		}]"style="float:left;width:100px;height:30px;border-radius:5px;"></select></td>
+    		<td><input id="txt_word" class="easyui-searchbox" style="width:350px;height:30px;border-radius:5px;" data-options="prompt:'请输入客户名称',searcher:searchIncome" /></td>
+    	</tr>
+    </table> 
+    </div>
+    
+   	<div id="dlg" class="easyui-dialog"style="width: 400px; height: 200px; padding: 10px 20px" closed="true" data-options="modal:true"><!--  buttons="#dlg-buttons" -->
+		<div class="fitem" style="">
+			<label style="margin-left:60px;">可提取金额:</label><span id="total"></span>(元)
+		</div>
+		<div class="fitem" style="">
+			<label style="margin-left:60px;">手&nbsp;&nbsp;&nbsp;&nbsp;续&nbsp;&nbsp;&nbsp;费:</label><span id="fee"></span>(元)
+		</div>
+		<div class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+			<a id="withdrawBtn" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="withdrawing()" style="width:90px;margin-right:70px;cursor:pointer;background:#383838;color:#E4F2FF;opacity:1;"><span style="color:#F8CF01;">提现</span></a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#dlg').dialog('close')"style="width: 90px;cursor:pointer;background: #383838;color:#E4F2FF;"><span style="color:#FFFFFF;">取消</span></a>
+		</div>
+	</div>
+			</div>
+		</div>
+	</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/easyui-lang-zh_CN.js"></script>
+<script src="js/format.utils.js"></script>
+<script src="js/datagrid.common.js"></script>
+<script src="js/biz/zk_main.js"></script>
+<script src="js/echarts-plain.js"></script>
+<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/flowplayer-3.2.6.min.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<script src="js/jquery.datagridtip.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/msgbox/msgbox.js"></script>
+<script type="text/javascript">
+//var setInt = self.setInterval("isOk()",300);
+function loginTimeout(){
+    window.top.location.replace('index.html?redirect=' + encodeURIComponent(location.href));
+}
+$(function(){
+	$('body').css('height',$(window).height());//设置body的高度
+	$('body').css('width',$(window).width());
+	var height1 = $(window).height();
+	var width1 = $(window).width();
+	$('#center-region').css({'width':width1});
+	$('#showMessage').css({'width':'100%','height':$(window).height()});
+	if(parseInt($('#showMessage').css('width'))>660)$('#filter').css({'padding-left':parseInt($('#showMessage').css('width'))-570});
+	$(window).resize(function(){
+		$('body').css('height',$(window).height());//设置body的高度
+		$('body').css('width',$(window).width());
+		var height0 = $(window).height();
+		var width0 = $(window).width();
+		$('#center-region').css({'width':width0});
+		$('#showMessage').css({'width':'100%','height':height0});
+		$('.datagrid-view2').css({'width':'100%'});
+		$('.datagrid-view2').children('.datagrid-header').children('.datagrid-header-inner').children('.datagrid-htable').children('tbody').children('.datagrid-header-row').css({'width':parseInt($('#showMessage').css('width'))-30});
+		if(parseInt($('#showMessage').css('width'))>660)$('#filter').css({'padding-left':parseInt($('#showMessage').css('width'))-570});
+	});
+	$('#hideDiv').hide();
+	$('#dg').datagrid({
+		onLoadSuccess: function(data){
+			if (data.total == 0 && data.ERROR == 'No Login!') {
+				$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '登录超时,请重新登录!', 'error');
+				relogin();
+			}
+			$('#dg12345').datagrid('doCellTip', {
+                onlyShowInterrupt: false,     //是否只有在文字被截断时才显示tip，默认值为false             
+                position: 'bottom',   //tip的位置，可以为top,botom,right,left
+                cls: { 'background-color': '#FFF' },  //tip的样式D1EEEE
+                delay: 100   //tip 响应时间
+	        });
+			
+			//图片弹出层
+			 $("a.popImage").fancybox({
+		            openEffect  : 'elastic',
+		            closeEffect: 'elastic'    
+		     });
+		},
+		onLoadError : function() {
+			//alert('出错啦');
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '登录超时,请重新登录!', 'error');
+		},
+		onHeaderContextMenu: function(e, field){
+			e.preventDefault();
+			if (!cmenu){
+				createColumnMenu();
+			}
+			cmenu.menu('show', {
+				left:e.pageX,
+				top:e.pageY
+			});
+	}
+	})
+	
+});
+
+function onOver(id){
+	$('#'+id).css({color:'#FFD600'});
+}
+function toOut(id){
+	$('#'+id).css({color:'#fff'});
+}
+
+function withdraw(){
+    $('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;提现');
+    $.getJSON('GymBalanceAction!sum.zk',function(data){
+    	if(data.STATUS){
+    		if(data.sum){
+    			$('#total').text(data.sum+'');
+    			$('#withdrawBtn').linkbutton('enable');
+    		}else{
+    			$('#total').text('0');
+    			$('#withdrawBtn').linkbutton('disable');
+    		}
+    		if(data.transferFee){
+    			$('#fee').text(data.transferFee+'');
+    		}
+    		else{
+    			$('#fee').text('0');
+    		}
+    	}else{
+    		if('No Login!' == data.ERROR){
+                loginTimeout();return;
+            }
+    	}
+    });
+    //url = 'MemberCardAction!createOrUpdate.zk';
+}
+
+function withdrawing(){
+    //$('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;提现');
+    $.getJSON('GymBalanceAction!withdraw.zk',{},function(data){
+    	if(data.STATUS){
+    		//alert("提现成功！");
+    		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;消息','提现成功!');
+    	}else{
+    		if('No Login!' == data.ERROR){
+                loginTimeout();return;
+            }
+    		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请稍后再试!');
+    	}
+    });
+    //url = 'MemberCardAction!createOrUpdate.zk';
+}
+
+function formatIncomeAction(id){
+	   //alert($('#showMessage').width());
+	   var result="<img title='发送消息' style='width:17px;height:15px;margin-top:3px;margin-right:6px;cursor:pointer;' src='images/message.png' onclick=\"showChat('"+id+"');event.cancelBubble=true;event.stopPropagation();\"/>";
+	   return result;
+  }
+
+function formatType(value){
+	switch (value) {
+		case "card": return '会员卡' ;
+		case "course": return '课程' ;
+		case "benefit": return '提成' ;
+		default:return '';
+	}
+}
+
+function formatState(value){
+	switch (value) {
+		case "waitpay": return '等待提现' ;
+		case "nopay": return '未提现' ;
+		case "finishpay": return '已提现' ;
+		case "self": return '柜台支付' ;
+		default:return '';
+	}
+}
+//用户筛选事件,自动搜索
+$("#incomeType").combobox({
+	onChange: function (n,o) {
+		//searchIncome();
+	},
+	onSelect: function (n,o) {
+		searchIncome();
+	}
+});
+
+function searchIncome(){
+	var incomeType = $("#incomeType").combobox("getValue");
+	var name = $("#txt_word").searchbox("getValue");
+	$("#dg").datagrid('load',{userName:name,type:incomeType});
+	$("#txt_word").searchbox("setValue",'');
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>员工管理</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/dataCoach.css"></link>
+</head>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="showTable">
+            <!-- 表格 -->
+            <div class="curHeader">
+                <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：高级 > 私教业绩统计
+            </div>
+            <div class="course_title">
+                <div class="title_right">
+                    <div class="coach_tel">
+                        <span>统计月份</span>
+                        <select id="month" class="easyui-combobox" name="month" style="width: 60px;height: 34px;line-height: 34px;padding-left:5px; margin:5px;vertical-align:top;" data-options="editable:false">
+                        </select>
+                    </div>
+                    <div class="coach_tel">
+                        <label for="searchRole">教练</label>
+                        <input name="searchRole" id="searchRole" class="easyui-combobox" value="" style="width:100px;height:34px;" data-options="editable:false,prompt:'请选择'">
+                    </div>
+                    <!-- <div class="search_btn">
+                        <button onclick="searchStaff()" id="staffSearch"><span class="">搜索</span></button>
+                    </div> -->
+                </div>
+                <!-- <div id="sendTd" class="sendMessage" onclick="openMessage()">
+                    <img alt="" class="sendImg" src="images/message.png">
+                    <span style="margin-left:5px;">发送通知</span>
+                </div>
+                <div id="staffNew" class="detail" style="">
+                    <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">新建员工</span>
+                </div> -->
+            </div>
+            <div style="color:#646464;margin-left:45px;position: absolute;  top: 128px;  left: -3px;">本月总计销售业绩：<span id="totalMoney">0</span>元</div>    
+            <div id="dataChart"></div>
+            <table id="dg" style="width:100%;height:100%;">
+                <thead>
+                    <tr>
+                        <th style="white-space: nowrap;" data-options="field:'date',align:'center',resizable:'true',formatter:formatTime">日期</th>
+                        <th style="white-space: nowrap;" data-options="field:'coach',align:'center',resizable:'true'">教练姓名</th>
+                        <th style="white-space: nowrap;" data-options="field:'members',align:'center',resizable:'true'">学员姓名</th>
+                        <th style="white-space: nowrap;" data-options="field:'count',align:'center',resizable:'true'">课程节数</th>
+                        <th style="white-space: nowrap;" data-options="field:'pay',align:'center',resizable:'true'">业绩金额（元）</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/dataCoach.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

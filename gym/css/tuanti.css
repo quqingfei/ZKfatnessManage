@@ -1,0 +1,183 @@
+.week-lesson {
+    padding: 15px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #666;
+}
+
+.week-center {
+    width: auto;
+    display: inline-block;
+    text-align: left;
+}
+
+.week-lesson:hover {
+    background: #D7EBDD;
+}
+
+.week-img {
+    width: 30px;
+    margin-right: 5px;
+}
+
+.week-img img {
+    height: 14px;
+    vertical-align: text-bottom;
+}
+
+#editLesson {
+    background: #3fc371;
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+
+#week{
+    display: inline-block;
+    width: 220px;
+    margin-right: -60px;
+}
+
+#week a{
+    display: inline-block;
+    text-decoration:none;
+    color:#333;
+    margin-right: 3px;
+    margin-bottom: 5px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 3px;
+    border:1px solid #ccc;
+    padding: 0 5px;
+    background: #fff;
+}
+
+#week a:hover{
+    background-color: #eee;
+}
+
+#week a.week-check{
+    background: #3fc371;
+    border:1px solid #3fc371;
+    color: #fff;
+}
+
+#courseDate {
+    line-height: 22px;
+    display: inline-block;
+    width: 162px;
+    height: 26px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+#dateChange{
+    position: absolute;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    width: 180px;
+    margin-top: -15px;
+    margin-left: -90px;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    text-align: center;
+}
+
+#dateChange a{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin: 5px;
+    border-radius: 20px;
+    
+    vertical-align: top;
+}
+
+#dateChange a:hover{
+    background-color: #3fc371;
+}
+
+#weekPrev{
+    background-image: url('../images/weekPrev.png');
+    background-size: 100% 100%;
+}
+#weekNext{
+    background-image: url('../images/weekNext.png');
+    background-size: 100% 100%;
+}
+
+.private-search .combo {
+    font-size: 14px;
+    line-height: 25px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 27px;
+    /*margin-left:10px;*/
+
+    vertical-align: top;
+
+    color: #666;
+    border-width: 0;
+    background-color: #fff;
+}
+.private-search .textbox .textbox-text {
+    font-size: 14px;
+}
+
+.sign-table{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /*border-top: 1px solid #000000;*/
+}
+
+.item-col {
+    display: inline-block;
+    width: 210px;
+}
+
+.item-row {
+    padding: 5px 10px;
+}
+
+.item-row b {
+    line-height: 20px;
+    color: #333;
+}
+
+.item-row span {
+    display: inline-block;
+    max-width: 370px;
+    line-height: 20px;
+    vertical-align: top;
+    color: #666;
+}
+.chooseBtn{
+    width:200px;
+    height:30px;
+    margin:20px auto 10px;
+    font-size:14px;
+    text-align: center;
+}
+.chooseSure{
+    display:inline-block;
+    width:120px;
+    height:30px;
+    line-height: 30px;
+    color:#fff;
+    text-align:center;
+    background:#3fc371;
+    border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/userManageNew.css"></link>
+    <link rel="stylesheet" href="css/customManage.css"></link>
+</head>
+<style>
+.chooseBtn {
+    width: 200px;
+    height: 30px;
+    margin: 30px auto 0px;
+    font-size: 14px;
+    text-align: left;
+}
+.chooseSure {
+    display: block;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    float: right;
+    text-align: center;
+    background: #3fc371;
+    border-radius: 4px;
+}
+.chooseCancle {
+    display: block;
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    /* margin-left: 10px; */
+    color: #333;
+    float: left;
+    text-align: center;
+    background: #ccc;
+    border-radius: 4px;
+}
+</style>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：客户管理
+        </div>
+        <div class="curTool">
+            <!-- <img class="codeImg" src="images/makeCode.png" /> -->
+            <img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            <img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+            <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="code" id="userCode" class="userCode" maxlength="18" AUTOCOMPLETE="off" value="" placeholder="请扫描/输入条码/手机号码" />
+            <div class="clientSearch">
+            <div class="tongzhi dateLable" onclick="openTit()"><img alt="" class="sendImg" src="images/message.png"><span style="margin-left:5px;">通知未到用户</span></div>
+                <!-- <div class="tongzhi"><a href="javascript:;" onclick="">通知未到用户</a></div> -->
+                <label class="dateLable">选择会籍/教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 100px;padding-left:5px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+                <!--
+                <label class="dateLable">关注日期</label>
+                <input id="startDate" data-options="prompt:'请输入'" class="easyui-datebox dateInput" style="width:100px;height:32px;">
+                <span class="connection">至</span>
+                <input id="endDate" data-options="prompt:'请输入'" class="easyui-datebox dateInput" style="width:100px;height:32px;">
+-->
+                <!-- <a href="javascript:;" class="searchSubmit" id="clientSearchSubmit" onclick="toSearch()">搜索</a> -->
+            </div>
+        </div>
+        <div class="curAction">
+            <div id="allUser" class="userChoose" style="color: #3fc371;" data-value="全部" onclick="toChooseUser('allUser','')" onmouseOver="onOver('allUser')" onmouseout="toOut('allUser')">所有客户</div>
+            <div id="isMember" class="userChoose" data-value="已办卡" onclick="toChooseUser('isMember','hasCard')" onmouseOver="onOver('isMember')" onmouseout="toOut('isMember')">会员</div>
+            <div id="attention" class="userChoose" data-value="已关注" onclick="toChooseUser('attention','hasLike')" onmouseOver="onOver('attention')" onmouseout="toOut('attention')">非会员</div>
+            <div id="salesMan" class="userChoose" data-value="新关注" onclick="toChooseUser('salesMan','noSaleId')" onmouseOver="onOver('salesMan')" onmouseout="toOut('salesMan')">未分配</div>
+            <div id="salesZombie" class="userChoose" style="border-width:0;" data-value="僵尸用户" onclick="toChooseUser('salesZombie','zombie')" onmouseOver="onOver('salesZombie')" onmouseout="toOut('salesZombie')" title="近1个月没签到用户">僵尸用户</div>
+            <div id="sendTd" class="sendMessage" onclick="openMessage()"><img alt="" class="sendImg" src="images/message.png"><span style="margin-left:5px;">发送通知</span></div>
+            <div id="" class="sendMessage" onclick="openHj()"><img alt="" class="sendImg" src="images/addNew1.png"><span style="margin-left:5px;">分配会籍</span></div>            
+            <div id="" class="sendMessage" onclick="openJl()"><img alt="" class="sendImg" src="images/coachoose.png"><span style="margin-left:5px;">分配教练</span></div>
+            <div id="" class="sendMessage" onclick="serverManage()"><img alt="" class="sendImg" src="images/server.png"><span style="margin-left:5px;">服务管理</span></div>
+            <div id="" class="sendMessage" onclick="openSerch()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">高级搜索</span></div>
+            <div id="" class="sendMessage" onclick="editRemark()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">备注修改</span></div>
+            <div id="" class="sendMessage" onclick="openCard()"><img alt="" class="sendImg" src="images/addNew.png"><span style="margin-left:5px;">开卡</span></div>
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;">
+                <thead>
+                    <tr>
+                        <th data-options="field:'userId',resizable:'true',align:'center',checkbox:true">全选</th>
+                        <th data-options="field:'nickName',align:'center',resizable:'true'">昵称</th>
+                        <th data-options="field:'realName',align:'center',resizable:'true'">真实姓名</th>
+                        <th data-options="field:'sex',align:'center',resizable:'true',formatter: formatSex">性别</th>
+                        <th data-options="field:'birthYear',align:'center',resizable:'true',formatter: formatAge">年龄</th>
+               <!--          <th data-options="field:'height',align:'center',resizable:'true'">身高/cm</th>
+                        <th data-options="field:'weight',align:'center',resizable:'true'">体重/kg</th> -->
+                        <th data-options="field:'bmi',align:'center',resizable:'true',formatter: formatBMI">体型</th>
+                        <th data-options="field:'phone',align:'center',resizable:'true'">电话</th>
+                        <th data-options="field:'saleName',align:'center',resizable:'true'">所属会籍</th>
+                        <th data-options="field:'coachName',align:'center',resizable:'true'">健康顾问</th>
+                        <!-- <th data-options="field:'gmtCreate',align:'center',resizable:'true',formatter: formatTime">注册日期</th> -->
+                        <th data-options="field:'lastSignTime',align:'center',resizable:'true',formatter: formatTime">签到时间</th>
+                        <th data-options="field:'effective',align:'center',resizable:'true',formatter: formatStatus">状态</th>
+                        <th data-options="field:'mark',align:'center',resizable:'true',formatter: formatRemark">备注</th>
+                        <!-- <th data-options="field:'cardType',align:'center',resizable:'true',formatter: formatAction">操作</th> -->
+                    </tr>
+                </thead>
+            </table>
+            <!-- 发送消息 -->
+            <div id="dlg0" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;">
+                        <textarea id="toAllMessage" style="width:358px;height:96px;border:1px solid #ccc;border-radius:3px;
+                        margin:0px;padding:0px;line-height:24px;box-sizing: border-box;padding: 0px 5px;text-align:left;outline:medium;outline-style:none;resize:none;" placeholder="请输入信息内容"></textarea>
+                        <small style="float:right;color:#B1B1B1">限200字符</small>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="sendAllMessage();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">发&nbsp;&nbsp;送</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="sendSuccess" style="width:100%;margin-bottom:0px;display:none;">
+                    <img id="showSuccess" src="images/success.png" style="width:80px;height:80px;margin:0px auto 0 140px;"></img>
+                    <div style="width:100%;height:20px;margin-top:10px;line-height:20px;text-align:center;">发送成功</div>
+                    <div class="button" style="width:166px;height:30px;margin:10px auto 0px auto;text-align:center;">
+                        <a id="" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="successed();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 发送消息 -->
+            <div id="dlgOver" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;text-align:center;">
+                        <div>即将给 <span id="overindes" style="color:red;">0</span>位会员发送短信通知！</div>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="overTitMessage();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确定发送</span></a>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+            
+            <!-- 高级搜索 -->
+            <div id="dlgserch" class="easyui-dialog" style="width:450px;padding:20px 20px" title="&nbsp;&nbsp;&nbsp;&nbsp;高级搜索" closed="true" shadow="false" data-options="modal:true">
+                <div class="searchform">
+                    <div class="searchOne">
+                        <div class="oneLeft">昵称/姓名：</div>
+                        <input id="nickName" style="border: 1px solid #ccc;padding-left:5px;" class="searchInput" type="text" placeholder="请输入昵称">
+                    </div>
+                    <!--  <div class="searchTwo">                           
+                            <div class="oneLeft">标注:  </div>
+                            <input id="remark" style="border: 1px solid #929292;" class="searchInput" type="text">
+                       </div>
+                       <div class="searchOne">                           
+                            <div class="oneLeft">会籍ID:  </div>
+                            <input id="saleId" class="searchInput" style="border: 1px solid #929292;" type="text">
+                       </div>  -->
+                    <div class="searchTwo">
+                        <div class="oneLeft">客户体型：</div>
+                        <div class="searchInput">
+                            <select id="bodySize" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '全部',
+                                value: ''
+                            },{
+                                text: '偏瘦',
+                                value: 'thin'
+                            },{
+                                text: '标准',
+                                value: 'medium'
+                            },{
+                                text: '偏胖',
+                                value: 'fat'
+                            }]" style="width:136px;height:26px;padding-left:5px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="searchTwo">
+                        <div class="oneLeft">客户性别：</div>
+                        <select id="sex" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '全部',
+                                value: ''
+                            },{
+                                text: '男',
+                                value: 'M'
+                            },{
+                                text: '女',
+                                value: 'F'
+                            }]" style="width: 136px;height:26px;float: right;padding-left:5px;">
+                        </select>
+                    </div>
+                    <div class="searchOne">
+                        <div class="oneLeft">客户年龄：</div>
+                        <div class="searchInput">
+                            <input id="ageStart" onkeydown="onlyNum();" style="float: left;width:43px;height: 24px;padding-left:5px;border: 1px solid #ccc;border-radius:3px;" type="text">
+                            <div style="float: left;line-height: 24px;margin:0 12px;">至</div>
+                            <input id="ageEnd" onkeydown="onlyNum();" style="float: left;width:43px;height: 24px;padding-left:5px;border: 1px solid #ccc;border-radius:3px;" type="text">
+                        </div>
+                    </div>
+                    <div class="searchOne">
+                        <div class="oneLeft">签到日期：</div>
+                        <!-- <input id="startDate" data-options="prompt:'请选择日期',editable:false" class="easyui-datebox dateInput" style="width:136px;float: left;"> -->
+                        <input id="startDate" placeholder="请输入起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                    </div>
+                    <div class="searchTwo">
+                        <div class="oneLeft">至</div>
+                        <!-- <input id="endDate" data-options="prompt:'请选择日期',editable:false" class="easyui-datebox dateInput" style="width:136px;float: left;"> -->
+                        <input id="endDate" placeholder="请输入结束日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                    </div>
+                </div>
+                <div id="searchBtn" style="width:166px;height:34px;text-align:center;font-size:16px;background:#3fc371;line-height:34px;border-radius:4px;color:#fff;margin: 20px auto 0 auto;  cursor: pointer;">搜&nbsp;&nbsp;索</div>
+            </div>
+            <!-- 开卡 -->
+            <div id="dlgNew" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;开卡" style="width:720px;padding:5px 2px 20px 2px" closed="true" data-options="modal:true">
+                <form id="fm" method="post" novalidate>
+                    <input name="userId" id="userId" value="" type="hidden">
+                    <div class="topDiv">
+                        <div class="messageDiv" style="position: relative;">
+                            <label class="messageLableL">会员卡名称:</label>
+                            <input name="cardType" id="cardTypeNew" class="easyui-combobox messageInput" style="width:200px;height:25px;" data-options="prompt:'请选择会员卡',editable:false" />
+                            <label class="messageLableR">实付金额:</label>
+                            <input name="realPay" id="realPayNew" class=" messageInput" placeholder="请输入实付金额" />
+                            <label style="color: burlywood;font-size:12px;position: absolute;right: 59px;top: 19px;">底价：<span id="minPrice">0</span> 元</label>
+                        </div>
+                        <div id="timeCardNew" class="messageDiv">
+                            <label class="messageLableL">生效日期:</label>
+                            <input id="startDateNew" disabled="disabled" style="background:#eee;"  placeholder="请输入生效日期" class="date-icon messageInput" readonly="readonly">
+                        </div>
+                        <div id="timeCard" class="messageDiv">   
+                            <label class="messageLableL">失效日期:</label>
+                            <input id="endDateNew" disabled="disabled" style="background:#eee" placeholder="请输入失效日期" class="date-icon messageInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                            <span class="chooseded"><a id="cencle">重置</a><label>赠送时间(选填)：</label><input onkeyup="isnum(this)" onafterpaste="delunum(this)" id="datetime" class="timeds" type="text" /><input type="radio" name="date" value="m" checked="checked" /><label>月</label><input type="radio" value="d" name="date" /><label>日</label><a id="addtimes">确定</a></span>
+                        </div>
+                        <div id="countCardNew" class="messageDiv" style="display:none;">
+                            <label class="messageLableL">总次数:</label>
+                            <input name="count" id="countNew" class=" messageInput" placeholder="请输入总次数" />
+                        </div>
+                    </div>
+                    <div class="bottomDiv">
+                        <div class="messageDiv">
+                            <label class="messageLableL">会员姓名:</label>
+                            <input name="name" id="messageNameNew" class=" messageInput" placeholder="请输入真实姓名" />
+                        </div>
+                        <div class="messageDiv">
+                            <label class="messageLableL">会员手机号:</label>
+                            <input name="phone" id="messagePhoneNew" class=" messageInput" maxlength="11" disabled="disabled" placeholder="请输入11位手机号" />
+                        </div>
+                        <div class="messageDiv">
+                            <label class="messageLableL">性别:</label>
+                            <select name="sex" id="messageSexNew" class="easyui-combobox messageInput" style="width:200px;height:25px;" data-options="prompt:'请选择',editable:false">
+                                <option value="M">男</option>
+                                <option value="F">女</option>
+                            </select>
+                        </div>
+                        <div class="messageIcon">
+                            <img id="headIconNew" class="headIcon" alt="" src="images/regist_pic.png">
+                            <div id="iconVideoNew" class="iconVideo"></div>
+                            <input name="image" id="messageImageNew" value="" type="hidden">
+                        </div>
+                        <div class="messageDiv">
+                            <label class="messageLableL">销售人:</label>
+                            <input name="hjSelNew" id="hjSelNew" class="easyui-combobox messageInput" value="" style="width:200px;height:25px;" data-options="editable:false,prompt:'请选择销售人'">
+                        </div>
+                        <div class="messageDiv">
+                            <label class="messageLableL">出生日期:</label>
+                            <!-- <input id="birthDateNew" placeholder="请输入出生日期" class="date-icon messageInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly"> -->
+                            <input id="birthDateNew" placeholder="请输入出生日期" class="date-icon messageInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                            <div class="iconAction">
+                                <a class="photograph" onclick="chooseImage('file_title_imgNew','iconVideoNew','New')">本地上传
+                        </a><a class="photograph" id="photoUp" onclick="show('New')">拍照上传</a>
+                            </div>
+                        </div>
+                        <div class="messageDiv">
+                            <label class="messageLableL">备注:</label>
+                            <input name="remark" id="remark" class="messageInput" maxlength="20" placeholder="请输入，最多20个字" />
+                        </div>
+                        
+                        <a class="submitMessage" onclick="saveMessageNew()">提交</a>
+                    </div>
+                </form>
+                <form id="title_img_formNew" method="post" enctype="multipart/form-data">
+                    <input type="file" style="display:none;" id="file_title_imgNew" name="name" onchange="uploadImage('New')" accept="image/*" />
+                </form>
+            </div>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #ccc;border-radius: 3px;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputSave" onclick="saveUserMark()"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="dlgHj" style="padding:20px 25px; width: 250px;" title="&nbsp;&nbsp;&nbsp;&nbsp;会籍分配" closed="true" data-options="modal:true">
+        <span>选择会籍：</span>
+        <input name="hjSel" id="hjSel" class="easyui-combobox" value="" style="height: 30px;line-height: 30px;width: 120px;padding:3px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+        <div class="button" style="width:166px;height:30px;margin:10px auto 0px auto;text-align:center;">
+            <a id="" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveHj();" style="width:166px;border-radius:4px;background:#3fc371; color: #EDC609;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="dlgJl" style="padding:20px 25px; width: 250px;" title="&nbsp;&nbsp;&nbsp;&nbsp;教练分配" closed="true" data-options="modal:true">
+        <span>选择教练：</span>
+        <input name="jlSel" id="jlSel" class="easyui-combobox" value="" style="height: 30px;line-height: 30px;width: 120px;padding:3px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+        <div class="button" style="width:166px;height:30px;margin:10px auto 0px auto;text-align:center;">
+            <a id="" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveJl();" style="width:166px;border-radius:4px;background:#3fc371; color: #EDC609;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="server" style="padding:0px 0px 10px 0px; width: 500px;" title="&nbsp;&nbsp;&nbsp;&nbsp;会籍分配" closed="true" data-options="modal:true">
+        <div class="linkma">
+            <div class="linkji linkji-item" attr="1">联系记录</div>
+            <div class="linkji" attr="2">提醒记录</div>
+        </div>
+        <div class="linkform">
+            <div class="lianjilu">
+                <ul class="addinfo">
+                    <li>
+                        <lable><i style="opacity: 0;"></i>健康顾问</lable><input id="linkname" disabled="disable" type="text"/>                
+                    </li>
+                    <li>
+                        <lable><i></i>联系时间</lable><input id="linktime" style="height:28px;width:314px;" class="date-icon dateInput" readonly="readonly" onclick="laydate({istime: true,format: 'YYYY-MM-DD hh:mm:ss',max:laydate.now(),min:'2016-01-01 23:59:59'})">
+                    </li>
+                    <li>
+                        <lable><i></i>来访状态</lable><select id="linkfang"> <option value="1">电话来访</option><option value="2">到店来访</option> </select>
+                    </li>
+                    <li>
+                        <lable style="float:left"><i style="opacity: 0;"></i>服务备注</lable><textarea id="linkarea" rows="4" cols="42" placeholder="请输入备注,不超过50字"></textarea> 
+                    </li>
+                    <li>
+                        <div class="addinfobtn" id="linkSubmit">确定</div>
+                    </li>
+                </ul>
+                <div class="seetable">
+                    <table id="dglink" style="width:100%;height:100%;">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'gmtCreate',resizable:'true',align:'center',formatter: formatTime">联系时间</th>
+                                <th data-options="field:'coachName',align:'center',resizable:'true'">教练</th>
+                                <th data-options="field:'record',align:'center',resizable:'true',formatter: formatRemark">沟通备注</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+             <div class="linktixing" style="height:0;overflow: hidden;">
+                 <ul class="addinfo">
+                    <li>
+                        <lable><i style="opacity: 0;"></i>健康顾问</lable><input id="recname" type="text" disabled="disable">          
+                    </li>
+                    <li>
+                        <lable><i></i>提醒时间</lable><input id="rectime" style="height:28px;width:314px;" class="date-icon dateInput" readonly="readonly" onclick="laydate({istime: true,format: 'YYYY-MM-DD hh:mm:ss',max:'2099-12-30 23:59:59',min:laydate.now()})">
+                    </li>
+                    <li>
+                        <lable style="float:left"><i></i>提醒备注</lable><textarea id="recarea" rows="4" cols="42" placeholder="请输入备注,不超过50字"></textarea>  
+                    </li>
+                    <li>
+                        <div class="addinfobtn" id="linkTXSubmit">确定</div>
+                    </li>
+                </ul>
+                 <div class="seetable">
+                    <table id="dgrecord" style="width:100%;height:100%;">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'invitationDate',resizable:'true',align:'center',formatter: formatTime">提醒时间</th>
+                                <th data-options="field:'coachName',align:'center',resizable:'true'">教练</th>
+                                <th data-options="field:'remark',align:'center',resizable:'true',formatter: formatRemark">提醒备注</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+             </div>
+        </div>
+    </div>
+    <div id="dlgiloed" class="easyui-dialog" style="width:500px; padding:10px 15px 10px 15px" data-options="closed:true,modal:true">
+        <div style="text-align: center;font-size: 16px;">是否打印会员入会协议书</div>
+        <div class="chooseBtn">
+            <a class="chooseSure" onclick="printPaper()">打印</a>
+            <a class="chooseCancle" onclick="cencles()">取消</a>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="">
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <!--<script src="js/format.utils.js"></script>-->
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/path.js"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/userManageNew.js"></script>
+</body>
+
+</html>

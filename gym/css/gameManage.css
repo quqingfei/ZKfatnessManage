@@ -1,0 +1,292 @@
+.pugong {
+    position: relative;
+
+    display: block;
+    float: right;
+
+    width: 60px;
+    height: 40px;
+    margin-top: 4px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+
+    border: 1px solid #f1f1f1;
+}
+#toolbar .searchbox,
+#toolbar .combo {
+    border: none;
+    border-radius: 3px;
+}
+.divX {
+    font-size: 5px;
+    font-weight: bold;
+    line-height: 12px;
+
+    z-index: 100;
+
+    display: none;
+
+    width: 10px;
+
+    cursor: pointer;
+    text-align: center;
+
+    color: #666;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d8d8d8;
+    background-color: #fff;
+}
+.gametypesearch{
+    width: 200px;
+    height: 28px;
+    line-height: 28px;
+    padding-left:10px;
+    outline: none;
+    border-radius: 5px;
+    color: #333;
+    font-size: 14px;
+}
+.putong_app {
+    width: 60px;
+    height: 40px;
+}
+
+.certificateList {
+    width: 218px;
+    height: 45px;
+}
+
+.certificateName {
+    display: block;
+    float: left;
+
+    width: 130px;
+    height: 30px;
+    margin-top: 7.5px;
+    margin-bottom: 7.5px;
+}
+
+.add {
+    float: right;
+
+    width: 47px;
+    height: 40px;
+    margin-right: 2px;
+
+    border: 1px solid blue;
+}
+
+.img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+.accordionNew .linkNew {
+    font-size: 12px;
+    line-height: 23px;
+
+    position: relative;
+
+    display: block;
+
+    height: 45px;
+    /*padding: 10px 15px 10px 42px;*/
+    padding: 0 color: #c8cac9;
+
+    border-bottom: 2px solid #272c30;
+}
+
+.tip {
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+
+    display: inline;
+
+    padding: .2em .6em .3em;
+
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    color: #fff;
+    border-radius: .25em;
+    background-color: #337ab7;
+}
+
+
+
+.fitem label {
+    /*text-align: left;*/
+    vertical-align: top;
+    line-height: 25px;
+    width: 70px;
+    margin-right: 10px;
+    color: #333;
+}
+.tik {
+    width: 240px;
+}
+.selsets {
+    width: 240px;
+    height: 34px;
+
+    color: #242424;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+}
+.selsets:hover {
+    box-shadow: inset 0 0 5px #eee;
+}
+.dibuttonr {
+    overflow: hidden;
+}
+.dibuttonr div a {
+    font-size: 14px;
+
+    display: block;
+
+    text-align: center;
+    text-decoration: none;
+}
+.nie {
+    display: block;
+    float: left;
+
+    width: 50%;
+    margin-top: 30px;
+}
+.nie a {
+    font-size: 14px;
+    line-height: 30px;
+
+    width: 80px;
+    height: 30px;
+    margin: 0 auto;
+
+    border-radius: 3px;
+    background: #393939;
+}
+.cancle {
+    color: #d5d5d5;
+}.send {
+    color: #ffde32;
+}
+
+#preview,
+#preview img,
+.img,
+.img img {
+    width: 320px;
+    height: 180px;
+    margin: 0 auto;
+}
+#preview {
+    position: relative;
+
+    border: 1px solid #ccc;
+}
+.tittle {
+    font-family: '微软雅黑',sans-serif;
+    font-size: 16px;
+
+    width: 630px;
+    height: 40px;
+
+    text-align: center;
+
+    border: 1px solid #ccc;
+    outline: none;
+}
+.container {
+    font-size: 50px;
+    line-height: 55px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+
+    text-align: center;
+
+    color: white;
+    border-radius: 50%;
+    background: #ff9735;
+}
+#file {
+    display: none;
+}
+.dibutton {
+    overflow: hidden;
+
+    width: 630px;
+}
+.dibutton div a {
+    font-size: 14px;
+
+    display: block;
+
+    text-align: center;
+    text-decoration: none;
+}
+.nie {
+    display: block;
+    float: left;
+
+    width: 50%;
+    margin-top: 30px;
+}
+.nie a {
+    font-size: 14px;
+    line-height: 30px;
+
+    width: 80px;
+    height: 30px;
+    margin: 0 auto;
+
+    border-radius: 3px;
+    background: #393939;
+}
+.cancle {
+    color: #d5d5d5;
+}.send {
+    color: #ffde32;
+}
+.gameAuto{
+    border: 0;
+}
+
+textarea.gameAuto{
+    /*border: 1px solid #ccc;*/
+    width: 162px;
+    resize: none;
+    background: #f3f3f3;
+}
+
+#gameUrl{
+    border: 1px solid #ccc;
+    width: 164px;
+    resize: none;
+    outline: none;
+    border-radius: 3px;
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+#gameLink {
+    display: inline-block;
+    /*margin-right: 10px;*/
+    /*color: #000000;*/
+}
+
+#gameLink:hover {
+    color: #666666;
+}

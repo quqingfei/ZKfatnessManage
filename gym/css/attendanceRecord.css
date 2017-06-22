@@ -1,0 +1,51 @@
+body{
+    min-width: 855px;
+}
+
+.clientSearch {
+    float: right;
+}
+.sendMessage{
+    float: left;
+}
+.clientSearch .textbox, .clientSearch .combo, .clientSearch .datebox{
+    border-radius: 3px;
+}
+.codeSection{
+    float: left;
+}
+.textbox .textbox-text {
+    margin-bottom: 3px;
+    font-size: 14px !important;
+    vertical-align: top !important;
+}
+.clientSearch{
+    font-size: 14px;
+}
+.combo{
+	vertical-align: top;
+}
+.userCode{
+    width: 200px;
+}
+#inputRemark{
+	width: 100%;
+    box-sizing: border-box;
+    height: 35px;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 14px;
+	outline: none;
+	border:1px solid #ccc;
+}
+#Search, #addTime{
+    display: inline-block;
+    vertical-align: top;
+    height: 30px;
+    line-height: 30px;
+    background: #3fc371;
+    border-radius: 4px;
+    padding: 0 15px;
+    margin: 0 10px;
+    color: white;
+}

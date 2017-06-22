@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>健身场所管理系统</title>
+<link rel="stylesheet" href="css/easyui2.min.css"></link>
+<link rel="stylesheet" href="css/icon.css"></link>
+<style>
+*{
+	padding: 0;
+	margin: 0;
+}
+html{
+	height: 100%;
+}
+body{
+	color:#fff;
+	width:100%;
+	background: url("images/reg_bg.jpg") no-repeat;
+	background-size:cover;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.item{
+	margin:20px 0;
+}
+input{
+	width: 200px;
+	padding: 5px;
+	outline:none;
+}
+label {
+	text-align: right;
+	width: 100px;
+	display: inline-block;
+	font-size: 14px;
+}
+
+#fm {
+	margin: 0;
+	/*padding:10px 30px;*/
+}
+
+.ftitle {
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px 0;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
+}
+
+.fitem label {
+	width: 60px;
+	display: inline-block;
+	text-align: right;
+}
+
+.fitem input {
+	width: 150px;
+}
+
+.fitem1 {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 15px;
+}
+
+.fitem1 label {
+	width: 100px;
+	display: inline-block;
+	text-align: right;
+	font-size:14px;
+}
+
+.fitem1 input {
+	width: 150px;
+	border:1px solid #929292;
+	font-size:14px;
+}
+
+a{
+color:#FFD600;
+text-decoration: none;
+}
+.common_btn {
+	display: inline-block;
+	position: relative;
+	width:80px;
+	height:28px;
+	line-height:28px;
+	margin: 10px 10px;
+	text-align: center;
+	text-decoration: none;
+	font-size:13px;
+}
+
+/* Blue Color */
+
+.yellow {
+	color: #fff;
+	background: #3fc370;
+}
+
+/* Gray Color */
+
+.gray {
+	color: #515151;
+	background: #d3d3d3;
+}
+.panel-header-noborder{
+	background:#383838;
+}
+.messager-button a{
+	background:#383838; 
+}
+.messager-button .l-btn-text{
+	color: #EDC609;
+}
+</style>
+</head>
+<body onselectstart="return false">
+<div id="zk_title"></div>
+<div style="width:750px;height:400px;margin:100px auto;">
+	<div id="first" style="width:100%;height:100%;margin:0px auto;">
+	<div style="width:200px;height:20px;padding:10px 10px 30px 10px;line-height:20px;font-size:15px;text-align:center;margin-left:auto;margin-right:auto;color:#3fc370;">
+		找回密码
+	</div>
+	<div style="width:100%;height:1px;border-top:1px solid #969488;"></div>
+	<div id="showCode" style="width:400px;height:auto;margin:60px auto;">
+			<div class="fitem1" style="margin-left:auto;margin-right:auto;margin-top:0px;margin-bottom:25px;font-size:14px;letter-spacing:2px;text-align:center;">
+            	找回密码需要对您绑定的手机进行验证
+            </div>
+            <div class="fitem1" style="margin-bottom:25px;">
+            	<label style="padding-top:0px;margin-left:55px;">绑定手机号:</label>
+                <input name="adminPhone" id="adminPhone" style="width:100px;background:#fff;">
+                <a class="common_btn yellow" href="#" onclick="toCode()">获取验证码</a>
+            </div>
+            <div class="fitem1" style="margin-bottom:25px;">
+            	<label style="padding-top:0px;margin-left:55px;">输入验证码:</label>
+                <input name="code" id="code" class="" style="width:100px;height:16px;">
+            </div>
+	</div>
+	<div style="width:100%;height:1px;border-top:1px solid #969488;"></div>
+	<div class="button" style="width: 100%; height: 30px; margin-top:40px;padding-top: 0px; text-align:center;">
+		<a href="index.html" class="easyui-linkbutton c6"onclick="pre()"style="width: 100px; background: #fff; color: #EDC609;border-radius:3px;"><span style="color:#363231;">返回登录</span></a>
+		<a href="javascript:void(0)" class="easyui-linkbutton c6"onclick="next()"style="width: 100px; margin-left:70px;background: #3fc370; border-radius:3px;"><span style="color:#fff;">下一步</span></a>
+	</div>
+	</div>
+	
+	<div id="sencond" style="width:100%;height:100%;margin:0px auto;display:none;">
+		<div style="width:200px;height:20px;padding:10px 10px 30px 10px;line-height:20px;font-size:15px;text-align:center;margin-left:auto;margin-right:auto;color:;">
+		找回密码
+	</div>
+	<div style="width:100%;height:1px;border-top:1px solid #969488;"></div>
+	<div id="showNewPwd" style="width:400px;height:auto;margin:60px auto;">
+			<div class="fitem1" style="margin-left:auto;margin-right:auto;margin-top:0px;margin-bottom:25px;font-size:14px;letter-spacing:2px;text-align:center;">
+            	成功通过验证信息,您可对您的健身房密码进行重置.
+            </div>
+            <div class="fitem1" style="margin-bottom:25px;">
+            	<label style="padding-top:0px;margin-left:55px;">输入新密码:</label>
+                <input type="password" name="newPwd" id="newPwd" style="width:150px;height:20px;">
+            </div>
+            <div class="fitem1" style="margin-bottom:25px;">
+            	<label style="padding-top:0px;margin-left:55px;">再次输入密码:</label>
+                <input type="password" name="newPwd_1" id="newPwd_1" class="" style="width:150px;height:20px;">
+            </div>
+	</div>
+	<div style="width:100%;height:1px;border-top:1px solid #969488;"></div>
+	<div class="button" style="width: 100%; height: 30px; margin-top:40px;padding-top: 0px; text-align:center;">
+		<a href="index.html" class="easyui-linkbutton c6"onclick="pre()"style="width: 100px; background: #fff; color: #EDC609;border-radius:3px;"><span style="color:#363231;">返回登录</span></a>
+		<a href="javascript:void(0)" class="easyui-linkbutton c6"onclick="finish()"style="width: 100px; margin-left:70px;background: #3fc370; border-radius:3px;"><span style="color:#fff;">完&nbsp;&nbsp;&nbsp;&nbsp;成</span></a>
+	</div>
+	</div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/easyui-lang-zh_CN.js"></script>
+<script src="js/format.utils.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/flowplayer-3.2.6.min.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<script type="text/javascript" src="js/zk_title_bar-1.0.0.js"></script>
+        <script>
+            if(window.zk_Win_X()){
+                new TitleBar("zk_title","#333333","燃脂部落健身场所管理系统","./css/images/logo.png");
+            }else{
+                alert(00)
+                console.log('不在应用程序中');
+            }
+        </script>
+<script type="text/javascript">
+	
+function toCode(){
+	var adminPhone = $.trim($("#adminPhone").val());
+	if (adminPhone == ''||adminPhone.length!=11) {
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请重新输入手机号!');
+		$("#adminPhone").focus();
+		return false;
+	}else if(!isTelephone(adminPhone)){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '手机号不正确!');
+		$("#adminPhone").focus();
+		return false;
+	}else{
+		$.getJSON('loginAction!smsCodeForPwd.zk',{phone:adminPhone},function(data){
+    		if(data.STATUS){
+    			//alert("验证码已发送，请注意查收！");
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;信息', '验证码已发送，请注意查收！');
+    		}else{
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;信息', data.INFO);
+    		}
+		});
+	}
+}
+function isTelephone(obj)// 正则判断
+{ 
+		var pattern=/(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0?1[3|4|5|8|7][0-9]\d{8}$)/; 
+		if(pattern.test(obj)) { 
+			return true; 
+		}else{ 
+		return false;} 
+} 
+
+	function next(){
+		if($.trim($('#code').val())==''){
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '验证码不能为空!');
+			$("#code").focus();
+			return false;
+		}
+		$.getJSON('loginAction!checkResetCode.zk',{phone:$('#adminPhone').val(),code:$('#code').val()},function(data){
+			if(!data.STATUS){
+				$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '验证码错误!');
+				$("#code").focus();
+				return;
+			}else{
+				$('#first').hide();
+				$('#sencond').show();
+			}
+		});
+	}
+	
+	function finish(){
+		if($.trim($('#newPwd').val())==''){
+			$("#newPwd").focus();
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '密码不能为空!');
+			return false;
+		}
+		if($.trim($('#newPwd_1').val())==''){
+			$("#newPwd_1").focus();
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '密码不能为空!');
+			return false;
+		}
+		if($.trim($('#newPwd_1').val())!=$.trim($('#newPwd').val())){
+			$("#newPwd_1").focus();
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '两次密码不一致，请重新输入!');
+			
+			return false;
+		}
+		
+		$.getJSON('loginAction!resetPwd.zk',{phone:$('#adminPhone').val(),code:$('#code').val(),pwd:$('#newPwd_1').val()},function(data){
+    		if(data.STATUS){
+    			//alert("验证码已发送，请注意查收！");
+    			location.href = 'index.html';
+    			//$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;信息', '密码设置成功！');
+    		}else{
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;信息', data.INFO);
+    		}
+		});
+	}
+</script>
+</body>
+</html>

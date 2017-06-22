@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/bodyDetails.css"></link>
+</head>
+<style>
+</style>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div id="hideDiv" class="hideDiv" style="">
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif"></img>
+        </div>
+    </div>
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：体测管理
+        </div>
+        <div class="curTool">
+            <div class="clienttop">
+                <img style="position: absolute;height: 26px;top: 7px;left: 8px;" src="images/newCode.png" />
+                <img style="position: absolute;height: 20px;top: 11px;left: 260px;" src="images/newSearch.png" alt="">
+                <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="code" id="userCode" class="userCode" AUTOCOMPLETE="off" value="" placeholder="请扫描/输入条码/手机号码" />
+            </div>
+            <div class="private-search" style=" float:right;line-height: 28px;display: inline-block;padding:5px;height: 32px;vertical-align: middle;font-size:14px;color:#fff;">
+                <label for="privateSearch">&nbsp;&nbsp;教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 30px;line-height: 30px;width: 100px;font-size:14px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+            </div>
+            <div class="clientSearch" style="float:right">
+                <span>日期</span>
+                <input id="startDate" placeholder="起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){searchUser(curStatus,$('#roleSel').combobox('getValue'));}})"  readonly="readonly">
+                <span>&nbsp;&nbsp;至</span>
+                <input id="endDate" placeholder="结束日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){searchUser(curStatus,$('#roleSel').combobox('getValue'));}})"  readonly="readonly">
+            </div>
+                    
+        </div>
+        <div class="curAction">
+            <div id="clientSearch" class="clientSearch">
+                <div id="" class="sendMessage" onclick="seeMessage()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">查看</span></div>
+                <div id="" class="sendMessage" onclick="measurement()"><img alt="" class="sendImg" src="images/addNew.png"><span style="margin-left:5px;">录入</span></div>
+                <div id="" class="sendMessage" onclick="editRemark()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">备注修改</span></div>
+            </div>    
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="fitColumns:true,nowrap:true,rownumbers:'true',singleSelect:true,pagination:true,pageSize:'30',url:'../ngym/GymMembersAction!listCustomer.zk',queryParams:{type:'effect',requstType : 'examTime'},method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'nickName',align:'center',resizable:'true'">昵称</th>
+                        <th data-options="field:'realName',align:'center',resizable:'true'">姓名</th>
+                        <th data-options="field:'phone',align:'center',resizable:'true'">电话</th>
+                        <th data-options="field:'sex',align:'center',resizable:'true',formatter: formatSex">性别</th>
+                        <th data-options="field:'birthYear',align:'center',resizable:'true',formatter: formatAge">年龄(岁)</th>
+                        <th data-options="field:'bmi',align:'center',resizable:'true',formatter: formatBody">体型</th>
+                        <th data-options="field:'coachName',align:'center',resizable:'true'">教练</th>
+                        <!--                <th data-options="field:'gmtCreate',align:'center',resizable:'true',formatter: formatTime">注册日期</th>-->
+                        <!-- <th data-options="field:'gmtLike',align:'center',resizable:'true',formatter: formatTime">关注日期</th> -->
+                        <th data-options="field:'bodyExamCount',align:'center',resizable:'true'">体测次数</th>
+                        <th data-options="field:'bodyExamTime',align:'center',resizable:'true',formatter: formatTime">最近体测时间</th>
+                        <th data-options="field:'effective',align:'center',resizable:'true',formatter: formatStatus">状态</th>
+                        <th data-options="field:'mark',align:'center',resizable:'true',formatter: formatRemark">备注</th>
+                        <!-- <th data-options="field:'cardType',align:'center',resizable:'true',formatter: formatAction">操作</th> -->
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlgoney" class="easyui-dialog" style="width:600px;height:560px;background:#fff;" 
+            closed="true" data-options="modal:true" >
+            <div class="heis" style="height: 30px;
+    background-color: #333;
+    line-height: 30px;
+    padding-left: 16px;"><input type="hidden" id='examchoosetime' /><input type="hidden" id='hideName' /><a href='javascript:;' style='color:#FCBA48;display:inline-block;margin-right:10px;float:right;' id="prints">打印</a></div>
+                    <div class="zk">
+                        <div class="zktitle">
+                            <div class="zktitlebox">
+                                <div class="zktitleword">近7次体测数据</div>
+                                <div class="zktitlebler" id="zktitlebler">
+                                    <div class="bler ser" attr='w'><a class="" href="javascript:;">体重</a></div>
+                                    <div class="bler ser-color" attr='b'><a class="" href="javascript:;">体脂率</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="weightChart" style="width: 586px;height:266px;padding-left:12px;margin-top:-30px;overflow:hidden;z-index:0"></div>
+                    <div class="biaochi"></div>
+                    <div class="zk">        
+                        <div class="zktitle">
+                            <div class="zktitleword">体测数据: <span class="titcolor">2016-06-23</span></div>
+                            <div class="zktitleright">综合评分: <span class="titcolorred">90.3</span></div>
+                        </div>
+                    </div>
+                    <div class="zk" id="typeconsr">
+                        <div class="cons">
+                            <div class="consl">体重(KG)：</div>
+                            <div class="consr" id="consrweight">80</div>
+                        </div>
+                    </div>
+                    <!-- <div class="zk">
+                        <div class="const">体测评价：</div>
+                        <div  class="constr" id="constrevaluation">主人，您有点偏瘦，而且体脂偏低。小燃觉得您可以适当的增加日常高蛋白膳食的摄入量，在运动方式上，可以多做锻炼，增强一下体质，建议保持充足和良好的睡眠呦.</div>
+                    </div> -->
+                   <!--  <div class="zk">
+                        <div class="const">运动建议：</div>
+                        <div  class="constr" id="constrsportSuggest">1.主人，您有点偏瘦，而且体脂偏低。<br>2.小燃觉得您可以适当的增加日常高蛋白膳食的摄入量，在运动方式上，可以多做锻炼，增强一下体质，建议保持充足和良好的睡眠呦.</div>
+                    </div> -->
+                    <div class="zk">
+                        <div class="const">控制建议：</div>
+                        <div  class="constr"><span style="color:#3fc370" id="constrsuggest">维持</span></div>
+                    </div>
+                    <div class="zk">
+                        <div class="consb-l">
+                        <div class="zktitle">
+                            <div class="zktitlebox">
+                                <div class="zktitleword">运动数据分析</div>
+                                <div class="zktitlebler-b">
+                                    <div class="blers ser" attr='week'><a class="" href="javascript:;">周</a></div>
+                                    <div class="blers ser-color" attr='month'><a class="" href="javascript:;">月</a></div>
+                                    <div class="blers ser-color" attr='year'><a class="" href="javascript:;">年</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="pieChart" style="width:57%;height:200px;float:left"></div>
+                        <div class="pexp">
+                            <div class="pexp-h"><span id="nowdate"></span>至<span id="lastdate"></span></div>
+                            <div class="pexp-bic">
+                                <div class="pexp-l pexp1"></div>
+                                <div class="pexp-r">有氧<span id="perhavey">0</span>%</div>
+                            </div>
+                            <div class="pexp-bic">
+                                <div class="pexp-l pexp2"></div>
+                                <div class="pexp-r">耐力<span id="pernail">0</span>%</div>
+                            </div>
+                            <div class="pexp-bic">
+                                <div class="pexp-l pexp3"></div>
+                                <div class="pexp-r">无氧<span id="pernoy">0</span>%</div>
+                            </div>
+                        </div>
+                        <div class="mtitl">
+                            <div class="mtitl-l">签到次数：<span id="peronce">0</span>次</div>
+                            <!-- <div class="mtitl-r">平均到店时长：<span id="staytime">7小时36分</span></div> -->
+                        </div>
+                        <div class="latit">运动项目</div>
+                        <table id="latittype" width="100%" class="objs" border="0" cellpadding="2" cellspacing="0" >
+                            <!-- <tr>
+                                <td>步行</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> 
+                            <tr>
+                                <td>慢跑</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> <tr>
+                                <td>跑步</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> <tr>
+                                <td>单车</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> -->
+                        </table>
+                        </div>        
+                        <div class="consb-r">
+                            <div class="zktitle">
+                            <div class="zktitlebox">
+                                <div class="zktitleword">照片</div>
+                            </div>
+                        </div>
+                            <div class="hpotp"></div>
+                        </div>
+                    </div>
+            </div>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #999;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputSave" onclick="saveUserMark()"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+            <!-- 体测录入 -->
+            <div id="dlgEditMessage" class="easyui-dialog" style="width:600px;height:540px; padding:10px 15px 0px 15px;margin-bottom:0" data-options="closed:true,modal:true" title="&nbsp;&nbsp;&nbsp;&nbsp;体测录入">
+                     <div class="content" style="height:100%;">
+                         <div class="biad">
+                             <ul>
+                                  <input type="hidden" id="userID" />
+                                  <input type="hidden" id="userSex" />
+                                  <input type="hidden" id="userAge" />            
+                                  <input type="hidden" id="messageName" />
+                                  <li><span><img src="css/images/3.png" alt=""><a>身高</a></span>
+                                  <input type="text" id="userHeight" placeholder="请输入身高（CM）,范围（100-200）" ></li>
+                                  <li><span><img src="css/images/3.png" alt=""><a>体重</a></span>
+                                  <input type="text" id="userWeight" placeholder="请输入体重（kg）,范围（20-200）" ></li>
+                                  <li><span><a>内脏脂肪</a></span>
+                                  <input type="text" id="visFat" placeholder="请输入内脏脂肪数值" ></li>
+                                  <li><span><a>水分</a></span>
+                                  <input type="text" id="bodyWater" placeholder="请输入体水分辨率（%）" ></li>
+                                  <li><span><a>肌肉</a></span>
+                                  <input type="text" id="muscle" placeholder="请输入肌肉率（%）" ></li>
+                                  <li><span><a>脂肪</a></span>
+                                  <input type="text" id="fatWeight" placeholder="请输入脂肪率" ></li>
+                                  <li><span><a>蛋白质</a></span>
+                                  <input type="text" id="protein" placeholder="请输入蛋白质数值" ></li>
+                                  <li><span><a>骨量</a></span>
+                                  <input type="text" id="mineral" placeholder="请输入骨骼占比" ></li>
+                                  <li><span><a>静态心率</a></span>
+                                  <input type="text" id="restingHeartRate" placeholder="请输入静态心率" ></li>
+                                 <!--  <li><span><a>肺活量</a></span>
+                                  <input type="text" id="vitalCapacity" placeholder="请输入肺活量" ></li>
+                                  <li><span><a>血压</a></span>
+                                  <input type="text" id="bloodPressure" placeholder="请输入血压" ></li> -->
+                                 <!--  <li><span><a>脂肪指数</a></span>
+                                  <input type="text" id="fatNumber" placeholder="请输入脂肪指数" ></li> -->
+                                  <!-- <li><span><a>去脂体重</a></span>
+                                  <input type="text" id="nofatWeight" placeholder="请输入全身脂肪比（KG）" ></li> -->
+                                  <li><span><a>腰臀比</a></span>
+                                  <input type="text" id="waistHip" placeholder="请输入腰臀比" ></li>
+                                  <li><span><a>皮下脂肪</a></span>
+                                  <input type="text" id="subFat" placeholder="请输入皮下脂肪" ></li>
+                                 <!--  <li><span><a>骨骼年龄</a></span>
+                                  <input type="text" id="boneAge" placeholder="请输入骨骼年龄" ></li> -->
+                                  <!-- <li><span><a>身体年龄</a></span>
+                                  <input type="text" id="bodyAge" placeholder="请输入身体年龄" ></li> -->
+                                  <li><span><a>收缩压</a></span>
+                                  <input type="text" id="maxBloodPress" placeholder="请输入收缩压" ></li>
+                                  <li><span><a>舒张压</a></span>
+                                  <input type="text" id="minBloodPress" placeholder="请输入舒张压" ></li>
+                                  <li><span><a>体质等级</a></span>
+                                  <select id="bodyLevel" placeholder="请输入身体年龄" >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                  </select></li>
+                                 <!--  <li><span><a style="color:#FCBA48">注意病症：</a></span></li>
+                                  <li><span><a>高血脂</a></span>
+                                  <input type="text" id="ggz" placeholder="高血脂指数" ></li>
+                                  <li><span><a>脂肪肝</a></span>
+                                  <input type="text" id="ggt" placeholder="脂肪肝指数" ></li>
+                                  <li><span><a>高血压</a></span>
+                                  <input type="text" id="zfg" placeholder="高血压指数" ></li> -->
+                                 <!--  <li><span><img src="css/images/3.png" alt=""><a>体测评价</a><div>不得超过200字</div></span>
+                                      <textarea disabled="disabled" class="textAreaBoxPin" placeholder="填写体重和身高后自动获取"></textarea>
+                                  </li>
+                                  <li><span><img src="css/images/3.png" alt=""><a>运动建议</a><div>不得超过200字</div></span>
+                                      <textarea class="textAreaBoxTer" placeholder="请输入运动建议"></textarea>
+                                  </li>
+                                  <li><span><a>特别备注</a><div>不得超过200字</div></span>
+                                      <textarea class="textAreaBoxTerite" placeholder="请输入备注信息"></textarea>
+                                  </li> -->
+                                <!--   <li id="fuxu" class="onlySuggest"><span><img src="css/images/3.png" alt=""><a>体测控制建议</a></span>
+                                      <div class="fu_ds"><input class="minus" type="radio" name="Sex" checked="checked" value="减脂" />减脂</div>
+                                      <div class="fu_ds"><input class="addMuscle" type="radio" name="Sex" value="增肌" />增肌</div>
+                                      <div class="fu_ds"><input class="maintain" type="radio" name="Sex" value="维持" />维持</div>
+                                  </li> -->
+                                  <li style="clear:both;"></li>
+                                  <li id="riqi"><span><img src="css/images/3.png" alt=""><a>体测时间</a></span>
+                                      <input id="startDate_1" class="date-icon dateInput" readonly="readonly" onclick="laydate({istime: true,format: 'YYYY-MM-DD hh:mm:ss'})">
+                                  </li>
+                                  <li id="pazo"><span><a>拍照</a></span>
+                                      <a class="sctp" href="javascript:;" onclick="chooseImage('file_title_img')">点击上传图片</a>
+                                  </li>
+                                   <form id="title_img_form" method="post"  enctype="multipart/form-data">
+                                        <input type="file" style="display: none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                                    </form>
+                                  <li id="pazoimg">
+                                    <img id="imghead" src="images/regist_pic.png">
+                                  </li>
+                                    <img id="imghidehead" src="" style="display:none;">
+                                    <input name="cover" id="cover" type="hidden"/> 
+                             </ul>
+                                  <div style="clear:both;"></div>
+                                  <button type="button" id="btnc" onclick="saveMessage()">确定</button>
+                         </div>
+                    </div>
+
+                       
+            </div>
+        </div>
+        <!-- <div id="dlgSeeOnlyMessage" class="easyui-dialog" style="width:600px;height:550px; padding:10px 15px 10px 15px" data-options="closed:true,modal:true" title='&nbsp;&nbsp;&nbsp;&nbsp;体测录入'>
+            <div class="mixcontainer">
+                <div class="mixBody">
+                    <div class="title">体测项目对比：</div>
+                    <div class="table" style="min-width:90%;">
+                        <div class="lineX">
+                            <div class="minita lgray">项目/体测</div>
+                            <div class="minita lgray">本次体测</div>
+                        </div>
+                        <div class="lineX" style="display:none">
+                            <div class="minita lgray">日期</div>
+                            <div class="minita" id="showDateOney">暂无数据</div>
+                        </div>
+                        <div class="lineX" style="display:none">
+                            <div class="minita lgray">教练</div>
+                            <div class="minita" id="showJiao">暂无数据</div>
+                        </div>
+                        <div class="lineX">
+                            <div class="minita lgray">年龄</div>
+                            <div class="minita" id="showAge">暂无数据</div>
+                        </div>
+                        <div class="lineX">
+                            <div class="minita lgray">身高(cm)</div>
+                            <div class="minita" id="showHeightOney">暂无数据</div>
+                        </div>
+                        <div class="lineX">
+                            <div class="minita lgray">体重(kg)</div>
+                            <div class="minita" id="showWeightOney">暂无数据</div>
+                        </div>
+                        <div class="lineX">
+                            <div class="minita lgray">体脂率(%)</div>
+                            <div class="minita" id="showFatOney">暂无数据</div>
+                        </div>
+                        <div class="lineX">
+                            <div class="minita lgray">BMI</div>
+                            <div class="minita" id="showBMIOney">暂无数据</div>
+                        </div>
+                        <div class="lineX" style="display:none">
+                            <div class="minita lgray">静息心率(次/分钟)</div>
+                            <div class="minita" id="showHeartOney">暂无数据</div>
+                        </div>
+                        <div class="lineX" style="display:none">
+                            <div class="minita lgray">最大心率(次/分钟)</div>
+                            <div class="minita" id="showMaxHeartOney">暂无数据</div>
+                        </div>
+                        <div class="lineX" style="display:none">
+                            <div class="minita lgray">肺活量(cc)</div>
+                            <div class="minita" id="showFVCOney">暂无数据</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mixBody">
+                    <div class="title">上次体测综述：</div>
+                    <div class="evaluate">
+                        <div class="etitle must">体型评价：</div>
+                        <textarea class="texteare textAreaBoxPin" contenteditable="true"></textarea>
+                        <small>不得超过200字</small>
+                    </div>
+                    <div class="evaluate">
+                        <div class="etitle must">特别说明：</div>
+                        <textarea class="texteare textAreaBoxTerite" contenteditable="true"></textarea>
+                        <small>不得超过200字</small>
+                    </div>
+                </div>
+                <div class="mixBody">
+                    <div class="evaluate" id="onlySuggest">
+                        <div class="weititle must">体重控制建议：</div>
+                        <div class="choose">
+                            <input type="radio" name="ticer" class="minus" id="fatLoss" value="减脂">减脂</div>
+                        <div class="choose">
+                            <input type="radio" name="ticer" class="addMuscle" id="addMuscle" value="增肌">增肌</div>
+                        <div class="choose">
+                            <input type="radio" name="ticer" class="maintain" id="bodyNormal" value="维持">维持</div>
+                    </div>
+                </div>
+                <div class="btnbox">
+                    <div class="btns"><a href="javascript:;" onclick="cancelMessage()" class="cencle">取消</a></div>
+                    <div class="btns"><a href="javascript:;" onclick="saveMessage('textAreaBoxTerite')">确定</a></div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/bodyDetails.js"></script>
+</body>
+
+</html>

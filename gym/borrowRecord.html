@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>租赁记录</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/borrowRecord.css" />
+</head>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：租赁管理 > 租赁归还/管理
+        </div>
+        <div class="curTool">
+            <img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            <img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+            <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="borrowCode" id="borrowCode" value="" placeholder="请扫描/输入条码/手机号码" />
+            <div class="borrow-search">
+                <span style="position: relative;">
+                    <input id="serchShop" style="margin-right: 5px;" placeholder="会员姓名" class="dateInput">
+                    <img onclick="searchname();" style="position: absolute;height: 20px;top: 2px;left: 86px; cursor:pointer" src="images/newSearch.png" alt="">
+                </span>
+                <label>类别&nbsp;</label>
+                <select name="borrowSearchKind" id="borrowSearchKind" class="easyui-combobox" data-options="editable:false,valueField: 'label',
+		textField: 'value',
+		data: [{
+			label: '1',
+			value: '储物柜'
+		},{
+			label: '2',
+			value: '运动设备'
+		},{
+			label: '0',
+			value: '其他'
+		},{
+			label: '',
+			value: '全部'
+		}]" style="width: 100px;height: 32px;line-height: 32px;padding-left:10px;">
+                    <!-- <option value="1">储物柜</option>
+                    <option value="2">运动设备</option>
+                    <option value="0">其他</option> -->
+                </select>
+                <label for="borrowSearchItem">&nbsp;&nbsp;租赁物品&nbsp;&nbsp;</label>
+                <input type="text" name="borrowSearchItem" id="borrowSearchItem" value="" placeholder="搜索租赁物品名称" />
+                <a href="javascript:;" id="borrowSearchSubmit">搜索</a>
+            </div>
+        </div>
+        <div class="borrow-kind">
+            <a href="javascript:;" id="borrowOut" class="action" val="0" onclick="borrowAction(0,'borrowOut')">未归还</a>
+            <a href="javascript:;" id="borrowLost" val="2" onclick="borrowAction(2,'borrowLost')">已丢失</a>
+            <a href="javascript:;" id="borrowBack" val="1" onclick="borrowAction(1,'borrowBack')">已归还</a>
+            <a href="javascript:;" id="borrowEarly" val="4" onclick="borrowAction(4,'borrowEarly')">快到期</a>
+            <a href="javascript:;" id="borrowAll" val="" onclick="borrowAction('','borrowAll')">全部</a>
+            <div id="" class="sendMessage" onclick="remarkAttr()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">备注修改</span></div>
+            <div id="btnBack" class="sendMessage" onclick="statusAttr(1)"><img alt="" class="sendImg" src="images/addNew.png"><span style="margin-left:5px;">归还</span></div>
+            <div id="btnLost" class="sendMessage" onclick="statusAttr(2)"><img alt="" class="sendImg" src="images/deleteNew.png"><span style="margin-left:5px;">丢失</span></div>
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" class="easyui-datagrid" data-options="rownumbers:true,singleSelect:true, pagination:true,pageSize:'30',url:'../ngym/GymUserBorrowAction!list.zk',queryParams:{status: 0},method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'realName',align:'center'">姓名</th>
+                        <th data-options="field:'phone',align:'center'">手机号码</th>
+                        <th data-options="field:'type',align:'center',formatter:formatKind">物品类别</th>
+                        <th data-options="field:'borrow',align:'center',formatter:formatRemark">租赁物品</th>
+                        <th id="addtiamn" data-options="field:'gmtCreate',align:'center',formatter:formatTime">开始时间</th>
+                        <th data-options="field:'remark',align:'center',formatter:formatRemark">备注</th>
+                        <!-- <th data-options="field:'id',align:'center',formatter:formatControl">操作</th> -->
+                    </tr>
+                </thead>
+            </table>
+            <div class="easyui-dialog" id="dlgSubmit" title="&nbsp;&nbsp;&nbsp;&nbsp;操作确认" closed="true" data-options="modal:true">
+                <div id="dlgContent">
+                </div>
+                <div class="dlg-button">
+                    <a href="javascript:;" class="easyui-linkbutton" id="dlgSure">确认</a>
+                </div>
+            </div>
+            <div class="easyui-dialog" id="dlgCheck" title="&nbsp;&nbsp;&nbsp;&nbsp;租赁详情" closed="true" data-options="modal:true">
+                <div class="dlg-item">
+                    <span>客户：</span>
+                    <i id="checkName"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>手机：</span>
+                    <i id="checkPhone"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>租赁物品：</span>
+                    <i id="checkItem"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>物品类别：</span>
+                    <i id="checkKind"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>创建时间：</span>
+                    <i id="checkTime"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>操作人：</span>
+                    <i id="checkMan"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>备注：</span>
+                    <i id="checkRemark"></i>
+                </div>
+            </div>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #ccc;border-radius: 3px;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputRemSure"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+        </div>
+        <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+            <div style="width:32px;height:32px;margin:250px auto auto auto;">
+                <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/common.js"></script>
+    <!--<script src="js/biz/zk_main.js"></script>-->
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/borrowRecord.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

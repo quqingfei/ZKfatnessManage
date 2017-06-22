@@ -1,0 +1,374 @@
+.pugong {
+    position: relative;
+
+    display: block;
+    float: right;
+
+    width: 60px;
+    height: 40px;
+    margin-top: 4px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+
+    border: 1px solid #f1f1f1;
+}
+.toolbar .searchbox,
+.toolbar .combo {
+    border: none;
+    border-radius: 3px;
+}
+.divX {
+    font-size: 5px;
+    font-weight: bold;
+    line-height: 12px;
+
+    z-index: 100;
+
+    display: none;
+
+    width: 10px;
+
+    cursor: pointer;
+    text-align: center;
+
+    color: #666;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d8d8d8;
+    background-color: #fff;
+}
+
+.putong_app {
+    width: 60px;
+    height: 40px;
+}
+
+.certificateList {
+    width: 218px;
+    height: 45px;
+}
+
+.certificateName {
+    display: block;
+    float: left;
+
+    width: 130px;
+    height: 30px;
+    margin-top: 7.5px;
+    margin-bottom: 7.5px;
+}
+
+.add {
+    float: right;
+
+    width: 47px;
+    height: 40px;
+    margin-right: 2px;
+
+    border: 1px solid blue;
+}
+
+.img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+.accordionNew .linkNew {
+    font-size: 12px;
+    line-height: 23px;
+
+    position: relative;
+
+    display: block;
+
+    height: 45px;
+    /*padding: 10px 15px 10px 42px;*/
+    padding: 0 color: #c8cac9;
+
+    border-bottom: 2px solid #272c30;
+}
+
+.tip {
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+
+    display: inline;
+
+    padding: .2em .6em .3em;
+
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    color: #fff;
+    border-radius: .25em;
+    background-color: #337ab7;
+}
+
+.fitem label {
+    text-align: right;
+    width: 75px;
+    margin-right: 5px;
+    color: #333;
+    height: 22px;
+    line-height: 22px;
+}
+.tik {
+    width: 240px;
+}
+.selsets {
+    width: 240px;
+    height: 34px;
+
+    color: #242424;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+}
+.selsets:hover {
+    box-shadow: inset 0 0 5px #eee;
+}
+.dibuttonr {
+    overflow: hidden;
+}
+.dibuttonr div a {
+    font-size: 14px;
+
+    display: block;
+
+    text-align: center;
+    text-decoration: none;
+}
+.nie {
+    display: block;
+    float: left;
+
+    width: 50%;
+    margin-top: 30px;
+}
+.nie a {
+    font-size: 14px;
+    line-height: 30px;
+
+    width: 80px;
+    height: 30px;
+    margin: 0 auto;
+
+    border-radius: 3px;
+}
+.cancle {
+    color: #d5d5d5;
+}.send {
+    color: #ffde32;
+}
+
+/*#preview,
+#preview img,
+.img,
+.img img {
+    width: 320px;
+    height: 180px;
+    margin: 0 auto;
+}*/
+#preview {
+    position: relative;
+    width: 172px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    background: #3fc370;
+    border-radius: 4px;
+    color: white;
+}
+.tittle {
+    font-family: '微软雅黑',sans-serif;
+    font-size: 14px;
+
+    width: 532px;
+    height: 32px;
+    padding-left: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.container {
+    background-color: white;
+    width: 172px;
+    margin:10px 0;
+    height: 100px;
+    border:1px solid #cccccc;
+}
+.container img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+#file {
+    display: none;
+}
+.dibutton {
+    overflow: hidden;
+
+    width: 630px;
+}
+.dibutton div a {
+    font-size: 14px;
+
+    display: block;
+
+    text-align: center;
+    text-decoration: none;
+}
+.nie {
+    display: block;
+    float: left;
+
+    width: 50%;
+    margin-top: 30px;
+}
+.nie a {
+    font-size: 14px;
+    line-height: 30px;
+
+    width: 80px;
+    height: 30px;
+    margin: 0 auto;
+
+    border-radius: 3px;
+    
+}
+.cancle {
+    color: #999;
+    background: #dddddd;
+}.send {
+    color: #fff;
+    background: #3fc370;
+}
+.content{background-color: #f4f4f4; height:1200px;}
+    .biad{padding-bottom: 30px;}
+    .biad ul{ padding-top:30px;}
+    .biad li{ padding-left:0px; margin-bottom:16px;}
+    .biad li span a{float: right; font-weight: bold; font-size:14px; color: #666666; }
+    .biad li span{float: left; width:110px; line-height: 30px; text-align: right; margin-right:15px; position: relative; }
+    .biad li span div{font-size:12px; color: #2fa2e5; position: absolute; top:24px; left:16px; width:100px;}
+    .biad li input{width: 224px; height: 30px; line-height: 30px; border-radius:5px; border:solid 1px #d9d9d9; padding-left: 10px; color: #646464; }
+    .chooseone{width: 236px; height: 30px; line-height: 30px; border-radius:5px; border:solid 1px #d9d9d9;   padding-left: 5px;  color: #646464;  font-family: '微软雅黑'; outline: none;}
+    .biad li textarea{width:390px; height: 100px;  border-radius:5px;  border:solid 1px #d9d9d9; padding:0 10px; line-height:20px; padding-top: 5px; }
+    #fuxu input{ width: 16px; height: 16px; margin:0 5px;  vertical-align:text-top; margin-top:0;}
+    .fu_ds{padding-top:8px; float: left; margin-right: 10px;}
+    #riqi input{width: 300px;}
+    #pazo .sctp{ width: 180px;background: #3fc371; color: #fff; height: 30px; display: block; float: left; line-height: 30px; font-size:16px; text-align: center; border-radius:5px;  }
+    #btnc{width:180px; background: #3fc371; height: 36px; line-height:36px; border:none; font-size: 16px; color: #fff;  border-radius:5px; margin-left: 200px; margin-top: 20px; }
+    #pazo{overflow: hidden; }
+    #pazoimg img{width: 180px;display: block;height: 126px;}
+    #pazoimg{margin-left: 126px;}
+    .zk{width:560px;padding: 0px 20px; overflow: hidden; margin-top:11px;position: relative;  z-index: 1;}
+    .zktitle{width: 100%;height: 34px; border-top: 4px solid #dddddd;border-bottom: 2px solid #dddddd;}
+    .zktitlebox{width: 100%;overflow: hidden;}
+    .zktitleword{font-size: 14px;float: left;line-height: 14px;height: 14px; margin-left: 8px;border-left: 2px solid #3fc370;margin-top: 10px;padding-left: 8px;color: #656565;font-weight: bold;}
+    .zktitleright{font-size: 14px;float: right;line-height: 14px;height: 14px; margin-left: 8px;margin-top: 10px;padding-left: 8px;color: #656565;font-weight: bold;}
+    .zktitlebler{float: right;overflow: hidden;margin-top: 8px;background: white;margin-right: 20px;}
+    .zktitlebler-b{float: right;overflow: hidden;margin-top: 8px;background: white;  margin-right: 15px;}
+    .bler{float: left;text-align: center;background: #eee;}
+    a{text-decoration: none;}
+    .bler a{display: block;font-size: 12px;height: 25px;line-height: 25px;padding: 0 10px;color: #656565}
+    .zktitlebler .ser{border-left: 2px solid #ddd;border-right: 2px solid #ddd;border-top: 3px solid #3fc370;background: white;}
+    .zktitlebler-b .ser{border-left: 2px solid #ddd;border-right: 2px solid #ddd;border-top: 3px solid #3fc370;background: white;}
+    .ser-color{border-right: 2px solid #eee;border-top: 1px solid #eee;border-bottom: 2px solid #ddd;}
+    .titcolor{color:#3fc370;font-weight: normal;font-size: 13px;}
+    .titcolorred{color:#eb1d1d;font-weight: normal;font-size: 13px;}
+    .cons{width: 25%;overflow: hidden;float: left;margin-bottom: 8px;}
+    .consl{float: left;text-align: right;width: 52%;font-size: 12px;}
+    .consr{float: right;text-align: left;width: 48%;font-size: 12px;box-sizing: border-box;color: #666;}
+    .const{float: left;width: 12%;font-size: 12px;}
+    .constr{float: right;width: 88%;font-size: 12px;color: #666;}
+    .consb-l{float: left;width: 60%;}
+    .consb-r{float: right;width: 38%;margin-left: 2%;}
+    .pexp{float: right;width: 40%;text-align: center;font-size: 12px;font-weight: bold;color:#3fc370;}
+    .pexp-h{line-height: 30px}
+    .pexp-bic{overflow: hidden;height: 24px;width: 70%;background: #eee;margin: 0 auto;border-radius: 24px;margin: 17px auto;}
+    .pexp-l{width: 24px;height: 24px;border-top-left-radius: 12px;border-bottom-left-radius: 12px;border-top-right-radius: 12px;float: left;}
+    .pexp1{background: #3fc370;}
+    .pexp2{background: #feba3b;}
+    .pexp3{background: #f25657;}
+    .pexp-r{float: left;line-height: 24px;text-align: center;width: 70px;color:#666;font-weight: normal;}
+    .mtitl{clear: both;font-size: 12px;overflow: hidden;}
+    .mtitl span{color: #666;}
+    .mtitl-l{float: left;width: 30%;}
+    .mtitl-r{float: left;width: 70%;text-align: right;}
+    .latit{width: 100%;background: #dddddd;font-size: 12px;font-weight: bold;padding-left: 8px;box-sizing: border-box;color: #676767;line-height: 28px;margin-top:10px;}
+    .objs tr:nth-child(2n){background: #eee;}
+    .objs{text-align:center;color: #676767;font-size: 12px;}
+    .green{color: #3fc370;}
+    .hpotp{width: 90%;border:1px solid #ddd;margin: 5%;box-sizing: border-box;  height: 328px;}
+    .biaochi{width: 586px;  height: 24px;  position: relative;  z-index: 999;  margin-top: -14px;  background: #fff;}
+    .biaochi a{display:block;float:left; padding: 1px 6px;font-size: 12px;line-height: 17px;    border-radius: 5px;  color: #666;}
+    .biaochi a:hover{background: #3fc370;color: white;}
+    .biaochi .ser{background: #3fc370;color: white;position: relative;}
+    .biaochi .ser:after{content: ''; width:0; position: absolute;top: 24px;  left: 14px;
+    height:0; 
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-bottom:11px solid #ddd;}
+    .hpotp img{width: 100%;height: 100%;}
+    .serviceCheck {
+  display: inline-block;
+  width: 400px;
+  line-height: 28px;
+  text-align: left;
+    margin-left: 66px;
+}
+.checkComb {
+  display: inline-block;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  position: relative;
+  margin-right: 5px;
+}
+.checkComb label {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  background: #fff;
+}
+.checkComb label img {
+  display: block;
+  vertical-align: top;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  transition: all .2s ease;
+}
+.checkItemEdit3 img{
+    margin-top: 0;
+}
+.serviceCheck div{display: inline-block;  margin-bottom: 1px;}
+.serviceCheck div input{width: 100px;}
+
+.biad li input[name="coure"]{
+    width: 20px;
+    float: left;
+    cursor: pointer;
+}
+.coure{
+    display: block;
+    float: left;
+    line-height: 29px;
+    margin-right: 10px;
+}

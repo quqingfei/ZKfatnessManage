@@ -1,0 +1,105 @@
+.curLocation {
+	width: 100%;
+	height: 100%;
+}
+
+.showTable {
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 91px;
+}
+
+.role_title {
+	background-color: #383838;
+	height: 25px;
+	padding: 8px 10px;
+	border-radius: 5px 5px 0 0;
+}
+
+/*#roleNew {
+	width: 70px;
+	background-color: #ffd600;
+	font-size: 14px;
+	line-height: 30px;
+	color: #696566;
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	cursor: pointer;
+}*/
+#roleNew>img {
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 9px;
+	left: 10px;
+}
+
+.role-input {
+	display: block;
+	width: 280px;
+	height: 25px;
+    padding-left: 5px;
+	margin: 8px 0;
+	border: 2px solid #D8D8D8;
+}
+
+#checkEdit:hover {
+	color: #666666;
+}
+
+.serviceCheck{
+    display: inline-block;
+    width: 100px;
+    line-height: 28px;
+    text-align: left;
+}
+.serviceCheck span{
+    font-size: 14px;
+    vertical-align: middle;
+    color: #666;
+}
+.checkComb{
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    position: relative;
+    margin-right:5px;
+}
+.checkComb label{
+    display: block;
+    width: 16px;
+    height: 16px;
+ 
+    border-radius: 3px;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+ 
+    background: #fff;
+}
+.checkComb label img{
+    display: none;
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    transition: all .2s ease;
+}
+.checkComb input[type=checkbox]:checked + label img {
+    display: block;
+}
+
+#fmNew input[type=checkbox] {
+    visibility: hidden;
+}

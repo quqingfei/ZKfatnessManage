@@ -1,0 +1,344 @@
+.showTable{
+	width: 100%;
+	/*margin:88px 0px 0px;*/
+	position:absolute;
+	top:88px;
+	left:0px;
+	bottom: 0px;
+}
+.codeImg{
+	position: absolute;
+	height: 30px;
+	top: 8px;
+	left: 16px;
+}
+.userCode{
+	vertical-align:middle;
+	width: 250px;
+	height: 38px;
+	line-height: 38px;
+	padding:0px;
+	padding-left: 50px;
+	border: 1px solid #000000;
+	background: #373737;
+	color: #FFFFFF;
+	font-size: 16px;
+	letter-spacing:3px;
+}
+.clientSearch{
+	width:auto;
+	height:30px;
+	float:right;
+	padding:5px 0px;
+}
+.byPhone{
+	width:auto;
+	height:100%;
+	float:left;
+}
+.phoneLable{
+	display:inline-block;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	margin-left:10px;
+	color:#fff;
+	
+}
+.phoneSearch{
+	display:inline-block;
+	width:100px;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	padding:0px;
+	padding-left:5px;
+	background-color:#fff;
+	border-width: 0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.nameLable{
+	display:inline-block;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	margin-left:10px;
+	color:#fff;
+	
+}
+.nameSearch{
+	display:inline-block;
+	width:100px;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	padding:0px;
+	padding-left:5px;
+	background-color:#fff;
+	border-width: 0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.dateLable{
+	display:inline-block;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	margin-left:10px;
+	color:#fff;
+}
+.dateInput{
+	display:inline-block;
+	width:100px;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	background-color:#fff;
+	border-width:0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.clientSearch .textbox,.combo,.datebox{
+	display:inline-block;
+	width:100px;
+	height:32px;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	margin-bottom:1px;
+	background-color:#fff;
+	border-width:0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.clientSearch .textbox .textbox-text{
+	margin-bottom:3px;
+}
+.connection{
+	display:inline-block;
+	width:auto;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	color:#fff;
+	margin-left:10px;
+}
+.searchSubmit{
+	display:inline-block;
+	width:60px;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	text-align:center;
+	margin-left:30px;
+	background-color:#FFD600;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+
+#clientSearchSubmit:hover{
+	background-color:#FFD699;
+}
+
+.userChoose{
+	float:left;
+	width:80px;
+	height:24px;
+	line-height:24px;
+	margin:8px auto 0px;
+	padding:0px 10px 0px;
+	border-right:1px solid #202020;
+	text-align:center;
+	font-size:14px;
+	color:#fff;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+	cursor:pointer;
+}
+.userChoose a{
+	width:100%;
+	height:100%;
+	font-size:14px;
+	line-height:20px;
+	text-align:center;
+	text-decoration:none;
+	color:#fff;
+	text-decoration:none;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.userChoose a:hover{
+	color:#EDCD00;
+	text-decoration:none;
+}
+.sendMessage{
+	width:100px;
+	height:20px;
+	line-height:20px;
+	font-size:14px;
+	padding:10px 0px;
+	float:right;
+	cursor:pointer;
+}
+.sendImg{
+	width:20px;
+	height:16px;
+}
+.action{
+	width:auto;
+	text-align:center;
+	margin:0px auto;
+}
+.action a{
+	display: inline-block;
+	margin-right:10px;
+	padding: 0px;
+	/*color: #000000;*/
+}
+
+.action a:hover{
+	/*border-bottom: 1px solid #000000;*/
+	color: #666666;
+}
+/*进场签到*/
+.showMessage{
+	margin:0px;
+	padding:0px;
+}
+.point{
+	height:15px;
+	line-height:15px;
+	font-size:12px;
+	/*padding:5px auto 15px auto;*/
+	padding-top:5px;
+	padding-bottom:15px;
+	margin:0px;
+}
+.memberCard{
+	height:200px;
+	border:1px solid #333333;
+}
+.cardTitle{
+	height:15px;
+	line-height:15px;
+	padding:0px 10px;
+}
+.cardTable{
+	position:relative;
+	width: 100%;
+	top:0px;
+	bottom: 0px;
+	left:0px;
+	text-align:center;
+}
+.cardThead{
+	height:30px;
+	background:#F5F5F5;
+}
+.cardTbody{
+	height:30px;
+}
+.cardRowF{
+	width:10%;
+}
+.chooseBtn{
+	width:200px;
+	height:30px;
+	margin:30px auto 0px;
+	font-size:14px;
+	text-align: left;
+}
+.chooseSure{
+	display:block;
+	width:90px;
+	height:30px;
+	line-height: 30px;
+	color:#FFD600;
+	float:left;
+	text-align:center;
+	background:#383838;
+	-moz-border-radius: 15px; /* Firefox */
+  	-webkit-border-radius:15px; /* Safari 和 Chrome */
+ 	border-radius: 15px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.chooseCancle{
+	display:block;
+	width:90px;
+	height:30px;
+	line-height:30px;
+	/*margin-left:10px;*/
+	color:#fff;
+	float:right;
+	text-align:center;
+	background:#383838;
+	-moz-border-radius: 15px; /* Firefox */
+  	-webkit-border-radius:15px; /* Safari 和 Chrome */
+ 	border-radius: 15px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.countCard{
+	height:60px;
+	margin:0px;
+	padding:0px;
+}
+.memberMessage{
+	width:100%;
+	height:15px;
+	margin-bottom:15px;
+	line-height:15px;
+	font-size:12px;
+}
+.leftMessage{
+	position:relative;
+	width:50%;
+	height:100%;
+	float:left;
+}
+.rightMessage{
+	position:relative;
+	width:50%;
+	height:100%;
+	float:right;
+}
+.bothMessage{
+}
+.messageLable{
+	display:inline-block;
+	width:auto;
+	height:100%;
+}
+.theMessage{
+	position:absolute;
+	top:0px;
+	left:60px;
+	right:0px;
+	height:15px;
+	margin:0px;
+	padding:0px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+.theMessageR{
+	position:absolute;
+	top:0px;
+	left:85px;
+	right:0px;
+	height:15px;
+	margin:0px;
+	padding:0px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}

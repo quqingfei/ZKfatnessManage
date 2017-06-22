@@ -1,0 +1,986 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/webim.css" />
+    <link href="./css/index1.css" rel="stylesheet" />
+    <style type="text/css">
+        .menus {
+            width: 250px;
+            overflow: hidden;
+            background: #333333;
+            font-family: "微软雅黑";
+        }
+
+        .menus a {
+            color: white;
+        }
+
+        .menuUl,
+        ul {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .menuUl li {
+            list-style: none;
+        }
+
+        .menuUl>li>div {
+            box-sizing: border-box;
+        }
+
+        .menuUl>li>div>a {
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .bg:hover {
+            background-color: #2C2C2C;
+            box-sizing: border-box;
+            border-left: 4px solid #ffd200;
+        }
+
+        .bg {
+            position: relative;
+        }
+
+        .bg i img {
+            width: 25px;
+            position: absolute;
+            left: 50px;
+            top: 19px;
+        }
+
+        .bg span img {
+            width: 10px;
+            position: absolute;
+            right: 13px;
+            top: 26px;
+        }
+
+        .menuUl a {
+            transition: all 0.2s ease-out;
+            line-height: 60px;
+            display: block;
+            text-decoration: none;
+            height: 60px;
+            vertical-align: center;
+        }
+
+        .bg {
+            box-sizing: border-box;
+            color: #ffd200;
+            border-left: 4px solid #333333;
+        }
+
+        .bg:hover a {
+            color: #ffd200;
+        }
+
+        .bg:hover .twos {
+            display: block;
+        }
+
+        .bg:hover .ones {
+            display: none;
+        }
+
+        .twos,
+        .down {
+            display: none;
+        }
+
+        .secondMenu {
+            display: none;
+            background: #212121
+        }
+
+        .secondA {
+            position: relative;
+        }
+
+        .secondA:hover {
+            color: rgb(255, 210, 0);
+        }
+
+        .secondMenu .secondS {
+            color: rgb(255, 210, 0);
+            background: #212121;
+        }
+
+        .secondA:hover span {
+            left: 72px;
+        }
+
+        .secondA span {
+            position: absolute;
+            top: 1px;
+            left: 70px;
+            font-size: 10px;
+            transition: all 0.2s linear;
+        }
+
+        .curn {
+            border-left: 4px solid #ffd200;
+            background-color: #2C2C2C;
+        }
+        #printButton{
+            position: absolute;
+            display: block;
+            right: 30px;
+            top: 30px;
+            line-height: 16px;
+            padding: 5px;
+            border: 1px solid #2E2D2B;
+            border-radius: 4px;
+            color: #2E2D2B;
+            text-decoration: none;
+        }
+        #printButton img{
+            height: 16px;
+            vertical-align: top;
+        }
+        #printButton:hover{
+            background: #eee;
+        }
+    </style>
+</head>
+<body onselectstart="return false" oncontextmenu="return false">
+<div id="zk_title"></div>
+<div class="main">
+    <div id="menu">
+        <p id="gymName" class="gymName"></p>
+        <div class="iconArea">
+            <div class="head">
+                <img id="head" onerror="this.src='images/default.png';" src="loginAction!getQrCode.zk" />
+            </div>
+            <a class="saveQrCode" href="#" onclick="saveQrCode()">下载二维码</a>
+            <!-- <a class="saveQrCode" href="#" onclick="printTable()">下载二维码</a> -->
+        </div>
+        <canvas id="qrCode" class="qrCode"></canvas>
+        <div class="menus">
+            <ul id="menuList" class="menuUl">
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a id="superControl" href="javascript:;" onclick="setHtml_1('superControl')">超级入口
+                            <i class="ones"><img src="css/images/superControlNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="css/images/superControlNew_2.png" alt=""></i>
+                        </a>
+                    </div>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;" onclick="setHtml_1('userManageNew')">客户管理
+                            <i class="ones"><img src="css/images/userNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="css/images/userNew_2.png" alt=""></i>
+                        </a>
+                    </div>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;" onclick="setHtml_1('bodyDetails')">体测管理
+                            <i class="ones"><img src="./css/images/bodyDetailNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/bodyDetailNew_2.png" alt=""></i>
+                        </a>
+                    </div>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;">考勤管理
+                            <i class="ones"><img src="./css/images/leaseNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/leaseNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                    </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" id="attendanceRecord" onclick="setHtml_1('attendanceRecord')" href="javascript:;"><span>▶&nbsp;</span>员工考勤记录</a></li>
+                        <li><a class="secondA" id="attendanceStatistic" onclick="setHtml_1('attendanceStatistic')" href="javascript:;"><span>▶&nbsp;</span>员工考勤统计</a></li>
+                    </ul>
+                </li>
+                <li class="signLi">
+                    <div class="bg" id="cardManagement" data-vl="0">
+                        <a href="javascript:;">会员管理
+                            <i class="ones"><img src="./css/images/registrationNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/registrationNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                    </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" id="allCard" onclick="setHtml_1('allCard')" href="javascript:;"><span>▶&nbsp;</span>全部会员卡</a></li>
+                        <li><a class="secondA" id="openCard" onclick="setHtml_1('openCard')" href="javascript:;"><span>▶&nbsp;</span>开卡</a></li>
+                        <li><a class="secondA" id="stopCard" onclick="setHtml_1('stopCard')" href="javascript:;"><span>▶&nbsp;</span>停卡</a></li>
+                        <li><a class="secondA" id="turnCard" onclick="setHtml_1('turnCard')" href="javascript:;"><span>▶&nbsp;</span>转卡</a></li>
+                    </ul>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;">课程管理
+                            <i class="ones"><img src="./css/images/lessonNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/lessonNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                    </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" id="curriculumManage" onclick="setHtml_1('curriculumManage')" href="javascript:;"><span>▶&nbsp;</span>公开课程管理</a></li>
+                        <li><a class="secondA" id="addPrivateCoachCourse" onclick="setHtml_1('addPrivateCoachCourse')" href="javascript:;"><span>▶&nbsp;</span>新建私教课程</a></li>
+                        <li><a id="privateCourseMange" class="secondA" onclick="setHtml_1('privateCourseMange')" href="javascript:;"><span>▶&nbsp;</span>私教课程计次/管理</a></li>
+                    </ul>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;">消费管理
+                            <i class="ones"><img src="./css/images/storedNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/storedNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                    </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" id="storeInput" onclick="setHtml_1('storeInput')" href="javascript:;"><span>▶&nbsp;</span>充值</a></li>
+                        <li><a class="secondA" id="storeRecord" onclick="setHtml_1('storeRecord')" href="javascript:;"><span>▶&nbsp;</span>充值记录</a></li>
+                        <li><a class="secondA" id="payInput" onclick="setHtml_1('payInput')" href="javascript:;"><span>▶&nbsp;</span>消费</a></li>
+                        <li><a class="secondA" id="payRecord" onclick="setHtml_1('payRecord')" href="javascript:;"><span>▶&nbsp;</span>消费记录</a></li>
+                        <li><a class="secondA" id="balance" onclick="setHtml_1('balance')" href="javascript:;"><span>▶&nbsp;</span>余额查询</a></li>
+                    </ul>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;">租赁管理
+                            <i class="ones"><img src="./css/images/leaseNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/leaseNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                    </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" id="borrowInput" onclick="setHtml_1('borrowInput')" href="javascript:;"><span>▶&nbsp;</span>租赁录入</a></li>
+                        <li><a class="secondA" id="borrowRecord" onclick="setHtml_1('borrowRecord')" href="javascript:;"><span>▶&nbsp;</span>租赁归还/管理</a></li>
+                    </ul>
+                </li>
+                <li class="signLi">
+                    <div class="bg" data-vl="0">
+                        <a href="javascript:;" onclick="setHtml_1('articleSend')">文章推送
+                            <i class="ones"><img src="./css/images/articleNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/articleNew_2.png" alt=""></i>
+                        </a>
+                    </div>
+                </li>
+                <li class="signLi">
+                    <div class="bg" id="menuBottom" data-vl="0">
+                        <a href="javascript:;">高级
+                            <i class="ones"><img src="./css/images/incomeNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/incomeNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                    </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" id="dataCheck" onclick="setHtml_1('dataCheck')" href="javascript:;"><span>▶&nbsp;</span>数据统计</a></li>
+                        <li><a class="secondA" id="staffManagement" onclick="setHtml_1('staffManagement')" href="javascript:;"><span>▶&nbsp;</span>员工管理</a></li>
+                        <li><a class="secondA" id="roleManagement" onclick="setHtml_1('roleManagement')" href="javascript:;"><span>▶&nbsp;</span>角色管理</a></li>
+                        <li><a class="secondA" id="cardManage" onclick="setHtml_1('cardManage')" href="javascript:;"><span>▶&nbsp;</span>卡种管理</a></li>
+                        <li><a class="secondA" id="gameManage" onclick="setHtml_1('gameManage')" href="javascript:;"><span>▶&nbsp;</span>比赛管理</a></li>
+                        <li><a class="secondA" id="accountManageNew" onclick="setHtml_1('accountManageNew')" href="javascript:;"><span>▶&nbsp;</span>账户管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="function" style="cursor:pointer;">
+            <div class="actionAbort" style="" onclick="takeOut()"></div>
+            <div class="actionlock" style="" onclick="lock()"></div>
+            <div id="actionSend" class="actionSend" style="" onclick="send()"></div>
+        </div>
+    </div>
+    <div id="contentIndex">
+        <a id="printButton" href="javascript:;" onclick="printTable()"> <img src="images/print.png" alt="">&nbsp;打印</a>
+        <iframe id="pageFrame" width="100%" height="100%" src=""></iframe>
+    </div>
+</div>
+<!-- 聊天界面 min-width:500px;min-height:500px; -->
+<div id="dlgChat" class="" style="position:absolute;width:0px;height:0px;margin-left:auto;margin-right:auto;padding:0px 0px;z-index:90;border:1px solid #383838;box-shadow: 2px 2px 3px #aaa;cursor:pointer;display:none;">
+    <!-- buttons="#dlg-buttons" -->
+    <div class="dlgChat" style="width:100%;height:30px;background:#383838;">
+        <div class="dlgChat" style="width:100%;height:100%;">
+            <div class="dlgChat" style="float:left;width:180px;height:100%;line-height:30px;color:#F6D003;text-align:left;font-size:14px;">
+                <span id='curChatName' style="margin-left:10px;"></span>
+                <span id="curChatSex" style="margin-left:20px;"></span>
+                <span id="curChatAge" style="margin-left:20px;"></span>
+            </div>
+            <div class="dlgChat" style="float:left;width:360px;height:100%;line-height:30px;color:#F6D003;font-size:14px;">
+                <span id="curChatOccupation" style="margin-left:20px;"></span>
+            </div>
+            <div class="dlgChat" style="float:right;width:110px;height:16px;margin-top:7px;margin-right:0px;">
+                <!--<img id="minChat" alt="" src="images/min.png" style="width:14px;height:3px;margin-top:5px;margin-left:15px;vertical-align:top;" onmouseover="iconOver('min')" onmouseout="iconOut('min')" onclick="minWindow()">-->
+                <div style="width:14px;height:14px;margin-left:15px;float:left;display:none;" onmouseover="iconOver('min')" onmouseout="iconOut('min')" onclick="minWindow()">
+                    <img id="minChat" alt="" src="images/min.png" style="width:14px;height:3px;margin-top:5px;vertical-align:top;">
+                </div>
+                <img id="maxChat" alt="" src="images/max.png" style="display:none;width:14px;height:14px;margin-left:15px;vertical-align:top;" onmouseover="iconOver('max')" onmouseout="iconOut('max')" onclick="maxWindow()">
+                <img id="closeNewChat" alt="" src="images/closeNew.png" style="float:right;width:14px;height:14px;margin-left:15px;margin-right:15px;vertical-align:top;" onmouseover="iconOver('closeNew')" onmouseout="iconOut('closeNew')" onclick="closeWindow()">
+            </div>
+        </div>
+    </div>
+    <div class="content" id="content" style="display: block;width:100%;height:470px;padding:0px;">
+        <!-- min-width:500px; border:1px solid #383838;box-shadow: 2px 2px 3px #aaa;-->
+        <div id="rightTop" style="height:0px;"></div>
+        <!-- 聊天页面 -->
+        <div class="chatRight" style="width:71.65%;height:99%;">
+            <!--  min-width:564px;min-height:598px;background-color: #ffffff;-->
+            <div id="chat01">
+                <div class="chat01_title" style="background:#999999;">
+                    <ul class="talkTo">
+                        <li id="talkTo">
+                            <a href="#"></a>
+                        </li>
+                        <li id="recycle" style="float: right;"><img src="img/recycle.png" onclick="clearCurrentChat();" style="margin-right: 15px; cursor:pointer; width: 18px;" title="清屏" onm/></li>
+                        <li id="roomInfo" style="float: right;"><img id="roomMemberImg" src="img/head/find_more_friend_addfriend_icon.png" onclick="showRoomMember();" style="margin-right: 15px; cursor: hand; width: 18px; display: none" title="群组成员" /></li>
+                    </ul>
+                </div>
+                <div id="null-nouser" class="chat01_content"></div>
+            </div>
+            <div class="chat02">
+                <div style="clear:both;height:10px;"></div>
+                <div style="width:100%;height:40px;">
+                    <div id="input_content" style="float:left;width:65%;height:28px;margin-left:5%;border-radius:15px;border:1px solid #929292;cursor:pointer;">
+                        <div style="float:left;position:relative;width:150px;height:25px;margin-left:8px;margin-top:2px;padding:0px;">
+                            <input id="talkInputId" style="position:absolute;bottom:0px;left:0px;width:150px;height:23px;margin:0px;padding:0px;line-height:23px;text-align:left;border:0px solid #929292;outline:medium;outline-style:none;resize:none;" onpropertychange="textChange('talkInputId')" oninput="textPut('talkInputId')">
+                        </div>
+                        <div class="chat02_title" style="float:right;">
+                            <a class="chat02_title_btn ctb01" onclick="showEmotionDialog()" title="选择表情"></a>
+                            <a class="chat02_title_btn ctb04" onclick="showWord()" title="选择常用语"></a>
+                            <a class="chat02_title_btn ctb03" title="选择图片" onclick="showSendPic()" href="#"> </a>
+                            <a class="chat02_title_btn ctb02" onclick="showSendAudio()" href="#" title="选择语音"><span></span></a>
+                            <label id="chat02_title_t"></label>
+                            <div id="wl_faces_box" class="wl_faces_box">
+                                <div class="wl_faces_content">
+                                    <div class="title">
+                                        <ul>
+                                            <li class="title_name">常用表情</li>
+                                            <li class="wl_faces_close"><span onclick="turnoffFaces_box()">&nbsp;</span></li>
+                                        </ul>
+                                    </div>
+                                    <div id="wl_faces_main" class="wl_faces_main">
+                                        <ul id="emotionUL">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="wlf_icon"></div>
+                            </div>
+                            <div id="word" class="wl_faces_box">
+                                <div class="wl_faces_content">
+                                    <div class="title">
+                                        <ul>
+                                            <li class="title_name">常用语</li>
+                                            <li class="wl_faces_close"><span onclick="turnoff()">&nbsp;</span></li>
+                                        </ul>
+                                    </div>
+                                    <div id="wording" class="wording" style="color:#000;">
+                                        <ul id="wordUL">
+                                            <li onclick="selectWord('很高兴为您服务！')">很高兴为您服务！</li>
+                                            <li onclick="selectWord('您还有什么疑惑吗？')">您还有什么疑惑吗？</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="wlf_icon" style="left: 85px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="float:left;width:80px;height:30px;cursor:pointer;margin-top:1px;margin-left:5%;">
+                        <a href="javascript:void(0)" class="easyui-linkbutton c6 l-btn" onclick="sendText()" style="width:80px;height:28px;background:#383838;color:#FED602;"><span style="color:#FED602;"><strong>发&nbsp;&nbsp;送</strong></span></a>
+                    </div>
+                </div>
+            </div>
+            <div id="fileModal" class="modal hide fade" role="dialog" aria-hidden="true" data-backdrop="static">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>文件选择框</h3>
+                </div>
+                <div class="modal-body">
+                    <input type='file' id="fileInput" style="border-width:0px;" />
+                    <input type='hidden' id="sendfiletype" />
+                    <div id="send-file-warning"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="fileSend" class="btn btn-primary" onclick="sendFile()">发送</button>
+                    <button id="cancelfileSend" class="btn" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+        <div class="leftcontact" id="leftcontact" style="width:28%;height:100%;back">
+            <!-- min-width:196px;min-height:599px; -->
+            <div id="headerimg" class="leftheader" style="width:100%;height:0px;">
+                <span id="login_user" class="login_user_title"> <a class="leftheader-font" href="#"></a></span>
+                <input id="hx" style="" type="hidden"></input>
+                <!-- '''''''''''''''''''''''''''''''''''''''''''''''''' -->
+            </div>
+            <div id="leftmiddle"></div>
+            <div id="contractlist11" style="width:100%;height:100%; overflow-y: hidden; overflow-x: hidden;">
+                <!-- min-height:513px; -->
+                <div class="accordion" id="accordionDiv" style="width:100%;height:100%;overflow-y: auto; overflow-x: hidden;background-color: #383838;">
+                    <div class="accordion-group" style="width:100%;">
+                        <!--
+        <div class="accordion-heading">
+          <a id="accordion3" class="accordion-toggle"
+            data-toggle="collapse" data-parent="#accordionDiv"style="text-decoration:none;"
+            href="#collapseThree">用户列表</a>
+        </div>-->
+                        <div id="collapseThree" class="accordion-body collapse" style="width:100%;height:auto;">
+                            <div class="accordion-inner" id="momogrouplist" style="height:auto;border-width:0px;">
+                                <ul id="momogrouplistUL" class="chat03_content_ul"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 一般消息通知 -->
+        <div id="notice-block-div" class="modal fade hide">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <div class="modal-body">
+                <h4>Warning!</h4>
+                <div id="notice-block-body"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="shield" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9900;display:none;background:#000;" onclick="shield()">
+    <div id="locking" style="width:200px;height:200px;text-align:center;margin:300px auto auto auto;color:#fff">
+        <h3 style="text-align: center;width: 100%;">确认是否锁屏？</h3>
+        <!--
+  <input id="lockPwd" type="password"style="width:200px;height:30px;line-height:30px;font-size:16px;border-color:#202020;">
+  -->
+        <div class="button" style="width: 100%; height: 30px; margin-top:40px;padding-top: 0px; text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="notLock()" style="width: 80px;margin-right:20px;background: #383838; color: #EDC609;"><span style="color:#fff;">取&nbsp;&nbsp;消</span></a>
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="toLock()" style="width: 80px;background: #383838; color: #EDC609;"><span style="color:#fff;">锁&nbsp;&nbsp;屏</span></a>
+        </div>
+    </div>
+    <div id="locked" style="width:240px;height:200px;text-align:center;margin:300px auto auto auto;color:#fff;display:none;">
+        <h3>请输入登陆密码解锁</h3>
+        <input id="lockPwd1" type="password" style="width:200px;height:30px;line-height:30px;font-size:16px;border-color:#202020;">
+        <div class="button" style="width: 100%; height: 30px; margin-top:40px;padding-top: 0px; text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="openLock()" style="width: 100px;background: #383838; color: #EDC609;"><span style="color:#fff;">解&nbsp;&nbsp;锁</span></a>
+        </div>
+    </div>
+</div>
+<div style="position:absolute;left:0;top:0;width:200px;height:100px;display:none;">
+    <audio id="audioPrompt" controls="controls">
+        <source src="images/song.ogg" type="audio/ogg">
+        <source src="images/song.mp3" type="audio/mpeg">
+    </audio>
+    <a onclick="play()">播放</a><a onclick="pause()">暂停</a>
+</div>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/easyui-lang-zh_CN.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<!-- 聊天的js -->
+<script type="text/javascript" src="js/strophe-custom-2.0.0.js"></script>
+<script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript" src="js/easemob.im-1.0.7.js"></script>
+<script type="text/javascript" src="js/jQuery.Hz2Py-min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/chat.js"></script>
+<script src="js/jquery.jqprint-0.3.js"></script>
+<script>
+    $(".menuUl .bg").click(function() {
+        var i = 0;
+        var ele = $(this);
+        var s = ele.attr("data-vl");
+        for (i; i < $(".signLi").length; i++) {
+            var el = $($(".signLi .bg")[i]);
+            el.removeClass("curn");
+            el.find(".ones").css("display", "block");
+            el.find(".twos").css("display", "none");
+            el.find(".right").css("display", "block");
+            el.find(".down").css("display", "none");
+            el.find("a").css("color", "white");
+            el.parent().find(".secondMenu").stop(true, true).slideUp(200)
+            el.attr("data-vl", "0");
+        }
+
+        if (s == 0) {
+            ele.addClass("curn");
+            ele.find(".ones").css("display", "none");
+            ele.find(".twos").css("display", "block");
+            ele.find(".right").css("display", "none");
+            ele.find(".down").css("display", "block");
+            ele.find("a").css("color", "#ffd200");
+            ele.parent().find(".secondMenu").stop(true, true).slideDown(200);
+            ele.attr("data-vl", "1");
+        } else {
+            ele.removeClass("curn");
+            ele.find(".ones").css("display", "block");
+            ele.find(".twos").css("display", "none");
+            ele.find(".right").css("display", "block");
+            ele.find(".down").css("display", "none");
+            ele.find("a").css("color", "white");
+            ele.parent().find(".secondMenu").stop(true, true).slideUp(200);
+            ele.attr("data-vl", "0");
+        }
+
+        if (ele.attr('id') == 'menuBottom' && s == 0) {
+            $("#menuList").animate({
+                scrollTop: $('#accountManageNew').offset().top
+            }, 300, 'swing');
+        }
+    })
+
+    // $('.secondA').on('click',function(){
+    //     var i=0;
+    //         for(i;i<$(".secondA").length;i++){
+    //              var el = $($(".secondA")[i]);
+    //             el.removeClass('secondS');
+    //         }
+    //     $(this).addClass('secondS');
+    // })
+</script>
+<script type="text/javascript">
+    function printTable() {
+        $("#pageFrame").contents().find(".datagrid-view2 .datagrid-htable tbody")
+        var b = $("#pageFrame").contents().find(".datagrid-view2 .datagrid-htable tbody").html();
+        $("#pageFrame").contents().find(".datagrid-view2 .datagrid-btable tbody").prepend(b);
+        $("#pageFrame").contents().find(".datagrid-view2 .datagrid-btable").jqprint({
+            debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false
+            importCSS: false, //true表示引进原来的页面的css，默认是true。（如果是true，先会找$("link[media=print]")，若没有会去找$("link")中的css文件）
+            printContainer: true, //表示如果原来选择的对象必须被纳入打印（注意：设置为false可能会打破你的CSS规则）。
+            operaSupport: true //表示如果插件也必须支持歌opera浏览器，在这种情况下，它提供了建立一个临时的打印选项卡。默认是true
+        });
+        $("#pageFrame").contents().find(".datagrid-view2 .datagrid-btable .datagrid-header-row").remove();
+    }
+
+    function play() {
+        document.getElementById('audioPrompt').play();
+    }
+
+    function pause() {
+        document.getElementById('audioPrompt').pause();
+    }
+    var curSeeUserId = ''; //标记每个页面当前查看的用户id
+    var curUserMessage = null; //当前选择开卡的用户
+    //保存二维码到本地
+    function saveQrCode() {
+        var image = new Image();
+        image.src = $('#head').attr("src");
+        var canvas = document.getElementById("qrCode");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        var context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0);
+        var type = 'jpeg';
+        var imgData = canvas.toDataURL('image/jpeg');
+        imgData = imgData.replace('image/jpeg', 'image/octet-stream');
+        // 下载后的问题名
+        var filename = $.trim($('#gymName').text()) + '.' + type;
+        // download
+        saveFile(imgData, filename);
+        //window.location.href = imgData;
+        //return false;
+    }
+    var _fixType = function(type) {
+        type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+        var r = type.match(/png|jpeg|bmp|gif/)[0];
+        return 'image/' + r;
+    };
+    var saveFile = function(data, filename) {
+        var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+        save_link.href = data;
+        save_link.download = filename;
+        var event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        save_link.dispatchEvent(event);
+    };
+
+    function loginTimeout() {
+        window.top.location.replace('index.html?redirect=' + encodeURIComponent(location.href));
+    }
+    var curId = null; //当前的id
+    var curSecondMenuId = null; //当前的包含二级目录的
+    function setHtml(id, value) {
+        if (curId != null && id != curId) {
+            var parentId = $($('#' + curId).parent().parent().parent().children('a')[0]).attr('id');
+            if ($('#' + parentId + 'UL').attr('id')) {
+                $('#' + curId).css({
+                    color: '#fff',
+                    'border-left': '#131313 solid 4px',
+                    'background-color': '#131313'
+                });
+                if (id != parentId) {
+                    $('#' + parentId + 'Img').attr('src', './css/images/remarkSecond_1.png');
+                    $('#' + parentId + 'UL').css({
+                        'display': 'none'
+                    });
+                }
+            } else {
+                if (($('#' + curId + 'UL').attr('id'))) {
+                    $('#' + curId + 'Img').attr('src', './css/images/remarkSecond_1.png');
+                    $('#' + curId + 'UL').css({
+                        'display': 'none'
+                    });
+                }
+                $('#' + curId).css({
+                    color: '#fff',
+                    'border-left': '#333333 solid 4px',
+                    'background-color': '#333333'
+                });
+                document.getElementById(curId).style.background = "#333333 url('css/images/" + curId + "New_1.png') no-repeat 50px center";
+            }
+        }
+        if (!($('#' + id + 'UL').attr('id'))) {
+            $('#' + id).css({
+                color: '#ffd200',
+                'border-left': '#ffd200 solid 4px',
+                'background-color': '#272727'
+            });
+        } else {
+            $('#' + id).css({
+                color: '#ffd200',
+                'border-left': '#272727 solid 4px',
+                'background-color': '#272727'
+            });
+            //curSecondMenuId = id;       
+        }
+        curId = id;
+
+        if (value != '')
+            $('#pageFrame').attr('src', value);
+        else {
+            if ($('#' + id + 'UL').css("display") == 'none') {
+                $('#' + id + 'Img').attr('src', './css/images/remarkSecond_2.png');
+                $('#' + id + 'UL').css({
+                    'display': 'block'
+                });
+            } else {
+                $('#' + id + 'Img').attr('src', './css/images/remarkSecond_1.png');
+                $('#' + id + 'UL').css({
+                    'display': 'none'
+                });
+            }
+        }
+    }
+
+    function over(id) {
+        if (id != curId) {
+            //          console.log(1);
+            $('#' + id).css({
+                color: '#ffd200',
+                //            'border-left': '#272727 solid 4px',
+                'background': "#333333 url('css/images/" + id + "New_2.png') no-repeat 50px center"
+            });
+            //          document.getElementById(id).style.background = "#272727 url('css/images/" + id + "New_2.png') no-repeat 50px center";
+
+        }
+        event.cancelBubble = true;
+        event.stopPropagation();
+        return false;
+    }
+
+    function out(id) {
+        if (id != curId) {
+            $('#' + id).css({
+                color: '#fff',
+                'border-left': '#333333 solid 4px',
+                'background-color': '#333333'
+            });
+            if (document.getElementById(id))
+                document.getElementById(id).style.background = "#333333 url('css/images/" + id + "New_1.png') no-repeat 50px center";
+        }
+        event.cancelBubble = true;
+        event.stopPropagation();
+        return false;
+    }
+
+    function setHtml_1(value) {
+        $('.secondA').removeClass('secondS');
+        $('#' + value).addClass('secondS');
+        $('#pageFrame').attr('src', value + '.html');
+        // return false;
+    }
+
+    function over_1(id) {
+        if (id != curId) {
+            $('#' + id).css({
+                color: '#ffd200',
+                'border-left': '#272727 solid 4px'
+            });
+            //          document.getElementById(id).style.background = "#272727 url('css/images/" + id + "New_2.png') no-repeat 50px center";
+        }
+        event.cancelBubble = true;
+        event.stopPropagation();
+        return false;
+    }
+
+    function out_1(id) {
+        if (id != curId) {
+            $('#' + id).css({
+                color: '#fff',
+                'border-left': '#131313 solid 4px',
+                'background': '#131313'
+            });
+        }
+        event.cancelBubble = true;
+        event.stopPropagation();
+        return false;
+    }
+
+    $(function() {
+        //$('#user').click(function(){});
+        $('#superControl').trigger('click');
+        setTimeout(function() {
+            //$('#operations').trigger('click');
+            $('#signIn').trigger('click');
+            $('#toSignIn').trigger('click');
+            $.getJSON('GymAccountAction!getGymInfo.zk', {}, function(data) {
+                var huanxin = localStorage.getItem("name");
+                var gymName = '';
+                var gymHeadIcon = '';
+                if (data.STATUS) {
+                    if (data.cover) {
+                        gymHeadIcon = data.cover; //$.parseJSON(data.gym.cover)[0] ;
+                        //$('#head').attr('src',"../file/FileCenter!showImage2.zk?name="+ gymHeadIcon );
+                    }
+                    $('#gymName').text(data.gymName);
+                    gymName = data.gymName;
+                }
+                //alert(huanxin+'---'+gymName+'---'+gymHeadIcon);
+                console.log(huanxin + '---' + gymName + '---' + gymHeadIcon);
+                login(huanxin, gymName, gymHeadIcon);
+            });
+            //登陆环信
+            $(window).resize(function() {
+                //聊天窗口的大小变化
+                if ($('#dlgChat').css('display') && isMax) {
+                    //maxWindow();
+                    $('#dlgChat').css({
+                        'width': $(window).width() * 0.99,
+                        'height': $(window).height() * 0.99,
+                        'left': $(window).width() * 0.01 / 2,
+                        'bottom': 0
+                    }); //
+                    $('#content').css({
+                        'height': $('#dlgChat').height() - 30
+                    });
+                    $('.chat01_content').css({
+                        'height': $('#content').height() - 50
+                    });
+                    $('#talkInputId').css({
+                        'width': $('#input_content').width() - 130
+                    });
+                    //isMax=true;
+                }
+                if (!isMax)
+                    $('#dlgChat').css({
+                        left: 250,
+                        top: parseInt($('#menu').css('height')) - parseInt($('#dlgChat').css('height')) - 2,
+                        bottom: 0
+                    });
+            });
+        }, 800);
+        //注册
+        document.getElementById('talkInputId').onkeydown = function(event) {
+            var event = event || window.event; //这里的event兼容跟上面不同，关于event的兼容，请猛戳这里
+            if (event.keyCode == 13) {
+                sendText();
+            }
+        };
+    });
+
+    function textChange(id) {
+        var it = document.getElementById(id);
+        it.css('height', it.scrollHeight + 'px')
+    }
+
+    function textPut(id) {
+        var it = document.getElementById(id);
+        it.style.height = it.scrollHeight + 'px'
+    }
+
+    function logout() {
+        $.getJSON("loginAction!logout.zk", function(data) {
+            if (data.STATUS) {
+                window.parent.location.replace("index.html");
+            }
+        });
+    }
+
+    function takeOut() {
+        $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '确认退出?', '', function() {
+            logout();
+        });
+    }
+
+    function showChat(value, index) {
+        if ($('#dlgChat').css('display') == 'block') {
+            $('#content').hide();
+            $('#dlgChat').animate({
+                width: '-=650px',
+                height: '-=500px',
+                top: '+=500px'
+            }, 300);
+            setTimeout(function() {
+                $('#dlgChat').css({
+                    'display': 'none'
+                });
+            }, 300);
+        } else {
+            //$('#dlgChat').css({width:'0px',height:'0px'});
+            $('#dlgChat').css({
+                'display': 'block',
+                left: 250,
+                top: parseInt($('#menu').css('height')) - 2
+            });
+            $('#dlgChat').animate({
+                width: '+=650px',
+                height: '+=500px',
+                top: '-=500px'
+            }, 300); //+(parseInt($('#menu').css('height'))-500-2)+'px'+'px'
+            setTimeout(function() {
+                $('#content').show();
+            }, 295);
+        }
+        var msg = {};
+    }
+    //聊天窗口的响应函数
+    function iconOver(value) {
+        $('#' + value + 'Chat').attr('src', 'images/' + value + '_1.png');
+    }
+
+    function iconOut(value) {
+        $('#' + value + 'Chat').attr('src', 'images/' + value + '.png');
+    }
+
+    function minWindow() {
+        $('#dlgChat').hide();
+    }
+    var isMax = false; //标记是否已经最大化
+    function maxWindow() {
+        if (!isMax) {
+            $('#dlgChat').css({
+                'width': $(window).width() * 0.99,
+                'height': $(window).height() * 0.99,
+                'left': $(window).width() * 0.01 / 2,
+                'top': 0
+            });
+            $('#content').css({
+                'height': $('#dlgChat').height() - 30
+            });
+            $('.chat01_content').css({
+                'height': $('#content').height() - 50
+            });
+            $('#talkInputId').css({
+                'width': $('#input_content').width() - 130
+            });
+            isMax = true;
+        } else {
+            //$('#dlgChat').css({'width':650,'height':500,'left':($(window).width()-650)/2,'top':($(window).height()-500)/2});
+            $('#dlgChat').css({
+                'width': 650,
+                'height': 500
+            });
+            $('#dlgChat').css({
+                left: 250,
+                top: parseInt($('#menu').css('height')) - parseInt($('#dlgChat').css('height')) - 2,
+                bottom: 0
+            });
+            $('#content').css({
+                'height': $('#dlgChat').height() - 30
+            });
+            $('.chat01_content').css({
+                'height': $('#content').height() - 50
+            });
+            $('#talkInputId').css({
+                'width': $('#input_content').width() - 130
+            });
+            isMax = false;
+        }
+    }
+
+    function closeWindow() {
+        $('#content').hide();
+        $('#dlgChat').animate({
+            width: '-=650px',
+            height: '-=500px',
+            top: '+=500px'
+        }, 300);
+        setTimeout(function() {
+            $('#dlgChat').hide();
+        }, 300);
+    }
+    //屏蔽事件
+    function shield() {
+        event.stopPropagation();
+        return false;
+    }
+    //锁屏
+    function lock() {
+        $('#shield').show();
+        $('lockPwd').val('');
+        $('lockPwd1').val('');
+    }
+    var pwd = "";
+
+    function toLock() {
+        //pwd=$('#lockPwd').val();
+        pwd = localStorage.getItem("pwd");
+        $('#locking').hide();
+        $('#locked').show();
+        $('#lockPwd1').val('');
+    }
+
+    function openLock() {
+        if (pwd == $('#lockPwd1').val()) {
+            $('#locking').show();
+            $('#locked').hide();
+            $('#shield').hide();
+        } else {
+            $('#locked').animate({
+                padding: '40px'
+            }, 100);
+            $('#locked').animate({
+                padding: '0px'
+            }, 100);
+            $('#locked').animate({
+                padding: '40px'
+            }, 100);
+            $('#locked').animate({
+                padding: '0px'
+            }, 100);
+            //$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','密码错误!');
+        }
+    }
+
+    function notLock() {
+        $('#shield').hide();
+    }
+
+    function send() {
+        showChat();
+    }
+</script>
+</body>
+<script type="text/javascript" src="js/zk_title_bar-1.0.0.js"></script>
+<script>
+    if (window.zk_Win_X()) {
+        new TitleBar("zk_title", "#333333", "燃脂部落健身场所管理系统", "./css/images/logo.png");
+    } else {
+        console.log('不在应用程序中');
+    }
+</script>
+
+</html>

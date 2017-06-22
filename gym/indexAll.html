@@ -1,0 +1,327 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <!-- <link href="./css/common1.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/webim.css" /> -->
+    <link href="./css/index1.css" rel="stylesheet" />
+</head>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div id="zk_title"></div>
+    <div class="main">
+        <div id="menu">
+            <p id="gymName" class="gymName"></p>
+            <div class="iconArea">
+                <div class="head">
+                    <img id="head" onerror="this.src='images/default.png';" src="loginAction!getQrCode.zk" />
+                </div>
+                <a class="saveQrCode" href="#" onclick="saveQrCode()">下载二维码</a>
+                <!-- <a class="saveQrCode" href="#" onclick="printTable()">下载二维码</a> -->
+            </div>
+            <canvas id="qrCode" class="qrCode"></canvas>
+            <div class="menus">
+                <ul id="menuList" class="menuUl">
+                    <li class="signLi" id="auth1-0">
+                        <div class="bg" data-vl="0">
+                            <a id="superControl" href="javascript:;" onclick="setHtml_1('superControl')">超级入口
+                                <i class="ones"><img src="css/images/superControlNew_1.png" alt=""></i>
+                                <i class="hide twos"><img src="css/images/superControlNew_2.png" alt=""></i>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- <li class="signLi">
+                   <div class="bg" data-vl="0">
+                            <i>
+                                <img class="ones" src="./css/images/signInNew_1.png" alt="">
+                                <img class="twos" src="./css/images/signInNew_2.png" alt="">
+                            </i>
+                            <span>
+                                <img class="right" src="./css/images/remarkSecond_1.png" alt="">
+                                <img class="down" src="./css/images/remarkSecond_2.png" alt="">
+                            </span>
+                       <a href="javascript:;">签到管理</a>
+                   </div>
+                    <ul class="secondMenu">
+                        <li><a class="secondA" onclick="setHtml_1('toSignIn.html')" href="javascript:;"><span>▶&nbsp;</span>进场签到</a></li>
+                        <li><a class="secondA" onclick="setHtml_1('leaveSignIn.html')" href="javascript:;"><span>▶&nbsp;</span>离场签到</a></li>
+                        <li><a class="secondA" onclick="setHtml_1('signInRecord.html')" href="javascript:;"><span>▶&nbsp;</span>签到记录</a></li>
+                    </ul>
+                </li> -->
+                    <li class="signLi" id="auth11-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;" onclick="setHtml_1('customManage')">资源管理
+                            <i class="ones"><img src="css/images/userNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="css/images/userNew_2.png" alt=""></i>
+                        </a>
+                        </div>
+                    </li>
+                   <!--  <li class="signLi" id="auth2">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;" onclick="setHtml_1('userManageNew')">客户管理
+                            <i class="ones"><img src="css/images/userNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="css/images/userNew_2.png" alt=""></i>
+                        </a>
+                        </div>
+                    </li> -->
+
+                    <li class="signLi" id="auth3-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;">体测管理
+                            <i class="ones"><img src="./css/images/bodyDetailNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/bodyDetailNew_2.png" alt=""></i>
+
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                       </a>
+                        </div>
+                         <ul class="secondMenu">
+                            <li id="auth3-1"><a class="secondA" id="bodyDetails" onclick="setHtml_1('bodyDetails')" href="javascript:;"><span>▶&nbsp;</span>体测记录</a></li>
+                            <li id="auth3-2"><a class="secondA" id="resultCourse" onclick="setHtml_1('resultCourse')" href="javascript:;"><span>▶&nbsp;</span>效果达成率</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="signLi" id="auth4-0">
+                        <div class="bg" id="cardManagement" data-vl="0">
+                            <a href="javascript:;">会员管理
+                            <i class="ones"><img src="./css/images/registrationNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/registrationNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+                            </a>
+                        </div>
+                        <ul class="secondMenu">
+                            <li id="auth4-1"><a class="secondA" id="userManageNew" onclick="setHtml_1('userManageNew')" href="javascript:;"><span>▶&nbsp;</span>客户管理</a></li>
+                            <li id="auth4-2"><a class="secondA" id="allCard" onclick="setHtml_1('allCard')" href="javascript:;"><span>▶&nbsp;</span>会员卡管理</a></li>
+                            <li id="auth4-3"><a class="secondA" id="openCard" onclick="setHtml_1('openCard')" href="javascript:;"><span>▶&nbsp;</span>开卡</a></li>
+                            <li id="auth4-4"><a class="secondA" id="stopCard" onclick="setHtml_1('stopCard')" href="javascript:;"><span>▶&nbsp;</span>停卡</a></li>
+                            <li id="auth4-5"><a class="secondA" id="turnCard" onclick="setHtml_1('turnCard')" href="javascript:;"><span>▶&nbsp;</span>转卡</a></li>
+                        </ul>
+                    </li>
+                    <li class="signLi" id="auth5-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;">课程管理
+                            <i class="ones"><img src="./css/images/lessonNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/lessonNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+                       </a>
+                        </div>
+                        <ul class="secondMenu">
+                            <li id="auth5-1"><a class="secondA" id="curriculumManage" onclick="setHtml_1('curriculumManage')" href="javascript:;"><span>▶&nbsp;</span>公开课程管理</a></li>
+                            <li id="auth5-none"><a class="secondA" id="tuanti" onclick="setHtml_1('tuanti')" href="javascript:;"><span>▶&nbsp;</span>社群课程排期</a></li>
+                            <li id="auth5-3"><a class="secondA" id="addPrivateCoachCourse" onclick="setHtml_1('addPrivateCoachCourse')" href="javascript:;"><span>▶&nbsp;</span>课程购买</a></li>
+                            <li id="auth5-4"><a class="secondA" id="privateCourseMange" onclick="setHtml_1('privateCourseMange')" href="javascript:;"><span>▶&nbsp;</span>私教课程</a></li>
+                            <li id="auth5-5"><a class="secondA" id="courseSetting" onclick="setHtml_1('courseSetting')" href="javascript:;"><span>▶&nbsp;</span>私教设置</a></li>
+                            <li id="auth5-7"><a class="secondA" id="teamSetting" onclick="setHtml_1('teamSetting')" href="javascript:;"><span>▶&nbsp;</span>团课设置</a></li>
+                            <li id="auth5-6"><a class="secondA" id="commentManage" onclick="setHtml_1('commentManage')" href="javascript:;"><span>▶&nbsp;</span>学员评价</a></li>
+                        </ul>
+                    </li>
+                    <li class="signLi" id="auth6-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;">消费管理
+                            <i class="ones"><img src="./css/images/storedNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/storedNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                       </a>
+                        </div>
+                        <ul class="secondMenu">
+                            <li id="auth6-1"><a class="secondA" id="storeInput" onclick="setHtml_1('storeInput')" href="javascript:;"><span>▶&nbsp;</span>充值</a></li>
+                            <li id="auth6-2"><a class="secondA" id="storeRecord" onclick="setHtml_1('storeRecord')" href="javascript:;"><span>▶&nbsp;</span>充值记录</a></li>
+                            <li id="auth6-3"><a class="secondA" id="payInput" onclick="setHtml_1('payInput')" href="javascript:;"><span>▶&nbsp;</span>消费</a></li>
+                            <li id="auth6-4"><a class="secondA" id="payRecord" onclick="setHtml_1('payRecord')" href="javascript:;"><span>▶&nbsp;</span>消费记录</a></li>
+                            <li id="auth6-5"><a class="secondA" id="balance" onclick="setHtml_1('balance')" href="javascript:;"><span>▶&nbsp;</span>余额查询</a></li>
+                        </ul>
+                    </li>
+                    <li class="signLi" id="auth10-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;">兑换管理
+                            <i class="ones"><img src="./css/images/duihuan_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/duihuan_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+                       </a>
+                        </div>
+                        <ul class="secondMenu">
+                            <li id="auth10-1"><a class="secondA" id="storeeXchange" onclick="setHtml_1('storeeXchange')" href="javascript:;"><span>▶&nbsp;</span>积分兑换</a></li>
+                            <li id="auth10-2"><a class="secondA" id="storeXchangeRecord" onclick="setHtml_1('storeXchangeRecord')" href="javascript:;"><span>▶&nbsp;</span>兑换记录</a></li>
+                        </ul>
+                    </li>
+                    <li class="signLi" id="auth7-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;">租赁管理
+                            <i class="ones"><img src="./css/images/leaseNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/leaseNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                       </a>
+                        </div>
+                        <ul class="secondMenu">
+                            <li id="auth7-1"><a class="secondA" id="borrowInput" onclick="setHtml_1('borrowInput')" href="javascript:;"><span>▶&nbsp;</span>租赁录入</a></li>
+                            <li id="auth7-2"><a class="secondA" id="borrowRecord" onclick="setHtml_1('borrowRecord')" href="javascript:;"><span>▶&nbsp;</span>租赁归还/管理</a></li>
+                        </ul>
+                    </li>
+                    <li class="signLi" id="auth8-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;" onclick="setHtml_1('articleSend')">文章推送
+                            <i class="ones"><img src="./css/images/articleNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/articleNew_2.png" alt=""></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="signLi" id="auth9-0">
+                        <div class="bg" data-vl="0">
+                            <a href="javascript:;">考勤管理
+                            <i class="ones"><img src="./css/images/attendance_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/attendance_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                        </a>
+                        </div>
+                        <ul class="secondMenu">
+                            <li id="auth9-1"><a class="secondA" id="attendanceRecord" onclick="setHtml_1('attendanceRecord')" href="javascript:;"><span>▶&nbsp;</span>员工考勤记录</a></li>
+                            <li id="auth9-2"><a class="secondA" id="attendanceStatistic" onclick="setHtml_1('attendanceStatistic')" href="javascript:;"><span>▶&nbsp;</span>员工考勤统计</a></li>
+                        </ul>
+                    </li>
+                    <li class="signLi" id="auth0-0">
+                        <div class="bg" id="menuBottom" data-vl="0">
+                            <a href="javascript:;">高级
+                            <i class="ones"><img src="./css/images/incomeNew_1.png" alt=""></i>
+                            <i class="hide twos"><img src="./css/images/incomeNew_2.png" alt=""></i>
+                            <span><img class="right" src="./css/images/remarkSecond_1.png" alt=""></span>
+                            <span><img class="hide down" src="./css/images/remarkSecond_2.png" alt=""></span>
+
+                       </a>
+                        </div>
+                        <ul class="secondMenu" id="lastsclool">
+                            <!-- <li><a class="secondA" id="dataCheck" onclick="setHtml_1('dataCheck')" href="javascript:;"><span>▶&nbsp;</span>数据统计</a></li> -->
+                            <li id="auth0-1"><a class="secondA" id="resultsTotal" onclick="setHtml_1('resultsTotal')" href="javascript:;"><span>▶&nbsp;</span>数据统计</a></li>
+                            <!-- <li><a class="secondA" id="dataSale" onclick="setHtml_1('dataSale')" href="javascript:;"><span>▶&nbsp;</span>会籍业绩统计</a></li>
+                            <li><a class="secondA" id="dataCoach" onclick="setHtml_1('dataCoach')" href="javascript:;"><span>▶&nbsp;</span>私教业绩统计</a></li> -->
+                            <li id="auth0-2"><a class="secondA" id="staffManagement" onclick="setHtml_1('staffManagement')" href="javascript:;"><span>▶&nbsp;</span>员工管理</a></li>
+                            <li id="auth0-3"><a class="secondA" id="roleManagement" onclick="setHtml_1('roleManagement')" href="javascript:;"><span>▶&nbsp;</span>角色管理</a></li>
+                            <li id="auth0-4"><a class="secondA" id="cardManage" onclick="setHtml_1('cardManage')" href="javascript:;"><span>▶&nbsp;</span>卡种管理</a></li>
+                            <li id="auth0-5"><a class="secondA" id="gameManage" onclick="setHtml_1('gameManage')" href="javascript:;"><span>▶&nbsp;</span>比赛管理</a></li>
+                            <li id="auth0-6"><a class="secondA" id="evalManage" onclick="setHtml_1('evalManage')" href="javascript:;"><span>▶&nbsp;</span>评价管理</a></li>
+                            <li id="auth0-7"><a class="secondA" id="accountManageNew" onclick="setHtml_1('accountManageNew')" href="javascript:;"><span>▶&nbsp;</span>账户管理</a></li>
+                            <li id="auth0-8"><a class="secondA" id="appImgChange" onclick="setHtml_1('appImgChange')" href="javascript:;"><span>▶&nbsp;</span>app封面管理</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="function" style="cursor:pointer;">
+                <div class="actionAbort" style="" onclick="takeOut()"></div>
+                <div class="actionlock" style="" onclick="lock()"></div>
+                <div id="actionSend" class="actionSend" style="" onclick="showChatBox()">
+                    <div id="newMsg"></div>
+                </div>
+            </div>
+        </div>
+        <div id="contentIndex">
+            <a id="printButton" href="javascript:;" onclick="printTable()"> <img src="images/print.png" alt="">&nbsp;打印</a>
+            <iframe id="pageFrame" width="100%" height="100%" src="" style="border: 0;"></iframe>
+        </div>
+    </div>
+    <div id="chatBox">
+        <div id="chatLeft">
+            <div class="chat-title">聊天</div>
+            <div class="chat-content">
+                <div id="chatUsers">
+                    <!-- 用户列表展示 -->
+                </div>
+            </div>
+        </div>
+        <div id="chatRight">
+            <div class="chat-title"></div>
+            <div id="boxClose"></div>
+            <div class="chat-content" id="chatContents">
+            <!-- 聊天内容展示 -->
+            </div>
+            <div class="chat-bottom">
+                <div class="chat-tools">
+                    <a href="javascript:;" id="chatEmo"><img src="images/chatEmo.png" title="表情"></a>
+                    <a href="javascript:;" id="chatComm"><img src="images/chatComm.png" title="常用语"></a>
+                    <a href="javascript:;" id="chatPic"><img src="images/chatPic.png" title="发送图片"></a>
+                    <input type="file" style="display:none;" id="fileImg" name="name" onchange="sendPic()" accept="image/*" />
+                </div>
+                <textarea id="chatInput" rows="3" placeholder=""></textarea>
+                <a href="javascript:;" id="chatSend">发送</a>
+            </div>
+            <div class="chat-float" id="chatEmoji"></div>
+            <div class="chat-float" id="chatQuicks">
+                <div class="chat-float-top">
+                    <div id="quickContent">
+                    <!-- 常用语展示 -->
+                    </div>
+                </div>
+                <div class="chat-float-bottom">
+                    <input type="text" id="quickInput"><a href="javascript:;" id="quickAdd"><img src="images/chatAdd.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="shield" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9900;display:none;background:#040404 url(img/loginBg.jpg) no-repeat center top;background-size: cover;" onclick="shield()">
+        <div id="locking" style="width:200px;height:200px;text-align:center;margin:300px auto auto auto;color:#fff">
+            <h3 style="text-align: center;width: 100%;">确认是否锁屏？</h3>
+            <!--
+      <input id="lockPwd" type="password"style="width:200px;height:30px;line-height:30px;font-size:16px;border-color:#202020;">
+      -->
+            <div class="button" style="width: 100%; height: 30px; margin-top:40px;padding-top: 0px; text-align:center;">
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="notLock()" style="width: 80px;margin-right:20px;background: rgba(255,255,255,0.1); "><span style="color:#fff;">取&nbsp;&nbsp;消</span></a>
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="toLock()" style="width: 80px;background: #3fc370; "><span style="color:#fff;">锁&nbsp;&nbsp;屏</span></a>
+            </div>
+        </div>
+        <div id="locked" style="width:240px;height:200px;text-align:center;margin:300px auto auto auto;color:#fff;display:none;">
+            <h3>请输入登陆密码解锁</h3>
+            <input id="lockPwd1" type="password" style="width:200px;height:30px;line-height:30px;font-size:14px;border: 0;background: rgba(255,255,255,0.1);color:#fff;" placeholder="请输入登录密码">
+            <div class="button" style="width: 100%; height: 30px; margin-top:40px;padding-top: 0px; text-align:center;">
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="openLock()" style="width: 100px;background: #3fc370; color: #EDC609;"><span style="color:#fff;">解&nbsp;&nbsp;锁</span></a>
+            </div>
+        </div>
+    </div>
+    <div style="position:absolute;left:0;top:0;width:200px;height:100px;display:none;">
+        <audio id="audioPrompt" controls="controls">
+            <source src="images/song.ogg" type="audio/ogg">
+            <source src="images/song.mp3" type="audio/mpeg">
+        </audio>
+        <a onclick="play()">播放</a><a onclick="pause()">暂停</a>
+    </div>
+    <div id="iframeInfo" class="easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;用户详情" style="width: 320px; height:568px;" closed="true" data-options="modal:true">
+        <iframe id="iframeCont" src="" height="99%" width="100%" frameborder="0"></iframe>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <!-- 聊天的js -->
+    <script type="text/javascript" src="js/strophe-custom-2.0.0.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+    <script type="text/javascript" src="js/easemob.im-1.0.7.js"></script>
+    <script type="text/javascript" src="js/jQuery.Hz2Py-min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script src="zk_community.js"></script>
+    <script type="text/javascript" src="js/chatNew.js"></script>
+    <script src="js/jquery.jqprint-0.3.js"></script>
+    <script src="js/index1.js"></script>
+</body>
+<script type="text/javascript" src="js/zk_title_bar-1.0.0.js"></script>
+<script>
+if (window.zk_Win_X()) {
+    new TitleBar("zk_title", "#333333", "燃脂部落健身场所管理系统", "./css/images/logo.png");
+} else {
+    console.log('不在应用程序中');
+}
+</script>
+
+</html>

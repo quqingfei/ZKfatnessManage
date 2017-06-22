@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/cardManage.css" />
+</head>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：高级 > 卡种管理
+        </div>
+        <!-- <div style="background-color:#E8E8E8;"> -->
+        <div class="toolbar" style="position: relative;padding: 8px 10px;background: #373737;border-bottom: 1px solid #252525;border-radius: 5px 5px 0 0;">
+            <table>
+                <tr>
+                    <td id="filter" style="padding-right:10px;border:none;height:30px;">
+                        <!--筛选：-->
+                        <select id="memberCard" class="easyui-combobox" data-options="editable:false, valueField: 'value',
+		textField: 'text',
+		data: [{
+			text: '全部',
+			value: '',
+			selected:true
+		},{
+			text: '时效卡',
+			value: '0'
+		},{
+			text: '次卡',
+			value: '1'
+		}]" style="width: 100px;height:30px;">
+                        </select>
+                    </td>
+                    <td style="padding-right:10px;">
+                        <input id="txt_word" class="easyui-searchbox" style="width: 250px;height:30px;border:0;" data-options="prompt:'请输入会员卡名称',searcher:searchMemberCard" />
+                    </td>
+                     <td style="padding-right:10px;border:none;height:30px;">
+                        <!--筛选：-->
+                        <select id="isJia" class="easyui-combobox" data-options="editable:false, valueField: 'value',
+        textField: 'text',
+        data: [{
+            text: '上架',
+            value: 'y',
+            selected:true
+        },{
+            text: '下架',
+            value: 'n'
+        },{
+            text: '全部',
+            value: ''
+        }]" style="width: 60px;height:30px;">
+                        </select>
+                    </td>
+                    <div style="float:left;width:210px;height:30px;margin-left:20px;padding-top: 3px;float: right;">
+                        <div id="addDetail" class="detail" style="" onclick="newMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">添加</span>
+                        </div>
+                        <div id="editDetail" class="detail" style="" onclick="editMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/editNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">编辑</span>
+                        </div>
+                        <div id="delDetail" class="detail" style="" onclick="destroyMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/deleteNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">删除</span>
+                        </div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+        <div style="position: absolute;top: 95px;bottom: 0;left: 0;width: 100%;">
+            <!-- body -->
+            <table id="dg" style="width:100%;height:100%;" rownumbers="true" >
+                <thead>
+                    <tr>
+                        <!--rownumbers:true,<th data-options="field:'id',checkbox:false,width:$('#showMessage').width()*0.02" ></th>-->
+                        <th style="white-space: nowrap" data-options="field:'name',align:'center',">会员卡名称</th>
+                        <!-- width:$('#showMessage').width()*0.2 -->
+                        <th style="white-space: nowrap" data-options="field:'type',align:'center',formatter:formatType,">会员卡类型</th>
+                        <th style="white-space: nowrap" data-options="field:'weight',align:'center'">会员卡排序</th>
+                        <!-- width:$('#showMessage').width()*0.2 -->
+                        <th style="white-space: nowrap" data-options="field:'count',align:'center',formatter:formatAdd,">总时间/次数</th>
+                        <!-- width:$('#showMessage').width()*0.1 -->
+                        <th style="white-space: nowrap" data-options="field:'price',align:'center',">价格</th>
+                        <th style="white-space: nowrap" data-options="field:'minPrice',align:'center',">底价</th>
+                        <th style="white-space: nowrap" data-options="field:'isShowApp',align:'center',formatter:formatShow">状态</th>
+                        <!-- width:$('#showMessage').width()*0.1 -->
+                        <th style="white-space: nowrap" data-options="field:'image',align:'center',sortable:true,formatter:formatImage,">会员卡展示</th>
+                        <th style="white-space: nowrap" data-options="field:'totleSaleCount',align:'center',sortable:true,">销售数量</th>
+                        <th style="white-space: nowrap" data-options="field:'totleSalePrice',align:'center',sortable:true,">销售额</th>
+                        <th data-options="field:'remark',align:'center',resizable:'true',formatter: formatRemark">备注</th>
+                        <th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter: formatDate,sortable:true,">新建时间</th>
+                        <!-- <th style="white-space: nowrap" data-options="field:'gmtModify',align:'center',formatter: formatDate,sortable:true,">修改时间</th> -->
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlg" class="easyui-dialog" style="width: 450px;padding: 10px 20px" closed="true" data-options="modal:true">
+                <!--  buttons="#dlg-buttons" 
+                <!-- <div class="ftitle">健身课程信息</div>
+                <form id="fm" method="post">
+                    <!--<input id="id" type="hidden" />-->
+                    <div class="fitem">
+                        <label>会员卡名称:</label>
+                        <input name="name" id="name" class="easyui-textbox" data-options="prompt:'请输入会员卡名称'"/>
+                    </div>
+                    <div class="fitem">
+                        <label>会员卡排序:</label>
+                        <select id="weight" name="weight" class="easyui-combobox" style="width:164px;" data-options="editable:false,valueField: 'value', textField: 'text', prompt:'请设置会员卡排序'" ></select>
+                    </div>
+                    <div class="fitem">
+                        <label>状态:</label>
+                        <select id="isShowApp" name="isShowApp" class="easyui-combobox" style="width:164px;" data-options="editable:false,prompt:'请设置会员卡上架状态'">
+                            <option value="y">上架</option>
+                            <option value="n">下架</option>
+                        </select>
+                    </div>
+                    <div class="fitem">
+                        <label>类型:</label>
+                        <select id="type" name="type" class="easyui-combobox" style="width:164px;" data-options="editable:false,">
+                            <option value="cycle">时效卡</option>
+                            <option value="times">次卡</option>
+                        </select>
+                    </div>
+                    <div class="fitem" style="display:none;" id="unitDiv">
+                        <label  style="">时间:</label>
+                        <input type="text" name="cycleNum" id="cycleNum" style="width:71px;" class="easyui-textbox" value="" data-options="prompt:'填写数字'" />
+                        <!--<input name="unit" id="unit" class="easyui-textbox" />-->
+                        <select id="unit" name="unit" class="easyui-combobox" style="width:89px;" data-options="editable:false">
+                            <option value="y">年</option>
+                            <option value="M">月</option>
+                            <option value="d">天</option>
+                        </select>
+                    </div>
+<!--
+                    <div class="fitem" id="cycleDiv" style="display:none;">
+                        <label>时间长度:</label>
+                        
+                    </div>
+-->
+                    <div class="fitem" id="timesDiv">
+                        <label>次卡(次):</label>
+                        <!--<select id="times" name="times" class="easyui-combobox" style="width:164px;" data-options="">
+					<option value="40">40</option>
+					<option value="50">50</option>
+				</select>-->
+                        <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="times" id="times" value="" class="easyui-textbox"  data-options="prompt:'请输入会员卡次数'" />
+                    </div>
+                    <div class="fitem">
+                        <label>价格(元):</label>
+                        <input name="price" id="price" class="easyui-textbox" data-options="prompt:'请输入金额'" />
+                    </div>
+                    <div class="fitem">
+                        <label>底价(元):</label>
+                        <input name="minPrice" id="minPrice" class="easyui-textbox" data-options="prompt:'请输入底价'" />
+                    </div>
+                    <div class="fitem">
+                        <label>会员卡备注:</label>
+                        <input name="remark" id="remark" class="easyui-textbox" data-options="prompt:'请输入备注，100字以内'" />
+                    </div>
+                    <div class="fitem" style="position:relative;height:110px;margin-bottom:0px;">
+                        <label>会员卡展示:</label>
+                        <!-- <div>  -->
+                          <select id="chooseCard" class="easyui-combobox" data-options="editable:false, valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '模板一',
+                                value: '1'
+                            },{
+                                text: '模板二',
+                                value: '2'
+                            },{
+                                text: '模板三',
+                                value: '3'
+                            },{
+                                text: '自定义',
+                                value: '4'
+                            }]" style="width: 164px;height:22px;">
+                        </select>
+                        <!-- </div> -->
+                        <input name="image" id="image" value="" type="hidden">
+                        <div class="chooseimg"></div>
+                        <div id="showImgDiv" style="position:absolute;width: 160px; height:83px;left: 83px;top:25px;cursor: pointer;display:none;">
+                            <img id="imghead" class="" src="images/yun.png" alt="会员卡图片" style="display: block;width:auto;max-width: 100%;height:100%;cursor: pointer;" onclick="chooseImage2('file_title_img')" title="点击选择图片" />
+                        </div>
+                    </div>
+                </form>
+                <form id="title_img_form" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                </form>
+                <div class="button" style="width:100%;height:50px;padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')" style="width: 90px; background:#ddd;margin-left:99px; margin-right:45px;border-radius:3px;"><span style="color:#999;">取消</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveMemberCard()" style="width:90px;background:#3fc370;border-radius:3px; "><span style="color:#fff;">确定</span></a>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/cardManage.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

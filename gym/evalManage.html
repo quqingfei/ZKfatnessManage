@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/gameManage.css" />
+</head>
+<style type="text/css">
+    .tongzhi {
+    float: left;
+    font-size: 14px;
+    cursor: pointer;
+    height: 31px;
+    line-height: 31px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.sendImg {
+    height: 17px;
+    vertical-align: text-bottom;
+}
+</style>
+<body onselectstart="return false" oncontextmenu="return false">
+    <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：高级 > 评价管理
+        </div>
+        <!-- <div style="background-color:#E8E8E8;"> -->
+        <div id="toolbar" style="position: relative;padding: 8px 10px;background: #373737;border-bottom: 1px solid #252525;border-radius: 5px 5px 0 0;">
+            <table>
+                <tr>
+                    <td>
+                        <!-- <input id="txt_word" class="easyui-searchbox" style="width: 250px;height:30px;border:0;" data-options="prompt:'请输入比赛类型',searcher:searchMemberCard" /> -->
+                        <div class="private-search" style="line-height: 25px;display: inline-block;height: 25px;vertical-align: middle;font-size:14px;color:#fff;">
+                            <label for="privateSearch">&nbsp;&nbsp;教练&nbsp;&nbsp;</label>
+                            <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 27px;line-height: 27px;width: 100px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+                        </div>
+                        <div class="private-search" style="line-height: 25px;display: inline-block;height: 25px; margin-left:10px; vertical-align: middle;font-size:14px;color:#fff;">
+                            <select id="Year" class="easyui-combobox" style="height: 26px;line-height: 26px;width: 90px;padding-left:5px"  data-options="editable:false">
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                            </select>
+                            <label for="privateSearch">&nbsp;&nbsp;年&nbsp;&nbsp;</label>
+                        </div>
+                        <div class="private-search" style="line-height: 25px;display: inline-block;height: 25px;vertical-align: middle;font-size:14px;color:#fff;">
+                            <select id="Month" class="easyui-combobox" style="height: 25px;line-height: 25px;width: 90px;padding-left:5px"  data-options="editable:false">
+                                <option value="">全部</option>
+                                <option value="1">1月</option>
+                                <option value="2">2月</option>
+                                <option value="3">3月</option>
+                                <option value="4">4月</option>
+                                <option value="5">5月</option>
+                                <option value="6">6月</option>
+                                <option value="7">7月</option>
+                                <option value="8">8月</option>
+                                <option value="9">9月</option>
+                                <option value="10">10月</option>
+                                <option value="11">11月</option>
+                                <option value="12">12月</option>
+                            </select>
+                            <label for="privateSearch">&nbsp;&nbsp;月&nbsp;&nbsp;</label>
+                        </div>
+                    </td>
+                    <div style="float:left;width:236px;height:30px;margin-left:20px;padding-top: 3px;float: right;">
+                        <div id="seeDetail" class="detail" style="" onclick="openIframe()">
+                            <div style="float:left;"><img alt="" src="images/editNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">教练平均分</span>
+                        </div>
+                        <div class="detail" onclick="openSend()"><img alt="" class="sendImg" src="images/message.png"><span style="margin-left:5px;">推送月度评价</span></div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+        <div style="position: absolute;top: 95px;bottom: 0;left: 0;width: 100%;">
+            <!-- body -->
+            <table id="dg" style="width:100%;height:100%;" rownumbers="true" data-options="singleSelect:true,pagination:true">
+                <thead>
+                    <tr>
+                        <!--rownumbers:true,<th data-options="field:'id',checkbox:false,width:$('#showMessage').width()*0.02" ></th>-->
+                        <th style="white-space: nowrap" data-options="field:'evaluation_msg',align:'center',formatter:formaterMsg">评价内容</th>
+                        <th style="white-space: nowrap" data-options="field:'userName',align:'center'">教练昵称</th>
+                        <th style="white-space: nowrap" data-options="field:'realName',align:'center'">教练姓名</th>
+                        <!-- width:$('#showMessage').width()*0.2 -->
+                         <th style="white-space: nowrap" data-options="field:'professional',align:'center',">专业评价</th>
+                        <th style="white-space: nowrap" data-options="field:'service',align:'center',">服务评价</th>
+                        <th style="white-space: nowrap" data-options="field:'gmt_create',align:'center',formatter:formatTime">评价时间</th>
+                        <!-- width:$('#showMessage').width()*0.1 -->
+                        <!-- width:$('#showMessage').width()*0.1 -->
+                       
+                        <!-- <th style="white-space: nowrap" data-options="field:'joinTotle',align:'center',sortable:true,">参加人数</th> -->
+                        <!-- <th style="white-space: nowrap" data-options="field:'isAudited',align:'center',sortable:true,formatter:formatState">状态</th> -->
+                        <!-- <th style="white-space: nowrap" data-options="field:'id',align:'center',sortable:true,formatter:formatInfo">详情</th> -->
+                        <!--<th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter: formatDate,sortable:true,">注册时间</th><!-- width:($('#showMessage').width()-30)* 0.18 -->
+                        <!--<th style="white-space: nowrap" data-options="field:'gmtModify',align:'center',formatter: formatDate,sortable:true,">修改时间</th><!-- width:($('#showMessage').width()-30)* 0.18 -->
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlg" class="easyui-dialog" style="width:350px; height: 400px; padding: 20px" closed="true" data-options="modal:true">
+                <form id="fm" method="post">
+                    <div class="fitem">
+                        <label>比赛类型:</label>
+                        <input name="gameMod" id="gameMod" class="easyui-combobox" value="" style="height: 25px;line-height: 25px;width: 164px;" data-options="editable:false,prompt:'请选择比赛类型'">
+                    </div>
+                    <div class="fitem">
+                        <label for="">比赛简介:</label>
+                        <textarea name="gameInfo" rows="2" id="gameInfo" value="" class="gameAuto" disabled="disabled"></textarea>
+                    </div>
+                    <div class="fitem">
+                        <label for="">比赛封面:</label>
+                        <div id="showImgDiv" style="width: 164px; height:66px;cursor: pointer;display:inline-block;">
+                            <img id="imghead" class="" src="../file/FileCenter!showImage2.zk?name=2016623-202647299.jpg" alt="会员卡图片" style="display: block;width:auto;max-width: 100%;height:100%;cursor: pointer;" onclick="chooseImage2('file_title_img')" title="点击选择图片" />
+                        </div>
+                    </div>
+                    <div class="fitem">
+                        <span style="display: block;color:#999; margin-top:5px; line-height:18px;text-align: center;">上图为默认封面，点击图片可自定义封面。建议尺寸比例：1000x400.</span>
+                    </div>
+                    <div class="fitem">
+                        <label for="">规则链接:</label>
+                        <textarea name="gameUrl" rows="3" id="gameUrl" value="" class="" placeholder="(选填)请将文章推荐中编辑好的链接地址复制到此处"></textarea>
+                    </div>
+                    <div class="fitem">
+                        <label for="">所需器材:</label>
+                        <input name="gameEquip" id="gameEquip" class="easyui-combobox" value="" style="height: 25px;line-height: 25px;width: 164px;" data-options="editable:false,prompt:'请选择器材'">
+                    </div>
+                    <div class="fitem">
+                        <label>时长(分钟):</label>
+                        <input type="text" name="cycleNum" id="cycleNum" class="easyui-textbox" style="height: 25px;line-height: 25px;width: 164px;" value="" data-options="prompt:'请输入比赛时长'" />
+                    </div>
+                    <div class="fitem">
+                        <label>开始时间:</label>
+                        <input id="startDate" placeholder="请输入比赛开始时间" style="margin-left: 0px;margin-right: 0px;padding-top: 4px;padding-bottom: 4px;width: 156px;border: 1px solid #ccc;padding-left: 5px;background-color: #fff;" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD hh:mm:ss',istime:true})"  readonly="readonly">
+                    </div>
+                    <div class="fitem">
+                        <label>结束时间:</label>
+                        <input id="endDate" placeholder="请输入比赛结束时间" style="margin-left: 0px;margin-right: 0px;padding-top: 4px;padding-bottom: 4px;width: 156px;border: 1px solid #ccc;padding-left: 5px;background-color: #fff;" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD hh:mm:ss',istime:true})"  readonly="readonly">
+                    </div>
+                </form>
+                <input name="image" id="image" value="2016623-202647299.jpg" type="hidden">
+                <form id="title_img_form" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                </form>
+                <div class="button">
+                    <a href="javascript:void(0)" class="easyui-linkbutton sit" onclick="javascript:$('#dlg').dialog('close')"><span style="color:#999;">取消</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6 sit sits" onclick="saveMemberCard()"><span style="color:white;">确定</span></a>
+                </div>
+            </div>
+            <!-- 发送消息 -->
+            <div id="dlgSend" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;text-align:center;">
+                        <div>即将推送月度评价！</div>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="sendMonthEval();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确定推送</span></a>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div id="iframeInfo" class="easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;比赛详情" style="width: 300px; height:100px;" closed="true" data-options="modal:true">
+                <div style="line-height:32px"><label>&nbsp;&nbsp;平均专业评价: &nbsp;&nbsp;<span id="pro"></span></label></div>
+                <div style="line-height:18px"><label>&nbsp;&nbsp;平均服务评价: &nbsp;&nbsp;<span id="server"></span></label></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>ge
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <!--<script src="js/gameManage.js" type="text/javascript" charset="utf-8"></script>-->
+     <script src="js/evalManage.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

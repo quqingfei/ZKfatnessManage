@@ -1,0 +1,83 @@
+@charset "utf-8";
+html{ /*font-size:62.5%;*/ width:100%; height:100%;  }
+body{ padding:0px; margin:0px auto; /*font-size:1.6em;*/ font-size:16px; font-family: Microsoft YaHei,arial,'宋体'; color:#585858;  background:#fff;  
+-webkit-text-size-adjust:none;
+-webkit-text-size-adjust:none; /*禁用Webkit内核浏览器的文字大小调整功能*/
+-webkit-tap-highlight-color:rgba(0,0,0,0); -webkit-tap-highlight:rgba(0,0,0,0); /*取出点击出现半透明的灰色背景*/
+-webkit-user-select: none;  /*控制内容的可选择性*/
+-ms-user-select: none;
+-moz-user-select: none;
+-khtml-user-select: none;
+user-select: none;
+-webkit-font-smoothing: antialiased;  /*设置字体的抗锯齿或者说光滑度*/
+width:100%; height:100%;
+}
+ul,li,form, dl,dt,dd, div{ padding:0px; margin:0px;}
+ul,ul li{ list-style:none; margin: 0;}
+.h1,.h2,.h3,.h4,.h5,.h6,.p{ padding:0px; margin:0px;}
+select,input,em,textarea{ font-size:1em; font-style:normal; color:#585858; font-family:Microsoft YaHei; border-radius:0; -webkit-border-radius:0;}
+img,object{ border:none; width:100%; max-width:100%; border:0; overflow:hidden; vertical-align:top;}
+a{ color:#585858; text-decoration:none; noline:-webkit-tap-highlight-color:rgba(0,0,0,0);} 
+*{outline:0;}
+
+
+.income{width:100%; height:100%;  }
+.income .income_top{width:100%; height:40%;}
+.Month_left{width:40%; height:100%; background:#fbfbfb; float: left; overflow: hidden; position:relative;border-right: 1px solid #eee;}
+.Month_left .Month_tit{width:100%; height:50px; background-color:#40c3d3;}
+.Month_tit{position: absolute;left: 0;top: 0;}
+.Month_tit img{width:36px; margin:6px 10px;  float: left; }
+.Month_tit .select{width:30%; height:32px; margin:9px 0 0 0px; float: left; border:none; 
+ border-radius:3px;background-color: #fff;padding-left: 5px; }
+.Month_tit span{float: right;line-height: 50px; font-size:18px;   color:#fff; margin-right: 10px;  }
+.Month_money{ height: 80px;line-height: 80px; position: relative;top: 50%;margin-top: -40px;}
+.Month_money span{ display: block; text-align: center; width:100%; color:#40c3d3; font-size:40px;    }
+.types{width:100%; height:40px; position: absolute;bottom: 0;left: 0; }
+.types div{float:left; width:33.33%; height:100%;    }
+.types div a{ display: block;  color:#fff; font-size:14px;padding-left:3.3%; line-height:40px; text-decoration: none; }
+.types .ty1{ background:url(./images/icon_more.png) no-repeat 94% 50%; background-color:#42d5bf; }
+.types .ty2{ background:url(./images/icon_more.png) no-repeat 94% 50%; background-color:#38af64; }
+.types .ty3{ background:url(./images/icon_more.png) no-repeat 94% 50%; background-color:#89c33c; }
+
+.Month_right{width:58%; float: right; height: 100%; overflow: hidden;}
+.Month_right ul{height:100%; overflow: hidden; width:100%;  }
+.Month_right li{background:#42d5bf; width:49%; height:48%; display: block; float: left;position: relative;} 
+.Month_right li span{display: block; float: right; font-size:24px; color:#fff; width:96%; text-align: right; padding-right:4%; margin:3% 0;   }
+.Month_right li font{display: block; float: right; font-size:16px; color:#fff; width:96%; text-align: right; padding-right:4%;  }
+.Month_right li.n1{ background:url(./images/icon_2.png) no-repeat 3% 10%;  background-color:#42d5bf; margin-bottom:1%; }
+.Month_right li.n2{ background:url(./images/icon_3.png) no-repeat 3% 10%; background-color:#3ec370; margin-bottom:1%;margin-left: 2%; }
+.Month_right li.n3{ background:url(./images/icon_4.png) no-repeat 3% 10%; background-color:#99d944;margin-top: 1%;}
+.Month_right li.n4{ background:url(./images/icon_5.png) no-repeat 3% 10%; background-color:#fdcf30;margin-left: 2%;margin-top: 1%;}
+
+.Month_right li.n1 .view{width:100%;height:40px;line-height: 40px; background:#3abfab;  position: absolute; bottom: 0px; }
+.Month_right li.n1 .view a{color:#fff; }
+.Month_right li.n1 .chak{float: left;  padding-left:2%;  }
+.Month_right li.n1 .zhas{float: right; margin-right: 10px; padding-right:28px;  background:url(./images/icon_more.png) no-repeat center right; }
+
+.Month_right li.n2 .view{width:100%; height:40px;line-height: 40px; background:#38af64;  position: absolute; bottom: 0px; }
+.Month_right li.n2 .view a{color:#fff; }
+.Month_right li.n2 .chak{float: left;  padding-left:2%;  }
+.Month_right li.n2 .zhas{float: right;  margin-right: 10px; padding-right:28px;  background:url(./images/icon_more.png) no-repeat center right; }
+
+.Month_right li.n3 .view{width:100%; height:40px;line-height: 40px; background:#89c33c;  position: absolute; bottom: 0px;left: 0; }
+.Month_right li.n3 .view a{color:#fff; }
+.Month_right li.n3 .chak{float: left; padding-left:2%;  }
+.Month_right li.n3 .zhas{float: right;  margin-right: 10px; padding-right:28px;  background:url(./images/icon_more.png) no-repeat center right;  }
+
+.Month_right li.n4 .view{width:100%; height:40px;line-height: 40px; background:#e3bb2c;  position: absolute; bottom: 0px; }
+.Month_right li.n4 .view a{color:#fff; }
+.Month_right li.n4 .chak{float: left;  padding-left:2%;  }
+.Month_right li.n4 .zhas{float: right;  margin-right: 10px; padding-right:28px; background:url(./images/icon_more.png) no-repeat center right; }
+
+.income .income_bottom{width:100%; height:56%; margin-top:1%; }
+.Accounting{width:40%; height:100%; float: left; overflow: hidden; background:#f9fafa;  }
+.Accounting .title{width:100%; height:10%; background-color:#eeeded;     }
+.Accounting .title span{color:#000; padding-top:1.8%; padding-left:2%;  display: block;  }
+
+.open{width:59%; height:100%; float:right; overflow: hidden;}
+.Details{height:48%; width:100%;  background-color:#f9fafa;  }
+.Details .title{width:100%; height:20%; background-color:#eeeded;  }
+
+.field{height:48%; width:100%;  background-color:#f9fafa; margin-top:2%;   }
+.field .title{width:100%; height:20%; background-color:#eeeded;  }
+#laydate_table,#startDateday,#startDatecoachday,#otherTimeDay,#laydate_today{display: none;}

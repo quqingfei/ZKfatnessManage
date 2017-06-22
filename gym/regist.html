@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css">
+    <link rel="stylesheet" href="css/icon.css">
+    <link rel="stylesheet" href="css/regist.css">
+</head>
+
+<body style="position:relative;" onselectstart="return false" oncontextmenu="return false">
+    <div id="hideDiv" class="center-region" style="position:absolute;width:100%;height:100%;float:left;top:0px;left:0px;background-color:#fff;z-index:9999;background:url('images/reg_bg.jpg');">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div style="width:750px;margin:0 auto;padding-top: 80px;">
+        <div style="padding:10px;text-align: center;font-size: 24px;font-weight: bold;color:#FFD600;border-bottom: 1px solid #F7F7F7;margin-bottom: 30px;margin-top: 0px;">
+            注册健身房
+        </div>
+        <form id="fm" method="post" novalidate>
+            <div class="step step1">
+                <div class="item">
+                    <label>登录名:</label>
+                    <input type="text" name="loginName" id="loginName" autocomplete="off">
+                </div>
+                <div class="item">
+                    <label>密码:</label>
+                    <input type="password" name="pwd" id="pwd" autocomplete="off">
+                </div>
+                <div class="item">
+                    <label>健身房名称:</label>
+                    <input type="text" name="gymName" id="gymName">
+                </div>
+                <div class="item">
+                    <label>健身房法人:</label>
+                    <input type="text" name="admin" id="admin">
+                </div>
+                <!-- <div class="item">
+        <label>提现账户名:</label>
+        <input type="text" name="zfbName" id="zfbName" >
+        
+        <label>提现账户:</label>
+        <input type="text" name="zfbAccount" id="zfbAccount" >
+    </div> -->
+                <div class="item">
+                    <label>营业执照编号:</label>
+                    <input type="text" name="businessNo" id="businessNo">
+                </div>
+                <div class="item">
+                    <label>营业时间:</label>
+                    <input type="hidden" name="businessHours" id="businessHours">
+                    <div style="display:inline-block;width: 220px;height: 35px;line-height: 35px;border: 0px;background:#fff;color:#000;">
+                        <input name="courseTime1" id="courseTime1" class="easyui-timespinner" style="padding-left: 10px;width:80px;height:32px;text-align:center;">
+                        <span style="margin:5px;">—</span>
+                        <input name="courseTime2" id="courseTime2" class="easyui-timespinner" style="padding-left: 10px;width:80px;height:32px;">
+                    </div>
+                </div>
+                <div class="item">
+                    <label>手机号:</label>
+                    <input type="text" name="adminPhone" id="adminPhone">
+                </div>
+                <div class="item">
+                    <label>验证码:</label>
+                    <input type="text" name="code" id="code" style="width: 87px;">
+                    <a id="codeClick" class="common_btn yellow" href="#" style="width:100px;height: 35px;line-height: 35px;vertical-align: top;" onclick="toCode()">获取验证码</a>
+                </div>
+            </div>
+            <div class="step step2">
+                <div class="item">
+                    <div id="l-map"></div>
+                </div>
+                <div class="item">
+                    <label>地址:</label>
+                    <input type="text" name="address" id="address" style="width:528px;" placeholder="">
+                    <input type="text" name="gpsX" id="gpsX" style="display:none;">
+                    <input type="text" name="gpsY" id="gpsY" style="display:none;">
+                    <div id="searchResultPanel" style="border:1px solid #C0C0C0;height:auto; display:none;"></div>
+                </div>
+                <div class="item" style="position:relative;">
+                    <label>服务设施:</label>
+                    <input type="hidden" name="serviceFacility" id="serviceFacility" style="width:530px;">
+                    <input type="text" name="serviceFacility1" id="serviceFacility1" disabled="disabled" style="width:528px;background:#fff;">
+                    <img alt="" src="images/addService.png" style="position:absolute;width:16px;height:16px;top:9.5px;left:675px;cursor:pointer;" onclick="addService()">
+                </div>
+                <div class="item">
+                    <label style="position:relative;vertical-align:top;">简介:</label>
+                    <textarea name="description" id="description" wrap="virtual" style="resize:none;width: 528px;height: 70px;line-height:20px;outline:none;padding:10px;border: 0;"></textarea>
+                </div>
+            </div>
+            <div class="step step3">
+                <div class="item" style="position: relative;">
+                    <label style="float:left;height: 30px;line-height: 30px;margin-top: 35px;">资质:</label>
+                    <input name="certification" id="certification" class="" type="hidden">
+                    <div id="scroll" style="width: 460px; height: 100px; margin-left: 145px; border: 0px solid #929292;">
+                        <div id="image_container" style="position: relative; width: auto; height: 100px; overflow-x: hidden; overflow-y: hidden;">
+                            <div id="addCertificate" style="position: absolute; top: 0px; left: 0px; float: left; width: 90px; height: 90px; margin-top: 5px; margin-left: 2px; cursor: pointer; background: url(images/yun.png) no-repeat; background-size: 100% 100%;" onclick="chooseImage('image_file')"></div>
+                        </div>
+                    </div>
+                    <div class="leftTo" style="position: absolute; width: 10px; height: 18px; left: 105px; top: 41px; cursor: pointer; background: url(images/registLeft.png) no-repeat; background-size: 100% 100%;" onclick="leftTo('')"></div>
+                    <div class="rightTo" style="position: absolute; width: 10px; height: 18px; left: 625px; top: 41px; cursor: pointer; background: url(images/registRight.png) no-repeat; background-size: 100% 100%;" onclick="rightTo('')"></div>
+                </div>
+                <div class="item" style="position:relative;">
+                    <label style="float:left;height: 30px;line-height: 30px;margin-top: 35px;">封面:</label>
+                    <input name="cover" id="cover" type="hidden">
+                    <!-- <div style="position:absolute;width:90px; height: 90px;left: 147px;top:0px;cursor: pointer;" onclick="chooseImage('file_title_img')" title="点击选择图片">
+                        <img id="imghead" src="images/yun.png" alt="" style="width:100%; max-height: 100%; height: auto" />
+                    </div> -->
+                    <div id="scroll2" style="width: 460px; height: 100px; margin-left: 145px; border: 0px solid #929292;">
+                        <div id="image_container2" style="position: relative; width: auto; height: 100px; overflow-x: hidden; overflow-y: hidden;">
+                            <div id="addCertificate2" style="position: absolute; top: 0px; left: 0px; float: left; width: 90px; height: 90px; margin-top: 5px; margin-left: 2px; cursor: pointer; background: url(images/yun.png) no-repeat; background-size: 100% 100%;" onclick="chooseImage('file_title_img')"></div>
+                        </div>
+                    </div>
+                    <div class="leftTo" style="position: absolute; width: 10px; height: 18px; left: 105px; top: 41px; cursor: pointer; background: url(images/registLeft.png) no-repeat; background-size: 100% 100%;" onclick="leftTo('2')"></div>
+                    <div class="rightTo" style="position: absolute; width: 10px; height: 18px; left: 625px; top: 41px; cursor: pointer; background: url(images/registRight.png) no-repeat; background-size: 100% 100%;" onclick="rightTo('2')"></div>
+                </div>
+                <div style="width: 100%;text-align: center;font-size:14px;height: 30px;line-height: 30px;margin-top: 30px;color:#fff;">推荐图片尺寸：600*800像素。</div>
+            </div>
+        </form>
+        <form id="title_img_form" method="post" enctype="multipart/form-data">
+            <input type="file" style="display: none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+        </form>
+        <form id="image_form" method="post" enctype="multipart/form-data">
+            <input type="file" style="display: none;" id="image_file" name="name" onchange="uploadCertificate()" accept="image/*" />
+        </form>
+        <div class="item" style="text-align: center;font-size:12px;color: #fff;">
+            使用本系统,即表示我接受宅客运动的<a href="#">服务条款</a>和<a href="#">隐私政策</a>
+        </div>
+        <div class="step1">
+            <div class="item" style="text-align: center;">
+                <a class="button gray" href="index.html">返回登录</a>
+                <a href="javascript:;" class="button yellow" onclick="step(2)">下一步</a>
+            </div>
+        </div>
+        <div class="step2">
+            <div class="item" style="text-align: center;">
+                <a class="button gray" href="javascript:;" onclick="step(1)">上一步</a>
+                <a href="javascript:;" class="button yellow" onclick="step(3)">下一步</a>
+            </div>
+        </div>
+        <div class="step3">
+            <div class="item" style="text-align: center;">
+                <a class="button gray" href="javascript:;" onclick="step(2)">上一步</a>
+                <a class="button yellow" href="#" onclick="saveMessage()">提交信息</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="zk_title"></div>
+    <div id="service" class="" style="position:absolute;width:400px;height:250px;font-size:15px;display:none;z-index:9999;border:1px solid #383838;box-shadow: 2px 2px 3px #aaa;z-index:9999;">
+        <div class="dlgChat" style="width:100%;height:30px;background:#383838;cursor:move;">
+            <div class="dlgChat" style="width:100%;height:100%;">
+                <div style="width:100px;height:30px;line-height:30px;float:left;text-align:center;color:#FFD600;">添加设施</div>
+                <div class="dlgChat" style="float:right;width:16px;height:16px;margin-top:7px;margin-right:10px;">
+                    <!--<img id="minChat" alt="" src="images/min.png" style="width:14px;height:3px;margin-top:5px;margin-left:15px;vertical-align:top;" onmouseover="iconOver('min')" onmouseout="iconOut('min')" onclick="minWindow()">-->
+                    <!--
+                        <div style="width:14px;height:14px;margin-left:15px;float:left;"onmouseover="iconOver('min')" onmouseout="iconOut('min')" onclick="minWindow()">
+                            <img id="minChat" alt="" src="images/min.png" style="width:14px;height:3px;margin-top:5px;vertical-align:top;" >
+                        </div>
+                        <img id="maxChat" alt="" src="images/max.png" style="width:14px;height:14px;margin-left:15px;vertical-align:top;" onmouseover="iconOver('max')" onmouseout="iconOut('max')" onclick="maxWindow()">
+                        -->
+                    <img id="closeNewChat" alt="" src="images/closeNew.png" style="width:14px;height:14px;vertical-align:top;cursor:pointer;" onmouseover="iconOver('closeNew')" onmouseout="iconOut('closeNew')" onclick="closeWindow()">
+                </div>
+            </div>
+        </div>
+        <div class="checkService" style="width:360px;height:200px;padding:10px 20px;background:#fff;">
+            <label>
+                <input id="wifi" type="checkbox" value="无线网络" onclick="checkThis('wifi')" />无线网络</label>
+            <label>
+                <input id="shop" type="checkbox" value="卖场" onclick="checkThis('shop')" />卖场</label>
+            <label>
+                <input id="showerRoom" type="checkbox" value="沐浴室" onclick="checkThis('showerRoom')" />沐浴室</label>
+            <label>
+                <input id="deposit" type="checkbox" value="物品寄存" onclick="checkThis('deposit')" />物品寄存</label>
+            <label>
+                <input id="smoking" type="checkbox" value="吸烟区" onclick="checkThis('smoking')" />吸烟区</label>
+            <label>
+                <input id="toilets" type="checkbox" value="洗手间" onclick="checkThis('toilets')" />洗手间</label>
+            <label>
+                <input id="rent" type="checkbox" value="物品租赁" onclick="checkThis('rent')" />物品租赁</label>
+            <label>
+                <input id="sleep" type="checkbox" value="休息区" onclick="checkThis('sleep')" />休息区</label>
+            <label>
+                <input id="park" type="checkbox" value="停车场" onclick="checkThis('park')" />停车场</label>
+            <div class="item" style="text-align: center;margin-top:30px;">
+                <a class="button" href="#" style="background:#383838;color:#F7CD05;" onclick="saveService()">保&nbsp;存</a>
+            </div>
+        </div>
+    </div>
+    <div id="shield" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9000;display:none;background:#333333;opacity:0.6;filter: alpha(opacity=60);" onclick="shield()">
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/common.js"></script>
+    <script type="text/javascript" src="js/zk_title_bar-1.0.0.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3&ak=ZYoxwY2fVjPKqsw6IM35MebctElP4l4R"></script>
+    <script src="js/regist.js"></script>
+</body>
+
+</html>

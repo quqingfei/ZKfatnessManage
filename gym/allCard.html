@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/allCard.css"></link>
+</head>
+<style>
+.bigimg{position: fixed;max-width: 400px;left: 50%;top:50%;z-index: 9999;}
+.bigimg img{display: block;margin: 0 auto; width: 100%;border: 4px solid #ccc;}
+.bigled{position: fixed;width: 100%;height: 100%;background: rgba(0,0,0,0.6);top: 0;left: 0;z-index: 9998;}
+</style>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：会员卡管理 > 全部会员
+        </div>
+        <div class="curTool">
+            <!-- <img class="codeImg" src="images/makeCode.png" /> -->
+            <img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            <img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+            <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="code" id="userCode" class="userCode" maxlength="18" AUTOCOMPLETE="off" value="" placeholder="请扫描/输入条码/手机号码" />
+            <div class="clientSearch">
+                <span style="position: relative;">
+                    <input id="serchName" style="margin-right: 20px;" placeholder="会员姓名" class="dateInput">
+                    <img onclick="searchUser(curStatus);" style="position: absolute;height: 20px;top: 2px;left: 86px; cursor:pointer" src="images/newSearch.png" alt="">
+                </span>
+                <span style="position: relative;">
+                    <input id="serchShop" style="margin-right: 5px;" placeholder="销售人姓名" class="dateInput">
+                    <img onclick="searchUser(curStatus);" style="position: absolute;height: 20px;top: 2px;left: 86px; cursor:pointer" src="images/newSearch.png" alt="">
+                </span>
+                
+                <label class="dateLable">办理日期</label>
+                <input id="startDate" placeholder="起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){$('#endDate').val('');}})" readonly="readonly">
+                <span class="connection">-</span>
+                <input id="endDate" placeholder="结束日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){if($('#startDate').val()==''){ $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先选择开始日期!');$('#endDate').val('');return false;}searchUser(curStatus);}})" readonly="readonly">
+                <label class="dateLable">&nbsp;&nbsp;卡种</label>
+                <input name="cardSel" id="cardSel" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 100px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择会员卡'">
+                <!-- <label class="phoneLable">标注</label>
+                        <input type="text" name="markSearch" id="markSearch" class="phoneSearch" value="" maxlength="10" placeholder="请输入" /> -->
+                <!-- <a href="javascript:;" class="searchSubmit" id="clientSearchSubmit" onclick="toSearch()">搜索</a> -->
+            </div>
+        </div>
+        <div class="curAction">
+            <div id="allMember" class="userChoose" style="" data-value="全部" onclick="toChooseUser('allMember','')" onmouseOver="onOver('allMember')" onmouseout="toOut('allMember')">全部</div>
+            <div id="isCard" class="userChoose" style="" data-value="有效卡" onclick="toChooseUser('isCard','effect')" onmouseOver="onOver('isCard')" onmouseout="toOut('isCard')">有效卡</div>
+            <div id="expiringMember" class="userChoose" style="" data-value="即将过期" onclick="toChooseUser('expiringMember','soon')" onmouseOver="onOver('expiringMember')" onmouseout="toOut('expiringMember')">即将过期</div>
+            <div id="expiredMember" class="userChoose" style="border-right:0;" data-value="已过期" onclick="toChooseUser('expiredMember','overdue')" onmouseOver="onOver('expiredMember')" onmouseout="toOut('expiredMember')">已过期</div>
+            <div id="sendTd" class="sendMessage" onclick="openMessage()"><img alt="" class="sendImg" src="images/message.png"><span style="margin-left:5px;">发送通知</span></div>
+            <div id="" class="sendMessage" onclick="sendUsers()"><img alt="" class="sendImg" src="images/addNew1.png"><span style="margin-left:5px;">导入会员</span></div>
+            <div id="" class="sendMessage" onclick="editRemark()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">备注修改</span></div>
+            <div id="" class="sendMessage" onclick="cardDelete()"><img alt="" class="sendImg" src="images/deleteNew.png"><span style="margin-left:5px;">删除</span></div>
+            <div id="" class="sendMessage" onclick="editMesage()"><img alt="" class="sendImg" src="images/addNew.png"><span style="margin-left:5px;">编辑</span></div>
+            <!-- <div id="" class="sendMessage" onclick="seeMessage()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">查看</span></div> -->
+        </div>
+        <input type="hidden" value="1" id="gmtstart" /><input type="hidden" value="1" id="gmtend" /><input type="hidden" value="1" id="gmtstartend" />
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="rownumbers:'true',singleSelect:false,pagination:true,pageSize:'30',url:'',method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'userId',align:'center',checkbox:true">全选</th>
+                        <th data-options="field:'name',align:'center'">姓名</th>
+                        <th data-options="field:'phone',align:'center'">手机号码</th>
+                        <th data-options="field:'salesPersonName',align:'center'">销售人</th>
+                        <!-- <th data-options="field:'cardType',align:'center',formatter: formatType">卡种</th> -->
+                        <th data-options="field:'cardName',align:'center'">卡种</th>
+                        <th data-options="field:'totleTime',align:'center',resizable:'true',formatter: formatTimes">总次数</th>
+                        <!-- <th data-options="field:'useTime',align:'center',resizable:'true'">签到次数</th> -->
+                        <th data-options="field:'effective',align:'center',resizable:'true',formatter: formatStatus">状态</th>
+                        <th data-options="field:'payType',align:'center',resizable:'true',formatter: formatPay">支付方式</th>
+                        <th data-options="field:'realPay',align:'center',resizable:'true'">实付</th>
+                        <th data-options="field:'gmtCreate',align:'center',resizable:'true',formatter: formatTime"><a href="javascript:;" style="color:#3FA1C3" onclick="CardPaiXun()">办理时间 <span class="sanjiaoxtime">▲</span> </a></th>
+                        <th data-options="field:'gmtStart',align:'center',resizable:'true',formatter: formatTime1"><a href="javascript:;" style="color:#3FA1C3" onclick="kaiCardPaiXun()">开卡时间 <span class="sanjiaox">▲</span> </a></th>
+                        <th data-options="field:'gmtEnd',align:'center',resizable:'true',formatter: formatTime1"><a href="javascript:;" style="color:#3FA1C3" onclick="kaiCardEndPaiXun()">截止时间 <span class="sanjiaoxend">▲</span> </a></th>
+                        <th data-options="field:'gmtSend',align:'center',resizable:'true'">赠时</th>
+                        <th data-options="field:'isLock',align:'center',resizable:'true',formatter: formatLock">锁定</th>
+                        <th data-options="field:'gymId',resizable:'true',formatter: formatAction">详情</th>                        
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlgFile" class="easyui-dialog" style="padding:20px 20px;" title="&nbsp;&nbsp;&nbsp;&nbsp;导入会员" closed="true" data-options="modal:true">
+                <h3 style="margin-bottom:10px;">提示：请先下载导入模板并按照模板填写会员信息。</h3>
+                <a href="javascript:$('#file_title').trigger('click');" style="display:inline-block;margin:10px 0;width:70px;color: #333;border-radius:4px;padding:5px;border:1px solid #999;text-align:center;">选择文件</a>
+                <span id="fileName" style="color:#999;margin-left:10px;"></span>
+                <form id="file_form" style="display:none;" method="post" enctype="multipart/form-data">
+                    <input type="file" style="" id="file_title" name="name" accept="file" onchange="fileName()" />
+                </form>
+                <a style="display: block;margin:10px 0;color:#3fc371;" href="http://zhaiker.oss-cn-hangzhou.aliyuncs.com/fatburn/%E4%BC%9A%E5%91%98%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx" download="会员模板.xlsx">点击下载导入模板</a>
+                <div class="button" style="margin:10px auto 0px auto;text-align:center;">
+                    <a id="successedA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="cancelUp()" style="margin:0 10px;width:90px;background:#dddddd;border-radius:4px;"><span style="color:#666666;">取&nbsp;&nbsp;消</span></a>
+                    <a id="successedA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="uploadExl()" style="margin:0 10px;width:90px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">上传文件</span></a>
+                </div>
+            </div>
+            <!-- 发送消息 -->
+            <div id="dlg0" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;">
+                        <textarea id="toAllMessage" style="width:358px;height:96px;border:1px solid #ccc;border-radius:3px;
+                        margin:0px;padding:0px;line-height:24px;box-sizing: border-box;padding: 0px 5px;text-align:left;outline:medium;outline-style:none;resize:none;" placeholder="请输入信息内容"></textarea>
+                        <small style="float:right;color:#B1B1B1">限200字符</small>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="sendAllMessage();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">发&nbsp;&nbsp;送</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="sendSuccess" style="width:100%;margin-bottom:0px;display:none;">
+                    <img id="showSuccess" src="images/success.png" style="width:80px;height:80px;margin:0px auto 0 140px;"></img>
+                    <div style="width:100%;height:20px;margin-top:10px;line-height:20px;text-align:center;">发送成功</div>
+                    <div class="button" style="width:166px;height:30px;margin:10px auto 0px auto;text-align:center;">
+                        <a id="successedA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="successed();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #ccc;border-radius: 3px;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputSave" onclick="saveCardMark()"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+            <!-- 查看会员卡 -->
+            <div id="dlgMessage" class="easyui-dialog" style="width:500px;padding:0 15px 15px" data-options="closed:true,modal:true">
+                <div class="showMessage">
+                    <input name="userId" id="userID" value="" type="hidden">
+                    <img id="memberIcon" onclick="bigImg()" class="userIcon" src="images/default.png">
+                    <img style="display:none;max-width:400px;" id="memberIconBig"  src="images/default.png">
+                    <div class="memberMessage">
+                        <div class="rightMessage">                            
+                            <lable class="messageLable">姓名:</lable>
+                            <span id="memberName"></span>
+                            <lable class="messageLable" style="width:63px">签到:</lable>
+                            <span id="signNumber"></span>
+                        </div>
+                        <!-- <div class="rightMessage">
+                            <lable class="messageLable">姓名:</lable>
+                            <p id="memberName" class="theMessageL"></p>
+                        </div> -->
+                    </div>
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">性别:</lable>
+                            <p id="memberSex" class="theMessageL"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">年龄:</lable>
+                            <p id="memberAge" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">手机号码:</lable>
+                            <p id="memberPhone" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">会员卡类别:</lable>
+                            <p id="memberCardType" class="theMessageL"></p>
+                        </div>
+                        
+                        <div class="rightMessage">
+                            <lable class="messageLable">会员卡名称:</lable>
+                            <p id="memberCardName" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <!-- <div class="leftMessage">
+                            <lable class="messageLable">应付金额:</lable>
+                            <p id="shouldAmount" class="theMessageL"></p>
+                        </div> -->
+                        <div class="leftMessage">
+                            <lable class="messageLable">销售人:</lable>
+                            <p id="salePerson" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">                            
+                            <lable class="messageLable">应付:</lable>
+                            <span id="shouldPay"></span>
+                            <!-- <p  class="theMessageR"></p> -->
+                            <lable class="messageLable" style="width:63px">实付:</lable>
+                            <span id="realAmount" style="color:#3fc371"></span>
+                            <!-- <p id="" class="theMessageR"></p> -->
+                        </div>
+                    </div>
+                    <div id="countMemberCard" class="memberMessage" style="display:none;">
+                        <div class="leftMessage">
+                            <lable class="messageLable">次卡总次数:</lable>
+                            <p id="memberCardTotleTime" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">次卡剩余次数:</lable>
+                            <p id="memberCardUseTime" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div id="timeMemberCard" class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">生效日期:</lable>
+                            <p id="memberCardGmtStart" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">失效日期:</lable>
+                            <p id="memberCardGmtEnd" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">创建时间:</lable>
+                            <p id="gmtCreate" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">修改时间:</lable>
+                            <p id="gmtModify" class="theMessageR"></p>
+                        </div>
+                    </div>
+                     <div id="timeMemberCard" class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">赠送时间:</lable>
+                            <p id="sendTime" class="theMessageL"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑信息 -->
+            <div id="dlgEditMessage" class="easyui-dialog" style="width:600px;padding:10px 15px 10px 15px" data-options="closed:true,modal:true">
+                <div class="editMessage">
+                    <form id="fm" method="post" novalidate>
+                        <input name="userId" id="userId" value="" type="hidden">
+                        <div class="topDiv">
+                            <div class="messageDiv">
+                                <label class="messageLableL">卡种:</label>
+                                <input name="cardType" id="cardType" class="messageInput disabledInput" disabled="disabled" />
+                                <label class="messageLableR">会员卡名称:</label>
+                                <input name="cardName" id="cardName" class=" messageInput disabledInput" disabled="disabled" />
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">实付金额:</label>
+                                <input name="realPay" id="realPay" class=" messageInput" placeholder="请输入" />
+                            <!-- </div>
+                            <div id="countCard" class="messageDiv" > -->
+                                <label class="messageLableR countCard" style="display:none;">总次数:</label>
+                                <input name="count" id="count" class="countCard messageInput" placeholder="请输入"  style="display:none;"/>
+                            </div>
+                            <div id="timeCard" class="messageDiv">
+                                <label class="messageLableL">生效日期:</label>
+                                <!-- <input id="startDate_1" data-options="prompt:'请输入'" class="easyui-datebox messageInput" style="width:150px;height:25px;"> -->
+                                <input id="startDate_1" placeholder="请输入生效日期" class="date-icon messageInput" readonly="readonly">
+                                <label class="messageLableR">失效日期:</label>
+                                <!-- <input id="endDate_1" data-options="prompt:'请输入'" class="easyui-datebox messageInput" style="width:150px;height:25px;"> -->
+                                <input id="endDate_1" placeholder="请输入失效日期" class="date-icon messageInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="bottomDiv">
+                            <div class="messageDiv">
+                                <label class="messageLableL">会员姓名:</label>
+                                <input name="name" id="messageName" class=" messageInput" placeholder="请输入" />
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">会员手机号:</label>
+                                <input name="phone" id="messagePhone" class=" messageInput" maxlength="11" disabled="disabled" placeholder="请输入" />
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">性别:</label>
+                                <select name="sex" id="messageSex" class="easyui-combobox messageInput" style="width:162px;height:25px;border-radius:3px;" data-options="prompt:'请选择',disabled:false">
+                                    <option value="M">男</option>
+                                    <option value="F">女</option>
+                                </select>
+                            </div>
+                            <div class="messageIcon">
+                                <img id="headIcon" class="headIcon" alt="" src="images/regist_pic.png">
+                                <!-- <video id="iconVideo" class="iconVideo"></video>
+                                <canvas id="iconCanvas" class="iconCanvas"></canvas> -->
+                                <div id="iconVideo" class="iconVideo"></div>
+                                <input name="image" id="messageImage" value="" type="hidden">
+                                
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">销售人:</label>
+                                <input name="hjSel" id="hjSel" class="easyui-combobox messageInput" value="" style="width:162px;height:25px;" data-options="editable:false,prompt:'请选择销售人'">
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">出生日期:</label>
+                                <!-- <input id="birthDate" data-options="prompt:'请选择会员出生年',editable:false" class="easyui-combobox messageInput" style="width:162px;height:25px;"> -->
+                                <input id="birthDate" placeholder="请输入出生日期" class="date-icon messageInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                                <div class="iconAction">
+                                    <a class="photograph" onclick="chooseImage('file_title_img','iconVideo')">本地上传
+                                    </a><a class="photograph" id="photoUp" onclick="show()">拍照上传</a>
+                                </div>
+                                <!-- <label class="messageLableR">身份证:</label>
+                                <input name="IDcard" id="IDcard" class=" messageInput" placeholder="请输入" /> -->
+                            </div>
+                            <!--  <div class="messageDiv">
+                                <label class="messageLableL">身高(cm):</label>
+                                <input name="height" id="height" class=" messageInput" placeholder="请输入" />
+                                <label class="messageLableR">体重(kg):</label>
+                                <input name="weight" id="weight" class=" messageInput" placeholder="请输入" />
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">职位:</label>
+                                <input name="position" id="position" class=" messageInput" placeholder="请输入" />
+                                <label class="messageLableR">工作单位:</label>
+                                <input name="employer" id="messageEmployer" class=" messageInput" placeholder="请输入" />
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">家庭住址:</label>
+                                <input name="homeAddress" id="homeAddress" class="messageInputLong" maxlength="32" placeholder="请输入" /><span class="remind">最多32个字</span>
+                            </div>
+                            <div class="messageDiv">
+                                <label class="messageLableL">公司地址:</label>
+                                <input name="workAddress" id="workAddress" class="messageInputLong" maxlength="32" placeholder="请输入" /><span class="remind">最多32个字</span>
+                            </div> -->
+                            <!-- <div class="messageDiv">
+                                <label class="messageLableL">备注:</label>
+                                <input name="remark" id="remark" class="messageInputLong" maxlength="32" placeholder="请输入" /><span class="remind">最多32个字</span>
+                            </div> -->
+                            <a class="submitMessage" onclick="saveMessage()">提交</a>
+                        </div>
+                    </form>
+                    <form id="title_img_form" method="post" enctype="multipart/form-data">
+                        <input type="file" style="display:none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                    </form>
+                </div>
+            </div>
+            <!-- 查看客户信息 -->
+            <div id="dlgUserMessage" class="easyui-dialog" style="width:450px;height:140px; padding:10px 15px 10px 15px" data-options="closed:true,modal:true">
+                <div class="showMessage">
+                    <!-- 
+                <img id="userIcon" class="userIcon" src="images/default.png" >
+                 -->
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">昵称:</lable>
+                            <p id="nickName" class="theMessageL"></p>
+                        </div>
+                        <!-- 
+                            <div class="rightMessage">
+                                <lable class="messageLable">状态:</lable> <p id="userStatus" class="theMessageR"></p>
+                            </div>
+                         -->
+                    </div>
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">注册时间:</lable>
+                            <p id="gmtUserCreate" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">关注时间:</lable>
+                            <p id="gmtUserLike" class="theMessageR"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="">
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/allCard.js"></script>
+    
+    <script type="text/javascript" src="js/zk_camera-1.0.0.js"></script>
+    <script type="text/javascript" src="js/zk_title_bar-1.0.0.js"></script>
+</body>
+
+</html>

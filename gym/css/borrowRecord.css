@@ -1,0 +1,224 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	width: 100%;
+	min-width: 800px;
+	height: 100%;
+	font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+.showTable{
+	width: 100%;
+	position:absolute;
+	top:147px;
+	left:0px;
+	bottom: 0px;
+}
+.curTool img{
+	position: absolute;
+	height: 30px;
+	top: 8px;
+	left: 16px;
+	font-size: 14px;
+}
+.dateInput {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 5px;
+    font-size: 14px;
+    /* color: #666666; */
+    margin-left: 5px;
+    background-color: #fff;
+    border-width: 0px;
+    border-radius: 3px;
+}
+#borrowCode{
+	/*float: right;*/
+	font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding-left: 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+
+.borrow-search{
+	float: right;
+	display: inline-block;
+	height: 30px;
+	padding: 5px 0;
+	margin-left: 30px;
+	font-size: 14px;
+}
+.borrow-search .combo{
+	border: 0;
+	vertical-align: top;
+	/*border-radius: 5px;*/
+}
+.datagrid-view1,
+.datagrid-view1 .datagrid-header,
+.datagrid-view1 .datagrid-header-rownumber,
+.datagrid-view1 .datagrid-cell-rownumber{
+	width: auto !important;
+}
+.datagrid-view1 .datagrid-body,
+.datagrid-view1 .datagrid-footer{
+	padding-left: 5px !important;
+	width: auto !important;
+}
+#borrowSearchItem{
+	display: inline-block;
+	vertical-align:top;
+	width: 120px;
+	height: 30px;
+	border: 0px;
+	border-radius: 3px;
+	padding-left: 5px;
+}
+
+#borrowSearchSubmit{
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: white;
+	background: #3fc370;
+	margin-left: 10px;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+#borrowSearchSubmit:hover{
+	background: #51D983;
+}
+
+.borrow-kind{
+	/*float: right;*/
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 0;
+	background: #373737;
+	font-size: 14px;
+}
+
+.borrow-kind a{
+	display: inline-block;
+	padding: 0px 10px;
+	color: #FFFFFF;
+	border-right: 1px solid #1F1F1F;
+}
+
+.borrow-kind a:hover,
+a.action{
+	color: #3fc370;
+}
+
+#borrowAll{
+	border-right: 0px;
+}
+
+.borrow-control{
+	width: 200px;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.borrow-control a{
+	display: inline-block;
+	margin: 0 10px;
+	padding: 0 3px;
+	/*color: #000000;*/
+}
+
+.borrow-control a:hover{
+	/*border-bottom: 1px solid #000000;*/
+	color: #666666;
+}
+
+#dlgSubmit{
+	width: 200px;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+#dlgCheck{
+	width: 230px;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+#dlgRemark{
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+#dlgRemark textarea{
+	padding: 5px;
+	outline: none;
+	resize: none;
+}
+
+.dlg-item{
+	/*height: 30px;
+	line-height: 30px;*/
+	padding: 8px 0;
+}
+
+.dlg-item span{
+	display: inline-block;
+	vertical-align: top;
+	width: 80px;
+}
+
+.dlg-item i{
+	vertical-align: top;
+	display: inline-block;
+}
+
+.dlg-button{
+	text-align: center;
+	padding: 10px 0 0 0;
+}
+
+.dlg-button a{
+	padding: 0 10px;
+	background: #3fc370;
+	border-radius: 3px;
+}
+
+.dlg-button a span{
+	color:white;
+}
+.sendMessage{
+	/*width:100px;*/
+	height:20px;
+	line-height:20px;
+	font-size:14px;
+	padding:5px;
+	margin: 0 5px;
+	border-radius: 5px;
+	float:right;
+	cursor:pointer;
+}
+
+.sendMessage:hover{
+	background: #2C2C2C;
+}
+
+.sendMessage:active{
+	background: #222222;
+}
+img.sendImg{
+	position: relative;
+	height: 16px;
+    vertical-align: text-bottom;
+}

@@ -1,0 +1,266 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	min-width: 800px;
+	height: 100%;
+	font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+.datagrid-view1,
+.datagrid-view1 .datagrid-header,
+.datagrid-view1 .datagrid-header-rownumber,
+.datagrid-view1 .datagrid-cell-rownumber{
+	width: auto !important;
+}
+.datagrid-view1 .datagrid-body,
+.datagrid-view1 .datagrid-footer{
+	padding-left: 5px !important;
+	width: auto !important;
+}
+.store-record {
+	width: 100%;
+	height: 100%;
+}
+.dateInput{
+	display:inline-block;
+	width:100px;
+	height:30px;
+	line-height:30px;
+	padding-left: 5px;
+	font-size:14px;
+	/*color:#666666;*/
+	margin-left:5px;
+	background-color:#fff;
+	border-width:0px;
+	border-radius: 3px;
+}
+.store-header {
+	height: 40px;
+	line-height: 40px;
+	padding-bottom: 10px;
+	font-size: 14px;
+	color: #000000;
+}
+
+.store-code {
+	position: relative;
+	height: 40px;
+	padding: 8px 10px;
+	border-radius: 5px 5px 0 0;
+	background: #373737;
+	border-bottom: 1px solid #222;
+}
+
+.store-code>img {
+	position: absolute;
+	height: 30px;
+	top: 13px;
+	left: 16px;
+}
+
+#storeCode {
+	font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding: 0 0 0 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+
+.store-search {
+	float: right;
+	vertical-align: middle;
+	display: inline-block;
+	height: 30px;
+	padding: 5px 0;
+	margin-left: 30px;
+	font-size: 14px;
+}
+
+#storeSearch {
+	display: inline-block;
+	vertical-align: top;
+	width: 120px;
+	height: 30px;
+	border: 0px;
+	border-radius: 5px;
+	padding-left: 10px;
+}
+
+#storeSearchSubmit {
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	background: #3fc371;
+	/*border: 1px solid #3fc371;*/
+	margin-left: 10px;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+
+.store-kind {
+	float: right;
+	height: 30px;
+	line-height: 30px;
+	padding: 5px 0;
+}
+
+.store-kind a {
+	display: inline-block;
+	padding: 0px 10px;
+	color: #FFFFFF;
+	border-right: 1px solid #1F1F1F;
+}
+
+.store-kind a:hover,
+a.action {
+	color: #FED430;
+}
+
+#storeAll {
+	border-right: 0px;
+}
+
+.store-control {
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.store-control a {
+	display: inline-block;
+	margin: 0 10px;
+	padding: 0 3px;
+	/*color: #000000;*/
+}
+
+.store-control a:hover {
+	/*border-bottom: 1px solid #000000;*/
+	color: #666666;
+}
+
+#dlgSubmit {
+	width: 200px;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+#dlgCheck {
+	width: 230px;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+#dlgRemark {
+	padding: 10px 20px;
+	font-size: 14px;
+}
+
+#dlgRemark textarea {
+	padding: 5px;
+	outline: none;
+	resize: none;
+}
+
+.dlg-item {
+	/*height: 30px;
+	line-height: 30px;*/
+	padding: 8px 0;
+}
+
+.dlg-item span {
+	display: inline-block;
+	vertical-align: top;
+	width: 80px;
+}
+
+.dlg-item i{
+	display: inline-block;
+}
+
+.dlg-button {
+	text-align: center;
+	padding: 10px 0 0 0;
+}
+
+.dlg-button a {
+	padding: 0 10px;
+	background: #3fc370;
+	border-radius: 3px;
+	width: 60px;
+}
+
+.dlg-button a span {
+	color: white;
+}
+
+.store-search .datebox{
+	display:inline-block;
+	vertical-align: middle;
+	width:100px;
+	height:32px;
+	line-height:29px;
+	padding-left: 5px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	margin-bottom:1px;
+	background-color:#fff;
+	border-width:0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.store-search .textbox .textbox-text{
+	margin-bottom:3px;
+}
+.showTable{
+	width: 100%;
+	/*margin:88px 0px 0px;*/
+	position:absolute;
+	top:146px;
+	left:0px;
+	bottom: 0px;
+}
+.clientSearch{
+	display: inline-block;
+	vertical-align: top;
+	width:auto;
+	height:30px;
+	float:right;
+}
+.sendMessage{
+	/*width:100px;*/
+	height:20px;
+	line-height:20px;
+	font-size:14px;
+	padding:5px;
+	margin: 0 5px;
+	border-radius: 5px;
+	float:right;
+	cursor:pointer;
+}
+
+.sendMessage:hover{
+	background: #2C2C2C;
+}
+
+.sendMessage:active{
+	background: #222222;
+}
+img.sendImg{
+	position: relative;
+	height: 16px;
+    vertical-align: text-bottom;
+}

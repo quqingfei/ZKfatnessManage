@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>消费记录</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/payRecord.css" />
+</head>
+
+<body class="" onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout pay-record" data-options="fit:true">
+        <div class="pay-header">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：消费管理 > 消费记录
+        </div>
+        <div class="pay-bar">
+            <div class="pay-code pay-type1">
+                <img style="position: absolute;height: 26px;top: 7px;left: 8px;" src="images/newCode.png" />
+                <img style="position: absolute;height: 20px;top: 10px;left: 260px;" src="images/newSearch.png" alt="">
+                <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="payCode" id="payCode" value="" placeholder="请扫描/输入条码/手机号码" />
+            </div>
+            <div class="pay-kind">
+                <label for="payKind">消费类型&nbsp;&nbsp;</label>
+                <select id="payKind" class="easyui-combobox" name="payKind" style="width: 88px;height: 32px;" data-options="editable:false">
+                    <option>全部</option>
+                    <option>储值消费</option>
+                    <option>现金消费</option>
+                </select>
+            </div>
+            <div class="pay-search">
+                
+                
+                <span>日期</span>
+                <input id="startDate" placeholder="起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){onStart(datas);}})"  readonly="readonly">
+                <span>&nbsp;&nbsp;至</span>
+                <input id="endDate" placeholder="结束日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){onEnd(datas);}})" readonly="readonly">
+                <!-- <a href="javascript:;" id="paySearchSubmit" data-phone = '' data-start='' data-end=''>搜索</a> -->
+            </div>
+        </div>
+        <div class="curAction">
+        	<div id="clientSearch" class="clientSearch">
+                    <div id="" class="sendMessage" onclick="editMark()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">备注修改</span></div>
+                    <div id="" class="sendMessage" onclick="dgDelete('../ngym/GymUserStoreAction!deleteExpenseRecord.zk')"><img alt="" class="sendImg" src="images/deleteNew.png"><span style="margin-left:5px;">删除</span></div>
+                    <!-- <div id="" class="sendMessage" onclick="searchBtn()"><span style="margin:0 5px;color:#3fc371;">搜索</span></div> -->
+                </div>
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="rownumbers:true,singleSelect:true, pagination:true,pageSize:'30',url:'../ngym/GymUserStoreAction!listExpense.zk',method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'goods',align:'center',formatter:formatMost">商品名称</th>
+                        <th data-options="field:'realPay',align:'center', formatter:formatDouble">实付金额</th>
+                        <th data-options="field:'shouldPay',align:'center', formatter:formatDouble">应付金额</th>
+                        <th data-options="field:'payType',align:'center',formatter:formatType">消费类型</th>
+                        <th data-options="field:'gmtCreate',align:'center',formatter:formatTime">消费时间</th>
+                        <th data-options="field:'userNick',align:'center'">购买人</th>
+                        <th data-options="field:'userPhone',align:'center'">手机号</th>
+                        <th data-options="field:'remark',align:'center',formatter:formatMost">备注</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="easyui-dialog" id="dlgCheck" title="&nbsp;&nbsp;&nbsp;&nbsp;查看" closed="true" data-options="modal:true">
+                <div class="dlg-item">
+                    <span>实付金额：</span>
+                    <i id="checkReal"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>应付额度：</span>
+                    <i id="checkShould"></i>
+                </div>
+                <div class="dlg-item dlg-type1">
+                    <span>昵称：</span>
+                    <i id="checkName"></i>
+                </div>
+                <div class="dlg-item dlg-type1">
+                    <span>消费类型：</span>
+                    <i>储值消费</i>
+                </div>
+                <!--<div class="dlg-item dlg-type0">
+						<span>操作人：</span>
+						<i id="checkMan"></i>
+					</div>-->
+                <div class="dlg-item">
+                    <span>商品名称：</span>
+                    <i id="checkItem"></i>
+                </div>
+                <div class="dlg-item">
+                    <span>备注：</span>
+                    <i id="checkRemark"></i>
+                </div>
+                <!--<div class="dlg-button">
+						<a href="javascript:;" class="easyui-linkbutton" id="checkSure">确认</a>
+					</div>-->
+            </div>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #ccc;border-radius: 3px;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputSave" onclick="saveMark('../ngym/GymUserStoreAction!remarkExpenseRecord.zk')"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+        </div>
+        <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+            <div style="width:32px;height:32px;margin:250px auto auto auto;">
+                <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <!--<script src="js/biz/zk_main.js"></script>-->
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/payRecord.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

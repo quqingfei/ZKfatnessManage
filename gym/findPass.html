@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" href="css/findPass.css">
+</head>
+
+<body>
+    <div id="zk_title"></div>
+    <div class="regist-cont">
+        <h2>找回密码</h2>
+        
+        <div class="regist-item">
+            <div id="warning">
+                为了保障您的<a href="javascript:;">账号安全</a>，需要对您绑定的手机进行验证。
+            </div>
+        </div>
+        
+        <div class="regist-item">
+            <label for="phone" class="regist-label"><img src="images/regist_phone.png" alt="">
+            </label><input name="phone" id="phone" class="regist-input" type="text" placeholder="请填写您的手机号">
+        </div>
+        <div class="regist-item">
+            <label for="codePass" class="regist-label"><img src="images/regist_safe.png" alt="">
+            </label><input name="codePass" id="codePass" class="regist-input" type="text" placeholder="请填写手机验证码"><div id="btn-hover">
+                <a href="javascript:;" id="codeGet">点击获取验证码</a>
+                <div></div>
+            </div>
+        </div>
+        <div class="regist-item">
+            <label for="userPass1" class="regist-label"><img src="images/regist_pass.png" alt="">
+            </label><input name="userPass1" id="userPass1" type="password" class="regist-input" type="text" placeholder="请填写新的登录密码">
+        </div>
+        <div class="regist-item">
+            <label for="userPass2" class="regist-label"><img src="images/regist_pass.png" alt="">
+            </label><input name="userPass2" id="userPass2" type="password" class="regist-input" type="text" placeholder="请再次填写新的登录密码">
+        </div>
+        <div class="regist-item"></div><div class="regist-item"></div><div class="regist-item"></div>
+        <div class="regist-item">
+            <a href="index.html" id="backTo">返回登录</a>
+            <a href="javascript:;" id="finish">修改密码</a>
+        </div>
+    </div>
+    <div class="succ">
+        <div class="regist-item">
+            <img src="images/success.png" alt="">
+            <h2>登录密码修改成功！</h2>
+            <br>
+            <a href="index.html" id="succs">返回登录</a>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/zk_title_bar-1.0.0.js"></script>
+    <script src="js/findPass.js"></script>
+</body>
+
+</html>

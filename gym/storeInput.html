@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>充值</title>
+		<link rel="stylesheet" href="css/easyui2.min.css"></link>
+		<link rel="stylesheet" href="css/icon.css"></link>
+		<link rel="stylesheet" href="css/theme-simple.css" />
+		<link rel="stylesheet" href="css/new.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+		<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+		<link rel="stylesheet" href="css/gymNew.css" />
+		<link rel="stylesheet" type="text/css" href="css/storeInput.css" />
+	</head>
+
+	<body onselectstart="return false" oncontextmenu="return false">
+		<div class="store-input">
+			<div class="store-header">
+				<img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">
+				当前位置：消费管理 > 充值
+			</div>
+			<div class="store-code">
+				<img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            	<img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+				<input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="storeCode" id="storeCode" value="" placeholder="请扫描/输入条码/手机号码" />
+			</div>
+			<div class="store-form" id="storeForm">
+				<div class="store-form-row">
+					
+					<label for="storeName">昵称：</label>
+					<input class="store-form-input" type="text" name="storeName" id="storeName" readonly="readonly" value="" placeholder="自动获取" />
+					<span class="store-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="store-form-row">
+					
+					<label for="storeMobile">手机号码：</label>
+					<input class="store-form-input" type="text" name="storeMobile" id="storeMobile" readonly="readonly" value="" placeholder="自动获取" />
+					<span class="store-form-star"><img src="img/star.png"/></span>
+				</div>
+				<!--<div class="store-form-row">
+					<span class="store-form-star"></span>
+					<label for="storeMaker">销售人：</label>
+					<input name="storeMaker" id="storeMaker" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 312px;">
+				</div>-->
+				<div class="store-form-row">
+					
+					<label for="storeVolumeShould">充值金额：</label>
+					<input class="store-form-input" onkeyup="isnum(this)" onafterpaste="delunum(this)" type="text" name="storeVolumeShould" id="storeVolumeShould" value="" placeholder="请输入充值金额" />
+					<span class="store-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="store-form-row">
+					
+					<label for="storeVolumeReal">实付金额：</label>
+					<input class="store-form-input" onkeyup="isnum(this)" onafterpaste="delunum(this)" type="text" name="storeVolumeReal" id="storeVolumeReal" value="" placeholder="请输入实付金额" />
+					<span class="store-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="store-form-row">
+					
+					<label for="storeRemark">备注：</label>
+					<!-- <textarea rows="3" name="storeRemark" id="storeRemark" value="" placeholder="非必填，最多32个字"></textarea> -->
+					<input class="store-form-input" type="text" name="storeRemark" id="storeRemark" value="" placeholder="请填写备注信息">
+					<small style="color:#ccc">选填，最多20个字符</small>
+					<span class="store-form-star"></span>
+				</div>
+				<div class="store-form-row">
+					<a href="javascript:;" class="btn-save" id="storeSubmit">提交</a>
+				</div>
+			</div>
+		</div>
+		<div class="easyui-dialog" id="dlgCheck" title="&nbsp;&nbsp;&nbsp;&nbsp;请确认" closed="true" data-options="modal:true">
+			<div class="dlg-item">
+				<span>昵称：</span>
+				<i id="checkName"></i>
+			</div>
+			<div class="dlg-item">
+				<span>手机：</span>
+				<i id="checkPhone"></i>
+			</div>
+			<div class="dlg-item">
+				<span>充值额度：</span>
+				<i id="checkShould"></i>
+			</div>
+			<div class="dlg-item">
+				<span>实付金额：</span>
+				<i id="checkReal"></i>
+			</div>
+			<!--<div class="dlg-item">
+				<span>操作人：</span>
+				<i id="checkMan"></i>
+			</div>-->
+			<div class="dlg-item">
+				<span>备注：</span>
+				<i id="checkRemark"></i>
+			</div>
+			<div class="dlg-button">
+				<a href="javascript:;" id="inputSure">确认</a>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/accordion.js"></script>
+		<script src="js/jquery.easyui.min1.js"></script>
+		<script src="js/easyui-lang-zh_CN.js"></script>
+		<script src="js/format.utils.js"></script>
+		<script src="js/datagrid.common.js"></script>
+		<!--<script src="js/biz/zk_main.js"></script>-->
+		<script src="js/echarts-plain.js"></script>
+		<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/flowplayer-3.2.6.min.js"></script>
+		<script src="js/jquery.easyui.patch.js"></script>
+		<script src="js/jquery.datagridtip.js"></script>
+		<script src="js/jquery.tmpl.min.js"></script>
+		<script src="js/msgbox/msgbox.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/storeInput.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" type="text/css" href="js/plugins/treeselct/tree-multiselect.min.css">
+    <link rel="stylesheet" href="css/roleManagement.css"></link>
+</head>
+<style type="text/css">
+    #addTime{
+    display: inline-block;
+    vertical-align: top;
+    height: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    background: #3fc371;
+    border-radius: 4px;
+    padding: 0 15px;
+    margin: -2px 7px 0px 7px;
+    color: white;
+    float: right;
+}
+.fitem {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+.fitem label {
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    font-size: 14px;
+    text-align: left;
+    vertical-align: top;
+}
+
+</style>
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="showTable">
+            <!-- 表格 -->
+            <div class="curHeader">
+                <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：高级 > 角色管理
+            </div>
+            <div class="role_title">
+                <!-- <button id="roleNew"><img src="images/icon_newly_build.png"><span class="">&nbsp;&nbsp;&nbsp;&nbsp;新建</span></button> -->
+                <div id="roleNew" class="detail" style="">
+                    <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">新建角色</span>
+                </div>
+                <div id="roleEdit" class="detail" style="">
+                    <div style="float:left;"><img alt="" src="images/editNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">编辑角色</span>
+                </div>
+                <a href="javascript:;" id="addTime" onclick="addTime()">设置考勤时间</a>
+            </div>
+            <table id="dg" style="width:100%;height:100%;">
+                <thead>
+                    <tr>
+                        <th style="white-space: nowrap;" data-options="field:'name',align:'center',resizable:'true'">角色</th>
+                        <th style="white-space: nowrap;" data-options="field:'count',align:'center',resizable:'true'">员工数量</th>
+                        <th style="white-space: nowrap;" data-options="field:'gmtCreate',align:'center',resizable:'true',formatter:formatTime">创建时间</th>
+                        <th style="white-space: nowrap;" data-options="field:'gmtOnDuty',align:'center',resizable:'true',formatter:formattooe">考勤时间</th>
+                        <!-- <th style="white-space: nowrap;" data-options="field:'id',align:'center',resizable:'true',formatter:formatControl">操作</th> -->
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="dlgCompile" class="easyui-dialog" style="padding: 10px 20px" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;编辑" data-options="modal:true">
+            <!--  buttons="#dlg-buttons" -->
+            <form id="fmEdit" method="post">
+                <div class="messager-body panel-body panel-body-noborder window-body" title="">
+                    <div style="width:300px;text-align:left;" class="">
+                        <label for="roleNameEdit" style="margin-right: 20px;font-size:14px;font-weight:bold;">角色<span style="font-weight:300;color:#999">（必填）</span></label>
+                        <input type="text" name="roleNameEdit" id="roleNameEdit" maxlength="8" class="role-input" value="" placeholder="请输入角色名称" />
+                    </div>
+                    <div style="width:300px;text-align:left;margin-top: 20px;" class="">
+                        <label style="margin-right: 20px;font-size:14px;font-weight:bold;">权限<span style="font-weight:300;color:#999">（多选）</span></label>
+                        <!-- <input id="type" name="type" class="easyui-combo role-input" prompt='请选择角色权限' separator=" " multiple="true" editable="false" /> -->
+                        <div id="checksEdit" style="margin-top:8px;"></div>
+                    </div>
+                </div>
+                <div class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlgConfirm').dialog('open')" style="width: 90px;margin-right:45px;background:#E35B51;border-radius:3px;"><span style="color:#fff;">删除</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveEditRole()" style="width:90px;background:#3fc370;border-radius:3px;"><span style="color:#fff;">保存</span></a>
+                </div>
+            </form>
+        </div>
+        <div id="dlgbuild" class="easyui-dialog" style="padding: 10px 20px;width: 900px;height:580px;" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;新建" data-options="modal:true">
+                <div id="add" class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveNewRole()" style="width:90px;background:#3fc371; border-radius:4px;"><span style="color:#fff;">保存</span></a>
+                </div>
+                <div id="edit"  class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlgConfirm').dialog('open')" style="width: 90px;margin-right:45px;background:#E35B51;border-radius:3px;"><span style="color:#fff;">删除</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveEditRole()" style="width:90px;background:#3fc370;border-radius:3px;"><span style="color:#fff;">保存</span></a>
+                </div>
+        </div>
+        <!--
+                	描述： 新建
+                -->
+        <div id="dlgNewlyBuild" class="easyui-dialog" style="padding: 10px 20px;width: 900px;height:580px;" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;新建" data-options="modal:true">
+            <!--  buttons="#dlg-buttons" -->
+            <!-- <form id="fmNew" method="post">
+                <div class="messager-body panel-body panel-body-noborder window-body" title="">-->
+                    <div style="width:300px;text-align:left;" class="">
+                        <label for="roleName" style="margin-right: 20px;font-size:14px;font-weight:bold;">角色<span style="font-weight:300;color:#999">（必填）</span></label>
+                        <input type="text" name="roleName" id="roleName" class="role-input" maxlength="8" value="" placeholder="请输入角色名称" />
+                    </div>
+                    <!--<div style="width:300px;text-align:left;margin-top: 20px;" class="">
+                        <label style="margin-right: 20px;font-size:14px;font-weight:bold;">权限<span style="font-weight:300;color:#999">（多选）</span></label>
+                        <select id="typeNew" name="typeNew" class="easyui-combobox" style="width:200px;" data-options="editable:false">
+									<option value="cycle">全部</option>
+								</select> -->
+                        <!-- <input id="typeNew" name="typeNew" class="easyui-combo role-input" prompt='请选择角色权限' separator=" " multiple="true" editable="false" /> -->
+                        <!-- <div id="checksNew" style="margin-top:8px;"></div>
+                    </div>
+                </div>
+                <div class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveNewRole()" style="width:90px;background:#3fc371; border-radius:4px;"><span style="color:#fff;">保存</span></a>
+                </div>
+            </form> -->
+            <select id="demo1" multiple="multiple">
+                <option value="1-0" data-section="全部" data-index="">超级入口</option>
+                <option value="11-0" data-section="全部" data-index="">资源管理</option>
+            <!--    <option value="3-0" data-section="全部" data-index="">体测管理</option>-->
+                <option value="3-1" data-section="全部/体测管理" data-index="">体测记录</option>
+                <option value="3-2" data-section="全部/体测管理" data-index="">效果达成率</option>
+            <!--    <option value="4-0" data-section="全部" data-index="">会员管理</option>-->
+                <option value="4-1" data-section="全部/会员管理" data-index="">客户管理</option>
+                <option value="4-2" data-section="全部/会员管理" data-index="">会员卡管理</option>
+                <option value="4-3" data-section="全部/会员管理" data-index="">开卡</option>
+                <option value="4-4" data-section="全部/会员管理" data-index="">停卡</option>
+                <option value="4-5" data-section="全部/会员管理" data-index="">转卡</option>
+            <!--    <option value="5-0" data-section="全部" data-index="">课程管理</option>-->
+                <option value="5-1" data-section="全部/课程管理" data-index="">公开课程管理</option>
+                <!-- <option value="5-2" data-section="全部/课程管理" data-index="">社群课程排期</option> -->
+                <option value="5-3" data-section="全部/课程管理" data-index="">私教购买</option>
+                <option value="5-4" data-section="全部/课程管理" data-index="">私教课程</option>
+                <option value="5-5" data-section="全部/课程管理" data-index="">私教设置</option>
+                <option value="5-7" data-section="全部/课程管理" data-index="">团课设置</option>
+                <option value="5-6" data-section="全部/课程管理" data-index="">学员评价</option>
+            <!--    <option value="6-0" data-section="全部" data-index="">消费管理</option>-->
+                <option value="6-1" data-section="全部/消费管理" data-index="">充值</option>
+                <option value="6-2" data-section="全部/消费管理" data-index="">充值记录</option>
+                <option value="6-3" data-section="全部/消费管理" data-index="">消费</option>
+                <option value="6-4" data-section="全部/消费管理" data-index="">消费记录</option>
+                <option value="6-5" data-section="全部/消费管理" data-index="">余额查询</option>
+            <!--    <option value="10-0" data-section="全部" data-index="">兑换管理</option>-->
+                <option value="10-1" data-section="全部/兑换管理" data-index="">积分兑换</option>
+                <option value="10-2" data-section="全部/兑换管理" data-index="">积分记录</option>
+            <!--    <option value="7-0" data-section="全部" data-index="">租赁管理</option>-->
+                <option value="7-1" data-section="全部/租赁管理" data-index="">租赁录入</option>
+                <option value="7-2" data-section="全部/租赁管理" data-index="">租赁归还/管理</option>
+                <option value="8-0" data-section="全部" data-index="">文章推送</option>
+            <!--    <option value="9-0" data-section="全部" data-index="">考勤管理</option>-->
+                <option value="9-1" data-section="全部/考勤管理" data-index="">员工考勤记录</option>
+                <option value="9-2" data-section="全部/考勤管理" data-index="">员工考勤统计</option>
+            <!--    <option value="0-0" data-section="全部" data-index="">高级</option>    -->
+                <option value="0-1" data-section="全部/高级" data-index="">数据统计</option>
+                <option value="0-2" data-section="全部/高级" data-index="">员工管理</option>
+                <option value="0-3" data-section="全部/高级" data-index="">角色管理</option>
+                <option value="0-4" data-section="全部/高级" data-index="">卡种管理</option>
+                <option value="0-5" data-section="全部/高级" data-index="">比赛管理</option>
+                <option value="0-6" data-section="全部/高级" data-index="">评价管理</option>
+                <option value="0-7" data-section="全部/高级" data-index="">账户管理</option>
+                <option value="0-8" data-section="全部/高级" data-index="">app封面管理</option>
+            </select>
+                <div id="adds" class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveNewRole()" style="width:90px;background:#3fc371; border-radius:4px;"><span style="color:#fff;">保存</span></a>
+                </div>
+                <div id="edits"  class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlgConfirm').dialog('open')" style="width: 90px;margin-right:45px;background:#E35B51;border-radius:3px;"><span style="color:#fff;">删除</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveEditRole()" style="width:90px;background:#3fc370;border-radius:3px;"><span style="color:#fff;">保存</span></a>
+                </div>
+        </div>
+        <!--
+                	描述： 请确认
+                -->
+        <div id="addTimeOpen" class="easyui-dialog" style="width: 300px;padding: 20px" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;考勤时间" data-options="modal:true">
+            <div class="fitem">
+                <label for="businessHours">考勤时间:</label>
+                <div id="businessCtrl" class="owntext">
+                    <input name="courseTime1" id="courseTime1" class="easyui-timespinner" style="padding-left: 20px;width:100px;height:28px;text-align:center;">
+                    <span>-</span>
+                    <input name="courseTime2" id="courseTime2" class="easyui-timespinner" style="padding-left: 20px;width:100px;height:28px;text-align:center;">
+                </div>
+            </div>
+            <!-- <div class="messager-body panel-body panel-body-noborder window-body" style="text-align: center;">
+                <p class="">是否删除该角色，请确认。</p>
+            </div> -->
+            <div class="button" style="width:100%;padding-top:20px;text-align:center;">
+                <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#addTimeOpen').dialog('close')" style="margin-right:45px;width: 90px;background:#ddd; border-radius:4px;"><span style="color:#999;">取消</span></a>
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="kqtk()" style="width:90px;background:#3fc371; border-radius:4px;"><span style="color:#fff;">确认</span></a>
+                
+            </div>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/plugins/treeselct/jquery.tree-multiselect.min.js"></script>
+    <script src="js/roleManagement.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

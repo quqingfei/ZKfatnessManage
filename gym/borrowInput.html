@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>租赁录入</title>
+		<link rel="stylesheet" href="css/easyui2.min.css"></link>
+		<link rel="stylesheet" href="css/icon.css"></link>
+		<link rel="stylesheet" href="css/theme-simple.css" />
+		<link rel="stylesheet" href="css/new.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+		<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+		<link rel="stylesheet" href="css/gymNew.css" />
+		<link rel="stylesheet" type="text/css" href="css/borrowInput.css"/>
+	</head>
+
+	<body onselectstart="return false" oncontextmenu="return false">
+		<div class="borrow-input">
+			<div class="borrow-header">
+				<img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：租赁管理 > 租赁录入
+			</div>
+			<div class="borrow-code">
+				<img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+				<img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+				<input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="borrowCode" id="borrowCode" value="" placeholder="请扫描/输入条码/手机号码"/>
+			</div>
+			<div class="borrow-form" id="borrowForm">
+				<div class="borrow-form-row">					
+					<label for="borrowName">客户：</label>
+					<input type="text" name="borrowName" id="borrowName" readonly="readonly" value=""  placeholder="自动获取"/>
+					<span class="borrow-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="borrow-form-row">
+					
+					<label for="borrowMobile">手机号码：</label>
+					<input type="text" name="borrowMobile" id="borrowMobile" readonly="readonly" value="" placeholder="自动获取"/>
+					<span class="borrow-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="borrow-form-row">
+					
+					<label for="borrowKind">租赁类别：</label>
+					<!-- <input type="text" name="borrowKind" id="borrowKind" value="" placeholder="必选"/> -->
+					<!-- type:租借种类,0其他,1储物柜,2运动设备 -->
+					<select name="borrowKind" id="borrowKind" class="easyui-combobox" data-options="editable:false" style="width: 312px;height: 32px;line-height: 32px;padding-left:10px;">
+						<option value="1">储物柜</option>
+						<option value="2">运动设备</option>
+						<option value="0">其他</option>
+					</select>
+					<span class="borrow-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="borrow-form-row">
+					
+					<label for="borrowItem">租赁物品：</label>
+					<input type="text" name="borrowItem" id="borrowItem" value="" placeholder="请输入物品名称"/>
+					<span class="borrow-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="borrow-form-row">
+					
+					<label for="borrowItem">归还时间：</label>
+					<input id="borrowTimes" placeholder="请选择日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD'})"  readonly="readonly">
+					<span class="borrow-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="borrow-form-row">
+					
+					<label for="borrowRemark">备注：</label>
+					<!--<textarea rows="5" id="borrowRemark" value="" placeholder="必填，最多32个字"></textarea>-->
+					<input type="text" name="borrowRemark" id="borrowRemark" value="" placeholder="请输入备注信息">
+					<small style="color:#CCC">选填，最多20个字符</small>
+					<span class="borrow-form-star"></span>
+				</div>
+				<div class="borrow-form-row">
+					<a href="javascript:;" class="btn-save" id="borrowSubmit">保存</a>
+					<span>（物品借出需凭条码号）</span>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/accordion.js"></script>
+		<script src="js/jquery.easyui.min1.js"></script>
+		<script src="js/easyui-lang-zh_CN.js"></script>
+		<script src="js/format.utils.js"></script>
+		<script src="js/datagrid.common.js"></script>
+		<!--<script src="js/biz/zk_main.js"></script>-->
+		<script src="js/echarts-plain.js"></script>
+		<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/flowplayer-3.2.6.min.js"></script>
+		<script src="js/jquery.easyui.patch.js"></script>
+		<script src="js/jquery.datagridtip.js"></script>
+		<script src="js/jquery.tmpl.min.js"></script>
+		<script src="js/msgbox/msgbox.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="laydate/laydate.js"></script>
+		<script src="js/borrowInput.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

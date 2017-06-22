@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/cardManage.css" />
+</head>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：课程管理 > 私教设置
+        </div>
+        <!-- <div style="background-color:#E8E8E8;"> -->
+        <div class="toolbar" style="position: relative;padding: 8px 10px;background: #373737;border-bottom: 1px solid #252525;border-radius: 5px 5px 0 0;">
+            <table>
+                <tr>
+                    <td id="filter" style="padding-right:10px;border:none;height:30px;">
+ 
+                    </td>
+
+                    <div style="float:left;width:430px;height:30px;margin-left:20px;padding-top: 3px;float: right;">
+                        <div id="addDetail" class="detail" style="" onclick="zhiding()">
+                            <div style="float:left;"><img alt="" src="images/zhiding.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">置顶/取消置顶</span>
+                        </div>
+                        <div id="addDetail" class="detail" style="" onclick="newMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">新建课程</span>
+                        </div>
+                        <div id="editDetail" class="detail" style="" onclick="editMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/editNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">编辑课程</span>
+                        </div>
+                        <div id="delDetail" class="detail" style="" onclick="destroyMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/deleteNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">删除课程</span>
+                        </div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+        <div style="position: absolute;top: 95px;bottom: 0;left: 0;width: 100%;">
+            <!-- body -->
+            <table id="dg" style="width:100%;height:100%;" rownumbers="true" data-options="singleSelect:true,pagination:true,pageSize:'30',url:'../ngym/GymCourseAction!list.zk',method:'post'">
+                <thead>
+                    <tr>
+                        <!--rownumbers:true,<th data-options="field:'id',checkbox:false,width:$('#showMessage').width()*0.02" ></th>-->
+                        <th style="white-space: nowrap" data-options="field:'name',align:'center'">课程名称</th>
+                        <th style="white-space: nowrap" data-options="field:'weight',align:'center',formatter: formatZhiding">是否置顶</th>
+                        <!-- <th style="white-space: nowrap" data-options="field:'type',align:'center',formatter: formatType">课程类型</th> -->
+                        <th style="white-space: nowrap" data-options="field:'time',align:'center',formatter: formatTime">时长</th>
+                        <!-- <th style="white-space: nowrap" data-options="field:'trainCycle',align:'center',formatter: formatZhouqi">训练周期</th> -->
+                        <!-- <th style="white-space: nowrap" data-options="field:'level',align:'center',formatter: formatEvele">体能等级</th> -->
+                        <th style="white-space: nowrap" data-options="field:'maxPerson',align:'center',formatter: formatEva">预约人数</th>
+                        <!-- width:$('#showMessage').width()*0.2 -->
+                        <!-- width:$('#showMessage').width()*0.2 -->
+                        <th style="white-space: nowrap" data-options="field:'coachInfo',align:'center',formatter:formatCoach">授课教练</th>
+                        <!-- <th style="white-space: nowrap" data-options="field:'orderDeadTime',align:'center'">课程截止时间</th> -->
+                        <!-- width:$('#showMessage').width()*0.1 -->
+                        <th style="white-space: nowrap" data-options="field:'deadTime',align:'center',formatter: formatsime">截止日期</th>
+                        <!-- width:$('#showMessage').width()*0.1 -->
+                        <!--<th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter: formatDate,sortable:true,">注册时间</th><!-- width:($('#showMessage').width()-30)* 0.18 -->
+                        <!--<th style="white-space: nowrap" data-options="field:'gmtModify',align:'center',formatter: formatDate,sortable:true,">修改时间</th><!-- width:($('#showMessage').width()-30)* 0.18 -->
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlg" class="easyui-dialog" style="width:600px;height:500px; padding:10px 15px 10px 15px" data-options="closed:true,modal:true" title="&nbsp;&nbsp;&nbsp;&nbsp;添加课程">
+                     <div class="content">
+                         <div class="biad">
+                             <ul>
+                                  <input type="hidden" id="seeurl" value="0" />
+                                  <input type="hidden" id="zkid" value="" />
+                                  <li><span><a>课程名称</a></span>
+                                  <input type="text" id="zkcourse" placeholder="请输入课程名称" ></li>
+                                  <li><span><a>课程类型</a></span>
+                                  <select class="chooseone" id="zktype">
+                                      <!-- <option value="0">社群课</option> -->
+                                      <option value="1">私教课</option>
+                                  </select></li>
+                                  <div class="team" style="display:none">
+                                      <li id="pazo"><span><a>课程图片</a></span>
+                                          <a class="sctp" href="javascript:;" onclick="chooseImage('file_title_img')">点击上传图片</a>
+                                          <em style="line-height: 30px;font-size: 12px;font-style: normal;margin-left: 6px;color: darksalmon;">宽750px*高355px</em>
+                                      </li>
+                                       <form id="title_img_form" method="post"  enctype="multipart/form-data">
+                                            <input type="file" style="display: none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                                        </form>
+                                      <li id="pazoimg">
+                                        <img id="imghead" src="images/regist_pic.png">
+                                      </li>
+                                        <img id="imghidehead" src="" style="display:none;">
+                                        <input name="cover" id="cover" type="hidden"/> 
+                                      <li><span><a>课程次数</a></span>
+                                      <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" id="zkonce" placeholder="请输入课程总次数" >&nbsp;次</li>
+                                      <li><span><a>课程时长</a></span>
+                                      <select class="chooseone" id="zkchoose">
+                                          <!-- <option value="30">30</option>
+                                          <option value="45">45</option> -->
+                                          <option value="60">60</option>
+                                      </select>&nbsp;分钟</li>
+                                      <li><span><a>训练强度</a></span>
+                                          <select class="chooseone" id="zkelevel">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                      </select>&nbsp;级</li>
+                                      <li><span><a>训练周期</a></span>
+                                          <select class="chooseone" id="zklong">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                      </select>&nbsp;月</li>
+                                      <li><span><a>体能等级</a></span>
+                                      <select class="chooseone" id="zkstar">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                      </select>&nbsp;级</li>
+                                      <li><span><a>最少开课人数</a></span>
+                                      <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" id="zkmin" placeholder="请输入最少开课人数" >&nbsp;人</li>
+                                      <li><span><a>最多开课人数</a></span>
+                                      <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" id="zkmax" placeholder="请输入最多开课人数" >&nbsp;人</li>
+                                      <li><span><a>教练</a></span>
+                                      <div><input type="text" placeholder="搜索教练" id="searchNames" /><a id="showlist" aie="0">显示教练列表</a></div>
+                                          <div class="serviceCheck" id="zkteach">                                         
+                                          </div>
+                                      </li>
+                                <!--       <li><span><a>报名截止时间</a></span>
+                                          <input type="text" id="zktime" placeholder="请输入课程报名截止时间" >&nbsp;小时</li>
+                                      </li> -->
+                                      <li><span><a>有效期</a></span>
+                                          <select class="chooseone" id="zkhavetime">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                      </select>&nbsp;月</li>
+                                      </li>
+                                     <!--  <li><span><a>课程介绍</a><div>不得超过200字</div></span>
+                                          <textarea class="textAreaBoxTerite" id="zkdescreaption" placeholder="请输入课程介绍"></textarea>
+                                      </li> -->
+                                      <li id="pazo"><span><a>课程介绍</a></span>
+                                          <a class="sctp" href="javascript:;" onclick="chooseImage('file_title_img1')">点击上传图片</a>
+                                      </li>
+                                       <form id="title_img_form1" method="post"  enctype="multipart/form-data">
+                                            <input type="file" style="display: none;" id="file_title_img1" name="name" onchange="uploadImage1()" accept="image/*" />
+                                        </form>
+                                      <li id="pazoimg">
+                                        <img id="imghead1" src="images/regist_pic.png">
+                                      </li>
+                                        <img id="imghidehead" src="" style="display:none;">
+                                        <input name="cover" id="cover1" type="hidden"/> 
+                                      <li><span><a>是否主推课程</a></span>
+                                          <div id="coure"><input type="radio" value="y" checked="true" name="coure"><label class="coure">是</label><input type="radio" value="n" name="coure"><label class="coure">否</label></div>
+                                      </li>  
+                                  </div>
+                                   <div class="teamone">
+                                      <li><span><a>课程时长</a></span>
+                                      <select class="chooseone" id="onechoose">
+                                     <!--      <option value="30">30</option>
+                                          <option value="45">45</option> -->
+                                          <option value="60">60</option>
+                                      </select>&nbsp;分钟</li>
+                                      <li><span><a>教练</a></span>
+                                      <div><input type="text" placeholder="搜索教练" id="searchOneNames" /><a id="showOnelist" aie="0">显示教练列表</a></div>
+                                          <div class="serviceCheck" id="oneteach">
+                                          
+                                          </div>
+                                      </li>
+                                    <!--   <li><span><a>预约截止时间</a></span>
+                                          <input type="text" id="onetime"  placeholder="请输入预约截止时间" >&nbsp;小时</li>
+                                      </li> -->
+                                      <li><span><a>有效期</a></span>
+                                          <select class="chooseone" id="zkhas">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                          <option value="6">6</option>
+                                          <option value="7">7</option>
+                                          <option value="8">8</option>
+                                          <option value="9">9</option>
+                                          <option value="10">10</option>
+                                          <option value="11">11</option>
+                                          <option value="12">12</option>
+                                      </select>&nbsp;月</li>
+                                      </li>
+                                  </div>                                                              
+                             </ul>
+                                  <div style="clear:both;"></div>
+                                  <button type="button" id="btnc" data-split="1" onclick="saveMessage()">确定</button>
+                         </div>
+                    </div>       
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/courseSetting.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

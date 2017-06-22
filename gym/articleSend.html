@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/cardManage.css" />
+    <link rel="stylesheet" href="js/themes/default/default.css" />
+</head>
+<style>
+.ke-icon-example1 {
+    background-image: url(js/themes/default/default.png);
+    background-position: 0px -496px;
+    width: 16px;
+    height: 16px;
+}
+
+#copyBox {
+    position: absolute;
+    top: 0%;
+    left: -100%;
+    z-index: 10000;
+    opacity: 1;
+    background: #fff;
+    height: 25px;
+    padding: 5px 4px 0 2px;
+}
+
+.copyurl {
+    width: 247px;
+    border: 1px solid #DCDBDB;
+}
+
+#preview2 {
+    position: relative;
+    width: 172px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    background: #3fc370;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+</style>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：文章推送
+        </div>
+        <div id="copyBox">
+            <span>地址:&nbsp;&nbsp;</span>
+            <input type="text" class="copyurl" onfocus="this.select()" /><span style="color:#646464;">&nbsp;&nbsp;请按Ctrl+C进行复制</span>
+            <!--        <input id="copy_btn" type="button" value="复制地址"/>-->
+        </div>
+        <div id="" style="position: relative;height: 28px;padding: 8px 10px;background: #373737;border-bottom: 1px solid #252525;border-radius: 5px 5px 0 0;">
+            <table>
+                <tr>
+                    <td>
+                        <!--                                    <input id="txt_word" class="easyui-searchbox" style="width: 250px;height:30px;" data-options="prompt:'请输入查文章标题',searcher:searchMemberCard" />-->
+                    </td>
+                    <div style="float:right;width:340px;height:30px;margin-left:20px;padding-top: 3px;">
+                        <div id="viewDetail" class="detail" style="" onclick="openIframe()">
+                            <div style="float:left;"><img alt="" src="images/see.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">预览</span>
+                        </div>
+                        <div id="pushDetail" class="detail" style="" onclick="send()">
+                            <div style="float:left;"><img alt="" src="images/message.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">推送</span>
+                        </div>
+                        <div id="addDetail" class="detail" style="" onclick="newMemberCard()">
+                            <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">添加</span>
+                        </div>
+                        <div id="editDetail" class="detail" style="" onclick="editArticle()">
+                            <div style="float:left;"><img alt="" src="images/editAccount.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">编辑</span>
+                        </div>
+                        <div id="delDetail" class="detail" style="" onclick="destroyAticle()">
+                            <div style="float:left;"><img alt="" src="images/deleteNew.png" style="height:14px;"></div>
+                            <span style="margin-left:5px;">删除</span>
+                        </div>
+                    </div>
+                </tr>
+            </table>
+        </div>
+        <!-- <div style="background-color:#E8E8E8;"> -->
+        <div style="position: absolute;top: 95px;bottom: 0;left: 0;width: 100%;">
+            <!-- body -->
+            <table id="dg" style="width:100%;height:100%;" rownumbers="true" data-options="singleSelect:true,pagination:true,pageSize:'30',url:'../ngym/articleAction!list.zk',method:'post',toolbar:'#toolbar'">
+                <thead>
+                    <tr>
+                        <th style="white-space: nowrap;width:20%;" data-options="field:'subject',align:'center',formatter:formatTitle">标题</th>
+                        <!-- <th style="white-space: nowrap;width:20%;" data-options="field:'url',align:'center',formatter:formatUrl">地址</th> -->
+                        <th style="white-space: nowrap;width:20%;" data-options="field:'gmtModify',align:'center',formatter:formatTime">日期</th>
+                        <th style="white-space: nowrap;width:20%;" data-options="field:'looks',align:'center'">阅读次数</th>
+                        <th style="white-space: nowrap;width:20%;" data-options="field:'isPushed',align:'center',formatter:formatStatus">状态</th>
+                        <!-- <th style="white-space: nowrap" data-options="field:'id',align:'center',formatter:formatAction">操作</th> -->
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlg" class="easyui-dialog" style="width: 340px; padding: 30px 50px" closed="true" data-options="modal:true">
+                <div class="tik">
+                    <div>
+                        <select name="" id="chooseCusterm" class="selsets">
+                            <option value="customer">所有客户</option>
+                            <option value="member">所有会员</option>
+                            <option value="soon">将到期会员</option>
+                            <option value="overdue">过期会员</option>
+                        </select>
+                    </div>
+                    <div class="dibuttonr submitBtns">
+                        <div class="nie"><a class="cancle" onclick="closeAreat()" href="javascript:;">取消</a></div>
+                        <div class="nie"><a class="send" onclick="pushCuseterm(this)" href="javascript:;">推送</a></div>
+                    </div>
+                    <div id="loadingAnimation" style="display:none"><img src="img/loading.gif" alt=""></div>
+                </div>
+            </div>
+            <div id="srcUrl" class="easyui-dialog" modal="true" style="width: 414px; height: 570px;" closed="true" data-options="draggable:false">
+                <div style="height:20px;"></div>
+                <iframe src="" width="414" height="537" frameborder="0"></iframe>
+            </div>
+            <div id="dlge" class="easyui-dialog" style="width: 670px; height: 600px; padding: 10px 20px" closed="true" data-options="modal:true">
+                <style type="text/css">
+                .dyg {
+                    overflow: hidden;
+                    margin-top: 10px;
+                }
+                
+                .dyg label {
+                    font-size: 14px;
+                    font-weight: bold;
+                    display: block;
+                    float: left;
+                    line-height: 32px;
+                    width: 84px;
+                    color: #666;
+                }
+                
+                .sde {
+                    float: left;
+                    width: 540px;
+                    overflow: hidden;
+                }
+                </style>
+                <div class="dyg">
+                    <label>文章标题</label>
+                    <input class="tittle" id="aticleTittle" type="text" placeholder="请输入标题，长度不得超过30">
+                </div>
+                <div class="dyg">
+                    <label>文章封面</label>
+                    <div class="sde">
+                        <div id="preview" style="cursor: pointer;" onclick="chooseImage('file_title_img')">点击上传图片</div>
+                        <div class="container" id="coverimg"><img src="images/regist_pic.png"></div>
+                    </div>
+                </div>
+                <div class="dyg">
+                    <label>缩略图片</label>
+                    <div class="sde">
+                        <div id="preview2" onclick="chooseImage('file_title_img3')">点击上传图片</div>
+                        <div class="container" style="width: 100px;" id="coverimg2"><img src="images/regist_pic.png"></div>
+                    </div>
+                </div>
+                <div class="dyg" style="margin-top:-10px;">
+                    <label>文章内容</label>
+                </div>
+                <!-- <div id="preview" onclick="chooseImage('file_title_img')">
+                    <div class="container">+</div>
+                </div> -->
+                <!--                            <input  type="file" id="file" accept="image/*" onchange="uploadImage(this)" />-->
+                <form id="title_img_form" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                </form>
+                <form id="title_img_form2" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img2" name="name" onchange="uploadImage2()" accept="image/*" />
+                </form>
+                <form id="title_img_form3" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img3" name="name" onchange="uploadImage3()" accept="image/*" />
+                </form>
+                <textarea id="editor_id" name="content" cols="43" rows="25"></textarea>
+                <form style="display:none;">
+                    <p>
+                        <input type="button" name="getHtml" value="取得HTML" />
+                        <input type="button" name="isEmpty" value="判断是否为空" />
+                        <input type="button" name="getText" value="取得文本(包含img,embed)" />
+                        <input type="button" name="selectedHtml" value="取得选中HTML" />
+                        <br />
+                        <br />
+                        <input type="button" name="setHtml" value="设置HTML" />
+                        <input type="button" name="setText" value="设置文本" />
+                        <input type="button" name="insertHtml" value="插入HTML" />
+                        <input type="button" name="appendHtml" value="添加HTML" />
+                        <input type="button" name="clear" value="清空内容" />
+                        <input type="reset" name="reset" value="Reset" />
+                    </p>
+                </form>
+                <div class="dibutton">
+                    <div class="nie"><a class="cancle" onclick="closeAreat()" href="javascript:;">取消</a></div>
+                    <div class="nie"><a class="send" id="seveAticle" onclick="seveAticle(this)" href="javascript:;">保存</a></div>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/kindeditor-all-min.js"></script>
+    <script src="js/lang/zh-CN.js"></script>
+    <script src="js/articleSend.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="http://img3.job1001.com/js/ZeroClipboard/jquery.zclip.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        if (window.clipboardData) {
+            $('#copy_btn').click(function() {
+                window.clipboardData.setData("Text", $(this).prev('input').val());
+                alert('复制成功！');
+            });
+        } else {
+            $("#copy_btn").zclip({
+                path: 'http://img3.job1001.com/js/ZeroClipboard/ZeroClipboard.swf',
+                copy: function() {
+                    return $(this).prev('input').val();
+                },
+                afterCopy: function() {
+                    alert('复制成功！');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+
+</html>

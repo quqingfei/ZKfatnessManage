@@ -1,0 +1,344 @@
+.showTable{
+	width: 100%;
+	/*margin:88px 0px 0px;*/
+	position:absolute;
+	top:107px;
+	left:0px;
+	bottom: 0px;
+}
+.datagrid-view1,
+.datagrid-view1 .datagrid-header,
+.datagrid-view1 .datagrid-header-rownumber,
+.datagrid-view1 .datagrid-cell-rownumber{
+	width: auto !important;
+}
+.datagrid-view1 .datagrid-body,
+.datagrid-view1 .datagrid-footer{
+	padding-left: 5px !important;
+	width: auto !important;
+}
+.codeImg{
+	position: absolute;
+	height: 30px;
+	top: 8px;
+	left: 16px;
+}
+.userCode{
+	font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding: 0 0 0 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;}
+
+.clientSearch{
+	width:auto;
+	height:30px;
+	float:right;
+}
+.byPhone{
+	width:auto;
+	height:100%;
+	float:left;
+}
+.phoneLable{
+	display:inline-block;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	margin-left:10px;
+	color:#fff;
+	
+}
+.phoneSearch{
+	display:inline-block;
+	width:100px;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	padding:0px;
+	padding-left:5px;
+	background-color:#fff;
+	border-width: 0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.nameLable{
+	display:inline-block;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	margin-left:10px;
+	color:#fff;
+	
+}
+.firstLable{
+	margin-left:0px;
+}
+.nameSearch{
+	display:inline-block;
+	width:100px;
+	height:100%;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	padding:0px;
+	padding-left:5px;
+	background-color:#fff;
+	border-width: 0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.searchSubmit{
+	display:inline-block;
+	width:60px;
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+	color:#666666;
+	text-align:center;
+	margin-left:30px;
+	background-color:#FFD600;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+#clientSearchSubmit:hover{
+	background-color:#FFD699;
+}
+
+.userChoose{
+	float:left;
+	width:80px;
+	height:24px;
+	line-height:24px;
+	margin:8px auto 0px;
+	padding:0px 10px 0px;
+	border-right:1px solid #202020;
+	text-align:center;
+	font-size:14px;
+	color:#fff;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+	cursor:pointer;
+}
+.userChoose a{
+	width:100%;
+	height:100%;
+	font-size:14px;
+	line-height:20px;
+	text-align:center;
+	text-decoration:none;
+	color:#fff;
+	text-decoration:none;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.userChoose a:hover{
+	color:#EDCD00;
+	text-decoration:none;
+}
+
+.action{
+	width:auto;
+	text-align:center;
+	margin:0px auto;
+}
+.action a{
+	display: inline-block;
+	margin-right:10px;
+	/*color: #000000;*/
+}
+
+.action a:hover{
+	color: #666666;
+}
+
+/*查看会员卡*/
+/*会员卡信息*/
+.showMessage{
+	margin:0px;
+	padding:0px;
+}
+.userIcon{
+	position: absolute;
+	display:block;
+	width:126px;
+	height: 95px;
+    margin: 0px 45px;
+	border:1px solid #ccc;
+}
+.memberMessage{
+	width:100%;
+	height:14px;
+	margin-top:15px;
+	line-height:14px;
+	font-size:12px;
+}
+.leftMessage{
+	position:relative;
+	width:50%;
+	height:100%;
+	float:left;
+}
+.rightMessage{
+	position:relative;
+	width:50%;
+	height:100%;
+	float:right;
+}
+.bothMessage{
+	position:relative;
+	color:#000;
+}
+.messageLable{
+	display: inline-block;
+    width: 80px;
+    height: 100%;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+.theMessageL{
+	position:absolute;
+	top:0px;
+	left:85px;
+	right:0px;
+	height:14px;
+	margin:0px;
+	padding:0px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	color: #666;
+}
+.theMessageR{
+	position:absolute;
+	top:0px;
+	left:85px;
+	right:0px;
+	height:14px;
+	margin:0px;
+	padding:0px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	color: #666;
+}
+
+/*停卡信息*/
+.stopHistory{
+	height:15px;
+	line-height:15px;
+	font-size:13px;
+	color:#666666;
+	padding:10px 0px;
+}
+.stopHistory span{
+	margin-left:5px;
+}
+.messageDiv{
+	width:auto;
+	height:25px;
+	padding:15px 0px 0px;
+}
+.messageDiv .remind{
+	line-height:25px;
+	color:#666666;
+	font-size:13px;
+	margin-left:15px;
+}
+.messageDiv .textbox,.combo{
+	width:150px;
+	height:25px;
+}
+.messageDiv .textbox-text{
+	height:23px;
+	line-height:23px;
+	padding-left:10px;
+	margin-top:-3px;
+}
+.messageLableL{
+	display:inline-block;
+	width:60px;
+	height:100%;
+	line-height:25px;
+	font-size:13px;
+	color:#666666;
+	
+}
+.messageLableR{
+	display:inline-block;
+	width:60px;
+	height:100%;
+	line-height:25px;
+	font-size:13px;
+	margin-left:20px;
+	color:#666666;
+	
+}
+.chooseBtn{
+	width:200px;
+	height:30px;
+	margin:30px auto 0px;
+	font-size:14px;
+	text-align: left;
+}
+.chooseSure{
+	display:block;
+	width:90px;
+	height:30px;
+	line-height: 30px;
+	color:#fff;
+	float:right;
+	text-align:center;
+	background:#3fc370;
+	-moz-border-radius: 3px; /* Firefox */
+  	-webkit-border-radius:3px; /* Safari 和 Chrome */
+ 	border-radius: 3px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.chooseCancle{
+	display:block;
+	width:90px;
+	height:30px;
+	line-height:30px;
+	/*margin-left:10px;*/
+	color:#999;
+	float:left;
+	text-align:center;
+	background:#ddd;
+	-moz-border-radius: 3px; /* Firefox */
+  	-webkit-border-radius:3px; /* Safari 和 Chrome */
+ 	border-radius: 3px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+
+.sendMessage{
+	/*width:100px;*/
+	height:20px;
+	line-height:20px;
+	font-size:14px;
+	padding:5px;
+	margin: 5px;
+	border-radius: 5px;
+	float:right;
+	cursor:pointer;
+}
+
+.sendMessage:hover{
+	background: #2C2C2C;
+}
+
+.sendMessage:active{
+	background: #222222;
+}
+.sendImg{
+	height: 16px;
+    vertical-align: text-bottom;
+}

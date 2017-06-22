@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/tuanti.css">
+</head>
+
+<body style="position:relative;" onselectstart="return false">
+    <div id="hideDiv" class="center-region" style="position:absolute;top:0px;left:0px;background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：课程管理 > 社群课程排期
+        </div>
+        <div style="position: relative;padding: 8px 10px;height: 25px;background: #373737;border-bottom: 1px solid #252525;border-radius: 5px 5px 0 0;">
+            <!-- <table> -->
+            <!-- <tr> -->
+            <!-- <td>
+                        <div id="all" class="curriculum" style="" onclick="chooseCurriculum('all','')" onmouseOver="onOver('all')" onmouseout="toOut('all')">所有</div>
+                    </td>
+                    <td>
+                        <div id="Mon" class="curriculum" style="" onclick="chooseCurriculum('Mon',1)" onmouseOver="onOver('Mon')" onmouseout="toOut('Mon')">周一</div>
+                    </td>
+                    <td>
+                        <div id="Tue" class="curriculum" style="" onclick="chooseCurriculum('Tue',2)" onmouseOver="onOver('Tue')" onmouseout="toOut('Tue')">周二</div>
+                    </td>
+                    <td>
+                        <div id="Wed" class="curriculum" style="" onclick="chooseCurriculum('Wed',3)" onmouseOver="onOver('Wed')" onmouseout="toOut('Wed')">周三</div>
+                    </td>
+                    <td>
+                        <div id="Thu" class="curriculum" style="" onclick="chooseCurriculum('Thu',4)" onmouseOver="onOver('Thu')" onmouseout="toOut('Thu')">周四</div>
+                    </td>
+                    <td>
+                        <div id="Fri" class="curriculum" style="" onclick="chooseCurriculum('Fri',5)" onmouseOver="onOver('Fri')" onmouseout="toOut('Fri')">周五</div>
+                    </td>
+                    <td>
+                        <div id="Sat" class="curriculum" style="" onclick="chooseCurriculum('Sat',6)" onmouseOver="onOver('Sat')" onmouseout="toOut('Sat')">周六</div>
+                    </td>
+                    <td>
+                        <div id="Sun" class="curriculum" style="" onclick="chooseCurriculum('Sun',7)" onmouseOver="onOver('Sun')" onmouseout="toOut('Sun')">周日</div>
+                    </td> -->
+            <!-- <a id="tableState" href="javascript:;" style="display:block;float:left;width: 15px;height:15px;line-height:15px;padding:5px;border:1px solid #fff;border-radius:3px;" onclick="tableChange()" onmouseover="iconOver()" onmouseout="iconOut()"><img src="images/tableList.png" alt="" style="display: inline-block;height:100%;width:100%;"></a> -->
+            <div class="private-search" style="line-height: 25px;display: inline-block;height: 25px;vertical-align: middle;font-size:14px;color:#fff;">
+                <label for="privateSearch">&nbsp;&nbsp;教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 27px;line-height: 27px;width: 100px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+            </div>
+            <div id="dateChange">
+                <a href="javascript:;" id="weekPrev"></a>
+                <span>8/22~8/28</span>
+                <a href="javascript:;" id="weekNext"></a>
+            </div>
+            <div style="float:right;width:400px;height:25px;">
+                <div id="addDetail" class="detail" style="" onclick="checkCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/editNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">查看课程</span>
+                </div>
+                <div id="addDetail" class="detail" style="" onclick="newCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">添加课程</span>
+                </div>
+                <div id="editDetail" class="detail" style="" onclick="editCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/editAccount.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">编辑课程</span>
+                </div>
+                <div id="delDetail" class="detail" style="" onclick="destroyCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/deleteNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">删除课程</span>
+                </div>
+                <!-- <div id="sendDetail" class="detail" style="" onclick="sendCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/message.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">推送课程</span>
+                </div> -->
+            </div>
+            <!-- </tr> -->
+            <!-- </table> -->
+        </div>
+        <table style="width:100%;height:100%;border-radius: 0 0 5px 5px;table-layout:fixed;box-sizing: border-box;border: 1px solid #ddd;" border="0">
+            <thead style="height:30px;line-height:30px;background:#DDDDDD;color:#666;font-size:14px;font-weight:300;">
+                <tr>
+                    <th><span id="date1"></span> 星期一</th>
+                    <th><span id="date2"></span> 星期二</th>
+                    <th><span id="date3"></span> 星期三</th>
+                    <th><span id="date4"></span> 星期四</th>
+                    <th><span id="date5"></span> 星期五</th>
+                    <th><span id="date6"></span> 星期六</th>
+                    <th><span id="date7"></span> 星期日</th>
+                </tr>
+            </thead>
+        </table>
+        <div style="position: absolute;top: 124px;bottom: 1px;left: 0;width: 100%; overflow:auto;box-sizing: border-box;border: 1px solid #ddd;border-top:0;">
+            <!-- <div id="dgList" style="width:100%;height:100%;">
+                <table id="dg" style="width:100%;height:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'courseName',align:'center',">名称</th>
+                            <th style="white-space: nowrap" data-options="field:'week',align:'center',formatter: formatTime">日期</th>
+                            <th style="white-space: nowrap" data-options="field:'courseTime',align:'center',">时间</th>
+                            <th style="white-space: nowrap" data-options="field:'place',align:'center',">地点</th>
+                            <th style="white-space: nowrap" data-options="field:'coachs',align:'center',">带课教练</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div> -->
+            <table id="dgWeek" style="position: relative; width:100%;height:100%;border-radius: 0 0 5px 5px;table-layout:fixed;" border="0">
+            <!-- <div class="dg-line" style="position: absolute;top: 110px; width:100%;background-color: #e4e4e4;height: 1px;z-index: 999;"></div> -->
+                <tbody>
+                    <tr>
+                        <td style="vertical-align:top;">
+                            <div id="week1"></div>
+                        </td>
+                        <td style="vertical-align:top;background:#F3F3F3;">
+                            <div id="week2"></div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div id="week3"></div>
+                        </td>
+                        <td style="vertical-align:top;background:#F3F3F3;">
+                            <div id="week4"></div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div id="week5"></div>
+                        </td>
+                        <td style="vertical-align:top;background:#F3F3F3;">
+                            <div id="week6"></div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div id="week0"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="dlg" class="easyui-dialog" style="width: 450px;padding:20px" closed="true" data-options="modal:true">
+                <!--  buttons="#dlg-buttons" -->
+                <!-- <div class="ftitle">健身课程信息</div>-->
+                <form id="fm" method="post">
+                    <input mame="id" id="id" type="hidden" />
+                    <!-- <input id="week" type="hidden"/>-->
+                    <div class="fitem">
+                        <label>课程名称：</label>
+                        <input name="courseName" id="courseName" class="easyui-combobox" value="" style="height: 26px;line-height: 26px;width: 162px;padding-left:5px;font-size:14px;" data-options="editable:false,prompt:'请选择课程'">
+                    </div>
+                    <div class="fitem">
+                        <label>带课教练：</label>
+                        <input name="coachs" id="coachs" class="easyui-combobox" value="" style="height: 26px;line-height: 26px;width: 162px;padding-left:5px;font-size:14px;" data-options="editable:false,prompt:'请选择教练'">
+                    </div>
+                    <div class="fitem">
+                        <label>周课安排：</label>
+                        <div id="week">
+                            <a href="javascript:;" data-day="1">星期一</a>
+                            <a href="javascript:;" data-day="2">星期二</a>
+                            <a href="javascript:;" data-day="3">星期三</a>
+                            <a href="javascript:;" data-day="4">星期四</a>
+                            <a href="javascript:;" data-day="5">星期五</a>
+                            <a href="javascript:;" data-day="6">星期六</a>
+                            <a href="javascript:;" data-day="7">星期日</a>
+                        </div>
+                    </div>
+                    <div class="fitem">
+                        <label>日期安排：</label>
+                        <input id="courseDate" placeholder="请输入起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD'})" readonly="readonly">
+                    </div>
+                    <div class="fitem">
+                        <label>时间：</label>
+                        <!--<input name="courseTime" id="courseTime" class="easyui-textbox"/>-->
+                        <!-- <input name="courseTime1" id="courseTime1" class="easyui-timespinner" style="width:76px;height:26px;"> -->
+                        <select id="courseTime1" class="easyui-combobox" data-options="editable:false,valueField: 'value',prompt:'上课时间'" style="height: 26px;line-height: 26px;width: 75px;"></select>
+                        <span style="line-height: 26px;">-</span>
+                        <select id="courseTime2" class="easyui-combobox" data-options="editable:false,valueField: 'value',prompt:'下课时间'" style="height: 26px;line-height: 26px;width: 75px;"></select>
+                    </div>
+                    <div class="fitem">
+                        <label for="">课程状态：</label>
+                        <select id="courseState" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '报名中',
+                                value: '1'
+                            },{
+                                text: '已开课',
+                                value: '2'
+                            },{
+                                text: '完成课程',
+                                value: '3'
+                            }]" style="height: 26px;line-height: 26px;width: 162px;padding-left:5px;font-size:14px;">
+                        </select>
+                    </div>
+                </form>
+                <div id="dlgTable" style="position: relative;height: 160px;width: 410px;">
+                    <div class="sign-table">
+                        <table id="dgSign1" class="easyui-datagrid" style="width:100%;height:100%;" rownumbers="false" data-options="singleSelect:true,pagination:false,pageSize:'30',url:'',method:'post',striped:'true',resizeHandle:'both',fitColumns:'true' ">
+                            <thead>
+                                <tr>
+                                    <th style="white-space: nowrap" data-options="field:'studentName',align:'center',resizable:'true'">会员名称</th>
+                                    <th style="white-space: nowrap" data-options="field:'studentAge',align:'center',resizable:'true'">年龄</th>
+                                    <th style="white-space: nowrap" data-options="field:'phone',align:'center',resizable:'true'">手机号</th>
+                                    <th style="white-space: nowrap" data-options="field:'height', align:'center',resizable:'true', formatter:formatBMI">体型</th>
+                                    <th style="white-space: nowrap" data-options="field:'orderTime',align:'center',resizable:'true',formatter:formatTime1">发起时间</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="button" style="width:100%;padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')" style="margin-left:99px;margin-right: 25px;width: 100px;background:#dddddd; color: #999;border-radius: 3px;"><span style="color:#999;">取消</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveCurriculum()" style="width:100px;background:#3fc370;border-radius: 3px; color: #EDC609;"><span style="color:white;">确定</span></a>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <div id="dlgSign" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;课程详情" style="width:500px;padding:10px 25px;" closed="true" data-options="modal:true">
+        <div class="sign-title">
+            <div class="item-row">
+                <div class="item-col">
+                    <b>课程名称：</b>
+                    <span id="dlgCourseName">李伟</span>
+                </div>
+                <div class="item-col">
+                    <b>带课教练：</b>
+                    <span id="dlgCoachName">染指训练营</span>
+                </div>
+            </div>
+            <div class="item-row">
+                <div class="item-col">
+                    <b>课程时间：</b>
+                    <span id="dlgCourseTime">2016/09/19 18:00-19:00</span>
+                </div>
+                <div class="item-col">
+                    <b>课程时长：</b>
+                    <span>60分钟</span>
+                </div>
+            </div>
+            <div class="item-row">
+                <div class="item-col">
+                    <b>课程状态：</b>
+                    <span id="dlgCourseState">是</span>
+                </div>
+                <div class="item-col">
+                    <b>报名学员：</b>
+                    <span id="dlgCourseNum">3人</span>
+                </div>
+            </div>
+        </div>
+        <div style="position: relative;height: 200px;width: 450px;">
+            <div class="sign-table">
+                <table id="dgSign2" class="easyui-datagrid" style="width:100%;height:100%;" rownumbers="false" data-options="singleSelect:true,pagination:false,pageSize:'30',url:'',method:'post'">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'studentName',align:'center'">会员名称</th>
+                            <th data-options="field:'studentAge',align:'center'">年龄</th>
+                            <th data-options="field:'height',align:'center',formatter:formatBMI">体型</th>
+                            <th data-options="field:'phone',align:'center'">手机号</th>
+                            <th data-options="field:'orderTime',align:'center',formatter:formatTime1">发起时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="chooseBtn">
+            <a class="chooseSure" onclick="javascript:$('#dlgSign').dialog('close')">确定</a>
+        </div>
+    </div>
+    <div id="dlgDel" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;删除确认" style="width:500px;padding:10px 25px;" closed="true" data-options="modal:true">
+        <div  class="item-col" style="margin-bottom: 15px;font-size: 14px;">
+            <b>已报名学员：</b>
+        </div>
+        <div style="position: relative;height: 200px;width: 450px;">
+            <div class="sign-table">
+                <table id="dgSign3" class="easyui-datagrid" style="width:100%;height:100%;" rownumbers="false" data-options="singleSelect:true,pagination:false,pageSize:'30',url:'',method:'post'">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'studentName',align:'center'">会员名称</th>
+                            <th data-options="field:'studentAge',align:'center'">年龄</th>
+                            <th data-options="field:'height',align:'center',formatter:formatBMI">体型</th>
+                            <th data-options="field:'phone',align:'center'">手机号</th>
+                            <th data-options="field:'orderTime',align:'center',formatter:formatTime1">发起时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="chooseBtn">
+            <a class="chooseSure" id="delBtn">确定</a>
+        </div>
+    </div>
+    <!-- 屏蔽层 -->
+    <div id="shield" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9000;display:none;background:#A3ADB2;opacity:0.6;filter: alpha(opacity=60);" onclick="shield()">
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/tuanti.js"></script>
+</body>
+
+</html>

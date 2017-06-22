@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <style>
+        body{
+            width: 100%;
+            height:100%;
+            min-width:800px;
+            min-height:600px;
+			overflow:hidden;
+            /*margin: 40px auto;*/
+        }
+        .toolbar{
+            padding:5px 8px;
+            background: #393939;
+        }
+        
+          .fitem label{
+            display:inline-block;
+            width:60px;
+            text-align:left;
+            color:#989898;
+            font-size:14px;
+            padding-right:10px;
+        }
+        .fitem{
+        	padding:0px 0px 0px 10px;
+        	margin-bottom:30px;
+        	width:100%;
+        	height:25px;
+        }
+       .fitem input{
+        	outline:none;
+        }
+       .fitem .textbox{
+       		border-radius:4px;
+       }
+       .l-btn{
+       		border-radius:5px;
+       		webkit-border-radius:5px;
+       }
+       
+       .cardChoose{
+       		width:70px;
+       		height:20px;
+       		line-height:20px;
+       		font-size:15px;
+       		text-align:center;
+       		float:left;
+       		border-left:1px solid #0D0D0D;
+       		padding:10px 20px;
+			cursor:pointer;
+       }
+	   
+	   .cardChoose:hover{
+			background:#2f2f2f;
+	   }
+        .toolbar input{
+            padding: 3px 3px 3px 53px;
+            border: 1px solid #000000;
+            color: #ffffff;
+            line-height: 25px;
+            font-size: 28px;
+            width: 310px;
+            background: no-repeat #393939;
+        }
+        .toolbar input:focus{
+            border: 1px solid #000000;
+            outline: none;
+        }
+        .toolbar a {
+            color: #FFFFFF;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .toolbar-btn{
+            float: right;
+            margin: 10px;
+            padding: 5px 20px;
+            border-left: 1px solid #000000;
+        }
+
+        .centerPage{
+            /*height: 253px;*/
+            width:100%;
+            height:298px;
+            border: 1px solid #EBEBEB;
+        }
+
+        .photo{
+            height: 100%;
+            float: left;
+        }
+
+        .userInfo{
+            height:240px;
+            float: left;
+            border-right: 1px solid #C9C9C9;
+            width:370px;margin:10px 0px;
+        }
+        .userInfo dl{
+            margin: 0;
+            padding: 0;
+        }
+        .userInfo dt{
+            display: inline-block;
+            width: 50px ;
+        }
+        .userInfo dd{
+            display: inline-block;
+            width: 80px ;
+        }
+        .userInfo dt{
+            color: #999999;
+        }
+        .userInfo dd{
+            font-weight: bold;
+            margin-left: 0px;
+            color:#353535;
+        }
+	
+		input{
+			padding:0px;
+			border:1px solid #ADADAD;
+			outline:none;
+		}
+	
+
+        .rowWrap{
+            position:absolute;
+			top:40px;
+			width:98%;
+			bottom:0px;
+			padding-left:10px;
+            overflow-y: auto;
+        }
+        .row{
+            line-height: 35px;
+        }
+        .col{
+           /* margin: 0 1%;*/
+            float: left;
+            width: 12.6%;
+            text-align:center;
+    		line-height:35px
+    		vertical-align:middle;
+        }
+        .col1 {
+            width: 5%;
+        }
+        .col2{
+            width: 10%;
+        }
+         .col6{
+            width: 20%;
+        }
+        .col7{
+            width: 18%;
+        }
+        .col8{
+            width: 5%;
+            float: right;
+            cursor:pointer;
+            color:#000;
+        }
+        .col4 , .col5 , .col6 , .col7, .col8{
+            /*margin: 0 5%;*/
+        }
+        .input-group{
+			display:block;height:24px;border-radius:13px 0px 0px 13px;float:left;padding-left:10px;width:200px;
+        }
+        .input-addon{
+            display: table-cell;
+            float:left;
+            width:80px;
+            height:26px;
+            line-height:26px;
+            font-size:14px;
+            text-align:center;
+            border-radius:0px 13px 13px 0px;
+            background-color:#383838;
+            color:#FaFAFa;
+			cursor:pointer;
+        }
+		.topDiv{
+			position:absolute;
+			/*
+			top:10px;
+			left:10px;
+			right:10px;
+			*/
+			top:2px;
+			left:2px;
+			right:2px;
+			min-width:720px;
+			height:350px;
+			border:1px #666 solid;
+			border-radius:5px;
+		}
+		.bottomDiv{
+			position:absolute;
+			top:370px;
+			bottom:0px;
+			/*
+			left:10px;
+			right:10px;
+			*/
+			left:2px;
+			right:2px;
+			min-width:720px;
+			border:1px #666 solid;
+			border-radius:5px;
+			color:#393939;"
+		}
+		.bottomTitle{
+			color:#fff;
+			line-height:40px;
+			background:#393939;
+			padding-left:10px;
+		}
+		.bottomTitle span{
+			float:right;
+			margin-right:10px;
+			width:150px;
+			text-align:right;
+		}
+		.topButton{
+			float:right;
+		}
+		#remarkDiv{
+			position:absolute;
+			left:20px;
+			top:220px;
+			min-width:300px;
+			height:30px;
+		}
+		.rightDiv{
+			position:relative;
+			float:left;
+			height:100%;
+			min-width:250px
+		}
+		.leftDiv{
+			width:600px;height:100%;
+		}
+		.userPhoto{
+			border: 1px solid #ccc; border-radius:5px;width: 190px;height: 250px;margin-right:30px;
+			background:#eee;
+		}
+		/*显示详情css*/
+		.messageTopDiv{
+			width:100%;
+			height:240px;
+			padding-bottom:10px;
+		}
+		.messageBottomDiv{
+			width:100%;
+			height:130px;
+		}
+		.photoM{
+			width:auto;
+            height: 100%;
+            float: left;
+            margin-right:30px;
+        }
+        .userPhotoM{
+			border: 1px solid #ccc;
+			border-radius:5px;
+			width: 180px;
+			height: 230px;
+			background:#eee;
+		}
+         .userInfoM{
+            height:220px;
+            width:280px;
+            float:left;
+            margin:10px 0px;
+        }
+         .userInfoM dl{
+            margin: 0;
+            padding: 0;
+            font-size:15px;
+        }
+        .userInfoM dt{
+            display: inline-block;
+            width: 40px ;
+            color: #999999;
+        }
+        .userInfoM dd{
+            display: inline-block;
+            width: 80px ;
+             font-weight: bold;
+            margin-left: 0px;
+            color:#353535;
+        }
+       
+		.history{
+			width:100%;
+			height:auto;
+			color:#000;
+			line-height:20px;
+		}
+		.showHistoryL{
+			width:65%;
+			height:34px;
+			line-height:15px;
+			float:left;
+			text-align:center;
+		}
+		.showHistoryR{
+			width:35%;
+			height:20px;
+			line-height:20px;
+			float:left;
+			text-align:center;
+		}
+		
+    </style>
+
+</head>
+<body onselectstart="return false" oncontextmenu="return false">
+
+<div id = "hideDiv" class="center-region" style="position:absolute;float:left;width:100%;height:100%;top:0px;left:0px;background:#fff;z-index:9999;">
+		<div style="width:32px;height:32px;margin:250px auto auto auto;">
+			<img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+		</div>
+	</div>
+<div class="topDiv">
+	<div class="toolbar" style="position:relative;">
+	<img src="images/makeCode.png" style="position:absolute;left:24px;top:14px;width:24px;height:24px;">
+    <input type="text" maxlength="18" id="userCode">
+
+    <div class="topButton">
+    	<div class="cardChoose"  onclick="sendCard()">
+    		<div style="float:left;"><img src="images/openCard.png" style="width:30px;height:20px;"></div>
+    		<span style="margin-left:5px;">开卡</span>
+    	</div>
+    	<div class="cardChoose"  onclick="toChangeCard()">
+    		<div style="float:left;"><img src="images/changeCard.png" style="width:30px;height:20px;"></div>
+    		<span style="margin-left:5px;">转卡</span>
+    	</div>
+    	<div class="cardChoose"  onclick="toPauseCard()">
+    		<div style="float:left;"><img src="images/stopCard.png" style="width:20px;height:20px;"></div>
+    		<span style="margin-left:5px;">停卡</span>
+    	</div>
+    </div>
+</div>
+	
+	 <div id="centerPage"class="centerPage">
+	 <div style="padding:20px;">
+	 <div class="leftDiv">
+        <div class="photo">
+            <img class="userPhoto" id="userPhoto">
+        </div>
+        <div class="userInfo">
+            <dl>
+                <dt>姓名:</dt>
+                <dd id="ddRealName"></dd>
+                <input type="hidden" id="ddUserId">
+                <input type="hidden" id="ddGmtEndLng">
+                <input type="hidden" id="ddhCardType">
+                <input type="hidden" id="ddCardId">
+                <input type="hidden" id="ddCardState">
+
+                <dt style="margin-left: 40px;">性别:</dt>
+                <dd id="ddSex"></dd>
+            </dl>
+            <dl style="margin:30px 0;">
+                <dt>昵称:</dt>
+                <dd id="ddNickname"></dd>
+                <dt style="margin-left: 40px;">年龄:</dt>
+                <dd id="ddAge"></dd>
+            </dl>
+            <dl style="margin:30px 0;">
+                <dt>身高:</dt>
+                <dd id="ddHeight"></dd>
+                <dt style="margin-left: 40px;">体重:</dt>
+                <dd id="ddWeight"></dd>
+            </dl>
+            <dl style="margin:30px 0;">
+                <dt>卡种:</dt>
+                <dd id="ddCardType"></dd>
+                <dt style="margin-left: 40px;">签到:</dt>
+                <dd id="ddCardCount"></dd>
+            </dl>
+            <dl id="dlcycleInfo" >
+                <dt style="width: auto;">有效期:</dt>
+                <dd id="ddEffectiveDate" style="width: auto;"></dd>
+            </dl>
+            <dl id="dltimesInfo" style="display: none;">
+                <dt style="width: auto;">可用次数:</dt>
+                <dd id="ddEffectiveTimes" style="width: auto;"></dd>
+            </dl>
+        </div>
+        </div>
+        
+        <div id="rightDiv" class="rightDiv">
+        	<input id = "remark" class="" type="hidden">
+        	 <div id = "remarkList" style="width:auto;max-width:99%;height:200px;padding:5px;overflow-x:hidden;overflow-y:auto;">
+			</div>
+            <div id="remarkDiv">
+            	<input id="remarkMessage" type="text" class="input-group"><div id=""class="input-addon" onclick="saveRemark()">备注TA</div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="bottomDiv" class="bottomDiv">
+	 <div class="bottomTitle">操作记录
+        <span>今日签到 <a id="signSize">0</a> 位</span>
+    </div>
+	 <div class="rowWrap" id="logsContainer"></div>
+</div>
+
+<!-- 发卡 -->
+<div id="dlg" class="easyui-dialog" style="width:480px;height:320px; padding:10px"closed="true"  data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+       <!-- <img src="images/yun.png" style="float:left;width:150px;height:200px;">-->
+    <video id="newCardVideo" autoplay=""style='float:left;width:150px;height:200px;'></video>
+    <canvas id="newCardCanvas" width="640" height="480" style="display: none"></canvas>
+    <div style="width:300px;height:200px;float:left;">
+			<div class="fitem"><!-- letter-spacing:16px; -->
+				<label style="">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label> <input name="realName" id="realName" class="easyui-textbox" style="width:186px;height:30px;margin-left:10px;"/>
+			</div>
+			<div class="fitem">
+				<label>卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</label> 
+				<select name="cardType" id="cardType"   data-options="disabled:false"style="width:180px;height:30px;margin-left:10px;">
+
+				</select>
+			</div>
+			<div class="fitem" id="nDateWrap">
+				<label style="padding-right:14px;">有效日期:</label>
+                <input id = "ncstartDate" data-options="formatter:simpleDateFormat,parser:simplerDateParse,onSelect: function(date){
+                    var cardId = $('#cardType').combobox('getValue');
+                    var card = getSelectCard(cardId);
+                    if(!card){return;}
+                    var end = addCycle(date,card.cycle);
+                    $('#ncendDate').datebox('setValue', dateFormatyMd(end));
+
+                }" class="easyui-datebox" style="width:98px;height:30px;margin-left:15px;">&nbsp;-&nbsp;
+                <input id = "ncendDate" data-options="readonly:true,formatter:simpleDateFormat,parser:simplerDateParse" class="easyui-datebox" style="width:98px;height:30px;margin-left:15px;">
+			</div>
+			<div class="fitem" id="nTimeWrap">
+				<label>可用次数:</label> <input id="effectiveCount" class="easyui-textbox" style="width:180px;height:30px;margin-left:10px;">
+			</div>
+			<div class="fitem">
+				<label style="">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</label> <input name="cardPrice" id = "cardPrice" class="easyui-textbox" style="width:186px;height:30px;margin-left:10px;">
+			</div>
+        </div>
+        <div style="clear:both;width:100%;height:0px;"></div>
+        <div class="button" style="width:100%;height:30px;padding-top:20px;text-align:center;">
+        	<a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#dlg').dialog('close')"style="width: 90px;margin-right:50px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;text-align:center;">取&nbsp;&nbsp;消</span></a>
+			<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="newCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">确&nbsp;&nbsp;定</span></a>
+		</div>
+    </div>
+<!-- 操作 -->
+<div id="opdlg" class="easyui-dialog" style="width:460px;height:250px; padding:10px"closed="true"  data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+        <div class="button" style="width:100%;height:30px;padding-top:20px;text-align:center;">
+            <div id="opinfo" style="font-size: 14px;"></div>
+			<!--<div id="opsigninDiv">
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="signin()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">签&nbsp;&nbsp;到</span></a>
+            </div>-->
+<!--            <div id="opnewCarDiv" style="display: none">
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="opNewCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">开&nbsp;&nbsp;卡</span></a>
+            </div>-->
+            <div class="button" style="width:100%;height:30px;padding-top:40px;text-align:center;">
+                <a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#opdlg').dialog('close')"style="width: 90px;margin-right:50px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;text-align:center;">取&nbsp;&nbsp;消</span></a>
+                <div id="newCardBtn" style=" display: inline;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="opNewCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">确&nbsp;&nbsp;定</span></a>
+                </div>
+                <div id="startCardBtn" style="display: none; display: inline;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="startCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">确&nbsp;&nbsp;定</span></a>
+                </div>
+            </div>
+		</div>
+    </div>
+<!-- 转停卡次数 -->
+<div id="timesdlg" class="easyui-dialog" style="width:460px;height:250px; padding:10px"closed="true"  data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+        <div class="button" style="width:100%;height:30px;padding-top:20px;text-align:center;">
+            <div id="timesinfo" style="font-size: 14px;"></div>
+            <div class="button" style="width:100%;height:30px;padding-top:40px;text-align:center;">
+                <a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#timesdlg').dialog('close')"style="width: 90px;margin-right:50px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;text-align:center;">取&nbsp;&nbsp;消</span></a>
+                <div id="toPauseCardBtn" style=" display: inline;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="showPauseCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">继&nbsp;&nbsp;续</span></a>
+                </div>
+                <div id="toChangeCardBtn" style="display: none; display: inline;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="showChangeCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">继&nbsp;&nbsp;续</span></a>
+                </div>
+            </div>
+		</div>
+    </div>
+<!-- 转卡 -->
+<div id="dlg1" class="easyui-dialog" style="width:480px;height:360px; padding:10px"closed="true"  data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+       <div id="changeMessage" style="width:100%;height:100%;display:block;">
+        <input id="toUserCode" style="width:100%;height:35px;border:1px solid #858585;line-height:35px;font-size:28px;outline:none;letter-spacing:7px;">
+        <div style="width:100%;height:5px;"></div>
+        <!--<img src="images/yun.png" style="float:left;width:150px;height:200px;">-->
+        <video id="cgCardVideo" autoplay=""style='float:left;width:150px;height:200px;'></video>
+        <canvas id="cgCardCanvas" width="640" height="480" style="display: none"></canvas>
+        <div style="width:300px;height:200px;float:left;">
+        	<form id="cgfm" method="post">
+            <input type="hidden" id="ccCardCycle">
+			<div class="fitem"><!-- letter-spacing:16px; -->
+				<label style="">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label> <input name="toUserName" id="toUserName" class="easyui-textbox" style="width:180px;height:30px;margin-left:10px;"/>
+			</div>
+			<div class="fitem">
+				<label>卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</label> 
+				<select id="cgcardType" style="width:180px;height:30px;margin-left:10px;">
+				</select>
+			</div>
+			<div class="fitem" id="cgDateDiv">
+				<label style="padding-right:14px;">有效期至:</label>
+                <input id = "ccstartDate" data-options="formatter:simpleDateFormat,parser:simplerDateParse,onSelect: function(date){
+                    var cardCycle = $('#ccCardCycle').val();
+                    if(!cardCycle){return;}
+                    var end = addCycle(date,cardCycle);
+                    $('#ccendDate').datebox('setValue', dateFormatyMd(end));
+
+                }" class="easyui-datebox" style="width:98px;height:30px;margin-left:15px;">&nbsp;-&nbsp;
+                <input id = "ccendDate" data-options="readonly:true,formatter:simpleDateFormat,parser:simplerDateParse" class="easyui-datebox" style="width:98px;height:30px;margin-left:15px;">
+<!--
+
+                <input id="cdeffectiveDate" data-options="formatter:simpleDateFormat,parser:simplerDateParse" class="easyui-datebox"  style="width:180px;height:30px;margin-left:15px;">
+-->
+
+			</div>
+			<div class="fitem" id="cgtimeDiv">
+				<label>可用次数:</label> <input id = "cdeffectiveCount" class="easyui-textbox" style="width:180px;height:30px;margin-left:10px;">
+			</div>
+		
+		</form>
+        </div>
+        <div style="clear:both;width:100%;height:0px;"></div>
+        <div class="button" style="width:100%;height:30px;padding-top:20px;text-align:center;">
+        	<a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#dlg1').dialog('close')"style="width: 90px;margin-right:50px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;text-align:center;">取&nbsp;&nbsp;消</span></a>
+			<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="changeCardNext()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">下&nbsp;&nbsp;一&nbsp;&nbsp;步</span></a>
+		</div>
+	 </div>
+	 <div id="toChange" style="position:relative;width:440px;height:277px;padding:19px 10px 0px 19px;display:none;">
+	 	<img id="oldUser"alt="" src="images/yun.png" style="float:left;height:160px;width:auto;max-width:120px;">
+	 	<h4 id="oldUserName" style="position:absolute;width:120px;height:25px;top:190px;left:20px;text-align:center;margin:0px;">洪祥</h4>
+	 	<div style="width:158px;height:160px;float:left;padding:0px 0px;">
+	 		<img src="images/changeTo.png" style="width:80px;height:40px;margin:20px 39px 30px 39px;">
+	 		
+	 		<div class="fitem" style="margin-bottom:0px;">
+				<label>卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</label> <span id="spanCardType">时效卡</span>
+			</div>
+			<div class="fitem" id="cgNextTimes" style="margin-bottom:0px;">
+				<label>可用次数:</label> <span id="spanEffectiveCount"></span>
+			</div>
+			<div class="fitem" id="cgNextCycle" style="margin-bottom:0px;">
+				<label style="padding-right:14px;">有效期至:</label><span id="spanEffectiveDate"></span>
+			</div>
+			
+	 	</div>
+	 	<img id="cdnewUser"alt="" src="images/yun.png" style="float:left;height:160px;width:auto;max-width:120px;">
+	 	<h4 id="newUserName" style="position:absolute;width:120px;height:25px;top:190px;left:300px;text-align:center;margin:0px;">洪祥</h4>
+	 	<div style="clear:both;width:100%;"></div>
+	 	<div class="button" style="width:100%;height:30px;padding-top:70px;text-align:center;">
+        	<a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#dlg1').dialog('close')"style="width: 90px;margin-right:50px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;text-align:center;">取&nbsp;&nbsp;消</span></a>
+			<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveChangeInfo()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">确&nbsp;&nbsp;定</span></a>
+		</div>
+	 </div>
+    
+    </div>
+<!-- 停卡 -->
+<div id="dlg2" class="easyui-dialog" style="width:460px;height:320px; padding:10px"closed="true"  data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+        <img id="pcUserPhoto" src="images/yun.png" style="float:left;width:150px;height:200px;">
+        <div style="width:280px;height:200px;float:left;">
+        	<form id="fm" method="post">
+			<input id="id" type="hidden"/>
+			<div class="fitem"><!-- letter-spacing:16px; -->
+				<label style="">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label> <input readonly id="pcUserName" class="" style="width:180px;height:20px;margin-left:10px;border-width:0px;"/>
+			</div>
+			<div class="fitem">
+				<label>卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种:</label> <input readonly id="pcCardName" class="" style="width:180px;height:20px;margin-left:10px;border-width:0px;"/>
+			</div>
+			<div class="fitem">
+				<label style="padding-right:14px;">停卡时间:</label><!--<input name="stopDate" id = "stopDate" class="easyui-datebox" >-->
+                <select id="pcTimes" class="easyui-combobox"  data-options="onSelect:function(){
+                    var days = $(this).combobox('getValue'); //alert('select:'+days);
+                    var userId = $('#ddUserId').val();
+                    $.post('userAction!cardTimesForPause.zk',{userId:userId,times:days},function(data){
+                        if(data.STATUS){
+                            var info = dateFormatyMd(new Date(data.gmtStart));
+                            if(data.gmtEnd){
+                                info += '至'+ dateFormatyMd(new Date(data.gmtEnd));
+                            }
+                            $('#newEffectivedate').val(info);
+                        }
+                    },'json');
+
+                    $('#newEffectivedate').val(info);
+                }
+
+                " style="width:180px;height:30px;margin-left:25px;">
+                    <option selected>1月</option>
+                    <option>2月</option>
+                    <option>3月</option>
+                    <option>4月</option>
+                    <option>5月</option>
+                    <option>6月</option>
+                </select>
+			</div>
+			<div class="fitem" id="">
+				<label id="pcDataLabel">有效期为:</label> <input name="effectiveDate" id = "newEffectivedate" class="" style="width:180px;height:30px;margin-left:10px;border-width:0px;">
+			</div>
+		
+		</form>
+        </div>
+        <div style="clear:both;width:100%;height:0px;"></div>
+        <div class="button" style="width:100%;height:30px;padding-top:20px;text-align:center;">
+        	<a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#dlg2').dialog('close')"style="width: 90px;margin-right:50px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;text-align:center;">取&nbsp;&nbsp;消</span></a>
+			<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="savePauseCard()" style="width:90px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;text-align:center;">确&nbsp;&nbsp;定</span></a>
+		</div>
+    </div>
+   <!-- 显示详情 -->
+   <div id="showMessage" class="showMessage easyui-dialog" style="width:550px;height:450px;padding:10px;"closed="true" data-options="modal:true">
+   		 <div class="messageTopDiv">
+        <div class="photoM">
+            <img class="userPhotoM" id="userPhotoM">
+        </div>
+        <div class="userInfoM">
+            <dl>
+                <dt>姓名:</dt>
+                <dd id="ddRealNameM"></dd>
+               
+                <dt style="margin-left: 20px;">性别:</dt>
+                <dd id="ddSexM"></dd>
+            </dl>
+            <dl style="margin:28px 0;">
+                <dt>昵称:</dt>
+                <dd id="ddNicknameM"></dd>
+                <dt style="margin-left: 20px;">年龄:</dt>
+                <dd id="ddAgeM"></dd>
+            </dl>
+            <dl style="margin:28px 0;">
+                <dt>身高:</dt>
+                <dd id="ddHeightM"></dd>
+                <dt style="margin-left: 20px;">体重:</dt>
+                <dd id="ddWeightM"></dd>
+            </dl>
+            <dl style="margin:28px 0;">
+                <dt>卡种:</dt>
+                <dd id="ddCardTypeM"></dd>
+                <dt style="margin-left: 20px;">消费:</dt>
+                <dd id="ddCardCountM"></dd>
+            </dl>
+            <dl id="dlcycleInfoM" >
+                <dt style="width: auto;">有效期至:</dt>
+                <dd id="ddEffectiveDateM" style="width: auto;"></dd>
+            </dl>
+            <dl id="dltimesInfoM" style="display: none;">
+                <dt style="width: auto;">可用次数:</dt>
+                <dd id="ddEffectiveTimesM" style="width: auto;"></dd>
+            </dl>
+        </div>
+        </div>
+   
+   		 <div id="messageBottomDiv" class="messageBottomDiv" style="">
+        	<label style="float:left;padding-top:8px;width:60px;text-align:left;">用户记录:</label>
+        	<div id = "remarkListM" style="width:450px;height:100%;overflow-x:hidden;overflow-y:auto;">
+        		<div class="showHistoryL" >操作</div>
+    			<div class="showHistoryR">时间</div>
+    			<div style="clear: both"></div>
+        	</div>
+         </div>
+        <div style="clear:both;"></div>
+   </div>
+   <!-- 显示签到 -->
+   <div id="showSign" style="width:250px;height:100px;margin:60% auto 0px auto;border:1px solid #383838;text-align:center;display:none;opacity:1;
+   color:#383838;line-height:100px;font-size:16px;-webkit-box-shadow:2px 2px 3px #aaa; -moz-box-shadow: 2px 2px 3px #aaa;box-shadow:2px 2px 3px #aaa;">
+   		签到成功
+   </div>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<script id="logTmpl" type="text/x-jquery-tmpl">
+<div class="row">
+    <div class="col col1" >${index}</div>
+    <div class="col col2"><img src="../file/FileCenter!showImage2.zk?name=${headIcon}" style="height:35px;width:35px;"></div>
+    <div class="col col3">${userName}</div>
+    <div class="col col4">${sex}</div>
+    <div class="col col5">${age}岁</div>
+    <!-- <div class="col col5">${action}</div> -->
+    <div class="col col6">${actionInfo}</div>
+    <div class="col col7">${time}</div>
+    <div class="col col8" onclick="showMessage('${userId}')">详情</div>
+    <div style="clear: both"></div>
+</div>
+</script>
+<script id="historyTmpl" type="text/x-jquery-tmpl">
+<div class="history">
+    <div class="showHistoryL" >${actionInfo}</div>
+    <div class="showHistoryR">${gmtCreate}</div>
+    <div style="clear: both"></div>
+</div>
+</script>
+<script type="text/javascript">
+function loginTimeout(){
+    window.top.location.replace('index.html?redirect=' + encodeURIComponent(location.href));
+}
+
+//当前用户会员卡信息
+var curCard = {};
+
+//根据用户会员卡弹窗
+function showOp(state){
+    var msg = '';
+    if(state == 'notvip'){
+        $('#startCardBtn').hide();
+        $('#newCardBtn').show();
+        msg = '该用户还不是会员,是否开卡?' ;
+    }else if(state == 'ispause'){
+        $('#newCardBtn').hide();
+        $('#startCardBtn').show();
+        msg = '该用户已经停卡,是否开卡?' ;
+    }else if(state == 'expire'){
+        msg = '该用户会员卡已过期,是否开卡?' ;
+        $('#startCardBtn').hide();
+        $('#newCardBtn').show();
+    }
+    $('#opinfo').text(msg);
+    $('#opdlg').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;操作");
+}
+
+//发卡
+$(function(){
+    $('#userCode').focus();
+	$('body').css('height',$(window).height());//设置body的高度
+	$('body').css('width',$(window).width());
+	var height1 = $(window).height();
+	var width1 = $(window).width();
+	//$('#centerPage').css({'width':width1-2});
+	$('#rightDiv').css({'width':parseInt($('#centerPage').css('width'))-650});
+	$(window).resize(function(){
+		$('body').css('height',$(window).height());//设置body的高度
+		$('body').css('width',$(window).width());
+		var height0 = $(window).height();
+		var width0 = $(window).width();
+		//$('#centerPage').css({'width':width0-2});
+		$('#rightDiv').css({'width':parseInt($('#centerPage').css('width'))-650});
+	});
+
+	$('#hideDiv').hide();
+    $('#userCode').focus(function(){
+        var $this = $(this);
+        var code = $this.val();
+        if(code){
+            $this.val('');
+        }
+    });
+
+    function resetUserInfo(){
+        $('#ddUserId').val('');
+        $('#ddGmtEndLng').val('');
+        $('#ddNickname').text('');
+        $('#ddRealName').text('');
+        $('#remark').val('');
+        $('#ddSex').text('');
+        $('#ddAge').text('');
+        $('#ddHeight').text('');
+        $('#ddWeight').text('');
+        $('#ddCardType').text('');
+        $('#userPhoto').attr('src','');
+    }
+    //监听条码变化
+    $('#userCode').change(function(){
+        var code = $(this).val();
+        if(!code){
+            return ;
+        }
+        $('#ddCardType').text('');
+        $('#ddCardCount').text('');
+        $('#ddEffectiveTimes').text('');
+        $('#ddEffectiveDate').text('');
+        $('#ddCardId').val('');
+
+        $.post('userAction!getByUserCode.zk',{code:code},function(data){
+            if(data.STATUS){
+                $('#ddUserId').val(data.userId);
+                $('#ddGmtEndLng').val(data.cardGmtEndLng);
+                $('#ddNickname').text(data.userName);
+                $('#ddRealName').text(data.realName);
+                $('#remark').val(data.userRemark);
+                $('#ddSex').text(data.sex);
+                $('#ddAge').text(data.age);
+                $('#ddHeight').text(data.height + "CM");
+                $('#ddWeight').text(data.weight + "KG");
+                $('#ddCardType').text(data.cardName);
+				//显示标注信息
+				remarkEdit();
+                if(data.userPhoto){
+                    var img = '../file/FileCenter!showImage2.zk?name=' + data.userPhoto;
+                    $('#userPhoto').attr('src',img);
+                }
+
+                if(data.cardId){
+                    $('#opnewCarDiv').hide();
+                    $('#opsigninDiv').show();
+                }else{
+                    $('#opsigninDiv').hide();
+                    $('#opnewCarDiv').show();
+                }
+
+                $('#ddhCardType').val(data.cardType);
+                if(data.cardId){
+                    $('#ddCardId').val(data.cardId);
+                }
+                if('cycle' == data.cardType){
+                    $('#dltimesInfo').hide();
+                    $('#dlcycleInfo').show();
+
+                    var start = data.cardGmtStart;
+                    var end = data.cardGmtEnd ;
+                    $('#ddEffectiveDate').text( simpleChs(start) + '-' + simpleChs(end) );
+                }
+                if('times' == data.cardType){
+                    $('#dlcycleInfo').hide();
+                    $('#dltimesInfo').show();
+                }
+                var cardState = data.cardState ;
+                $('#ddCardState').val(cardState);
+                if('ok' != cardState){
+                    showOp(cardState);
+                    return ;
+                }
+                //签到
+                signin(code);
+            }else{
+                if('No Login!' == data.ERROR){
+                    loginTimeout();return;
+                }
+            	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+            }
+        },'json');
+
+
+    });
+
+    loadLogs();
+});
+
+//标注
+var remarkUserId;
+var curRow;//当前行
+var remark=[];
+function remarkEdit(){
+	var div = document.getElementById("remarkList");
+	while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+    {
+		div.removeChild(div.firstChild);
+    }
+	$("#"+'remarkMessage').attr('value','');
+     	remarkUserId = $('#ddUserId').val();
+     	var fatherDiv = document.getElementById("remarkList");
+     	remark= [];
+    if(!$('#remark').val()){
+        return ;
+    }
+  	   var array = eval('('+$('#remark').val()+')');//
+    //console.log('array:'+array);
+  	   for(var k = 0 ; k < array.length ;k++){
+  		   remark.push(array[k]);
+        } 
+     	for (var i=0;i<remark.length;i++){
+     		var div = document.createElement("div");
+			$(div).attr({
+				'id' :i+'-div',
+				'class' : 'remarkPoint'
+			});
+			$(div).text(remark[i]);
+			fatherDiv.appendChild(div);
+			var imgDiv = document.createElement("div");
+			$(imgDiv).attr({
+				'id' :i+'imgDiv',
+				'class' : 'delRemark',
+				'value':i,
+				'onclick':'delRemark("'+i+'imgDiv")'
+			});
+			div.appendChild(imgDiv);
+     	}
+	   	 	
+ 	
+ }
+ 
+ function remarkMessage(id){
+	 var div = document.getElementById("remarkListM");
+		while($(div).children().length>3) //当div下还存在子节点时 循环继续
+	    {
+			div.removeChild(div.firstChild);
+	    }
+	    var fatherDiv = document.getElementById("remarkListM");
+	    $.post('userAction!listLogsByUserId.zk',{userId:id},function(data){
+	     	if(data.STATUS){
+	     		var actionArray = [];
+	
+	     		for(var i=0;i<data.logs.length;i++){
+	     			var date = new Date (data.logs[i].gmtCreate);
+	     			var hour = date.getHours();
+	     			if(hour<10)hour='0'+hour;
+	     			var minu = date.getMinutes();
+	     			if(minu<10)minu='0'+minu;
+	     			var second = date.getSeconds();
+    	    		if(second<10)second='0'+second; 
+	     			var result = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+'  '+hour+':'+minu+':'+second;
+	     			actionArray.push({"actionInfo":data.logs[i].actionInfo,"gmtCreate":result});
+	     			
+	     		}
+	     		$("#historyTmpl").tmpl(actionArray).appendTo('#remarkListM');
+	     		
+	     	}else{
+	     		if('No Login!' == data.ERROR){
+	                loginTimeout();return;
+	            }
+	     	}
+		},'json');
+	    /*
+	    if(!remarkM){
+	        return ;
+	    }
+	  	var array = eval('('+remarkM+')');//
+	    for (var i=0;i<array.length;i++){
+	     	var div = document.createElement("div");
+			$(div).attr({
+				'id' :$.now()+'-div',
+				'class' : 'remarkPoint'
+			});
+			$(div).text(array[i]);
+			fatherDiv.appendChild(div);
+	    }*/
+ }
+
+function saveRemark(){
+	var value = $.trim($("#"+'remarkMessage').val());
+
+	if(value.length>10){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','长度不能超过10！');
+		return;
+	}
+	if($.trim(value)!='')
+		remark.push($.trim(value));
+		var string = JSON.stringify(remark);
+		$("#remark").attr("value","");
+		$("#remark").val(string);
+		$.post('userAction!remark.zk',{userId:remarkUserId,remark:string},function(data){
+		if(data.STATUS){
+           if($.trim(value)!=''){
+            var fatherDiv = document.getElementById("remarkList");
+            var div = document.createElement("div");
+            var pointId = $.now();
+			$(div).attr({
+				'id' :pointId+'-div',
+				'class' : 'remarkPoint'
+			});
+			$(div).text(value);
+			fatherDiv.appendChild(div);
+			var imgDiv = document.createElement("div");
+			$(imgDiv).attr({
+				'id' :pointId+'imgDiv',
+				'class' : 'delRemark',
+				'value':pointId,
+				'onclick':'delRemark("'+pointId+'imgDiv")'
+			});
+			div.appendChild(imgDiv);
+           }
+              $("#"+'remarkMessage').val('');
+		}else{
+            if('No Login!' == data.ERROR){
+                loginTimeout();return;
+            }
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+        }
+	},'json');
+	
+ }
+
+function delRemark(id){
+     var text = $($("#"+id).parent()).text();
+     var length = remark.length;
+     for(var i = 0 ;i < length; i++){
+         if(remark[i] == text){
+        	 remark.splice(i,1);
+        	 break;
+         }
+     }
+     $("#"+id).parent().detach();
+     event.stopPropagation();
+     saveRemark();
+     //alert(JSON.stringify());
+}
+
+//显示详情
+function showMessage(id){
+	  $.get('userAction!getByUserId.zk',{userId:id},function(data){
+          if(data.STATUS){
+              $('#ddNicknameM').text(data.userName);
+              $('#ddRealNameM').text(data.realName);
+              //$('#remarkM').val(data.userRemark);
+              $('#ddSexM').text(data.sex);
+              $('#ddAgeM').text(data.age);
+              $('#ddHeightM').text(data.height + "CM");
+              $('#ddWeightM').text(data.weight + "KG");
+              $('#ddCardTypeM').text(data.cardName);
+              if(data.usedTimes){
+                  $('#ddCardCountM').text(data.usedTimes + '次');
+              }
+              //显示标注信息
+              if(data.userPhoto){
+                  var img = '../file/FileCenter!showImage2.zk?name=' + data.userPhoto;
+                  $('#userPhotoM').attr('src',img);
+              }
+              if('cycle' == data.cardType){
+                  $('#dltimesInfoM').hide();
+                  $('#dlcycleInfoM').show();
+                  $('#ddEffectiveDateM').text(data.cardGmtEnd);
+              }
+              if('times' == data.cardType){
+                  $('#dlcycleInfoM').hide();
+                  $('#dltimesInfoM').show();
+                  $('#ddEffectiveTimesM').text(data.cardTimes);
+              }
+              
+              remarkMessage(id);
+          }else{
+              if('No Login!' == data.ERROR){
+                  loginTimeout();return;
+              }
+          	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+          }
+      },'json');
+	
+	$('#showMessage').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;详情");
+}
+
+function getSelectCard(cardId){
+    var card = null ;
+    for(var i = 0 ;i<cards.length;i++){
+        if(cardId == cards[i].id){
+            card = cards[i];
+        }
+    }
+    return card ;
+}
+//会员卡
+var cards = [];
+function cardsChange(id){
+    var card = getSelectCard(id) ;
+ /*   for(var i = 0 ;i<cards.length;i++){
+        if(id == cards[i].id){
+            card = cards[i];
+        }
+    }*/
+    if(!card){ return ; }
+    if( 'cycle' == card.type  ){
+        //$('#effectiveCount').textbox('setValue',card.times);
+        //$('#ncstartDate').date
+        var now = new Date();
+        $('#ncstartDate').datebox('setValue', dateFormatyMd(now));
+        var end = addCycle(now,card.cycle);
+        console.log('new card,end:'+end);
+        $('#ncendDate').datebox('setValue', dateFormatyMd(end));
+        $('#cardPrice').textbox('setValue',card.price);
+        $('#nTimeWrap').hide();
+        $('#nDateWrap').show();
+    }
+    if('times' == card.type){
+        $('#effectiveCount').textbox('setValue',card.times);
+        $('#cardPrice').textbox('setValue',card.price);
+        $('#nDateWrap').hide();
+        $('#nTimeWrap').show();
+    }
+}
+
+function sendCard(){
+
+        //var userCode = $('#userCode').val();
+        var userId = $('#ddUserId').val();
+        if(!userId){
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+            $('#userCode').focus();
+            return;
+        }
+
+        var cardState = $('#ddCardState').val();
+        if('ok' != cardState && 'notvip' != cardState && 'expire' != cardState){
+            showOp(cardState);
+            return ;
+        }
+
+        //var cardId = $('#ddCardId').val();
+        var cardState = $('#ddCardState').val();
+        if('ok' == cardState){
+            $.messager.alert('&nbsp;消息', '该用户已是会员!');
+            return;
+        }
+        if('ispause' == cardState){
+            showOp(cardState);
+            return ;
+        }
+
+        $('#nTimeWrap').hide();
+        $('#nDateWrap').show();
+
+        //$('#cardType').combobox('getValue');
+        $('#cardPrice').textbox('setValue','');
+        $('#realName').textbox('setValue','');
+        $('#effectiveCount').textbox('setValue','');
+        $('#effectiveDate').datebox('setValue','');
+
+        var usrName = $('#ddRealName').text();
+        if(usrName){
+            //$('#realName').textbox('setValue',usrName);
+
+        }
+
+        cards = [];
+        $.post('MemberCardAction!list.zk',{},function(data){
+            if(data.STATUS){
+                var rows = data.rows ;
+                for(var i = 0 ;i<rows.length;i++){
+                    var row = rows[i];
+                    var card = {
+                        "id" : row.id ,
+                        "text" : row.name ,
+                        "type" : row.type ,
+                        "times" : row.times ,
+                        "cycle" : row.cycle ,
+                        "price" : row.price
+                    };
+                    if(i == 0){
+                        card.selected = true ;
+                    }
+                    cards.push(card);
+                }
+                $('#cardType').combobox({
+                    valueField:'id',
+                    textField:'text' ,
+                    data : cards ,
+                    onSelect : function(rec){
+                        cardsChange(rec.id);
+                    },
+                    onChange : function(n){
+                        //alert('n:'+n);
+                        cardsChange(n);
+                    }
+
+                });
+            }else{
+                if('No Login!' == data.ERROR){
+                    loginTimeout();return;
+                }
+                $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+            }
+        },'json');
+
+        var video = document.getElementById("newCardVideo");
+        if(navigator.webkitGetUserMedia){
+            navigator.webkitGetUserMedia({ "video": true }, function (stream) {
+                video.src = window.webkitURL.createObjectURL(stream);
+                video.play();
+            }, function(){});
+        }
+
+		$('#dlg').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;开办会员卡");
+	}
+
+//保存开卡信息
+function newCard(){
+	var realName1 = $.trim($("#realName").textbox('getValue'));
+	if(realName1==''){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','姓名不能为空!');
+		$("#realName").focus();
+		return false;
+	}
+
+    var cardId = $('#cardType').combobox('getValue');
+    var card = null ;
+    for(var i = 0 ;i<cards.length;i++){
+        if(cardId == cards[i].id){
+            card = cards[i];
+        }
+    }
+    var ncstartDate = $('#ncstartDate').datebox('getValue');
+    if( 'cycle' == card.type  ){
+        if(!ncstartDate){
+            //var cardExpire = $('#effectiveDate').datebox('getValue');
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','启用日期不能为空');
+            $("#ncstartDate").focus();
+            return false;
+        }
+    }
+    if('times' == card.type){
+        var effectiveCount1 = $.trim($("#effectiveCount").textbox('getValue'));
+        if(effectiveCount1==''){
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','有效次数不能为空!');
+            $("#effectiveCount").focus();
+            return false;
+        }
+    }
+
+
+	var cardPrice1 = $.trim($("#cardPrice").textbox('getValue'));
+	if(cardPrice1==''){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','价格不能为空!');
+		$("#cardPrice").focus();
+		return false;
+	}
+
+    var userId = $('#ddUserId').val();
+    var cardName = $('#cardType').combobox('getText');
+    var cardPrice = $('#cardPrice').textbox('getValue');
+    var realName = $('#realName').textbox('getValue');
+    var cardTimes = $('#effectiveCount').textbox('getValue');
+
+    var video = document.getElementById("newCardVideo");
+    var canvas = document.getElementById("newCardCanvas");
+    var context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, 640, 480);
+    var base64 = canvas.toDataURL('image/jpeg',1);
+    $.post('../file/FileCenter!uploadBase64.zk',{fileType:'.jpeg',fileData:base64},function(data){
+        //console.log('update base64 ok :'+data);
+        if(data.STATUS){
+            var userPhoto = data.fileId ;//TODO 验证图片
+            $.post('userAction!newCard.zk',{userId:userId,cardId:cardId,cardPrice:cardPrice,cardTimes:cardTimes,cardStart:ncstartDate,userPhoto:userPhoto,realName:realName},function(data){
+                if(data.STATUS){
+                    var cardType = data.cardType;
+                    $('#ddhCardType').val(data.cardType);
+                    if('cycle' == cardType){
+                        var end = simpleChs(data.cardEnd );
+                        var start = simpleChs( data.cardStart );
+                        $('#ddEffectiveDate').text(start + '-' + end);
+                        $('#dltimesInfo').hide();
+                        $('#dlcycleInfo').show();
+                    }else if('times' == cardType){
+                        $('#ddEffectiveTimes').text(data.cardTimes +'次');
+                        $('#dlcycleInfo').hide();
+                        $('#dltimesInfo').show();
+                    }
+                    //刷新用户信息
+                    //$('#userCode').val('');
+                    var photo = '../file/FileCenter!showImage2.zk?name=' + userPhoto;
+                    //$('#ddEffectiveDate').text(cardExpire);
+                    $('#userPhoto').attr('src',photo);
+                    $('#ddCardType').text(cardName);
+                    $('#ddRealName').text(realName);
+                    $('#ddCardState').val('ok');
+                    //刷新日志
+                    loadLogs();
+                    //关闭窗口
+                    $('#dlg').dialog('close');
+                    $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;消息','开卡成功！');
+                }else{
+                    if('No Login!' == data.ERROR){
+                        loginTimeout();return;
+                    }
+                    $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+                }
+            },'json');
+        }
+    },'json');
+        //alert(base64); return ;
+}
+	
+	//转卡
+	function changeCard(){
+        var userId = $('#ddUserId').val();
+        if(!userId){
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+            return ;
+        }
+
+        var cardState = $('#ddCardState').val();
+        if('ok' != cardState){
+            showOp(cardState);
+            return ;
+        }
+
+        //$('#toUserCode').val('');
+        //$('#toUserCode').focus();
+        $('#toChange').hide();
+        $('#changeMessage').show();
+
+        $('#toUserCode').val('');
+        $('#toUserCode').focus();
+        $('#ccCardCycle').val('');
+        $('#toUserName').textbox('setValue','');
+        $('#cdeffectiveCount').textbox('setValue','');
+        $('#cdeffectiveDate').datebox('setValue','');
+        $.post('userAction!getCardByUserId.zk',{userId:userId},function(data){
+            if(data.STATUS){
+
+                var cardName = $('#ddCardType').text();
+                var cardId = $('#ddCardId').val();
+                console.log('change cards cardName:'+cardName);
+                $('#cgcardType').combobox({
+                    valueField:'id',
+                    textField:'text' ,
+                    editable : false ,
+                    data : [{
+                        id : cardId ,
+                        text : cardName ,
+                        selected : true
+                    }]
+                });
+                //$('#cgcardType').combobox('setValue',$('#ddCardId').val());
+                //var cardType =  $('#ddhCardType').val();
+                var cardType =  data.cardType;
+                if('cycle' == cardType){
+                    $('#cgtimeDiv').hide();
+                    $('#cgDateDiv').show();
+
+                    $('#cgNextTimes').hide();
+                    $('#cgNextCycle').show();
+
+                    //var card = getSelectCard(cardId) ;
+                    //console.log('change card:' + card);
+                    $('#ccCardCycle').val(data.cardCycle);
+                    var now = new Date();
+                    $('#ccstartDate').datebox('setValue', dateFormatyMd(now));
+                    var end = addCycle(now,data.cardCycle);
+                    $('#ccendDate').datebox('setValue', dateFormatyMd(end));
+                }else if('times' == cardType){
+                    $('#cgDateDiv').hide();
+                    $('#cgtimeDiv').show();
+
+                    $('#cgNextCycle').hide();
+                    $('#cgNextTimes').show();
+
+                    /*var timestext = $('#ddEffectiveTimes').text();
+                    var times = parseInt(timestext);*/
+                    $('#cdeffectiveCount').textbox('setValue',data.cardTimes);
+                }
+
+                var video = document.getElementById("cgCardVideo");
+                if(navigator.webkitGetUserMedia){
+                    navigator.webkitGetUserMedia({ "video": true }, function (stream) {
+                        video.src = window.webkitURL.createObjectURL(stream);
+                        video.play();
+                    }, function(){});
+                }
+                $('#dlg1').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;转让会员卡");
+                $('#toUserCode').focus();
+            }else{
+
+            }
+        },'json');
+
+
+	}
+	//停卡
+	function stopCard(){
+        var userId = $('#ddUserId').val();
+        if(!userId){
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+            return ;
+        }
+
+        var cardState = $('#ddCardState').val();
+        if('ok' != cardState){
+            showOp(cardState);
+            return ;
+        }
+
+        var realName = $('#ddRealName').text();
+        var cardName = $('#ddCardType').text();
+        var userPhoto = $('#userPhoto').attr('src');
+        $('#pcUserName').val(realName);
+        $('#pcCardName').val(cardName);
+        $('#pcUserPhoto').attr('src',userPhoto);
+
+        var cardType = $('#ddhCardType').val();
+        var dataLable = '有效期为';
+        if('times' == cardType){
+            dataLable = '启用日期';
+        }
+        $('#pcDataLabel').text(dataLable);
+
+        var days = $('#pcTimes').combobox('getValue');
+        /*        var amount = parseInt(days);
+         var now = new Date();
+         var cardEnd = $('#pcCardEnd').val();
+         //var end = null ;
+         var info = '' ;
+         if(days.endsWith('月')){
+         now.setMonth(now.getMonth() + amount );
+         info = dateFormatyMd(now)  ;
+         if('cycle' == cardType){
+         var cardDays = parseInt(cardEnd) - $.now();
+         console.log('paese card days:'+cardDays);
+         now.setTime(now.getTime() + cardDays );
+         console.log('paese card:'+now.toLocaleDateString());
+         info += '至' + dateFormatyMd(now);
+         }
+         }*/
+        $.post('userAction!cardTimesForPause.zk',{userId:userId,times:days},function(data){
+            if(data.STATUS){
+                var info = dateFormatyMd(new Date(data.gmtStart));
+                if(data.gmtEnd){
+                    info += '至'+ dateFormatyMd(new Date(data.gmtEnd));
+                }
+                $('#newEffectivedate').val(info);
+            }
+        },'json');
+
+		$('#dlg2').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;会员卡停卡");
+	}
+
+
+function simpleDateFormat(date){
+    if(!date){return null;}
+    var y = date.getFullYear();
+    var m = date.getMonth()+1;
+    var d = date.getDate();
+    return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+}
+function simplerDateParse(s){
+    if (!s) return new Date();
+    var ss = (s.split('-'));
+    var y = parseInt(ss[0],10);
+    var m = parseInt(ss[1],10);
+    var d = parseInt(ss[2],10);
+    if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+        return new Date(y,m-1,d);
+    } else {
+        return new Date();
+    }
+}
+
+//转卡下一步
+function changeCardNext(){
+	var realName1 = $.trim($("#toUserName").textbox('getValue'));
+	if(realName1==''){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','姓名不能为空!');
+		$("#toUserName").focus();
+		return false;
+	}
+	var cardType1 = $('#ddhCardType').val();
+
+    if(cardType1 == 'cycle'){
+        var effectiveDate1 = $.trim($("#ccstartDate").datebox('getValue'));
+        if(effectiveDate1==''){
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','有效日期不能为空!格式:2016-1-20');
+            $("#ccstartDate").focus();
+            return false;
+        }
+    }
+    if(cardType1 == 'times'){
+        var cdeffectiveCount1 = $.trim($("#cdeffectiveCount").textbox('getValue'));
+        if(cdeffectiveCount1==''){
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','有效次数不能为空!');
+            $("#cdeffectiveCount").focus();
+            return false;
+        }
+    }
+
+    $('#changeMessage').hide();
+    $('#toChange').show();
+    $('#oldUserName').text('');
+    $('#newUserName').text('');
+    $('#spanEffectiveCount').text('');
+    $('#spanEffectiveDate').text('');
+
+    var oldUserName = $('#ddRealName').text();
+    var cardTimes = $('#cdeffectiveCount').textbox('getValue');
+    var cardCycle = $('#ccstartDate').datebox('getValue');
+    var toUserName = $('#toUserName').textbox('getValue');
+    $('#oldUserName').text(oldUserName);
+    $('#newUserName').text(toUserName);
+    $('#spanEffectiveCount').text(cardTimes);
+    $('#spanEffectiveDate').text(cardCycle);
+
+
+    $('#spanCardType').text($('#ddCardType').text());
+    $('#oldUser').attr('src', $('#userPhoto').attr('src'));
+
+    var video = document.getElementById("cgCardVideo");
+    var canvas = document.getElementById("cgCardCanvas");
+    var context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, 640, 480);
+    var base64 = canvas.toDataURL('image/jpeg',1);
+    //var img = '../file/FileCenter!showImage2.zk?name=' + data.userPhoto;
+    $('#cdnewUser').attr('src',base64);
+}
+
+//保存转卡信息
+function saveChangeInfo(){
+    var userId = $('#ddUserId').val();
+    var toUserCode = $('#toUserCode').val();
+    var toUserName = $('#toUserName').textbox('getValue');
+    var cardTimes = $('#cdeffectiveCount').textbox('getValue');
+    var cardCycle = $('#ccstartDate').datebox('getValue');
+
+    /*var video = document.getElementById("cgCardVideo");
+    var canvas = document.getElementById("cgCardCanvas");
+    var context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, 640, 480);*/
+    var base64 = $('#cdnewUser').attr('src');
+    $.post('../file/FileCenter!uploadBase64.zk',{fileType:'.jpeg',fileData:base64},function(data){
+        //console.log('update base64 ok :'+data);
+        if(data.STATUS){
+            var toUserPhoto = data.fileId ;
+            $.post('userAction!convertCard.zk',{userId : userId,toUserCode:toUserCode,toUserName:toUserName,cardTimes:cardTimes,cardCycle:cardCycle,toUserPhoto:toUserPhoto},function(data){
+                if(data.STATUS){
+                    //alert('change ok');
+                    //$('#userCode').val('');
+                    $('#ddEffectiveDate').text('');
+                    $('#ddCardType').text('');
+                    $('#ddCardCount').text('');
+                    $('#ddEffectiveTimes').text('');
+                    $('#dlg1').dialog('close');
+                    $('#ddCardState').val('notvip');
+                    loadLogs();
+                    $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;消息','转卡成功！');
+                }else{
+                    $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+                }
+            },'json');
+        }
+    },'json');
+
+
+}
+
+function dateFormat(date){
+	var hour = date.getHours();
+	if(hour<10)hour='0'+hour;
+	var minu = date.getMinutes();
+	if(minu<10)minu='0'+minu;
+	var second = date.getSeconds();
+	if(second<10)second='0'+second;
+	var result = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+hour+':'+minu+':'+second;
+    return result;
+}
+
+function dateFormatyMd(date){
+	var result = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+    return result;
+}
+
+//格式化成xxxx年xx月xx日,date
+function simpleChs(date){
+    if(typeof date == 'number'){
+        date = new Date(date);
+    }
+	var result = date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDate() + '日';
+    return result;
+}
+
+//保存停卡信息
+function savePauseCard(){
+
+    var times = $('#pcTimes').combobox('getValue');
+    var userId = $('#ddUserId').val();
+    $.post('userAction!pauseCard.zk',{times:times,userId:userId},function(data){
+        if(data.STATUS){
+            var cardType = data.cardType;
+            $('#ddhCardType').val(data.cardType);
+            if('cycle' == cardType){
+                var end = simpleChs(data.cardEnd );
+                var start = simpleChs( data.cardStart );
+                $('#ddEffectiveDate').text(start + '-' + end);
+                $('#dltimesInfo').hide();
+                $('#dlcycleInfo').show();
+            }else if('times' == cardType){
+                $('#ddEffectiveTimes').text(data.cardTimes +'次');
+                $('#dlcycleInfo').hide();
+                $('#dltimesInfo').show();
+            }
+           $('#dlg2').dialog('close');
+           //$('#userCode').val('');
+           $('#ddCardState').val('ispause');
+           loadLogs();
+           $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;消息','停卡成功！');
+        }else{
+            if('No Login!' == data.ERROR){
+                loginTimeout();return;
+            }
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+        }
+    },'json');
+}
+
+//刷新操作日志
+function loadLogs(){
+
+    var signSize = 0 ;
+    $('#logsContainer').empty();
+    $.post('userAction!todayLogs.zk',{},function(data){
+        if(data.STATUS){
+            var logs = data.logs ;
+            var now = new Date();
+            var curYear = now.getFullYear();
+            for(var i = 0 ;i<logs.length;i++){
+                var log = logs[i];
+                var sex = 'F' == log.sex ? '女'  : '男' ;
+                var age = curYear - log.birthYear ;
+                var time = dateFormat(new Date(log.gmtCreate));
+
+                log.index = i+1 ;
+                log.age = age ;
+                log.sex = sex ;
+                log.time = time ;
+                //log.id = userId;
+                if(log.action == '签到'){
+                    signSize ++ ;
+                }
+            }
+            //$('#signSize').text(signSize);
+            $.getJSON('userAction!getUserSummary.zk',{},function(data){
+            	if(data.STATUS){
+            		$('#signSize').text(data.signinUser);
+            	}
+            });
+            $.tmpl($("#logTmpl").html(), data.logs ).appendTo("#logsContainer");
+        }else{
+            if('No Login!' == data.ERROR){
+                loginTimeout();return;
+            }
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+        }
+    },'json');
+
+
+}
+
+function opNewCard(){
+    $('#opdlg').dialog('close');
+    sendCard();
+}
+
+function signin(code){
+    //var code = $('#userCode').val() ;
+    if(!code){
+        //$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+        return ;
+    }
+
+    $.post('userAction!signIn.zk',{code:code},function(data){
+        if(data.STATUS){
+            //显示会员卡信息
+            if(data.useTimes){
+                $('#ddCardCount').text( data.useTimes + '次');
+            }
+            if(data.times){
+                $('#ddEffectiveTimes').text( data.times + '次');
+            }
+            var cardState = data.cardState ;
+            if('ok' != cardState){
+                showOp(cardState);
+                return ;
+            }
+  /*          //还不是会员
+            if(data.isNotVIP){
+
+                showOp('notvip');
+                return;
+            }
+
+            //已停卡
+            if(data.isPause){
+                showOp('ispause');
+                return;
+            }
+
+            //已过期
+            if(data.expire){
+                showOp('expire');
+                return;
+            }*/
+
+            $('#opdlg').dialog('close');
+            loadLogs();
+            //$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;消息','签到成功！');
+            /*
+            $("#showSign").show();
+            $("#showSign").animate({'display':'block','margin-top':'5%',opacity:'1'},2000,function(){
+            	//$("#showSign").css({'display':'none','margin-top':'600px',opacity:'1'});
+            	$("#showSign").hide();
+            	$("#showSign").css({'display':'none','margin-top':'60%',opacity:'1'});
+            });
+            */
+            $.messager.show({
+        		title : "消息",
+        		timeout:3000,
+        		msg :"签到成功!"
+        	});
+        }else{
+            if('No Login!' == data.ERROR){
+                loginTimeout();return;
+            }
+            //$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', data.INFO);
+        }
+    },'json')
+}
+
+function addCycle(date , cycle){
+    var amount = parseInt(cycle);
+    if(cycle.endsWith('天')){
+        date.setDate(date.getDate() + amount );
+    }
+    if(cycle.endsWith('月')){
+        date.setMonth(date.getMonth() + amount );
+    }
+    if(cycle.endsWith('年')){
+        date.setFullYear(date.getFullYear() + amount );
+    }
+    return date;
+}
+
+//重开已停的卡
+function startCard(){
+    //alert('start card。');
+    var userId = $('#ddUserId').val();
+    if(!userId){
+        $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+        return ;
+    }
+    $.post('userAction!startCard.zk',{userId:userId},function(data){
+        if(data.STATUS){
+            $('#ddCardState').val('ok');
+            var cardType = data.cardType;
+            $('#ddhCardType').val(data.cardType);
+            if('cycle' == cardType){
+                var end = simpleChs(data.cardEnd );
+                var start = simpleChs( data.cardStart );
+                $('#ddEffectiveDate').text(start + '-' + end);
+                $('#dltimesInfo').hide();
+                $('#dlcycleInfo').show();
+            }else if('times' == cardType){
+                $('#ddEffectiveTimes').text(data.cardTimes +'次');
+                $('#dlcycleInfo').hide();
+                $('#dltimesInfo').show();
+            }
+
+            loadLogs();
+            $('#opdlg').dialog('close');
+            $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;消息','开卡成功！');
+        }else{
+
+        }
+    },'json');
+}
+
+
+function toPauseCard(){
+    var userId = $('#ddUserId').val();
+    if(!userId){
+        $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+        return ;
+    }
+
+    var cardState = $('#ddCardState').val();
+    if('ok' != cardState){
+        showOp(cardState);
+        return ;
+    }
+
+    //显示停卡次数
+    $.post('userAction!countLogsByCardId.zk',{userId:userId,action:'停卡'},function(data){
+        if(data.STATUS){
+            if(data.total){
+                $('#timesinfo').text('已停卡'+data.total + '次!');
+                $('#toChangeCardBtn').hide();
+                $('#toPauseCardBtn').show();
+                $('#timesdlg').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;停卡次数");
+            }else{
+                showPauseCard();
+            }
+        }
+    },'json');
+}
+
+function showPauseCard(){
+    $('#timesdlg').dialog('close');
+    stopCard();
+}
+
+function toChangeCard(){
+    var userId = $('#ddUserId').val();
+    if(!userId){
+        $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先扫码');
+        return ;
+    }
+    var cardState = $('#ddCardState').val();
+    if('ok' != cardState){
+        showOp(cardState);
+        return ;
+    }
+    //显示转卡次数
+    $.post('userAction!countLogsByCardId.zk',{userId:userId,action:'转卡'},function(data){
+        if(data.STATUS){
+            if(data.total){
+                $('#timesinfo').text('已转卡'+data.total + '次!');
+                $('#toPauseCardBtn').hide();
+                $('#toChangeCardBtn').show();
+                $('#timesdlg').dialog('open').dialog('setTitle',"&nbsp;&nbsp;&nbsp;&nbsp;转卡次数");
+            }else{
+                showChangeCard();
+            }
+        }
+    },'json');
+
+}
+
+function showChangeCard(){
+    $('#timesdlg').dialog('close');
+    changeCard()
+}
+	</script>
+</body>
+</html>

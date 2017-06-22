@@ -1,0 +1,165 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+html {  
+  /*height:100%;  */
+}
+body{
+	width: 100%;
+	height: 100%;
+	font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+	background: #040404 url(../img/loginBg.jpg) no-repeat center top;
+	background-size: cover;
+	/*background-repeat: no-repeat;
+	background-color: #040404;*/
+	
+}
+input:-webkit-autofill{
+	background-color: #fff;
+}
+.login-content{
+	position: absolute;
+	width: 300px;
+	margin-left: -150px;
+	margin-top: -140px;
+	left: 50%;
+	top: 50%;
+}
+
+.login-header{
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+.login-header img{
+	display: block;
+	width: 100%;
+}
+
+.login-form{
+	position: relative;
+	width: 100%;
+}
+
+.login-form input{
+	width: 228px;
+	height: 40px;
+	margin-bottom: 16px;
+	border: 0;
+	border-radius: 8px 0 0 8px;
+	font-size: 14px;
+	padding: 0 15px;
+	outline:none;
+}
+
+.login-input-img{
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	right: 0;
+}
+
+.login-input-img img{
+	display: block;
+	height: 40px;
+	margin-bottom: 16px;
+}
+
+.login-submit{
+	position: absolute;
+	width: 60px;
+	right: -28px;
+	top: 18px;
+	border-radius: 60px;
+}
+
+.login-submit:hover{
+	width: 54px;
+	padding: 3px;
+}
+
+.login-submit img{
+	display: block;
+	width: 100%;
+}
+
+.login-footer {
+	width: 100%;
+	font-size: 14px;
+	margin-top: 20px;
+}
+
+#loginLost{
+	float: left;
+	color: #989898;
+	text-decoration: none;
+}
+
+#loginRegist{
+	float: right;
+	color: #3fc370;
+	text-decoration: none;
+}
+
+#loginLost:hover,
+#loginRegist:hover{
+	color: #FFFFFF;
+}
+
+.box-background{
+	position: fixed;
+	display: none;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/*background: #FFFFFF;
+	opacity: 0.3;*/
+}
+
+.login-error{
+	position: fixed;
+	display: none;
+	z-index: 1001;
+	width: 160px;
+	margin-left: -80px;
+	left: 50%;
+	top: 45%;
+	background: #FFFFFF;
+	border-radius: 5px;
+	border: 1px solid #393939;
+	box-shadow: 0px 10px 40px #393939;
+}
+
+.login-error-header{
+	height: 30px;
+	line-height: 30px;
+	padding: 0 10px;
+	background: #393939;
+	color: #FFFFFF;
+	font-size: 14px;
+	border-radius: 3px 3px 0 0;
+}
+
+.login-error-close{
+	display: inline-block;
+	float: right;
+	width: 12px;
+	height: 12px;
+	margin-top: 8px;
+	cursor: pointer;
+	background-image: url(../img/loginClose.png);
+	background-size: cover;
+}
+
+.login-error-close:hover{
+	background-image: url(../img/loginCloseHover.png);
+}
+
+.login-error-content{
+	font-size: 14px;
+	padding: 10px;
+	color: #000;
+}

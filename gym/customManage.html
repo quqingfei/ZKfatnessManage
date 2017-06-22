@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/customManage.css"></link>
+</head>
+<style>
+.reback{color:#3fc371;cursor: pointer;}
+.reback:hover{color:#2E9454;}
+</style>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：资源管理
+        </div>
+        <div class="curTool">
+            <img style="position: absolute;height: 20px;top: 18px;left: 244px;" src="images/newSearch.png" alt="">
+            <input type="text" name="code" id="soieudt" style="padding-left:12px;" class="userCode" maxlength="18" AUTOCOMPLETE="off" value="" placeholder="请输入姓名/电话号码" />
+            <div class="clientSearch">
+               <!--  <label class="dateLable">门店&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 100px;padding-left:5px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'"> -->
+               
+                <label class="dateLable">创建日期</label>
+                <input id="startDate" placeholder="起始日期" style="width:100px" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){$('#endDate').val('');}})" readonly="readonly">
+                <span class="connection">至</span>
+                <input id="endDate" placeholder="结束日期" style="width:100px" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){if($('#startDate').val()==''){ $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '请先选择开始日期!');$('#endDate').val('');return false;}searchTimeOfUser(curStatus);}})" readonly="readonly">
+                <label class="dateLable">状态</label>
+                <select id="sechselect" style="outline: none;background: #222;color: white;border: none;font-size: 12px;line-height: 32px;height: 32px;border-radius: 4px;"> 
+                    <option value="">全部</option>
+                    <option value="1">新录入</option>
+                    <option value="2">已注册</option>
+                    <option value="3">已购卡</option>
+                    <option value="4">卡过期</option>
+                </select>
+                <label class="dateLable">会籍</label>
+                <select id="huijiselect" style="outline: none;background: #222;color: white;border: none;font-size: 12px;line-height: 32px;height:32px;border-radius: 4px;"> 
+                    <option value="">全部</option>
+                </select>
+                <!-- <a href="javascript:;" class="searchSubmit" id="clientSearchSubmit" onclick="toSearch()">搜索</a> -->
+            </div>
+        </div>
+        <div class="curAction">
+            <div id="allUser" class="userChoose linkjiserdd" ise="">所有客户</div>
+            <div id="isMember" class="userChoose" ise="y" >公共池</div>
+            <div id="backlist" class="userChooselidt">回收站</div>
+            <div id="sendTd" class="sendMessage" onclick="deletdtd()"><img alt="" class="sendImg" src="images/cencle.png"><span style="margin-left:5px;">删除</span></div>
+            <div id="" class="sendMessage" onclick="openHj()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">沟通管理</span></div>           
+            <div id="" class="sendMessage" onclick="openJledit()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">资料修改</span></div>
+            <div id="" class="sendMessage" onclick="openCard()"><img alt="" class="sendImg" src="images/greenmessage.png"><span style="margin-left:5px;">邀约到访</span></div>
+            <div id="" class="sendMessage" onclick="openHjA()"><img alt="" class="sendImg" src="images/addNew1.png"><span style="margin-left:5px;">分配会籍</span></div>
+            <div  class="sendMessage" onclick="openSerch()"><img alt="" class="sendImg" src="images/yelloweditNew.png"><span style="margin-left:5px;">客户详情</span></div>
+            <div  class="sendMessage" onclick="openJl()"><img alt="" class="sendImg" src="images/addNew1.png"><span style="margin-left:5px;">新增客户</span></div>
+
+<!-- 全部，新增加会员， 已注册会员，已购卡会员，卡过期会员, 跟进失败, 放弃跟进, 公共池 -->
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;">
+                <thead>
+                    <tr>
+                        <th data-options="field:'id',resizable:'true',align:'center',checkbox:true">全选</th>
+                        <th data-options="field:'name',resizable:'true',align:'center'">姓名</th>
+                        <th data-options="field:'sex',align:'center',resizable:'true',formatter: formatSex">性别</th>
+                        <th data-options="field:'phone',align:'center',resizable:'true'">电话</th>
+                        <th data-options="field:'level',align:'center',resizable:'true',formatter: formatFenlei">等级</th>
+                        <th data-options="field:'lastCommunicationDate',align:'center',resizable:'true',formatter: formatTime">上次沟通时间</th>
+                        <th data-options="field:'gmtInvite',align:'center',resizable:'true',formatter: formatTime">邀约时间</th>
+                        <th data-options="field:'inviteStatus',align:'center',resizable:'true',formatter: formatSt"><select id="linechange" onchange="osnid()" style="outline:none;background:#ddd;border:none;color: #3F83C3;"><option value="">来源渠道</option><option value="1">电话来访</option><option value="2">到店来访</option></select></th>
+                        <th data-options="field:'saleName',align:'center',resizable:'true'">会籍</th>
+                        <th data-options="field:'status',align:'center',resizable:'true',formatter: formatCusSt">状态</th>
+                        <th data-options="field:'gmtCreate',align:'center',resizable:'true',formatter: formatTime">创建日期</th>
+                        <th data-options="field:'lastCommunication',align:'center',resizable:'true',formatter: formatRemark">上次沟通备注</th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="dlgback" class="easyui-dialog" style="width:90%;padding:10px 10px;height:600px;" closed="true" data-options="modal:true">
+                <table id="dlgbacklist" style="width:100%;height:100%;">
+                    <thead>
+                        <tr>
+                            <th data-options="field:'id',resizable:'true',align:'center',checkbox:true">全选</th>
+                            <th data-options="field:'name',resizable:'true',align:'center'">姓名</th>
+                            <th data-options="field:'sex',align:'center',resizable:'true',formatter: formatSex">性别</th>
+                            <th data-options="field:'phone',align:'center',resizable:'true'">电话</th>
+                            <th data-options="field:'level',align:'center',resizable:'true',formatter: formatFenlei">等级</th>
+                            <th data-options="field:'lastCommunicationDate',align:'center',resizable:'true',formatter: formatTime">上次沟通时间</th>
+                            <th data-options="field:'gmtInvite',align:'center',resizable:'true',formatter: formatTime">邀约时间</th>
+                            <th data-options="field:'inviteStatus',align:'center',resizable:'true',formatter: formatSt"></th>
+                            <th data-options="field:'saleName',align:'center',resizable:'true'">会籍</th>
+                            <th data-options="field:'status',align:'center',resizable:'true',formatter: formatCusSt">状态</th>
+                            <th data-options="field:'gmtCreate',align:'center',resizable:'true',formatter: formatTime">创建日期</th>
+                            <th data-options="field:'lastCommunication',align:'center',resizable:'true',formatter: formatRemark">上次沟通备注</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- 发送消息 -->
+            <div id="dlg0" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;">
+                        <textarea id="toAllMessage" style="width:358px;height:96px;border:1px solid #ccc;border-radius:3px;
+                        margin:0px;padding:0px;line-height:24px;box-sizing: border-box;padding: 0px 5px;text-align:left;outline:medium;outline-style:none;resize:none;" placeholder="请输入信息内容"></textarea>
+                        <small style="float:right;color:#B1B1B1">限200字符</small>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="sendAllMessage();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">发&nbsp;&nbsp;送</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="sendSuccess" style="width:100%;margin-bottom:0px;display:none;">
+                    <img id="showSuccess" src="images/success.png" style="width:80px;height:80px;margin:0px auto 0 140px;"></img>
+                    <div style="width:100%;height:20px;margin-top:10px;line-height:20px;text-align:center;">发送成功</div>
+                    <div class="button" style="width:166px;height:30px;margin:10px auto 0px auto;text-align:center;">
+                        <a id="" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="successed();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 发送消息 -->
+            <div id="dlgOver" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;text-align:center;">
+                        <div>即将给 <span id="overindes" style="color:red;">0</span>位会员发送短信通知！</div>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="overTitMessage();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确定发送</span></a>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+            <!-- 发送消息 -->
+            <div id="dlgSend" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;text-align:center;">
+                        <div>即将推送月度评价！</div>
+                        <div class="button" style="width:166px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="sendMonthEval();" style="width:166px;background:#3fc371;border-radius:4px;"><span style="color:#fff;">确定推送</span></a>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <!-- 高级搜索 -->
+            <div id="dlgserch" class="easyui-dialog"  style="width:500px;height:500px;padding:5px 20px;" closed="true" shadow="false" data-options="modal:true">
+                <ul class="detiales">
+                    <li><div><lable>客户姓名：</lable><span id="detname"></span></div>
+                    <div><lable>客户性别：</lable><span id="detsex"></span></div>
+                    <div><lable>联系电话：</lable><span id="detphone"></span></div></li>
+                    <li><div><lable>会籍顾问：</lable><span id="detrealname"></span></div>
+                    <div><lable>会员级别：</lable><span id="dettype"></span></div>
+                    <div><lable>来访状态：</lable><span id="detgostatus"></span></div></li>
+                    <li><lable>客户状态：</lable><span id="detstatus"></span></li>
+                    <li><lable>分配时间：</lable><span id="dettotime"></span></li>
+                    <li><lable>邀约时间：</lable><span id="detgotime"></span></li>
+                    <li><lable>特别备注：</lable><span id="detdiffmark"></span></li>
+                    <li><lable>上次沟通时间：</lable><span id="detlinktime"></span></li>
+                    <li><lable>上次沟通备注：</lable><span id="detmark"></span></li>
+                </ul>
+                <div class="seetable">
+                    <table id="dglinkd" style="width:100%;height:100%;">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'gmtCreate',resizable:'true',align:'center',formatter: formatTime">联系时间</th>
+                                <th data-options="field:'status',align:'center',resizable:'true',formatter: formatNY">有效记录</th>
+                                <th data-options="field:'saleName',align:'center',resizable:'true'">会籍顾问</th>
+                                <th data-options="field:'record',align:'center',resizable:'true',formatter: formatRemark">沟通备注</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+            <div id="dlgNew" class="addMessage easyui-dialog" style="width:400px;padding:15px 25px 10px" closed="true" data-options="modal:true">
+                <ul class="addinfo">
+                    <li>
+                        <lable><i style="opacity: 0;"></i>客户姓名</lable><input id="yaoname" type="text" disabled="disable" />          
+                    </li>
+                    <li>
+                        <lable><i></i>邀约时间</lable><input id="yaotime" style="height:28px;width:314px;" class="date-icon dateInput" readonly="readonly" onclick="laydate({istime: true,format: 'YYYY-MM-DD hh:mm:ss',max:'2099-12-30 23:59:59',min:laydate.now()})">
+                    </li>
+                    <li>
+                        <lable><i style="opacity: 0;"></i>特别备注</lable><textarea id="yaomark" rows="4" cols="42" placeholder="请输入备注,不超过50字"></textarea>  
+                    </li>
+                    <li>
+                        <div class="addinfobtn" id="yaoSubmit">确定</div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #ccc;border-radius: 3px;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputSave" onclick="saveUserMark()"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="dlgHjA" style="padding:20px 25px; width: 250px;" title="&nbsp;&nbsp;&nbsp;&nbsp;会籍分配" closed="true" data-options="modal:true">
+        <span>选择会籍：</span>
+        <input name="hjSel" id="hjSel" class="easyui-combobox" value="" style="height: 30px;line-height: 30px;width: 120px;padding:3px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+        <div class="button" style="width:166px;height:30px;margin:10px auto 0px auto;text-align:center;">
+            <a id="" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveHj();" style="width:166px;border-radius:4px;background:#3fc371; color: #EDC609;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="dlgHj" style="padding:0px 0px 10px 0px; width: 500px;" title="&nbsp;&nbsp;&nbsp;&nbsp;会籍分配" closed="true" data-options="modal:true">
+        <div class="linkma">
+            <div class="linkji linkji-item" attr="1">联系记录</div>
+            <div class="linkji" attr="2">提醒记录</div>
+        </div>
+        <div class="linkform">
+            <div class="lianjilu">
+                <ul class="addinfo">
+                    <li>
+                        <lable><i style="opacity: 0;"></i>会籍顾问</lable><input id="linkname" disabled="disable" type="text"/>                
+                    </li>
+                    <li>
+                        <lable><i></i>联系时间</lable><input id="linktime" style="height:28px;width:314px;" class="date-icon dateInput" readonly="readonly" onclick="laydate({istime: true,format: 'YYYY-MM-DD hh:mm:ss',max:laydate.now(),min:'2016-01-01 23:59:59'})">
+                    </li>
+                    <li>
+                        <lable><i></i>是否有效</lable><select id="linkeYN"> <option value="0">是</option><option value="1">否</option></select>
+                    </li>
+                    <li>
+                        <lable><i></i>来访状态</lable><select id="linkfang"> <option value="1">电话来访</option><option value="2">到店来访</option> </select>
+                    </li>
+                    <li>
+                        <lable style="float:left"><i style="opacity: 0;"></i>沟通备注</lable><textarea id="linkarea" rows="4" cols="42" placeholder="请输入备注,不超过50字"></textarea> 
+                    </li>
+                    <li>
+                        <div class="addinfobtn" id="linkSubmit">确定</div>
+                    </li>
+                </ul>
+                <div class="seetable">
+                    <table id="dglink" style="width:100%;height:100%;">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'gmtCreate',resizable:'true',align:'center',formatter: formatTime">联系时间</th>
+                                <th data-options="field:'status',align:'center',resizable:'true',formatter: formatNY">有效记录</th>
+                                <th data-options="field:'saleName',align:'center',resizable:'true'">会籍顾问</th>
+                                <th data-options="field:'record',align:'center',resizable:'true',formatter: formatRemark">沟通备注</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+             <div class="linktixing" style="height:0;overflow: hidden;">
+                 <ul class="addinfo">
+                    <li>
+                        <lable><i style="opacity: 0;"></i>客户姓名</lable><input id="recname" type="text" disabled="disable">          
+                    </li>
+                    <li>
+                        <lable><i></i>提醒时间</lable><input id="rectime" style="height:28px;width:314px;" class="date-icon dateInput" readonly="readonly" onclick="laydate({istime: true,format: 'YYYY-MM-DD hh:mm:ss',max:'2099-12-30 23:59:59',min:laydate.now()})">
+                    </li>
+                    <li>
+                        <lable style="float:left"><i></i>提醒备注</lable><textarea id="recarea" rows="4" cols="42" placeholder="请输入备注,不超过50字"></textarea>  
+                    </li>
+                    <li>
+                        <div class="addinfobtn" id="linkTXSubmit">确定</div>
+                    </li>
+                </ul>
+                 <div class="seetable">
+                    <table id="dgrecord" style="width:100%;height:100%;">
+                        <thead>
+                            <tr>
+                                <th data-options="field:'invitationDate',resizable:'true',align:'center',formatter: formatTime">提醒时间</th>
+                                <th data-options="field:'saleName',align:'center',resizable:'true'">提醒会籍</th>
+                                <th data-options="field:'remark',align:'center',resizable:'true',formatter: formatRemark">提醒备注</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+             </div>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="dlgJl" style="padding:20px 25px; width: 450px;" closed="true" data-options="modal:true">
+        <ul class="addinfo">
+            <li>
+                <lable><i></i>客户姓名</lable><input id="khname" type="text" placeholder="请输入姓名"/>                
+            </li>
+            <li>
+                <lable><i></i>客户性别</lable><select id="khsex"> <option value="M">男</option><option value="F">女</option> </select>
+            </li>
+            <li>
+                <lable><i></i>联系电话</lable><input id="khphone" onkeyup="isnum(this)" onafterpaste="delunum(this)" type="text" placeholder="请输入电话号码"/>
+            </li>
+            <li>
+                <lable><i></i>会籍顾问</lable><select id="guijiguwenselect"><option value="">无</option> </select>
+            </li>
+            <li>
+                <lable><i style="opacity: 0;"></i>客户级别</lable><select id="khtype"> <option value="1">一级客户</option><option value="2">二级客户</option><option value="3">三级客户</option> </select>
+            </li>
+            <li>
+                <lable><i style="opacity: 0;"></i>来访状态</lable><select id="khfang"> <option value="1">电话来访</option><option value="2">到店来访</option> </select>
+            </li>
+            <li>
+                <lable style="float:left"><i style="opacity: 0;"></i>特别备注</lable><textarea id="khremake" type="text" placeholder="请输入备注" rows="4" cols="42"></textarea>  
+            </li>
+            <li>
+                <div class="addinfobtn" onclick="formSubmit()">确定</div>
+            </li>
+        </ul>
+    </div>
+
+    <div id="hideDiv" class="hideDiv" style="">
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <!--<script src="js/format.utils.js"></script>-->
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/path.js"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/customManage.js"></script>
+</body>
+
+</html>

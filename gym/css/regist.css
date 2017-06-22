@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    /*height:100%;*/
+
+    background: url('../images/reg_bg.jpg') no-repeat;
+    background-size: cover;
+}
+
+.item {
+    margin: 10px 0;
+
+    text-align: center;
+}
+
+input {
+    width: 200px;
+    padding: 10px;
+
+    border: 0;
+    outline: none;
+}
+
+label {
+    font-size: 14px;
+    line-height: 27px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 27px;
+
+    text-align: left;
+
+    color: #fff;
+}
+
+.spinner {
+    border: 0;
+}
+
+.spinner-arrow {
+    background-color: #fff;
+}
+
+#fm {
+    margin: 0;
+    /*padding:10px 30px;*/
+}
+
+.ftitle {
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 10px;
+    padding: 5px 0;
+
+    border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+}
+
+.fitem label {
+    display: inline-block;
+
+    width: 60px;
+
+    text-align: right;
+}
+
+.fitem input {
+    width: 150px;
+}
+
+.certificateList {
+    position: absolute;
+    top: 0;
+
+    float: left;
+
+    width: 90px;
+    height: 100%;
+    /*margin-right:2px;*/
+    margin-left: 2px;
+}
+
+.certificateName {
+    display: block;
+
+    width: 88px;
+    height: 25px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0;
+
+    text-align: center;
+
+    border: 1px solid #929292;
+    outline: medium;
+    background: #fff;
+}
+
+.add {
+    position: relative;
+
+    width: 60px;
+    height: 60px;
+    margin-right: auto;
+    margin-left: auto;
+
+    border: 1px solid #929292;
+}
+.addCover {
+    position: relative;
+
+    width: 80px;
+    height: 80px;
+    margin-top: 8px;
+    /*margin-right: auto;*/
+    margin-left: 2px;
+
+    border: 1px solid #929292;
+}
+
+.img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+}
+
+.accordionNew .linkNew {
+    font-size: 12px;
+    line-height: 23px;
+
+    position: relative;
+
+    display: block;
+
+    height: 45px;
+    /*padding: 10px 15px 10px 42px;*/
+    padding: 0 color: #c8cac9;
+
+    border-bottom: 2px solid #272c30;
+}
+
+a {
+    text-decoration: none;
+
+    color: #ffd600;
+}
+
+.common_btn {
+    font-size: 14px;
+    line-height: 27px;
+
+    position: relative;
+
+    display: inline-block;
+
+    margin: 0 0 0 9px;
+    padding: 0 0;
+
+    text-align: center;
+    text-decoration: none;
+    /*font: bold 12px/25px Arial, sans-serif;*/
+}
+
+.button {
+    font: bold 12px/25px Arial, sans-serif;
+
+    position: relative;
+
+    display: inline-block;
+
+    margin: 5px 20px 0 20px;
+    padding: 0 25px;
+
+    -webkit-transition: all .15s ease;
+       -moz-transition: all .15s ease;
+        -ms-transition: all .15s ease;
+         -o-transition: all .15s ease;
+            transition: all .15s ease;
+    text-align: center;
+    text-decoration: none;
+
+    -webkit-border-radius: 30px;
+       -moz-border-radius: 30px;
+            border-radius: 30px;
+    -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, .29), inset 1px 1px 1px rgba(255, 255, 255, .44);
+       -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, .29), inset 1px 1px 1px rgba(255, 255, 255, .44);
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, .29), inset 1px 1px 1px rgba(255, 255, 255, .44);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, .22);
+}
+/* Blue Color */
+
+.yellow {
+    color: #515151;
+    background: #ffd600;
+}
+/* Gray Color */
+
+.gray {
+    color: #515151;
+    background: #d3d3d3;
+}
+
+.panel-header-noborder {
+    background: #383838;
+}
+
+.messager-button a {
+    background: #383838;
+}
+
+.messager-button .l-btn-text {
+    color: #edc609;
+}
+
+.checkService {
+    color: #000;
+}
+
+.checkService label {
+    line-height: 20px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 20px;
+    padding: 10px 6px;
+
+    text-align: left;
+    vertical-align: top;
+
+    color: #333;
+}
+
+.checkService input {
+    width: 16px;
+    height: 16px;
+    margin: 2px 12px 2px 0;
+
+    cursor: pointer;
+
+    border: 1px solid #939393;
+    border-radius: 0;
+    background-color: #fff;
+}
+
+.step {
+    width: 100%;
+    height: 430px;
+}
+
+.step2,
+.step3 {
+    display: none;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    /*
+        -webkit-appearance: none;
+        appearance: none;*/
+    width: 16px;
+    height: 16px;
+    margin: 2px 12px 2px 0;
+
+    cursor: pointer;
+    vertical-align: bottom;
+
+    border: 1px solid #939393;
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    background: #fff;
+}
+
+#l-map {
+    width: 548px;
+    height: 200px;
+    margin-left: 153px;
+}

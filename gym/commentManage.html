@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>学员评价</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/commentManage.css" />
+</head>
+
+<body class="" onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout comment-record" data-options="fit:true">
+        <div class="comment-header">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：课程管理 > 学员评价
+        </div>
+        <div class="comment-bar">
+            <div class="comment-search">
+                <label for="">教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 120px;padding-left:5px" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+                <span>&nbsp;&nbsp;日期</span>
+                <input id="startDate" placeholder="起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){onStart(datas);}})" readonly="readonly">
+                <span>&nbsp;&nbsp;至</span>
+                <input id="endDate" placeholder="结束日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){onEnd(datas);}})" readonly="readonly">
+                <!-- <a href="javascript:;" id="commentSearchSubmit" data-phone = '' data-start='' data-end=''>搜索</a> -->
+            </div>
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="rownumbers:true,singleSelect:true, pagination:true,pageSize:'30',url:'../ngym/GymGroupCourseManageAction!listEvaluateTable.zk',method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'coachName',align:'center'">姓名</th>
+                        <th data-options="field:'coachLevel',align:'center',formatter:formatLevel">等级</th>
+                        <th data-options="field:'coachPhone',align:'center'">联系电话</th>
+                        <th data-options="field:'avgMajor',align:'center'">专业评分</th>
+                        <th data-options="field:'avgService',align:'center'">服务评分</th>
+                        <th data-options="field:'totalEvaluate',align:'center'">累计评价（条）</th>
+                        <th data-options="field:'coachId',align:'center',formatter:formatControl">操作</th>
+                    </tr>
+                </thead>
+            </table>
+        <div id="dlgSign2" class="addMessage easyui-dialog" style="height: 360px;width: 450px;" title="&nbsp;&nbsp;&nbsp;&nbsp;已完成课程用户" style="padding:25px;" closed="true" data-options="modal:true">
+            <div class="lanmu userChoose">
+                	<input id='startDated' style='height:24px;line-height:24px;margin-left:15px;float:left;' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+                    <div class="chose" id="alllist">全部</div>
+                </div>  
+            <div id="dlgTable1" style="width: 450px;margin-top:32px;">
+                <div class="sign-table">                        
+                    <table id="dgSign2" class="easyui-datagrid" style="height: 290px;width: 450px;" data-options="singleSelect:true">
+                        <thead>
+                            <tr>
+                                <th style="white-space: nowrap" data-options="field:'coachName',align:'center'">教练名称</th>
+                                <th style="white-space: nowrap" data-options="field:'userName',align:'center'">学员名称</th>
+                                <th style="white-space: nowrap" data-options="field:'courseDate',align:'center',formatter:formatDate">上课时间</th>
+                                <th style="white-space: nowrap" data-options="field:'evaluateType', align:'center',formatter:formatEval">是否评价</th>
+                                <!-- <th style="white-space: nowrap" data-options="field:'gmtEnd',align:'center'">剩余次数</th> -->
+                                <!-- <th style="white-space: nowrap" data-options="field:'orderTime',align:'center'">操作</th> -->
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+            <div class="easyui-dialog" id="dlgCheck" style="height:auto" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;评价详情" data-options="modal:true">
+                <!-- <div class="dialog-head">
+                    <div class="head-item" id="commentTotal">
+                        <h3>0</h3>
+                        <span>累计评价</span>
+                    </div>
+                    <div class="head-item" id="expertStar">
+                        <h3>0</h3>
+                        <span>专业评分</span>
+                    </div>
+                    <div class="head-item" id="serviceStar">
+                        <h3>0</h3>
+                        <span>服务评分</span>
+                    </div>
+                    <div class="control">
+                        <a href="javascript:;" onclick="commentPrev()">上一页</a>
+                        <a href="javascript:;" onclick="commentNext()">下一页</a>
+                    </div>
+                </div> -->
+                <div class="dialog-body">
+
+                </div>
+            </div>
+        </div>
+        <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+            <div style="width:32px;height:32px;margin:250px auto auto auto;">
+                <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <!--<script src="js/biz/zk_main.js"></script>-->
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/commentManage.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

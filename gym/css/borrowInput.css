@@ -1,0 +1,112 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	width: 100%;
+	height: 100%;
+	
+	font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+
+.borrow-header{
+	height: 40px;
+	line-height: 40px;
+	padding-bottom: 10px;
+	color: #000000;
+	font-size: 14px;
+	/*border-bottom: 1px solid #252525;*/
+}
+
+.borrow-code{
+	position: relative;
+	height: 40px;
+	padding: 8px 10px;
+	background: #373737;
+	border-radius: 5px 5px 0 0;
+}
+
+.borrow-code img{
+	position: absolute;
+	height: 30px;
+	top: 13px;
+	left: 16px;
+}
+
+#borrowCode{
+	font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding-left: 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+
+.borrow-form{
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-top: 0;
+}
+
+.borrow-form-row{
+	padding: 15px 0;
+	font-size: 14px;
+}
+
+.borrow-form-row input{
+	width: 300px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	padding-left: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.borrow-form-row .combo .textbox-text,
+.borrow-form-row .combo .validatebox-text{
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	font-size:14px !important;
+}
+
+.borrow-form-row span{
+	color: #666666;
+}
+
+.borrow-form-row label{
+	display: inline-block;
+	width: 100px;
+	color: #666666;
+	text-align: right;
+}
+
+span.borrow-form-star{
+	display: inline-block;
+	width: 20px;
+	color: #FDD02F;
+	text-align: center;
+}
+
+
+.btn-save{
+	display: inline-block;
+	width: 160px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #3fc370;
+	border-radius: 4px;
+	color: #fff;
+	margin-left: 120px;
+	/*margin-top: 30px;*/
+}
+
+.btn-save:hover{
+	background: #51D983;
+}

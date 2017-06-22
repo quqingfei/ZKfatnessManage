@@ -1,0 +1,397 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Microsoft Yahei', 'Hiragino Sans GB', Helvetica, 'Helvetica Neue', '微软雅黑', Tahoma, Arial, sans-serif;
+
+    width: 100%;
+    min-width: 800px;
+    height: 100%;
+}
+
+.private-record {
+    width: 100%;
+    height: 100%;
+}
+#toolbar .textbox {
+    margin-top: -3px;
+
+    /*border-radius: 4px;*/
+}
+.private-header {
+	font-size: 14px;
+    line-height: 40px;
+
+    height: 40px;
+    padding-bottom: 10px;
+
+    color: #000;
+    /*background: #373737;
+	border-bottom: 1px solid #252525;*/
+}
+
+.private-code {
+    position: relative;
+
+    height: 40px;
+    padding: 8px 10px;
+
+    border-bottom: 1px solid #252525;
+    border-radius: 5px 5px 0 0;
+    background: #373737;
+}
+/*
+.private-code img {
+	position: absolute;
+	height: 30px;
+	top: 13px;
+	left: 16px;
+}
+*/
+#privateCode {
+    font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding-left: 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+
+.private-search {
+    line-height: 30px;
+
+    display: inline-block;
+    /*float: right;*/
+
+    height: 30px;
+    padding: 5px 0;
+
+    vertical-align: middle;
+}
+
+#searchName,
+#searchPhone {
+    display: inline-block;
+
+    width: 90px;
+    height: 30px;
+    padding-left: 10px;
+
+    vertical-align: top;
+
+    border: 0;
+    border-radius: 5px;
+}
+
+#privateSearchSubmit {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 60px;
+    height: 30px;
+    margin-left: 10px;
+
+    text-align: center;
+    vertical-align: top;
+
+    color: #363636;
+    border-radius: 5px;
+    background: #fed430;
+}
+
+#privateSearchSubmit:hover {
+    background: #dfba29;
+}
+
+.private-kind {
+    line-height: 30px;
+
+    float: right;
+
+    height: 30px;
+    padding: 5px 0;
+}
+
+.private-kind a {
+    display: inline-block;
+
+    padding: 0 10px;
+
+    color: #fff;
+    border-right: 1px solid #1f1f1f;
+}
+
+.private-kind a:hover,
+.private-kind a.action {
+    color: #fed430;
+}
+
+#privateAll {
+    border-right: 0;
+}
+
+.private-control {
+    width: 200px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.private-control a {
+    display: inline-block;
+
+    margin: 0 5px;
+    padding: 0 3px;
+    /*color: #000000;*/
+}
+
+.private-control a:hover {
+    /*border-bottom: 1px solid #000000;*/
+    color: #666;
+}
+
+#dlgSubmit {
+    font-size: 14px;
+
+    width: 200px;
+    padding: 10px 20px;
+}
+
+#dlgChange {
+    font-size: 14px;
+
+    padding: 10px 20px;
+}
+
+#dlgChange input {
+    margin: 5px;
+    padding: 5px;
+
+    outline: none;
+}
+.dlg-top {
+    font-size: 14px;
+    font-weight: bold;
+    /*text-align: center;*/
+    /*margin-bottom: 30px;*/
+    color: #666;
+    padding: 10px;
+}
+.dlg-left,
+.dlg-right {
+    display: inline-block;
+
+    width: 260px;
+
+    vertical-align: top;
+}
+.dlg-item {
+    line-height: 20px;
+
+    min-height: 20px;
+    padding: 8px 10px;
+    /*text-align: center;*/
+}
+.dlg-item b {
+    /*margin-left: 10px;*/
+    line-height: 20px;
+
+    display: inline-block;
+
+    width: 90px;
+
+    vertical-align: top;
+    text-align: right;
+}
+
+.dlg-item i {
+    display: inline-block;
+}
+
+.dlg-item span{
+    display: inline-block;
+    max-width: 140px;
+}
+
+.dlg-item input {
+    line-height: 18px;
+
+    display: inline-block;
+
+    width: 110px;
+    height: 18px;
+    padding: 0 0 0 5px;
+
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input.textbox-text{
+    height: auto;
+    line-height: normal;
+}
+
+.dlg-button {
+    padding: 20px 0 0 0;
+
+    text-align: center;
+}
+
+.dlg-button a {
+    margin: 0 20px;
+    padding: 0 20px;
+    font-size: 14px;
+    /*background: #383838;*/
+}
+
+.dlg-button a span {
+    color: #f7ce2f;
+}
+
+.private-search .combo {
+    font-size: 14px;
+    line-height: 29px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 32px;
+    /*margin-left:10px;*/
+    margin-bottom: 1px;
+    padding-left: 5px;
+
+    vertical-align: top;
+
+    color: #666;
+    border-width: 0;
+    background-color: #fff;
+}
+.private-search .textbox .textbox-text {
+    margin-bottom: 3px;
+    font-size: 14px;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}
+
+.showTable {
+    /*margin:88px 0px 0px;*/
+    position: absolute;
+    top: 152px;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    
+}
+.history-table{
+    height: 300px;
+    width: 100%;
+}
+.chooseBtn{
+    width:90px;
+    height:30px;
+    margin:30px auto 0px;
+    font-size:14px;
+    text-align: left;
+}
+.chooseSure{
+    display:inline-block;
+    width:90px;
+    height:30px;
+    line-height: 30px;
+    color:#fff;
+    /*float:left;*/
+    text-align:center;
+    background:#3fc371;
+    border-radius: 4px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.chooseCencle{
+    display:inline-block;
+    width:90px;
+    height:30px;
+    line-height: 30px;
+    color:#999;
+    /*float:left;*/
+    text-align:center;
+    background:#ddd;
+    border-radius: 4px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+
+#courseDate {
+    line-height: 22px;
+    display: inline-block;
+    width: 210px;
+    height: 26px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.dlgItem{
+    padding: 10px 30px;
+}
+#bookTime{
+    display: inline-block;
+    max-width: 240px;
+}
+.book-time{
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    padding:0 10px;
+    text-align: center;
+    border:1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color:#333;
+    margin-right: 5px;
+    margin-bottom: 8px;
+    text-orientation: none;
+}
+
+.book-disable{
+    background-color: #ccc;
+}
+
+.book-check{
+    border:1px solid #3fc371;
+    background-color: #3fc371;
+    color:#fff;
+}
+.sign-table{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /*border-top: 1px solid #000000;*/
+}
+/*
+.book-hide{
+    display: none;
+}*/
+
+/*
+.showTable .panel,
+.showTable .datagrid-pager.pagination{
+	border-radius: 0 0 5px 5px;
+}*/
+.mone{    background: #3fc371;
+    height: 30px;
+    margin-top: 5px;
+    line-height: 30px;
+    padding: 0 8px;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-left: 5px;
+cursor: pointer;}

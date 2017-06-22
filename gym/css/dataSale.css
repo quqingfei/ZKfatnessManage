@@ -1,0 +1,140 @@
+.curLocation{
+			width:100%;
+			height:100%;
+			/*background-color: #383838;*/
+		}
+.showTable {
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom:400px;
+}
+/*.panel-body{
+	border-top-width:1px;
+}
+*//*员工管理*/
+.course_title {
+	background: #383838;
+	height: 35px;
+	padding: 5px 10px;
+	border-bottom: 1px solid #252525;
+	border-radius: 5px 5px 0 0;
+	font-size: 14px;
+}
+.staff_management{
+	display:inline-block;
+	
+	height: 50px;
+	padding:0 0 0 20px;
+}			
+#staffNew {
+	margin: 5px;
+	float: right;
+}
+#staffNew>img {
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: 9px;
+	left: 10px;
+}
+.title_right{
+	display: inline-block;
+	vertical-align: top;
+	/*float: right;*/
+}
+.coach_tel{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 10px;
+}
+.searchInput{
+	height: 30px;
+	width: 100px;
+	border-radius: 5px;
+	border: none;
+	padding-left: 5px;
+	margin-top: 2px;
+	margin-left: 10px;
+}
+.search_btn{
+	display: inline-block;
+	/*height: 30px;*/
+	vertical-align: top;
+	margin-top: 2px;
+	margin-left: 10px;
+}
+.search_btn button {
+	width: 70px;
+	/*height: 30px;*/
+	text-align: center;
+	background-color: #ffd600;
+	font-size: 14px;
+	line-height: 27px;
+	color: #696566;
+	border: none;
+	border-radius: 5px;
+	position: relative;
+	cursor: pointer;
+}
+
+.new-input {
+	width: 196px;
+	height: 18px;
+	border: 1px solid #929292;
+}
+
+.coach_tel .combo{
+	display:inline-block;
+	vertical-align: middle;
+	width:100px;
+	height:32px;
+	line-height:29px;
+	padding-left: 5px;
+	font-size:14px;
+	color:#666666;
+	margin-left:10px;
+	margin-bottom:2px;
+	margin-top: 2px;
+	background-color:#fff;
+	border-width:0px;
+	-moz-border-radius: 5px; /* Firefox */
+  	-webkit-border-radius:5px; /* Safari 和 Chrome */
+ 	border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.coach_tel .textbox .textbox-text{
+	margin-bottom:3px;
+}
+#dataChart{
+	box-sizing: border-box;
+	height: 300px;
+	width: 100%;
+	border: 1px solid #383838;
+	border-top-width:0;
+	padding: 10px;
+}
+#staffEdit:hover{
+	color: #666666;
+}
+.sendMessage{
+	/*height:20px;
+	line-height:20px;*/
+	font-size:14px;
+	padding:5px;
+	margin: 5px;
+	border-radius: 5px;
+	float:right;
+	cursor:pointer;
+}
+.sendMessage:hover{
+	background: #2C2C2C;
+}
+
+.sendMessage:active{
+	background: #222222;
+}
+.sendImg{
+	/*width:20px;*/
+	height:11px;
+}

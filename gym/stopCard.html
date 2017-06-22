@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/stopCard.css"></link>
+</head>
+<style>
+</style>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：会员卡管理 > 停卡
+        </div>
+        <div class="curTool">
+            <!-- <img class="codeImg" src="images/makeCode.png" /> -->
+            <img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            <img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+            <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="code" id="userCode" class="userCode" maxlength="18" AUTOCOMPLETE="off" value="" placeholder="请扫描/输入条码/手机号码" />
+            <div id="clientSearch" class="clientSearch">
+                <div id="" class="sendMessage" onclick="editRemark()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">备注修改</span></div>
+                <div id="" class="sendMessage" onclick="stopCard()"><img alt="" class="sendImg" src="images/addNew.png"><span style="margin-left:5px;">停卡</span></div>
+                <div id="" class="sendMessage" onclick="seeMessage()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">查看</span></div>
+            </div>
+        </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="rownumbers:'true',sortName:'gmtModify',singleSelect:true,pagination:true,pageSize:'30',url:'../ngym/GymMembersAction!list.zk',queryParams:{cardType:0,type:'effect'},method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'name',align:'center',resizable:'true'">会员姓名</th>
+                        <th data-options="field:'phone',align:'center',resizable:'true'">会员手机号码</th>
+                        <!--<th data-options="field:'cardType',align:'center',resizable:'true',formatter: formatType">卡种</th>-->
+                        <th data-options="field:'cardName',align:'center',resizable:'true'">会员卡名称</th>
+                        <th data-options="field:'effective',align:'center',resizable:'true',formatter: formatStatus">会员卡状态</th>
+                        <th data-options="field:'mark',align:'center',resizable:'true',formatter: formatRemark">备注</th>
+                        <!-- <th data-options="field:'gymId',align:'center',resizable:'true',formatter: formatAction">操作</th> -->
+                        <!-- 
+					<th data-options="field:'id',resizable:'true',align:'center',checkbox:true">全选</th>
+				 -->
+                    </tr>
+                </thead>
+            </table>
+            <!-- 备注 -->
+            <div class="easyui-dialog" id="dlgMark" style="padding:20px;width:322px;border-raidus:10px;overflow:hidden;background:#f4f4f4;" title="&nbsp;&nbsp;&nbsp;&nbsp;备注" closed="true" data-options="modal:true">
+                <input name="" rows="4" id="inputRemark" style="box-sizing: border-box;padding: 0 5px;width: 100%;outline: none;resize: none;line-height: 30px;border: 1px solid #ccc;border-radius: 3px;" placeholder="请输入备注，最多20个字。">
+                <div class="dlg-button" style="padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#dddddd; color: #EDC609;" id="inputCancle" onclick="javascript:$('#dlgMark').dialog('close')"><span style="color:#666666;">取消</span></a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" style="display: inline-block;border-radius:3px;width:120px;margin:0 9px;background:#3fc370; color: #EDC609;" id="inputSave" onclick="saveCardMark()"><span style="color:white;">保存</span></a>
+                </div>
+            </div>
+            <!-- 查看会员卡 -->
+            <div id="dlgMessage" class="easyui-dialog" style="width:500px;padding:0 15px 15px" data-options="closed:true,modal:true">
+                <div class="showMessage">
+                    <img id="memberIcon" class="userIcon" src="images/default.png">
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">姓名:</lable>
+                            <p id="memberName" class="theMessageL"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">性别:</lable>
+                            <p id="memberSex" class="theMessageL"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">年龄:</lable>
+                            <p id="memberAge" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="rightMessage">
+                            <lable class="messageLable">手机号码:</lable>
+                            <p id="memberPhone" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="memberMessage">
+ 					<div class="leftMessage">
+ 						<lable class="messageLable">身高:</lable> <p id="memberHeight" class="theMessageL"></p>
+ 					</div>
+ 					<div class="rightMessage">
+ 						<lable class="messageLable">体重:</lable> <p id="memberWeight" class="theMessageR"></p>
+ 					</div>
+ 				</div>
+ 				<div class="memberMessage">
+ 					<div class="bothMessage">
+ 						<lable class="messageLable">身份证:</lable> <p id="memberIDCard" class="theMessageL"></p>
+ 					</div>
+ 				</div>
+ 				<div class="memberMessage">
+ 					<div class="bothMessage">
+ 						<lable class="messageLable">家庭住址:</lable> <p id="memberAddress" class="theMessageL"></p>
+ 					</div>
+ 				</div>
+ 				<div class="memberMessage">
+ 					<div class="leftMessage">
+ 						<lable class="messageLable">职业:</lable> <p id="memberProfession" class="theMessageL"></p>
+ 					</div>
+ 					<div class="rightMessage">
+ 						<lable class="messageLable">工作单位:</lable> <p id="memberEmployer" class="theMessageR"></p>
+ 					</div>
+ 				</div>
+ 				<div class="memberMessage">
+ 					<div class="bothMessage">
+ 						<lable class="messageLable">公司地址:</lable> <p id="memberEmployerAddress" class="theMessageL"></p>
+ 					</div>
+ 				</div> -->
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">会员卡类别:</lable>
+                            <p id="memberCardType" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">会员卡名称:</lable>
+                            <p id="memberCardName" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">应付金额:</lable>
+                            <p id="shouldAmount" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">实付金额:</lable>
+                            <p id="realAmount" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div id="countMemberCard" class="memberMessage" style="display:none;">
+                        <div class="leftMessage">
+                            <lable class="messageLable">次卡总次数:</lable>
+                            <p id="memberCardTotleTime" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">次卡剩余次数:</lable>
+                            <p id="memberCardUseTime" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div id="timeMemberCard" class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">生效日期:</lable>
+                            <p id="memberCardGmtStart" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">失效日期:</lable>
+                            <p id="memberCardGmtEnd" class="theMessageR"></p>
+                        </div>
+                    </div>
+                    <div class="memberMessage">
+                        <div class="leftMessage">
+                            <lable class="messageLable">创建时间:</lable>
+                            <p id="gmtCreate" class="theMessageL"></p>
+                        </div>
+                        <div class="rightMessage">
+                            <lable class="messageLable">修改时间:</lable>
+                            <p id="gmtModify" class="theMessageR"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 停卡 -->
+            <div id="dlgStopMessage" class="easyui-dialog" style="width:350px;height:220px; padding:10px 15px 10px 15px" data-options="closed:true,modal:true">
+                <div class="showMessage">
+                    <p class="stopHistory"><span id="stopState"></span>累计停卡次数:<span id="stopCount">0</span>次,累计停卡时间:<span id="stopTime">0</span>天</p>
+                    <div class="messageDiv">
+                        <label class="">下次激活日期:</label>
+                        <!-- <input id = "startDate" data-options="prompt:'请选择',editable:false" class="easyui-datebox messageInput" style="width:150px;height:25px;"> -->
+                        <input id="startDate" placeholder="请输入激活日期" style="width:170px;height:25px;background-color:#fff;border:1px solid #ccc;border-radius: 3px;padding-left:5px;" class="date-icon messageInput" onclick="laydate({format: 'YYYY-MM-DD hh:mm:ss',istime: true,choose: function(datas){restart(datas);}})" readonly="readonly">
+                        <!--<label class="messageLableR">失效日期:</label>
+						<input id = "endDate" data-options="prompt:'请输入'" class="easyui-datebox messageInput" style="width:150px;height:25px;">-->
+                    </div>
+                    <div class="chooseBtn">
+                        <a class="chooseSure" onclick="chooseSure('dlgStopMessage')">确定</a>
+                        <a class="chooseCancle" onclick="chooseCancle('dlgStopMessage')">取消</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="">
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/stopCard.js"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+
+</html>

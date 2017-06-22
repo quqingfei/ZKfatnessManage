@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" href="css/curriculumManage.css">
+    <script>
+    </script>
+</head>
+
+<body style="position:relative;" onselectstart="return false">
+    <div id="hideDiv" class="center-region" style="position:absolute;top:0px;left:0px;background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：课程管理 > 公开课程管理
+        </div>
+        <div style="position: relative;padding: 8px 10px;height: 25px;background: #373737;border-bottom: 1px solid #252525;border-radius: 5px 5px 0 0;">
+            <!-- <table> -->
+            <!-- <tr> -->
+            <!-- <td>
+                        <div id="all" class="curriculum" style="" onclick="chooseCurriculum('all','')" onmouseOver="onOver('all')" onmouseout="toOut('all')">所有</div>
+                    </td>
+                    <td>
+                        <div id="Mon" class="curriculum" style="" onclick="chooseCurriculum('Mon',1)" onmouseOver="onOver('Mon')" onmouseout="toOut('Mon')">周一</div>
+                    </td>
+                    <td>
+                        <div id="Tue" class="curriculum" style="" onclick="chooseCurriculum('Tue',2)" onmouseOver="onOver('Tue')" onmouseout="toOut('Tue')">周二</div>
+                    </td>
+                    <td>
+                        <div id="Wed" class="curriculum" style="" onclick="chooseCurriculum('Wed',3)" onmouseOver="onOver('Wed')" onmouseout="toOut('Wed')">周三</div>
+                    </td>
+                    <td>
+                        <div id="Thu" class="curriculum" style="" onclick="chooseCurriculum('Thu',4)" onmouseOver="onOver('Thu')" onmouseout="toOut('Thu')">周四</div>
+                    </td>
+                    <td>
+                        <div id="Fri" class="curriculum" style="" onclick="chooseCurriculum('Fri',5)" onmouseOver="onOver('Fri')" onmouseout="toOut('Fri')">周五</div>
+                    </td>
+                    <td>
+                        <div id="Sat" class="curriculum" style="" onclick="chooseCurriculum('Sat',6)" onmouseOver="onOver('Sat')" onmouseout="toOut('Sat')">周六</div>
+                    </td>
+                    <td>
+                        <div id="Sun" class="curriculum" style="" onclick="chooseCurriculum('Sun',7)" onmouseOver="onOver('Sun')" onmouseout="toOut('Sun')">周日</div>
+                    </td> -->
+            <a id="tableState" href="javascript:;" style="display:block;float:left;width: 15px;height:15px;line-height:15px;padding:5px;border:1px solid #fff;border-radius:3px;" onclick="tableChange()" onmouseover="iconOver()" onmouseout="iconOut()"><img src="images/tableList.png" alt="" style="display: inline-block;height:100%;width:100%;"></a>
+            <div style="float:right;width:300px;height:25px;">
+                <div id="addDetail" class="detail" style="" onclick="newCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/addNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">添加课程</span>
+                </div>
+                <div id="editDetail" class="detail" style="" onclick="editCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/editNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">编辑课程</span>
+                </div>
+                <div id="delDetail" class="detail" style="" onclick="destroyCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/deleteNew.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">删除课程</span>
+                </div>
+                <!-- <div id="sendDetail" class="detail" style="" onclick="sendCurriculum()">
+                    <div style="float:left;"><img alt="" src="images/message.png" style="height:14px;"></div>
+                    <span style="margin-left:5px;">推送课程</span>
+                </div> -->
+            </div>
+            <!-- </tr> -->
+            <!-- </table> -->
+        </div>
+        <div style="position: absolute;top: 92px;bottom: 1px;left: 0;width: 100%;">
+            <div id="dgList" style="width:100%;height:100%;">
+                <table id="dg" style="width:100%;height:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'courseName',align:'center',">名称</th>
+                            <th style="white-space: nowrap" data-options="field:'week',align:'center',formatter: formatTime">日期</th>
+                            <th style="white-space: nowrap" data-options="field:'courseTime',align:'center',">时间</th>
+                            <th style="white-space: nowrap" data-options="field:'place',align:'center'">地点</th>
+                            <th style="white-space: nowrap" data-options="field:'coachs',align:'center'">带课教练</th>
+                            <th style="white-space: nowrap" data-options="field:'zanCount',align:'center'">赞</th>
+                            <th style="white-space: nowrap" data-options="field:'caiCount',align:'center'">踩</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <table id="dgWeek" style="width:100%;height:100%;border-radius: 0 0 5px 5px;table-layout:fixed;display:none;box-sizing: border-box;border: 1px solid #ddd;" border="0">
+                <thead style="height:30px;line-height:30px;background:#DDDDDD;color:#666;font-size:14px;font-weight:300;">
+                    <tr>
+                        <th>星期一</th>
+                        <th>星期二</th>
+                        <th>星期三</th>
+                        <th>星期四</th>
+                        <th>星期五</th>
+                        <th>星期六</th>
+                        <th>星期日</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align:top;">
+                            <div id="week1" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                        <td style="vertical-align:top;background:#F3F3F3;">
+                            <div id="week2" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div id="week3" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                        <td style="vertical-align:top;background:#F3F3F3;">
+                            <div id="week4" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div id="week5" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                        <td style="vertical-align:top;background:#F3F3F3;">
+                            <div id="week6" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                        <td style="vertical-align:top;">
+                            <div id="week7" style="width:100%;height:100%;overflow:auto;"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="dlg" class="easyui-dialog" style="width: 450px;padding:20px" closed="true" data-options="modal:true">
+                <!--  buttons="#dlg-buttons" -->
+                <!-- <div class="ftitle">健身课程信息</div>-->
+                <form id="fm" method="post">
+                    <input mame="id" id="id" type="hidden" />
+                    <!-- <input id="week" type="hidden"/>-->
+                    <div class="fitem">
+                        <label>课程名称：</label>
+                        <input name="courseName" id="courseName" class="easyui-textbox" data-options="prompt:'请输入课程名称'" />
+                    </div>
+                    <div class="fitem">
+                        <label>时间：</label>
+                        <!--<input name="courseTime" id="courseTime" class="easyui-textbox"/>-->
+                        <input name="courseTime1" id="courseTime1" class="easyui-timespinner" style="width:76px;">
+                        <span>-</span>
+                        <input name="courseTime2" id="courseTime2" class="easyui-timespinner" style="width:76px;">
+                    </div>
+                    <div class="fitem" id="" style="">
+                        <label>地点：</label>
+                        <input name="place" id="place" class="easyui-textbox" data-options="prompt:'请输入上课地点'" />
+                    </div>
+                    <div class="fitem" id="">
+                        <label>带课教练：</label>
+                        <input name="coachs" id="coachs" class="easyui-textbox" data-options="prompt:'请输入教练'" />
+                    </div>
+                    <div class="fitem" id="">
+                        <label>星期：</label>
+                        <select name="week" id="week" class="easyui-combobox" data-options="prompt:'请选择上课日期',disabled:false,editable:false" style="width:164px;">
+                            <option value="1">星期一</option>
+                            <option value="2">星期二</option>
+                            <option value="3">星期三</option>
+                            <option value="4">星期四</option>
+                            <option value="5">星期五</option>
+                            <option value="6">星期六</option>
+                            <option value="7">星期日</option>
+                        </select>
+                    </div>
+                </form>
+                <div class="button" style="width:100%;padding-top:20px;text-align:left;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlg').dialog('close')" style="margin-left:99px;margin-right: 25px;width: 100px;background:#dddddd; color: #999;border-radius: 3px;"><span style="color:#999;">取消</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveCurriculum()" style="width:100px;background:#3fc370;border-radius: 3px; color: #EDC609;"><span style="color:white;">确定</span></a>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <!-- 屏蔽层 -->
+    <div id="shield" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9000;display:none;background:#A3ADB2;opacity:0.6;filter: alpha(opacity=60);" onclick="shield()">
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/biz/zk_main.js"></script>
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/plupload-2.1.2/js/plupload.full.min.js"></script>
+    <script src="js/oss.uploader.js"></script>
+    <script src="js/curriculumManage.js"></script>
+</body>
+
+</html>

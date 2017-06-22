@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>充值</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/addPrivateCoachCourse.css" />
+</head>
+
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="store-input">
+        <div class="store-header">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置： 课程管理 > 课程购买
+        </div>
+        <div class="store-code">
+            <img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            <img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+            <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="storeCode" id="studentCode" value="" placeholder="请扫描/输入条码/手机号码" />
+        </div>
+        <div class="store-form">
+            <div class="store-form-row">
+                <label for="studentName">学员名称：</label>
+                <input class="store-form-input" type="text" name="studentName" id="studentName" value="" disabled="disabled" placeholder="自动获取" />
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label for="studentMobile">手机号码：</label>
+                <input class="store-form-input" type="text" name="studentMobile" id="studentMobile" value="" disabled="disabled" placeholder="自动获取" />
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label class="messageLableL">健康顾问：</label>
+                <input name="health" id="health" class="easyui-combobox" value="" style="height: 34px;line-height: 34px;width: 312px;padding-left:10px;font-size:14px;" data-options="editable:false,prompt:'请选择健康顾问'">
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label class="messageLableL">课程类型：</label>
+                <!-- {
+                                text: '团课',
+                                value: '0'
+                            }, -->
+                <!-- <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 34px;line-height: 34px;width: 312px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择课程类型'"> -->
+                <select id="lessonKind" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '私教课',
+                                value: '1'
+                            }],prompt:'请选择课程类型'" style="height: 34px;line-height: 34px;width: 312px;padding-left:10px;font-size:14px;"></select>
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label class="messageLableL">课程名称：</label>
+                <input name="lessonName" id="lessonName" class="easyui-combobox" value="" style="height: 34px;line-height: 34px;width: 312px;padding-left:10px;font-size:14px;" data-options="editable:false,prompt:'请选择课程名称'">
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label class="messageLableL">教练姓名：</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 34px;line-height: 34px;width: 312px;padding-left:10px;font-size:14px;" data-options="editable:false,prompt:'请选择教练姓名'">
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label for="storeRemark">课程次数：</label>
+                <input class="store-form-input" type="number" min="0" max="100" name="storeManCount" id="storeManCount" onkeydown="numCheck()" onkeyup="shouldPay()" value="" placeholder="请输入课程次数（不可超过100次）">
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label for="storeVolumeShould">应付金额：</label>
+                <input class="store-form-input" type="text" name="storeVolumeShould" id="storeVolumeShould" value="" placeholder="自动获取" readonly="readonly" disabled="disabled" />
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label for="storeVolumeReal">实付金额：</label>
+                <input class="store-form-input" onkeyup="isnum(this)" onafterpaste="delunum(this)" type="number" min="0" name="storeVolumeReal" id="storeVolumeReal" value="" placeholder="请输入实付金额" />
+                <span class="store-form-star"><img src="img/star.png"/></span>
+            </div>
+            <div class="store-form-row">
+                <label for="storeVolumeReal">备注：</label>
+                <input class="store-form-input" type="text" name="storeVolumeReal" id="storeRemark" value="" placeholder="请输入备注，最多16个字。" />
+            </div>
+            <div class="store-form-row">
+                <a href="javascript:;" class="btn-save" id="storeManSubmit">提交</a>
+            </div>
+        </div>
+    </div>
+    <div class="easyui-dialog" id="dlgManCheck" title="&nbsp;&nbsp;&nbsp;&nbsp;请确认" closed="true" data-options="modal:true">
+        <div class="dlg-item">
+            <span>学员姓名：</span>
+            <i id="checkName"></i>
+        </div>
+        <div class="dlg-item">
+            <span>健康顾问：</span>
+            <i id="healthName"></i>
+        </div>
+        <div class="dlg-item">
+            <span>教练姓名：</span>
+            <i id="checkMan"></i>
+        </div>
+        <div class="dlg-item">
+            <span>课程类型：</span>
+            <i id="checkLessonKind"></i>
+        </div>
+        <div class="dlg-item">
+            <span>课程名称：</span>
+            <i id="checkLesson"></i>
+        </div>
+        <div class="dlg-item">
+            <span>课程次数：</span>
+            <i id="checkCount"></i>
+        </div>
+        <div class="dlg-item">
+            <span>应付金额：</span>
+            <i id="checkShould"></i>
+        </div>
+        <div class="dlg-item">
+            <span>实付金额：</span>
+            <i id="checkReal"></i>
+        </div>
+        <div class="dlg-item">
+            <span>备注：</span>
+            <i id="checkRemark"></i>
+
+        </div>
+        <div class="dlg-button">
+            <a href="javascript:;" id="inputManCancel">取消</a>
+            <a href="javascript:;" id="inputManSure">确认</a>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <!--<script src="js/biz/zk_main.js"></script>-->
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/addPrivateCoachCourse.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

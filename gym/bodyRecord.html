@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>健身场所管理系统</title>
+<link rel="stylesheet" href="css/easyui2.min.css"></link>
+<link rel="stylesheet" href="css/icon.css"></link>
+<link rel="stylesheet" href="css/new.css" /></link>
+<link rel="stylesheet" href="css/gymNew.css"></link>
+<link rel="stylesheet" href="css/bodyDetails.css"></link>
+</head>
+<style>
+
+</style>
+<body onselectstart="return false" oncontextmenu="return false">
+	<div class="easyui-layout curLocation" data-options="fit:true">
+		<div class="curHeader">
+				当前位置：体测管理 &gt; 体测记录
+		</div>
+		<div class="curTool">
+				<img class="codeImg" src="images/makeCode.png" />
+				<input type="text" name="code" id="userCode" class="userCode" AUTOCOMPLETE ="off" value="" placeholder="请扫描/输入条码/手机号码" />
+		</div>
+		<div class="curAction">
+			<div class="clientSearch">
+				<label class="phoneLable firstLable">手机号码</label>
+				<input type="text" name="phoneSearch" id="phoneSearch" class="phoneSearch" value="" placeholder="请输入" />
+						
+				<label class="nameLable">昵称</label>
+				<input type="text" name="nameSearch" id="nameSearch" class="nameSearch" value="" placeholder="请输入" />
+				<label class="dateLable">日期</label>
+				<input id = "startDate" data-options="prompt:'请选择'" class="easyui-datebox dateInput" style="width:100px;height:32px;">
+				<span class="connection">至</span>
+				<input id = "endDate" data-options="prompt:'请选择'" class="easyui-datebox dateInput" style="width:100px;height:32px;">
+				
+				<a href="javascript:;" class="searchSubmit" id="clientSearchSubmit" onclick="searchUser()">搜索</a>
+			</div>
+		</div>
+		<div class="showTable">
+		<table id="dg" style="width:100%;height:100%;"data-options="fitColumns:true,nowrap:true,rownumbers:'true',singleSelect:true,pagination:true,pageSize:'30',url:'../ngym/GymBodyExamAction!list.zk',queryParams:{type:'effect'},method:'post'">
+		<thead>
+			<tr>
+				<th data-options="field:'name',align:'center',resizable:'true'">昵称</th>
+				<th data-options="field:'sex',align:'center',resizable:'true',formatter: formatSex">性别</th>
+				<th data-options="field:'age',align:'center',resizable:'true'">年龄(岁)</th>
+				<th data-options="field:'fat',align:'center',resizable:'true',formatter: formatBody">体型</th>
+				<th style="white-space: nowrap;" data-options="field:'gmtModify',align:'center',resizable:'true',formatter: formatTime">体测日期</th>
+				<th style="white-space: nowrap;" data-options="field:'id',align:'center',resizable:'true',formatter: formatAction">操作</th> 
+			</tr>
+		</thead>
+		</table>
+
+		</div>
+			<div id="SeeOneMessage" class="easyui-dialog" style="width:600px;height:550px; padding:10px 15px 10px 15px" data-options="closed:true,modal:true" title='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看信息'>
+			 <div class="mixcontainer">
+                    <div class="mixBody">
+                        <div class="title">本次体测综述：</div>
+                        <div class="table">
+                           <div class="lineX">
+                               <div class="minitable lgray">体测人姓名</div>
+                               <div class="minitable" id="showOneSuggest"></div>
+                               <div class="minitable lgray">体测日期</div>
+                               <div class="minitable" id="showOneDataT">暂无数据</div>
+                           </div>
+                           <div class="lineX">
+                               <div class="minitable lgray">性别</div>
+                               <div class="minitable" id="showOneSex"></div>
+                               <div class="minitable lgray">年龄</div>
+                               <div class="minitable" id="showOneAge">暂无数据</div>
+                           </div>
+                           <div class="lineX">
+                               <div class="gtm lgray">体型评价</div>
+                               <div class="gt" id="showOneEvaluation" style="text-align: left;padding-left:10px;">暂无评价</div>
+                           </div>
+                           <div class="lineX">
+                               <div class="gtm lgray">特别说明</div>
+                               <div class="gt" id="showOneExplain" style="text-align: left;padding-left:10px;">暂无说明</div>
+                           </div>
+                           <div class="lineX" style='display:none'>
+                               <div class="gtm lgray">周期运动明细</div>
+                               <div class="gt" id="showOneDetail">暂无明细</div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="mixBody">
+                    <div class="title">体测项目对比：</div>
+                    <div class="table" style="min-width:90%;">
+                       <div class="lineX">
+                           <div class="minita lgray">项目/体测</div>
+                           <div class="minita lgray">本次体测</div>
+                       </div>
+                        <div class="lineX">
+                           <div class="minita lgray">日期</div>
+                           <div class="minita" id="showOneDate">暂无数据</div>
+                       </div>
+                        <div class="lineX">
+                           <div class="minita lgray">身高(cm)</div>
+                           <div class="minita" id="showOneHeight">暂无数据</div>
+                       </div>
+                        <div class="lineX">
+                           <div class="minita lgray">体重(kg)</div>
+                           <div class="minita" id="showOneWeight">暂无数据</div>
+                       </div><div class="lineX">
+                           <div class="minita lgray">体脂率(%)</div>
+                           <div class="minita" id="showOneFat">暂无数据</div>
+                       </div><div class="lineX">
+                           <div class="minita lgray">BMI</div>
+                           <div class="minita" id="showOneBMI">暂无数据</div>
+                       </div>
+                       <div class="lineX">
+                           <div class="minita lgray">静息心率(次/分钟)</div>
+                           <div class="minita" id="showOneHeart">暂无数据</div>
+                       </div>
+                       <div class="lineX">
+                           <div class="minita lgray">最大心率(次/分钟)</div>
+                           <div class="minita" id="showOneMaxHeart">暂无数据</div>
+                       </div>
+                       <div class="lineX">
+                           <div class="minita lgray">肺活量(cc)</div>
+                           <div class="minita" id="showOneFVC">暂无数据</div>
+                       </div>
+                       <div class="lineX" style="display:none">
+                           <div class="minita lgray">每周日均消耗</div>
+                           <div class="minita" id="showOneSell">暂无数据</div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+
+	<div id = "hideDiv" class="hideDiv" style="">
+		<div class="showLoad" style="">
+			<img class="loadImg" src="images/loadData.gif"></img>
+		</div>
+	</div>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/easyui-lang-zh_CN.js"></script>
+<script src="js/format.utils.js"></script>
+<script src="js/datagrid.common.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/flowplayer-3.2.6.min.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<script src="js/jquery.datagridtip.js"></script>
+<script src="js/bodyRecord.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>业绩统计</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/commentManage.css" />
+    <link rel="stylesheet" href="css/resultsTotal.css">
+</head>
+<style type="text/css">
+    .headtp{height: 50px;width: 98%;overflow: hidden;background: #373737;padding: 0px 1%;line-height: 50px;
+        border-top-left-radius: 5px;border-top-right-radius: 5px;font-size: 14px;}
+    .headtit{color: white;float: left;}
+    .headselect{float: right;}
+    .headselect select{outline: none;border-radius: 4px;height: 26px;background: #222;border:none;color: white;margin-left: 5px;}
+    .des{color: white;}
+    .gary{background: #eee;line-height: 40px;padding-left:10px;font-weight: 600;}
+    .footbt{width: 100%;overflow: hidden;height: 100%;}
+    .footbtl{width: 40%;float: left;height: 100%;border-right: 1px solid #eee;}
+    .footbtr{width: 57%;float: left;margin-left: 2%;height: 100%;border-left: 1px solid #eee;}
+    .topd{height: 43%;margin-bottom: 2%;}
+    .botd{height: 55%;}
+    .border1px{border:1px solid #ddd;padding-top: 10px}
+    .ded{height:92%;}
+    .footrtd{width: 100%;overflow: hidden;line-height: 40px;background: #eee;}
+    .desd{float: right;height: 26px;line-height: 26px;margin-top: 7px;margin-right: 1px; background: #ddd;}
+    .desd li{float: left;padding: 0 6px;font-size: 12px;cursor: pointer;color: white;}
+    .cv{float: left;margin-left: 10px;font-weight: 600;}
+    .iemdt1{background: #42d5be;}
+    .iemdt2{background: #3fc371;}
+    .iemdt3{background: #98d944;}
+    .income_top{height: 100%;}
+    .esdetd{float: left;line-height: 24px;height: 24px;font-size: 14px;}
+    .esdetd label{color: white;margin-left: 20px;}
+    .esdetd select{margin-left: 10px; border-radius: 3px; background-color: #fff; height: 24px;   border-width: 0;}
+    .geid{color: #3fc371;}
+    .elside{float: right;line-height: 24px;color: white;font-size: 14px;margin-right: 15px;cursor: pointer;}
+</style>
+<body>
+    <div id="hideDiv" class="hideDiv" >
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif">
+        </div>
+    </div>
+    <div class="container-fluid ded">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：业绩统计
+        </div>
+        
+        <div class="headtp">
+            <div class="headtit">业绩统计</div>
+            <!-- <div class="headselect"><label class="des">门店</label> <select><option>ZK智能健身中心</option></select></div> -->
+        </div>
+        <div class="border1px ded">
+            <div class="topd">
+                 <div class="income_top">
+              <div class="Month_left">
+                   <div class="Month_tit">
+                        <img src="./css/images/icon_1.png" alt="">
+                        <input id="startDated" placeholder="选择日期" class="date-icon select" readonly="readonly">
+                        <span>当月收入</span>
+                   </div>
+                   <div class="Month_money">
+                        <span><font id="monthIn"></font>￥</span>
+                   </div>
+                   <div class="types">
+                        <div class="ty1"><a href="javascript:lessonHis();">开卡收入</a></div>
+                        <div class="ty2"><a href="javascript:lessonHisCoach()">课程收入</a></div>
+                        <div class="ty3"><a href="javascript:lessonHisother()">其他收入</a></div>
+                   </div>
+              </div>
+              <div class="Month_right">
+                   <ul>
+                       <li class="n1">
+                           <span><d id="membersIncome"></d>￥</span>
+                           <font>今日开卡收入</font>
+                           <div class="view" onclick="lessonHis(1)">
+                                <a class="chak" href="javascript:;">查看详情</a>
+                                <a class="zhas" href="javascript:;">&nbsp;</a>
+                           </div>
+                       </li>
+                       <li class="n2">
+                           <span><d id="coachIncome"></d>￥</span>
+                           <font>今日课程收入</font>
+                           <div class="view" onclick="lessonHisCoach(1)">
+                                <a class="chak" href="javascript:;">查看详情</a>
+                                <a class="zhas" href="javascript:;">&nbsp;</a>
+                           </div>
+                       </li>
+                       <li class="n3">
+                           <span><d id="storeIncome"></d>￥</span>
+                           <font>今日其他收入</font>
+                           <div class="view" onclick="lessonHisother(1)">
+                                <a class="chak" href="javascript:;">查看详情</a>
+                                <a class="zhas" href="javascript:;">&nbsp;</a>
+                           </div>
+                       </li>
+                       <li class="n4">
+                           <span><d id="signTotal"></d>人</span>
+                           <font>今日到场</font>
+                           <div class="view" onclick="lessonHisSign()">
+                                <a class="chak" href="javascript:;">查看详情</a>
+                                <a class="zhas" href="javascript:;">&nbsp;</a>
+                           </div>
+                       </li>
+                   </ul>
+              </div>
+         </div>
+            </div>
+            <div class="botd">
+                <div class="footbt">
+                    <div class="footbtl">
+                        <div class="gary">收入占比</div>
+                        <div id="userChart" style="width:100%;height:100%;"></div>
+                    </div>
+                    <div class="footbtr">
+                        <div class="footbt" style="height:50%">
+                            <div class="footrtd">
+                                <div class=" cv">每日详情</div>
+                                <div class="desd">
+                                    <ul>
+                                        <li val="1" class="iemdt1" onclick="chaediid('member','#42d5be')">开卡收入</li>
+                                        <li val="2" onclick="chaediid('coach','#3fc371')">课程收入</li>
+                                        <li val="3" onclick="chaediid('expense','#98d944')">其他收入</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="aliveChart" style="width:100%;height:70%;"></div>
+                        </div>
+                        <div class="footbt" style="height:50%">
+                            <div class="gary">每日到场</div>
+                            <div id="inChart" style="width:100%;height:70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div id="dlgSign2" class="addMessage easyui-dialog" style="height: 80%;width: 90%;" title="&nbsp;&nbsp;&nbsp;&nbsp;开卡收入" style="padding:25px;" closed="true" data-options="modal:true">
+        <div class="lanmu userChoose">
+            <div class="esdetd"><label>筛选</label><select id="hjlist"><option value="">全部</option></select></div>
+            <div class="esdetd"><label>筛选</label>
+                <input id='startDate' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+                <input id='startDateday' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+            </div>
+            <div class="esdetd"><label>开卡：<span class="geid" id="Count">-</span>张(<b id="price">-</b>￥)</div>
+            <div class="esdetd"><label>新会员(新卡)：<span class="geid" id="newCount">-</span>张</div>
+            <div class="esdetd"><label>老会员(续卡)：<span class="geid" id="oldCount">-</span>张</div>
+            <!-- <div class="elside" onclick="exPortExcel('#dlgTable1 .datagrid-view2')">导出</div> -->
+        </div>  
+        <div id="dlgTable1" style="width: 100%;margin-top:32px;height: 80%;min-width:818px">
+            <div class="sign-table">                        
+                <table id="dgSign2" class="easyui-datagrid" style="height: 550px;min-width: 818px;width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'name',align:'center'">会员名称</th>
+                            <th style="white-space: nowrap" data-options="field:'cardCount',align:'center',formatter:formatEval">会员状态</th>
+                            <th style="white-space: nowrap" data-options="field:'phone',align:'center'">电话</th>
+                            <th style="white-space: nowrap" data-options="field:'cardName', align:'center'">卡种</th>
+                            <th style="white-space: nowrap" data-options="field:'realPay',align:'center'">卡价(元)</th>
+                            <th style="white-space: nowrap" data-options="field:'salesPersonName',align:'center'">会籍</th>
+                            <th style="white-space: nowrap" data-options="field:'payType',align:'center',formatter:formatpay">支付方式</th>
+                            <th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center'">开卡时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="dlgSign3" class="addMessage easyui-dialog" style="height: 80%;width: 90%;" title="&nbsp;&nbsp;&nbsp;&nbsp;课程收入" style="padding:25px;" closed="true" data-options="modal:true">
+        <div class="lanmu userChoose">
+            <div class="esdetd"><label>筛选</label><select id="jllist"><option  value="">全部</option></select></div>
+            <div class="esdetd"><label>筛选</label>
+                <input id='startDatedaycoach' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+                <input id='startDatecoachday' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+            </div>
+            <div class="esdetd"><label>课时：<span class="geid" id="coachCount">-</span>节(<b id="coachPrice">-</b>￥)</div>
+            <div class="esdetd"><label>新会员：<span class="geid" id="coachNew">-</span>节</div>
+            <div class="esdetd"><label>老会员：<span class="geid" id="coachOld">-</span>节</div>
+            <!-- <div class="elside" onclick="exPortExcel('#dlgSign3 .datagrid-view2')">导出</div> -->
+        </div>  
+        <div style="width: 100%;margin-top:32px;height: 80%;min-width:818px">
+            <div class="sign-table">                        
+                <table id="dgSign3" class="easyui-datagrid" style="height: 550px;min-width: 818px;width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'name',align:'center'">会员名称</th>
+                            <th style="white-space: nowrap" data-options="field:'cardCount',align:'center',formatter:formatEval">会员状态</th>
+                            <th style="white-space: nowrap" data-options="field:'phone',align:'center'">电话</th>
+                            <th style="white-space: nowrap" data-options="field:'cardName', align:'center'">卡种</th>
+                            <th style="white-space: nowrap" data-options="field:'coachLevel',align:'center',formatter:formatCoach">教练级别</th>
+                            <th style="white-space: nowrap" data-options="field:'coachName',align:'center'">私教</th>
+                            <th style="white-space: nowrap" data-options="field:'courseTotalCount',align:'center'">课时</th>
+                            <th style="white-space: nowrap" data-options="field:'realPay',align:'center'">实收(元)</th>
+                            <th style="white-space: nowrap" data-options="field:'payType',align:'center',formatter:formatpay">支付方式</th>
+                            <th style="white-space: nowrap" data-options="field:'payDate',align:'center'">购课时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="dlgSign4" class="addMessage easyui-dialog" style="height: 80%;width: 90%;" title="&nbsp;&nbsp;&nbsp;&nbsp;其他收入" style="padding:25px;" closed="true" data-options="modal:true">
+        <div class="lanmu userChoose">
+            <div class="esdetd"><label>筛选</label>
+                <input id='otherTime' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+                <input id='otherTimeDay' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+            </div>
+            <div class="esdetd"><label>收入：<span class="geid" id="otheryuan">-</span>￥</div>
+            <!-- <div class="elside" onclick="exPortExcel('#dlgSign4 .datagrid-view2')">导出</div> -->
+        </div>  
+        <div style="width: 100%;margin-top:32px;height: 80%;min-width:818px">
+            <div class="sign-table">                        
+                <table id="dgSign4" class="easyui-datagrid" style="height: 550px;min-width: 818px;width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'NAME',align:'center'">名称</th>
+                            <th style="white-space: nowrap" data-options="field:'phone',align:'center'">电话</th>
+                            <th style="white-space: nowrap" data-options="field:'goods',align:'center'">商品名</th>
+                            <th style="white-space: nowrap" data-options="field:'realPay', align:'center'">价格</th>
+                            <th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center'">购买时间</th>
+                            <th style="white-space: nowrap" data-options="field:'payType',align:'center',formatter:formatpay">支付方式</th>
+                            <th style="white-space: nowrap" data-options="field:'remark',align:'center,formatter: formatRemark'">备注</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="dlgSign5" class="addMessage easyui-dialog" style="height: 80%;width: 90%;" title="&nbsp;&nbsp;&nbsp;&nbsp;到场详情" style="padding:25px;" closed="true" data-options="modal:true">
+        <div class="lanmu userChoose">
+            <div class="esdetd"><label>筛选</label>
+                <input id='signTime' style='height:24px;line-height:24px;margin-left:10px' placeholder='选择日期' class='date-icon dateInput'   readonly='readonly'>
+            </div>
+            <!-- <div class="elside" onclick="exPortExcel('#dlgSign5 .datagrid-view2')">导出</div> -->
+        </div>  
+        <div style="width: 100%;margin-top:32px;height: 80%;min-width:818px">
+            <div class="sign-table">                        
+                <table id="dgSign5" class="easyui-datagrid" style="height: 550px;min-width: 818px;width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'name',align:'center'">会员名称</th>
+                            <th style="white-space: nowrap" data-options="field:'cardName',align:'center'">卡种</th>
+                            <th style="white-space: nowrap" data-options="field:'phone',align:'center'">电话</th>
+                            <th style="white-space: nowrap" data-options="field:'date', align:'center'">进场时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <!--<script src="js/biz/zk_main.js"></script>-->
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/jquery.table2excel.js" type="text/javascript"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/resultsTotal.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

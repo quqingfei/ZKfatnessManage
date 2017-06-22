@@ -1,0 +1,102 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #000;
+}
+
+body{
+	width: 100%;
+}
+hr{
+	margin: 15px 0;
+}
+
+.container-fluid{
+	height: 92%;
+	padding: 0;
+}
+
+.cont-part{
+	height: 33%;
+	margin-right: -13px;
+    margin-left: -13px;
+}
+
+.row-part{
+	height: 100%;
+	min-height: 200px;
+	padding: 15px;
+}
+
+.cont-box{
+	position: relative;
+	padding: 15px;
+	border: 1px solid #666;
+	border-radius: 5px;
+	border: 3px solid #f3f3f3;
+    box-shadow: 0px 3px 3px #ccc;
+	height: 100%;
+}
+.cont-box-day{
+	position: relative;
+	border: 1px solid #666;
+	border-radius: 5px;
+	border: 3px solid #f3f3f3;
+    box-shadow: 0px 3px 3px #ccc;
+	height: 100%;
+}
+.box-part{
+	position: absolute;
+	height: 120px;
+	margin-top: -60px;
+	top: 50%;
+	left: 20px;
+	right: 20px;
+}
+.box-part-day{
+	position: relative;
+	top: 50%;
+	margin-top: -60px;
+}
+.in-up{
+	font-weight: bold;
+	font-size: 18px;
+	color: #FBB84A;
+}
+.in-ups{
+	font-weight: bold;
+	font-size: 18px;
+	color: #02c4ac;
+}
+.in-down{
+	font-weight: bold;
+	font-size: 16px;
+	color: #02c4ac;
+}
+
+.sign-total{
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 58px;
+	color: #02c4ac;
+	width: 100%;
+	text-align: center;
+}
+
+.box-time{
+	text-align: center;
+}
+
+#userChart{
+	margin-top: -15px;
+	height: 150px;
+	width: 150px;
+}
+
+#inChart,
+#vipChart,
+#aliveChart{
+	height: 150px;
+	width: 100%;
+}

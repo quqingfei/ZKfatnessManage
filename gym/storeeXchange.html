@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>健身场所管理系统</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/accountManageNew.css">
+</head>
+
+<body style="" onselectstart="return false" oncontextmenu="return false">
+    <div id="center-region" class="center-region">
+        <div class="curHeader">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：兑换管理 > 积分兑换
+        </div>
+        <div id="leftDiv" class="leftDiv" style="">
+            <div class="accountTitle" style="">
+                <div class="codeSection">
+                    <img style="position: absolute;height: 26px;top: 7px;left:9px;" src="images/newCode.png">
+                    <input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="code" id="storeCode" class="userCode" autocomplete="off" value="" placeholder="请输入/扫描订单ID">
+                </div>              
+            </div>
+            <div class="message" style="position: relative;">
+                <!--<div style="width:100%; height: 450px;overflow-y:auto;overflow-x:hidden;">-->
+                <div class="dlg" style="box-sizing: border-box;padding:20px;width:100%; height:auto;overflow-y:auto;overflow-x:hidden;">
+                    <div class="goodsimg"><img id="orderimg" src="images/shopicon.png"></div>
+                    <div class="goodsname"><span id="ordername">--</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="yuan" id="orderyuan">-</span>元</div>
+                    <div class="goodsvbtn YESmai">已兑换</div>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+        <div id="rightDiv" class="rightDiv" style="">
+            <div class="accountTitle" style="">
+                <span style="margin-left:20px;">客户信息</span>
+                <!-- <div id="editTitleR" class="editTitle" style="" onclick="editMessage()">
+                    <img src="images/editAccount.png" style="height:16px;display: inline-block;">
+                    <span style="margin-left:5px;vertical-align: top;">编辑</span>
+                </div>
+                <div id="saveTitleR" class="saveTitle" style="display:none;" onclick="saveMessage()">
+                    <img src="images/saveAccount.png" style="height:16px;display: inline-block;">
+                    <span style="margin-left:5px;vertical-align: top;">保存</span>
+                </div>
+                <div id="middle" class="" style="display:none;width:160px;float: right;margin-top: 5px;">
+                    <div class="saveTitle" style="float:left;margin:0px;display: inline-block;" onclick="pre()">
+                        <img src="images/leftPre.png" style="height:16px;display: inline-block;">
+                        <span style="margin-left:5px;vertical-align: top;">上一步</span>
+                    </div>
+                    <div class="saveTitle" style="float:left;margin:0px;display: inline-block;" onclick="next()">
+                        <img src="images/rightNex.png" style="height:16px;display: inline-block;">
+                        <span style="margin-right:5px;vertical-align: top;">下一步</span>
+                    </div>
+                </div> -->
+                <!-- <a id="passTitle" class="passTitle" style="" href="javascript:;" target="_top">
+                    <img src="images/editNew.png" style="height:16px;display: inline-block;">
+                    <span style="margin-left:5px;vertical-align: top;">修改密码</span>
+                </a> -->
+            </div>
+            <div class="message" style="position:relative;">
+                <div class="dlg" style="box-sizing: border-box;padding:20px;width:100%; height:auto;overflow-y:auto;overflow-x:hidden;">
+                    <div class="vips">
+                        <div class="vipimg"><img id="nnimg" src="images/usericon.png"></div>
+                        <div class="vipinfo">
+                            <div class="vipn">会员昵称：<span id="nna"></span></div>
+                            <div class="vipn">手机号码：<span id="nnb"></span></div>
+                            <div class="vipn">快递方式：<span id="nnc">自提</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="">
+        <div class="showLoad" style="">
+            <img class="loadImg" src="images/loadData.gif"></img>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3&ak=ZYoxwY2fVjPKqsw6IM35MebctElP4l4R"></script>-->
+    <script src="js/storeeXchange.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>效果达成率</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" type="text/css" href="css/commentManage.css" />
+</head>
+
+<body class="" onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout comment-record" data-options="fit:true">
+        <div class="comment-header">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">当前位置：课程管理 > 效果达成率
+        </div>
+        <div class="comment-bar">
+            <div class="comment-search">
+               <!--  <label for="" style="line-height: 32px;">教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 120px;padding-left:5px" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'"> -->
+                <label for="" style="line-height: 32px;margin-left:5px;">年份&nbsp;&nbsp;</label>
+                <select id="lessonYear" class="easyui-combobox" style="height: 32px;line-height: 32px;width: 90px;padding-left:5px"  data-options="editable:false">
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                </select>
+                <label for="" style="line-height: 32px;margin-left:5px;">月份&nbsp;&nbsp;</label>
+                <select id="lessonMonth" class="easyui-combobox" style="height: 32px;line-height: 32px;width: 90px;padding-left:5px"  data-options="editable:false">
+                    <option value="1">1月</option>
+                    <option value="2">2月</option>
+                    <option value="3">3月</option>
+                    <option value="4">4月</option>
+                    <option value="5">5月</option>
+                    <option value="6">6月</option>
+                    <option value="7">7月</option>
+                    <option value="8">8月</option>
+                    <option value="9">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                </select>
+            </div>
+            <div class="private-search" style="line-height: 32px;display: inline-block;height: 32px;vertical-align: middle;font-size:14px;color:#fff;">
+                <label for="privateSearch">&nbsp;&nbsp;教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 30px;line-height: 30px;width: 100px;font-size:14px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+            </div>
+            <div class="duibibtn">查看对比数据</div>
+        </div>
+       
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="fitColumns:true,nowrap:true,rownumbers:'true',singleSelect:true,pagination:true,pageSize:'30'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'userName',align:'center'">学员</th>
+                        <th data-options="field:'userBmi',align:'center',formatter:formatImse">健身目标</th>
+                        <th data-options="field:'coachName',align:'center'">教练</th>
+                        <th data-options="field:'eaxmTime',align:'center',formatter:formatTime">最近体测</th>
+                        <th data-options="field:'eaxmCount',align:'center'">体测次数</th>
+                        <th data-options="field:'weightBet',align:'center'">体重差值</th>
+                        <th data-options="field:'bmiBet',align:'center',formatter:fommantBMI">BMI差值</th>
+                        <th data-options="field:'fatBet',align:'center'">脂肪率差值</th>
+                        <th data-options="field:'muscleBet',align:'center'">肌肉量差值</th>
+                        <th data-options="field:'waistHipBet',align:'center',formatter:fommantBMI">腰臀比差值</th>
+                        <th data-options="field:'restingHeartRateBet',align:'center'">静态心率差值</th>
+                        <th data-options="field:'minBloodPressureBet',align:'center'">舒张压差值</th>
+                        <th data-options="field:'maxBloodPressureBet',align:'center'">收缩压差值</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="easyui-dialog" id="dlgCheck" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;对比数据" data-options="modal:true">
+               <div class="duibikuang">
+                   <table border="1" cellspacing="0" cellpadding="0">
+                        <thead>
+                           <tr>
+                               <th>项目</th>
+                               <th><span id="ftime">-</span><br>体测记录</th>
+                               <th><span id="ltime">-</span><br>本次记录</th>
+                               <th>对比差值</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td>体重</td>
+                               <td><span id="fweight">-</span>kg</td>
+                               <td><span id="lweight">-</span>kg</td>
+                               <td><span id="cweight">-</span>kg</td>
+                           </tr>
+                           <tr>
+                               <td>BMI</td>
+                               <td><span id="fbmi">-</span></td>
+                               <td><span id="lbmi">-</span></td>
+                               <td><span id="cbmi">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>脂肪率</td>
+                               <td><span id="ffat">-</span>%</td>
+                               <td><span id="lfat">-</span>%</td>
+                               <td><span id="cfat">-</span>%</td>
+                           </tr>
+                           <tr>
+                               <td>基础代谢</td>
+                               <td><span id="fcalor">-</span></td>
+                               <td><span id="lcalor">-</span></td>
+                               <td><span id="ccalor">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>皮下脂肪率</td>
+                               <td><span id="fsubfat">-</span>%</td>
+                               <td><span id="lsubfat">-</span>%</td>
+                               <td><span id="csubfat">-</span>%</td>
+                           </tr>
+                           <tr>
+                               <td>肌肉量</td>
+                               <td><span id="fmus">-</span></td>
+                               <td><span id="lmus">-</span></td>
+                               <td><span id="cmus">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>骨量</td>
+                               <td><span id="fbone">-</span></td>
+                               <td><span id="lbone">-</span></td>
+                               <td><span id="cbone">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>水分</td>
+                               <td><span id="fwater">-</span></td>
+                               <td><span id="lwater">-</span></td>
+                               <td><span id="cwater">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>蛋白质</td>
+                               <td><span id="fprotein">-</span></td>
+                               <td><span id="lprotein">-</span></td>
+                               <td><span id="cprotein">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>内脏脂肪</td>
+                               <td><span id="finfat">-</span></td>
+                               <td><span id="linfat">-</span></td>
+                               <td><span id="cinfat">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>静态心率</td>
+                               <td><span id="frestingHeartRate">-</span></td>
+                               <td><span id="lrestingHeartRate">-</span></td>
+                               <td><span id="crestingHeartRate">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>腰臀比</td>
+                               <td><span id="fwaistHip">-</span></td>
+                               <td><span id="lwaistHip">-</span></td>
+                               <td><span id="cwaistHip">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>血压-舒张压</td>
+                               <td><span id="fminBloodPressure">-</span></td>
+                               <td><span id="lminBloodPressure">-</span></td>
+                               <td><span id="cminBloodPressure">-</span></td>
+                           </tr>
+                           <tr>
+                               <td>血压-收缩压</td>
+                               <td><span id="fmaxBloodPressure">-</span></td>
+                               <td><span id="lmaxBloodPressure">-</span></td>
+                               <td><span id="cmaxBloodPressure">-</span></td>
+                           </tr>
+                       </tbody>
+                   </table>
+               </div>
+            </div>
+        </div>
+        <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+            <div style="width:32px;height:32px;margin:250px auto auto auto;">
+                <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <!--<script src="js/biz/zk_main.js"></script>-->
+    <script src="js/echarts-plain.js"></script>
+    <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/msgbox/msgbox.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="laydate/laydate.js"></script>
+    <script src="js/resultCourse.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

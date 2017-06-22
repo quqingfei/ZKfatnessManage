@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程计次/管理</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/theme-simple.css" />
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+    <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+    <link rel="stylesheet" href="css/gymNew.css" />
+    <link rel="stylesheet" href="css/bodyDetails.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/privateCourseManage.css" />
+</head>
+<body class="" onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout private-record" data-options="fit:true">
+        <div class="private-header">
+            <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置： 课程管理 > 私教课程
+        </div>
+        <div class="private-code">
+            <!-- <img src="images/makeCode.png" /> -->
+            <img style="position: absolute;height: 26px;top: 15px;left: 18px;" src="images/newCode.png" />
+            <img style="position: absolute;height: 20px;top: 18px;left: 270px;" src="images/newSearch.png" alt="">
+            <input type="text" name="privateCode" id="privateCode" value="" placeholder="请扫描/输入条码/手机号码" />
+            <!-- <div class="private-search" style=" float:right;line-height: 30px;display: inline-block;padding:5px;height: 32px;vertical-align: middle;font-size:14px;color:#fff;">
+                <label for="privateSearch">&nbsp;&nbsp;教练&nbsp;&nbsp;</label>
+                <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 100px;font-size:14px;" data-options="editable:false,prompt:'&nbsp;&nbsp;请选择'">
+            </div> -->
+            <span style="position: relative;float:right;">
+               <!-- <div class="mone" onclick="searchMone()">查看业绩</div> -->
+            </span>
+            <span style="position: relative;float:right;">
+                <input id="serchCoach" style=" margin-top: 5px;margin-left:20px" placeholder="教练姓名" class="dateInput">
+                <img onclick="searchCoach();" style="position: absolute;height: 20px;top: 11px;left: 100px; cursor:pointer" src="images/newSearch.png" alt="">
+            </span>
+             <span style="position: relative;float:right;">
+                <input id="serchShop" style=" margin-top: 5px;" placeholder="会员姓名" class="dateInput">
+                <img onclick="searchUser();" style="position: absolute;height: 20px;top: 11px;left: 86px; cursor:pointer" src="images/newSearch.png" alt="">
+            </span>
+        </div>
+        <!-- <div class="curAction">
+            
+        </div> -->
+        <div class="curAction">
+            <div id="" class="sendMessage" onclick="lessonHis()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">购买记录</span></div>
+            <div id="" class="sendMessage" onclick="lessonCount()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">已约课程</span></div>
+            <div id="" class="sendMessage" onclick="lessonBook()"><img alt="" class="sendImg" src="images/addNew.png"><span style="margin-left:5px;">约课</span></div>
+            <div id="" class="sendMessage" onclick="newDelete('../ngym/GymGroupCourseManageAction!deleteUserCourse.zk')"><img alt="" class="sendImg" src="images/deleteNew.png"><span style="margin-left:5px;">删除</span></div>
+            <div id="" class="sendMessage" onclick="lessonChange()"><img alt="" class="sendImg" src="images/editAccount.png"><span style="margin-left:5px;">编辑</span></div>
+            <div id="" class="sendMessage" onclick="checkShow()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">查看</span></div>
+            <div id="" class="sendMessage" onclick="dayRecordShow()"><img alt="" class="sendImg" src="images/editNew.png"><span style="margin-left:5px;">每日约课记录</span></div>
+            </div>
+        <div class="showTable">
+            <table id="dg" style="width:100%;height:100%;" data-options="rownumbers:true,singleSelect:true, pagination:true,pageSize:'30',url:'../ngym/GymGroupCourseManageAction!listBookingTable.zk',method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'userName',align:'center'">昵称</th>
+                        <th data-options="field:'realName',align:'center'">姓名</th>
+                        <th data-options="field:'userPhone',align:'center'">电话</th>
+                        <th data-options="field:'courseName',align:'center',formatter:formatRemark">购买课程</th>
+                        <th data-options="field:'courseType',align:'center',formatter:formatKind">课程类型</th>
+                        <th data-options="field:'coachName',align:'center'">带课教练</th>
+                        <!-- <th data-options="field:'courseTime',align:'center'">时长(分钟)</th> -->
+                        <th data-options="field:'bodyExamCount',align:'center',formatter:formatExam">体测次数</th>
+                        <th data-options="field:'totalCount',align:'center'">课程次数</th>
+                        <th data-options="field:'restCount',align:'center'">剩余次数</th>
+                        <th data-options="field:'buyDate', align:'center',formatter:formatTime">购买时间</th>
+                        <th data-options="field:'remark',align:'center',formatter: formatRemark">备注</th>
+                        <!-- <th data-options="field:'id',align:'center',formatter:formatControl ">操作</th> -->
+                        <!--<th data-options="field:'userId',resizable:'true',align:'center',checkbox:true">全选</th>-->
+                    </tr>
+                </thead>
+            </table>
+            <div class="easyui-dialog" style="width: 400px; padding: 15px;" title="&nbsp;&nbsp;&nbsp;&nbsp;预约课程" id="dlgBook" closed="true" data-options="modal:true">
+                <div class="dlgItem">
+                    <label>选择日期：</label>
+                    <input id="courseDate" placeholder="请输入起始日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){bookTime();}})" readonly="readonly">
+                </div>
+                <div class="dlgItem">
+                    <label style="vertical-align:top;line-height:24px;">选择时间：</label>
+                    <div id="bookTime">
+                    </div>
+                </div>
+                <div class="dlg-button">
+                    <a href="javascript:;" class="chooseSure" onclick="bookSure()">确认</a>
+                </div>
+            </div>
+             <div id="dlgoney" class="easyui-dialog" style="width:600px;height:560px;background:#fff;" closed="true" data-options="modal:true" title="&nbsp;&nbsp;&nbsp;&nbsp;查看体测记录">
+                    <div class="zk">
+                        <div class="zktitle">
+                            <div class="zktitlebox">
+                                <div class="zktitleword">近7次体测数据</div>
+                                <div class="zktitlebler" id="zktitlebler">
+                                    <div class="bler ser" attr='w'><a class="" href="javascript:;">体重</a></div>
+                                    <div class="bler ser-color" attr='b'><a class="" href="javascript:;">体脂率</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="weightChart" style="width: 586px;height:266px;padding-left:12px;margin-top:-30px;overflow:hidden;z-index:0"></div>
+                    <div class="biaochi"></div>
+                    <div class="zk">        
+                        <div class="zktitle">
+                            <div class="zktitleword">体测数据: <span class="titcolor">2016-06-23</span></div>
+                            <div class="zktitleright">综合评分: <span class="titcolorred">90.3</span></div>
+                        </div>
+                    </div>
+                    <div class="zk" id="typeconsr">
+                        <div class="cons">
+                            <div class="consl">体重(KG)：</div>
+                            <div class="consr" id="consrweight">80</div>
+                        </div>
+                    </div>
+                    <div class="zk">
+                        <div class="const">体测评价：</div>
+                        <div  class="constr" id="constrevaluation">主人，您有点偏瘦，而且体脂偏低。小燃觉得您可以适当的增加日常高蛋白膳食的摄入量，在运动方式上，可以多做锻炼，增强一下体质，建议保持充足和良好的睡眠呦.</div>
+                    </div>
+                    <div class="zk">
+                        <div class="const">运动建议：</div>
+                        <div  class="constr" id="constrsportSuggest">1.主人，您有点偏瘦，而且体脂偏低。<br>2.小燃觉得您可以适当的增加日常高蛋白膳食的摄入量，在运动方式上，可以多做锻炼，增强一下体质，建议保持充足和良好的睡眠呦.</div>
+                    </div>
+                    <div class="zk">
+                        <div class="const">控制建议：</div>
+                        <div  class="constr"><span style="color:#3fc370" id="constrsuggest">维持</span></div>
+                    </div>
+                    <div class="zk">
+                        <div class="consb-l">
+                        <div class="zktitle">
+                            <div class="zktitlebox">
+                                <div class="zktitleword">运动数据分析</div>
+                                <div class="zktitlebler-b">
+                                    <div class="blers ser" attr='week'><a class="" href="javascript:;">周</a></div>
+                                    <div class="blers ser-color" attr='month'><a class="" href="javascript:;">月</a></div>
+                                    <div class="blers ser-color" attr='year'><a class="" href="javascript:;">年</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="pieChart" style="width:57%;height:200px;float:left"></div>
+                        <div class="pexp">
+                            <div class="pexp-h"><span id="nowdate"></span>至<span id="lastdate"></span></div>
+                            <div class="pexp-bic">
+                                <div class="pexp-l pexp1"></div>
+                                <div class="pexp-r">有氧<span id="perhavey">0</span>%</div>
+                            </div>
+                            <div class="pexp-bic">
+                                <div class="pexp-l pexp2"></div>
+                                <div class="pexp-r">耐力<span id="pernail">0</span>%</div>
+                            </div>
+                            <div class="pexp-bic">
+                                <div class="pexp-l pexp3"></div>
+                                <div class="pexp-r">无氧<span id="pernoy">0</span>%</div>
+                            </div>
+                        </div>
+                        <div class="mtitl">
+                            <div class="mtitl-l">签到次数：<span id="peronce">0</span>次</div>
+                            <!-- <div class="mtitl-r">平均到店时长：<span id="staytime">7小时36分</span></div> -->
+                        </div>
+                        <div class="latit">运动项目</div>
+                        <table id="latittype" width="100%" class="objs" border="0" cellpadding="2" cellspacing="0" >
+                            <!-- <tr>
+                                <td>步行</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> 
+                            <tr>
+                                <td>慢跑</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> <tr>
+                                <td>跑步</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> <tr>
+                                <td>单车</td>
+                                <td>4436步</td>
+                                <td class="green">141大卡</td>
+                            </tr> -->
+                        </table>
+                        </div>        
+                        <div class="consb-r">
+                            <div class="zktitle">
+                            <div class="zktitlebox">
+                                <div class="zktitleword">照片</div>
+                            </div>
+                        </div>
+                            <div class="hpotp"></div>
+                        </div>
+                    </div>
+            </div>
+            <div class="easyui-dialog" style="width: 580px; padding: 15px;" id="dlgCheck" closed="true" data-options="modal:true">
+                <div class="dlg-top">
+                    请确认剩余次数，确认后将计次。
+                </div>
+                <div class="dlg-left">
+                    <div class="dlg-item dlg-count">
+                        <b>学员姓名：</b>
+                        <span id="checkName"></span>
+                    </div>
+                    <div class="dlg-item">
+                        <b>购买课程：</b>
+                        <span id="checkCourse"></span>
+                    </div>
+                    <!-- <div class="dlg-item dlg-edit">
+                        <b>购买课程：</b>
+                        <input type="number" min="0" id="" name="" placeholder="必填">
+                    </div> -->
+                    <div class="dlg-item">
+                        <b>应付金额：</b>
+                        <span id="checkShould"></span>元
+                    </div>
+                    <!-- <div class="dlg-item dlg-edit">
+                        <b>应付金额：</b>
+                        <input type="number" min="0" id="editShould" name="editShould" placeholder="必填">&nbsp;元
+                    </div> -->
+                    <div class="dlg-item dlg-edit">
+                        <b>实付金额：</b>
+                        <input type="number" min="0" id="editReal" name="editReal" placeholder="必填">&nbsp;元
+                    </div>
+                    <div class="dlg-item dlg-check">
+                        <b>实付金额：</b>
+                        <span id="checkReal"></span>元
+                    </div>
+                    <div class="dlg-item dlg-check dlg-count">
+                        <b>授课教练：</b>
+                        <span id="checkCouch"></span>
+                    </div>
+                    <div class="dlg-item dlg-edit">
+                        <b>授课教练：</b>
+                        <input name="editCoach" id="editCoach" class="easyui-combobox" value="" style="height: 20px;padding-left:5px;" data-options="editable:false,prompt:'请选择教练'">
+                    </div>
+                    <div class="dlg-item dlg-check">
+                        <b>备注：</b>
+                        <span id="checkRemark"></span>
+                    </div>
+                    <div class="dlg-item dlg-edit">
+                        <b>备注：</b>
+                        <input type="text" min="0" id="editRemark" name="" placeholder="不多于16字">
+                    </div>
+                </div>
+                <div class="dlg-right">
+                    <div class="dlg-item">
+                        <b>手机号码：</b>
+                        <span id="checkPhone"></span>
+                    </div>
+                    <div class="dlg-item">
+                        <b>课程类型：</b>
+                        <span id="checkType"></span>
+                    </div>
+                    <!-- <div class="dlg-item dlg-edit">
+                        <b>课程类型：</b>
+                        <input type="number" min="0" id="" name="" placeholder="必填">
+                    </div> -->
+                    <div class="dlg-item">
+                        <b>课程时长：</b>
+                        <span id="checkTime"></span>分钟
+                    </div>
+                    <div class="dlg-item dlg-check dlg-count">
+                        <b>课程次数：</b>
+                        <span id="checkTotal"></span>次
+                    </div>
+                    <div class="dlg-item dlg-edit">
+                        <b>课程次数：</b>
+                        <input type="number" min="0" id="editTotal" name="editTotal" placeholder="必填，小于100" onkeyup="numCheck()">&nbsp;次
+                    </div>
+                    <div class="dlg-item dlg-count">
+                        <b>剩余次数：</b>
+                        <span id="checkLast"></span>次
+                        <b style="width: 80px;">已用次数：</b>
+                        <span id="checkLay"></span>次
+                    </div>
+                    <div class="dlg-item">
+                        <b>创建时间：</b>
+                        <span id="checkCreate"></span>
+                    </div>
+                </div>
+                <!--编辑部分-->
+                <div class="dlg-button">
+                    <a href="javascript:;" class="chooseCencle" id="inputManCancel">取消</a>
+                    <a href="javascript:;" class="chooseSure" id="inputManSave">保存</a>
+                    <a href="javascript:;" class="chooseSure" id="inputManSure">确认</a>
+                </div>
+            </div>
+        </div>
+        <div id="dlgHis" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;课程历史记录" style="width:500px;padding:20px 25px" closed="true" data-options="modal:true">
+            <!-- <div class="sign-title">请选择需要签到的次卡，签到后将对该卡计次。</div> -->
+            <div class="history-table">
+                <table id="dgHis" style="width:100%;height:100%;">
+                    <thead>
+                        <tr>
+                            <th style="white-space: nowrap" data-options="field:'userInfo',align:'center',formatter:formatStu">学员姓名</th>
+                            <th style="white-space: nowrap" data-options="field:'userCoachInfo',align:'center',formatter:formatName">教练姓名</th>
+                            <th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter:formatTime">上课时间</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="chooseBtn">
+                <a class="chooseSure" onclick="dlgHisClose()">确定</a>
+            </div>
+        </div>
+        <div id="dlgSign1" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;已约课程" style="padding:25px;" closed="true" data-options="modal:true">
+            <div id="dlgTable1" style="position: relative;height: 360px;width: 410px;">
+                <div class="sign-table">
+                    <table id="dgSign1" class="easyui-datagrid" style="width:100%;height:100%;" rownumbers="false" data-options="singleSelect:true,pagination:true,pageSize:'30',url:'',method:'post'">
+                        <thead>
+                            <tr>
+                                <th style="white-space: nowrap" data-options="field:'bookingTime',align:'center',formatter:formatTime">预约时间</th>
+                                <th style="white-space: nowrap" data-options="field:'courseName',align:'center'">课程名称</th>
+                                <th style="white-space: nowrap" data-options="field:'coachName', align:'center'">带课教练</th>
+                                <th style="white-space: nowrap" data-options="field:'state', align:'center',formatter:djued">课程状态</th>
+                                <th style="white-space: nowrap" data-options="field:'timeUserId',align:'center',formatter:formatControl">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="dlgSign4" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;每日约课记录" style="padding:0 0px 15px 0px;" closed="true" data-options="modal:true">
+        <div style="height: 34px;line-height: 34px;background: #383838;border-top: 1px solid #000;">
+            <input id="course" style="margin-left:14px;" placeholder="请输入日期" class="date-icon dateInput" onclick="laydate({format: 'YYYY-MM-DD',choose: function(datas){shrso(datas)}})" readonly="readonly">
+            <div style="float: right;
+    color: #3fc371;
+    margin-right: 12px;
+    font-size: 14px;    cursor: pointer;" onclick="shrso()">全部</div>
+        </div>
+            <div id="dlgTable4" style="position: relative;height: 460px;width: 710px;">
+                <div class="sign-table">
+                    <table id="dgSign4" class="easyui-datagrid" style="width:100%;height:100%;" rownumbers="false" data-options="singleSelect:true,pagination:true,pageSize:'30',url:'',method:'post'">
+                        <thead>
+                            <tr>
+                                <th style="white-space: nowrap" data-options="field:'member_name',align:'center'">姓名</th>
+                                <th style="white-space: nowrap" data-options="field:'user_name',align:'center'">昵称</th>
+                                <th style="white-space: nowrap" data-options="field:'phone',align:'center'">电话</th>
+                                <th style="white-space: nowrap" data-options="field:'coachName', align:'center'">带课教练</th>
+                                <th style="white-space: nowrap" data-options="field:'courseName',align:'center'">课程名称</th>
+                                <th style="white-space: nowrap" data-options="field:'state',align:'center',formatter:djued">课程状态</th>
+                                <th style="white-space: nowrap" data-options="field:'bookingTime',align:'center',formatter:formatTime">上课时间</th>
+                                <!-- <th style="white-space: nowrap" data-options="field:'gmtEnd',align:'center'">剩余次数</th> -->
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="dlgSign2" class="addMessage easyui-dialog" title="&nbsp;&nbsp;&nbsp;&nbsp;已完成课程" style="padding:25px;" closed="true" data-options="modal:true">
+            <div id="dlgTable1" style="position: relative;height: 360px;width: 410px;">
+                <div class="sign-table">
+                    <table id="dgSign2" class="easyui-datagrid" style="width:100%;height:100%;" rownumbers="false" data-options="singleSelect:true,pagination:true,pageSize:'30',url:'',method:'post'">
+                        <thead>
+                            <tr>
+                                <th style="white-space: nowrap" data-options="field:'bookingTime',align:'center',formatter:formatTime">预约时间</th>
+                                <th style="white-space: nowrap" data-options="field:'courseDate',align:'center',formatter:formatDate">上课时间</th>
+                                <th style="white-space: nowrap" data-options="field:'courseName',align:'center',formatter:formatCourseName">课程名称</th>
+                                <th style="white-space: nowrap" data-options="field:'coachName', align:'center'">带课教练</th>
+                                <!-- <th style="white-space: nowrap" data-options="field:'gmtEnd',align:'center'">剩余次数</th> -->
+                                <!-- <th style="white-space: nowrap" data-options="field:'orderTime',align:'center'">操作</th> -->
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+            <div style="width:32px;height:32px;margin:250px auto auto auto;">
+                <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+            </div>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/header.js"></script>
+        <script src="js/accordion.js"></script>
+        <script src="js/jquery.easyui.min1.js"></script>
+        <script src="js/easyui-lang-zh_CN.js"></script>
+        <script src="js/format.utils.js"></script>
+        <script src="js/datagrid.common.js"></script>
+        <!--<script src="js/biz/zk_main.js"></script>-->
+        <script src="js/echarts-plain.js"></script>
+        <script src="js/fancybox/jquery.fancybox.pack.js"></script>
+        <script src="js/jquery.form.js"></script>
+        <script src="js/flowplayer-3.2.6.min.js"></script>
+        <script src="js/jquery.easyui.patch.js"></script>
+        <script src="js/jquery.datagridtip.js"></script>
+        <script src="js/jquery.tmpl.min.js"></script>
+        <script src="js/msgbox/msgbox.js"></script>
+        <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/echarts.common.min.js"></script>
+        <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+        <script src="laydate/laydate.js"></script>
+        <script src="js/privateCourseManage.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

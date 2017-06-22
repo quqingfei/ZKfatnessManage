@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>健身场所管理系统</title>
+<link rel="stylesheet" href="css/easyui2.min.css"></link>
+<link rel="stylesheet" href="css/icon.css"></link>
+<link rel="stylesheet" href="css/theme-simple.css" />
+<link rel="stylesheet" href="css/new.css" />
+<style type="text/css">
+div{
+	overflow:hidden;
+	font-family: "Microsoft YaHei","Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.common_btn {
+	display: inline-block;
+	position: relative;
+	margin-left: 20px;
+	padding:0px 10px;
+	text-align: center;
+	text-decoration: none;
+	font: bold 12px/25px Arial, sans-serif;
+}
+.yellow{
+	color: #515151;
+	background: #FFD600;
+}
+.dateShow{
+	width:12.5%;
+	height:100%;
+	line-height:40px;
+	text-align:center;
+	color:#fff;
+	float:left;
+}
+</style>
+<script>
+	
+</script>
+</head>
+<body style="min-height:540px;overflow:hidden;" onselectstart="return false">
+		<div id ="showMessage" style="width:99%;height:99%;">
+            <div id="userMesssage" style="float:left;width:49%;height:320px;border:1px solid #393939;box-shadow: 1px 2px 1px #DCDCDC;">
+            	<div style="position:relative;width:100%;height:50px;background-color:#6CC9B6;">
+            		<img src="images/userMessage.png" style="position:absolute;width:20px;height:20px;top:15px;left:20px;"></img>
+            		<div style="position:absolute;float:left;height:20px;top:15px;left:50px;text-align:left;line-height:20px;color:#fff;font-size:14px;">用户总数:
+            			<strong><span id="total" style="margin-left:10px;margin-right:5px;"></span></strong>人
+            		</div>
+            	</div>
+            	<div style="width:94%;height:35%;margin:0% 3%;padding:2% 0%;border-bottom:1px solid #CCCCCC;">
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#6CC9B6;vertical-align:middle;">
+            				<span id="member"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				会员(人)
+            			</div>
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#6CC9B6;">
+            				<span id="age"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				平均年龄(岁)
+            			</div>
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#6CC9B6;">
+            				<span id="nomember"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				非会员(人)
+            			</div>
+            		</div>
+            	</div>
+            	
+            	<div style="width:94%;height:35%;margin:0% 3%;padding-top:2%;">
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#6CC9B6;">
+            				<span id="dayNewUsers"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				日增长(人)
+            			</div>
+            		</div>
+           			<div style="float:left;width:20%;height:100%;margin-left:20%;margin-right:20%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#6CC9B6;">
+            				<span id="daySignIn"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				今日签到(人)
+            			</div>
+            		</div>
+            		<div style="float:right;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#6CC9B6;">
+            				<span id="monthNewUsers"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				月增长(人)
+            			</div>
+            		</div>
+            	</div>
+            </div>
+			<div id="incomeMesssage" style="float:right;width:49%;height:320px;border:1px solid #393939;box-shadow: 1px 2px 1px #DCDCDC;">
+            	<div style="position:relative;width:100%;height:50px;background-color:#fcd300;">
+            		<img src="images/incomeMessage.png" style="position:absolute;width:20px;height:20px;top:15px;left:20px;"></img>
+            		<div style="position:absolute;float:left;height:20px;top:15px;left:50px;text-align:left;line-height:20px;color:#fff;font-size:14px;">收入总额:
+            			<strong><span id="income" style="margin-left:10px;margin-right:5px;"></span></strong>元
+            		</div>
+            	</div>
+            	<div style="width:94%;height:35%;margin:0% 3%;padding:2% 0%;border-bottom:1px solid #CCCCCC;">
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#FFD200;">
+            				<span id="male"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				<!--会员卡(元)-->
+            			</div>
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#FFD200;">
+            				<span id="cardIncome"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				会员卡(元)
+            			</div>
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            		</div>
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#FFD200;">
+            				<span id="female"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				<!--平台提成(元)-->
+            			</div>
+            		</div>
+            	</div>
+            	
+            	<div style="width:94%;height:35%;margin:0% 3%;padding-top:2%;">
+            		<div style="float:left;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#FFD200;">
+            				<span id="dayIncome"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				今日收入(元)
+            			</div>
+            		</div>
+           
+            		<div style="float:right;width:20%;height:100%;text-align:center;">
+            			<div style="width:100%;height:50%;margin-top:20%;line-height:100%;font-size:24px;color:#FFD200;">
+            				<span id="monthIncome"></span>
+            			</div>
+            			<div style="width:100%;height:25%;margin-top:5%;line-height:100%;font-size:14px;color:#666666;">
+            				本月收入(元)
+            			</div>
+            		</div>
+            	</div>
+			</div>
+			<div id="middleDiv"style="width:100%;height:20px;clear:both;"></div>
+			<div id="lineMesssage" style="width:99.8%;height:40%;border:1px solid #393939;box-shadow: 1px 2px 3px #DCDCDC;">
+				<input id="number" type="hidden">
+				<div id="stepLine" style="width:100%; height:170px;overflow:hidden;"></div>
+				<div id="dateDiv" style="width:100%;height:40px;background:#676980;">
+					<!--
+					<div id="1_date"class="dateShow">2016-1-19</div>
+					<div id="2_date"class="dateShow">2016-1-19</div>
+					<div id="3_date"class="dateShow">2016-1-19</div>
+					<div id="4_date"class="dateShow">2016-1-19</div>
+					<div id="5_date"class="dateShow">2016-1-19</div>
+					<div id="6_date"class="dateShow">2016-1-19</div>
+					<div id="7_date"class="dateShow">2016-1-19</div>
+					<div id="8_date"class="dateShow">2016-1-19</div>
+					-->
+				</div>
+			</div>
+		</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/header.js"></script>
+	<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+	<script src="js/jquery.easyui.min1.js"></script>
+	<script src="js/easyui-lang-zh_CN.js"></script>
+	<script src="js/datagrid.common.js"></script>
+	<script src="js/format.utils.js"></script>
+	<script src="js/jquery.form.js"></script>
+	<script src="js/flowplayer-3.2.6.min.js"></script>
+	<script src="js/jquery.easyui.patch.js"></script>
+	<script src="js/jquery.datagridtip.js"></script>
+	<script src="js/jquery.tmpl.min.js"></script>
+	<script src="js/msgbox/msgbox.js"></script>
+	<script src="js/accordion.js"></script>
+	<script src="js/path.js"></script>
+	<script id="dateAdd" type="text/x-jquery-tmpl">
+    <div class="dateShow">
+		${time}
+    </div>
+	</script>
+	<!-- 描绘曲线 -->
+<!-- ECharts单文件引入 -->
+<script src="js/echarts-all.js"></script>
+
+	<script type="text/javascript">
+	function loginTimeout(){
+	    window.top.location.replace('index.html?redirect=' + encodeURIComponent(location.href));
+	}
+	$(function(){
+		$('body').css('height',$(window).height()*0.99);//设置body的高度
+		$('body').css('width',$(window).width()*0.99);
+		var height1 = $(window).height();
+		var width1 = $(window).width();
+		$('#showMessage').css({'width':$(window).width()*0.99,'height':height1*0.99});
+		showLineMessage();
+		$('#lineMesssage').css({'width':$(window).width()*0.99-2,'height':height1*0.99-344});
+		//$('#stepLine').css({'width':$(window).width()*0.99*parseInt($('#number').val())/8,'height':height1*0.99-340-40});
+		$(window).resize(function(){
+			$('body').css('height',$(window).height()*0.99);//设置body的高度
+			$('body').css('width',$(window).width()*0.99);
+			var height1 = $(window).height();
+			var width1 = $(window).width();
+			$('#showMessage').css({'width':$(window).width()*0.99,'height':height1*0.99});
+			$('#lineMesssage').css({'width':$(window).width()*0.99-2,'height':height1*0.99-344});
+			//$('#middleDiv').css({'width':$(window).width()*0.99,'height':(height1*0.99-530)/2});
+			$('#stepLine').css({'width':$(window).width()*0.99*parseInt($('#number').val())/8,'height':height1*0.99-340-40});
+			$('#dateDiv').css({'width':$(window).width()*0.99});
+			$('.dateShow').css({'width':$(window).width()*0.99/8});
+			showLineMessage();
+		});
+		
+		/*
+		$.getJSON("userAction!getUserSummary.zk", function(data) {
+			$("#total").text(data.total);
+			$("#male").text(data.male);
+			$("#female").text(data.female);
+			$("#age").text(data.age);
+			$("#dayUsers").text(data.dayUsers);
+			$("#monthUsers").text(data.monthUsers);
+			$("#dayNewUsers").text(data.dayNewUsers);
+			$("#monthNewUsers").text(data.monthNewUsers);
+		});
+		*/
+		$.getJSON('userAction!getUserSummary.zk',{},function(data){
+    		if(data.STATUS){
+    			if(data.total)
+    				$('#total').text(data.total);
+    			else
+    				$('#total').text('0');
+    			if(data.vip)
+    				$('#member').text(data.vip);
+    			else
+    				$('#member').text('0');
+    			if(data.age)
+    				$('#age').text(data.age);
+    			else
+    				$('#age').text('0');
+    			if(data.novip)
+    				$('#nomember').text(data.novip);
+    			else
+    				$('#nomember').text('0');
+    			if(data.dayNewUsers)
+    				$('#dayNewUsers').text(data.dayNewUsers);
+    			else
+    				$('#dayNewUsers').text('0');
+    			if(data.monthNewUsers)
+    				$('#monthNewUsers').text(data.monthNewUsers);
+    			else
+    				$('#monthNewUsers').text('0');
+    			if(data.totalAmount)
+    				$('#income').text(data.totalAmount);
+    			else
+    				$('#income').text('0');
+    			if(data.cardAmount)
+    				$('#cardIncome').text(data.cardAmount);
+    			else
+    				$('#cardIncome').text('0');
+    			if(data.dayAmount)
+    				$('#dayIncome').text(data.dayAmount);
+    			else
+    				$('#dayIncome').text('0');
+    			if(data.monthAmount)
+    				$('#monthIncome').text(data.monthAmount);
+    			else
+    				$('#monthIncome').text('0');
+    			if(data.signinUser)
+    				$('#daySignIn').text(data.signinUser);
+    			else
+    				$('#daySignIn').text('0');
+    		}else{
+    			if('No Login!' == data.ERROR){
+                    loginTimeout();return;
+                }
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '获取信息失败!');
+    		}
+    	});
+			
+		
+	});
+	//var userArray=[];
+	//var incomeArray=[];
+	//var timeArray=[];
+	//var stepLine=null;
+	function showLineMessage(){
+		$.getJSON('GymAccountAction!dailyReport.zk',{},function(data){
+    		if(data.STATUS){
+    			//alert(JSON.stringify(data));
+    			
+    			var incomes = data.balances;//eval('('+data.balances+')');
+    			var users = data.users;//eval('('+data.users+')');
+    			var length1 = incomes.length;
+    			var length2 = users.length;
+    			if(incomes.length>8)
+    				length1=8;
+    			if(users.length>8)
+    				length2=8;
+    			//alert(length2+JSON.stringify(users));
+    			var userArray=[];
+				var incomeArray=[];
+				var timeArray=[];
+    			for(var i=0;i<length1;i++){
+    				incomeArray.push(incomes[i].amount);
+    				timeArray.push(incomes[i].date);
+    			}
+    			for(var j=0;j<length2;j++){
+    				userArray.push(users[j].amount);
+    			}
+    			//alert(JSON.stringify(incomeArray));
+    			var div = document.getElementById("dateDiv");
+    		 	while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+   			 	{
+    				div.removeChild(div.firstChild);
+   				}
+    			var stepLine=null;
+    				var times=[];
+    		 		for(var i=0;i<timeArray.length;i++){
+
+    		 			//var date = new Date (data.dates[i]);
+    		 			//var hour = date.getHours();
+    		 			//if(hour<10)hour='0'+hour;
+    		 			//var minu = date.getMinutes();
+    		 			//if(minu<10)minu='0'+minu;
+    		 			//var result = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+hour+':'+minu+':'+second;
+    		 			//timeArray.push({"time":date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate(),"recordTime":hour+':'+minu});
+    		 			times.push({'time':timeArray[i]});
+    		 		}
+    		 		$("#dateAdd").tmpl(times).appendTo('#dateDiv');
+    		 		$('#number').val(timeArray.length);
+    		 		$('#stepLine').css({'width':$(window).width()*0.99*parseInt($('#number').val())/8,'height':$(window).height()*0.99-340-40});
+    				if(stepLine){
+    					  stepLine.clear();
+    					  stepLine.dispose();
+    					  delete stepLine;
+    				  }
+    				stepLine = echarts.init(document.getElementById('stepLine'));
+    			     var stepLineOption = {
+    					        grid:{
+    		         	  		x:0,
+    		         	  		y:35,
+    		         	  		x2:-0,
+    		         	  		y2:10,
+    		         	    	borderWidth:0
+    		         	    },
+    		         	    tooltip:{
+    		         	      	show:false,
+    		         	        trigger: 'axis'
+    		         	    },
+    		         	    legend: {
+    		         	      	show:false,
+    		         	        data:['用户信息(人)','收入信息(元)']
+    		         	    },
+    		         	    toolbox: {
+    		         	        show : false,
+    		         	        feature :{
+    		         	            mark : {show: true},
+    		         	            dataView : {show: true, readOnly: false},
+    		         	            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+    		         	            restore : {show: true},
+    		         	            saveAsImage : {show: true}
+    		         	        }
+    		         	    },
+    		         	    calculable : false,
+    		         	    xAxis : [
+    		         	        {	show:false,
+    		         	            type : 'category',
+    		         	            boundaryGap : true,
+    		         	        	splitLine:{
+    		         	            	lineStyle:{
+    		         	    				color: '#000',
+    		         	    				width: 1,
+    		         	    				type: 'solid'
+    		         						}   
+    		         	            
+    		         	            },
+    		         	            axisLine:{
+    		     	          			show:false,
+    		     	            		lineStyle:{
+    		     	   						 color: '#48b',
+    		     	    					width: 1,
+    		     	    					type: 'solid'
+    		     						}   
+    		     	            },
+    		     	           axisTick:{
+    		   	              	length:15,
+    		   	              	show:false,
+    		   	            	lineStyle:{
+    		   	    					color: '#999999',
+    		   	   				 		width: 2
+    		   					}   
+    		   	            
+    		   	            },
+    		         	            
+    		         	            data :timeArray
+    		         	        }
+    		         	    ],
+    		         	    yAxis : [
+    		         	      {
+    		         	      	show:true,
+    		         	      	//type : 'category',
+    		     	        	splitLine:{
+    		     	            	lineStyle:{
+    		     	    				color: '#EDEDED',
+    		     	    				width: 1,
+    		     	    				type: 'solid'
+    		     						}   
+    		     	            
+    		     	            }
+    		         	      }
+    		         	    ],
+    		         	    series : [
+    		         	        {
+    		         	            name:'用户信息',
+    		         	            type:'line',
+    		         	            symbol:'emptyCircle',
+    		         	            symbolSize:4,
+    		         	            itemStyle: {
+    		         	                normal: {
+    		         	                	color:"#66ccff",
+    		         	                    lineStyle: {            // 系列级个性化折线样式，横向渐变描边
+    		         	                        width: 2,
+    		         	                        color: "#6cc9b6"   
+    		         	                    },
+    		         	                    label:{show: true,position:'top',fontSize:8}
+    		         	                    //label{}
+    		         	                },
+    		         	                emphasis:{
+    		         	                    label:{show: true,position:'top',fontSize:8}
+    		         	                }
+    		         	            },
+    		         	            data:userArray
+    		         	           
+    		         	        },
+    		         	       {
+    		         	            name:'收入信息',
+    		         	            type:'line',
+    		         	            symbol:'emptyCircle',
+    		         	            symbolSize:4,
+    		         	            itemStyle: {
+    		         	            
+    		         	                normal: {
+    		         	                	color:"#fcd300",
+    		         	                    lineStyle: {            // 系列级个性化折线样式，横向渐变描边
+    		         	                        width: 2,
+    		         	                        color: "#fcd300"   
+    		         	                    },
+    		         	                    label:{show: true,position:'top',fontSize:8}
+    		         	                    //label{}
+    		         	                },
+    		         	                emphasis:{
+    		         	                    label:{show: true,position:'top',fontSize:8}
+    		         	                }
+    		         	            },
+    		         	            data:incomeArray
+    		         	           
+    		         	        }
+    		         	    ]
+    		         	};
+    			
+    					        stepLine.setOption(stepLineOption);
+    		}else{
+    			if('No Login!' == data.ERROR){
+                    loginTimeout();return;
+                }
+				$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '获取信息失败!');
+				//relogin();
+			}
+			});
+		//alert(timeArray.length);
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	width: 100%;
+	height: 100%;
+	
+	font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+.textbox .textbox-text {
+	font-size:14px;
+}
+.store-header{
+	font-size: 14px;
+    line-height: 40px;
+
+    height: 40px;
+    padding-bottom: 10px;
+
+    color: #000;
+}
+
+.store-code{
+	position: relative;
+	height: 40px;
+	padding: 8px 10px;
+	background: #373737;
+	border-radius: 5px 5px 0 0;
+}
+
+.store-code img{
+	position: absolute;
+	height: 30px;
+	top: 13px;
+	left: 16px;
+}
+
+#studentCode{
+    font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding-left: 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+.store-form{
+	padding: 10px;
+	border: 1px solid #ccc;
+	/*border-radius: 0 0 5px 5px;*/
+	border-top: 0;
+}
+
+.store-form-row{
+	padding: 7px 0;
+	font-size: 14px;
+}
+.store-form-input{
+	width: 300px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	padding-left: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.textbox-text.validatebox-text{
+	padding-top: 0;
+}
+
+.store-form-row textarea{
+	width: 300px;
+	font-size: 14px;
+	resize: none;
+	outline: none;
+	padding-top: 5px;
+	padding-left: 10px;
+	border: 1px solid #999999;
+	vertical-align:top;
+}
+
+.store-form-row span{
+	color: #666666;
+}
+
+.store-form-row label{
+	display: inline-block;
+	width: 100px;
+	color: #666666;
+	text-align: right;
+}
+
+span.store-form-star{
+	display: inline-block;
+	width: 20px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+
+.btn-save{
+	display: inline-block;
+	width: 166px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #3fc370;
+	border-radius: 4px;
+	color: white;
+	margin: 0px auto;
+	margin-left: 130px;
+}
+
+.btn-save:hover{
+	background: #51D983;
+}
+
+
+.dlg-item{
+	/*line-height: 30px;*/
+	padding: 8px 0;
+}
+
+.dlg-item span{
+	display: inline-block;
+	width: 80px;
+	color: #333;
+	font-weight: bold;
+	text-align: right;
+}
+.dlg-item i{
+	width: 180px;
+	vertical-align: top;
+	display: inline-block;
+	color: #666;
+	font-style: normal;
+	/*word-wrap: break-word;*/
+}
+.dlg-button{
+	text-align: center;
+	padding: 10px 0 10px 0;
+}
+
+#inputManCancel{
+	display: inline-block;
+	padding: 8px 25px;
+    margin: 0 5px;
+	background: #ccc;
+	border-radius: 4px;
+	color: #333;
+}
+
+#inputManSure{
+	display: inline-block;
+	padding: 8px 25px;
+    margin: 0 5px;
+	background: #3fc371;
+	border-radius: 4px;
+	color: #fff;
+}
+
+#dlgManCheck{
+	width: 300px;
+	padding: 10px 20px;
+	font-size: 14px;
+}

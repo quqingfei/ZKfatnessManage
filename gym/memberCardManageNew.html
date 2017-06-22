@@ -1,0 +1,571 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>健身场所管理系统</title>
+<link rel="stylesheet" href="css/easyui2.min.css"></link>
+<link rel="stylesheet" href="css/icon.css"></link>
+<link rel="stylesheet" href="css/theme-simple.css" />
+<link rel="stylesheet" href="css/new.css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css"/>
+<link rel="stylesheet" href="css/gymNew.css" />
+<style type="text/css">
+
+		.pugong{position: relative; width:60px; height:40px; display:block; float:right;margin-left:5px; margin-bottom:5px; margin-top:4px; border:1px solid #f1f1f1;}
+		.divX
+		{
+   			 z-index:100;
+    		border-style:solid;
+    		border-width:1px;
+    		border-color:#d8d8d8;
+    		background-color:#ffffff;
+    		line-height:12px;
+    		text-align:center;
+    		font-weight:bold;
+    		width:10px;
+    		cursor:pointer;
+    		font-size:5px;
+    		color:#666;
+    		display: none;
+		}
+		.putong_app{
+			width:60px; 
+			height:40px;
+		}
+
+        .certificateList{
+			width:218px;
+			height:45px;
+		}
+		.certificateName{
+			width:130px;
+			height:30px;
+			margin-top:7.5px;
+			margin-bottom:7.5px;
+			display:block;
+			
+			float:left;
+		}
+		.add{
+			width:47px;
+			height:40px;
+			border:1px solid blue;
+			margin-right:2px;
+			float:right;
+		}
+		.img{
+			max-width: 100%;
+			width: 100%;
+			max-height: 100%;
+			height: 100%;
+		}
+		.accordionNew .linkNew{
+			height:45px;
+			display: block;
+			/*padding: 10px 15px 10px 42px;*/
+			padding:0px
+			color:#C8CAC9;
+			line-height:23px;
+			font-size: 12px;
+			border-bottom: 2px solid #272C30;
+			position: relative;
+		}
+
+		.tip{
+			display: inline;
+			padding: .2em .6em .3em;
+			font-size: 75%;
+			font-weight: 700;
+			line-height: 1;
+			color: #fff;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: baseline;
+			background-color: #337ab7;
+			border-radius: .25em;
+		}
+    </style>
+<script>
+
+</script>
+</head>
+<body onselectstart="return false" oncontextmenu="return false">
+	
+	
+	<div id = "hideDiv" class="center-region" style="background:#fff;z-index:9999;">
+		<div style="width:32px;height:32px;margin:250px auto auto auto;">
+			<img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+		</div>
+	</div>
+	
+	<div id="center-region" class="center-region">
+		<div style="background-color:#E8E8E8;">
+			<div id="showMessage" style="width:100%;height:100%;">
+				<!-- body -->
+				<table id="dg"style="width:100%;height:100%;" rownumbers="true" data-options="singleSelect:true,pagination:true,pageSize:'30',url:'MemberCardAction!list.zk',method:'post',toolbar:'#toolbar'">
+					<thead>
+						<tr>
+							<!--rownumbers:true,<th data-options="field:'id',checkbox:false,width:$('#showMessage').width()*0.02" ></th>-->
+							<th style="white-space: nowrap" data-options="field:'name',align:'center',">会员卡名称</th><!-- width:$('#showMessage').width()*0.2 -->
+							<th style="white-space: nowrap" data-options="field:'type',align:'center',formatter:formatType,">会员卡类型</th><!-- width:$('#showMessage').width()*0.2 -->
+							<th style="white-space: nowrap" data-options="field:'cycle',align:'center',formatter:formatAdd,">剩余时间/次数</th><!-- width:$('#showMessage').width()*0.1 -->
+							<th style="white-space: nowrap" data-options="field:'price',align:'center',">价格</th><!-- width:$('#showMessage').width()*0.1 -->
+							<th style="white-space: nowrap" data-options="field:'image',align:'center',sortable:true,formatter:formatImage,">会员卡展示</th>
+							<th style="white-space: nowrap" data-options="field:'totalUser',align:'center',sortable:true,">销售数量</th>
+							<th style="white-space: nowrap" data-options="field:'totalAmount',align:'center',sortable:true,">销售额</th>
+							<!--<th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter: formatDate,sortable:true,">注册时间</th><!-- width:($('#showMessage').width()-30)* 0.18 -->
+							<!--<th style="white-space: nowrap" data-options="field:'gmtModify',align:'center',formatter: formatDate,sortable:true,">修改时间</th><!-- width:($('#showMessage').width()-30)* 0.18 -->
+						</tr>
+					</thead>
+				</table>
+    <div id="toolbar">
+    <table>
+    	<tr>
+    	<td id="filter" style="padding-right:10px;"><!--筛选：--><select id="memberCard" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+		textField: 'text',
+		data: [{
+			text: '全部',
+			value: '',
+			selected:true
+		},{
+			text: '时效卡',
+			value: 'cycle'
+		},{
+			text: '次数卡',
+			value: 'times'
+		}]"style="width: 100px;height:30px;">
+    		</select></td>
+    		<td><input id="txt_word" class="easyui-searchbox" style="width: 250px;height:30px;" data-options="prompt:'请输入会员卡名称',searcher:searchMemberCard" /></td>
+    		<div style="float:left;width:240px;height:25px;margin-left:20px;">
+    			<div id="addDetail" class="detail" style="" onclick="newMemberCard()" onmouseOver="onOver('addDetail')" onmouseout="toOut('addDetail')">
+    				<div style="float:left;"><img alt="" src="images/addNew.png" style="width:18px;height:18px;line-height:25px;margin-top:3.5px;"></div>
+    				<span style="margin-left:5px;">添加</span>
+    			</div>
+    		
+    		
+    			<div id="editDetail" class="detail" style="" onclick="editMemberCard()" onmouseOver="onOver('editDetail')" onmouseout="toOut('editDetail')">
+    				<div style="float:left;"><img alt="" src="images/editNew.png" style="width:18px;height:18px;line-height:25px;margin-top:3.5px;"></div>
+    				<span style="margin-left:5px;">编辑</span>
+    			</div>
+    		
+    		
+    			<div id="delDetail" class="detail" style="" onclick="destroyMemberCard()" onmouseOver="onOver('delDetail')" onmouseout="toOut('delDetail')">
+    				<div style="float:left;"><img alt="" src="images/deleteNew.png" style="width:18px;height:18px;line-height:25px;margin-top:3.5px;"></div>
+    				<span style="margin-left:5px;">删除</span>
+    			</div>
+    		
+    		</div>
+    	</tr>
+    </table> 
+    </div>
+    
+   	<div id="dlg" class="easyui-dialog"style="width: 450px; height: 400px; padding: 10px 20px" closed="true" data-options="modal:true"><!--  buttons="#dlg-buttons" -->
+		<!-- <div class="ftitle">健身课程信息</div>-->
+		<form id="fm" method="post">
+			<input id="id" type="hidden"/>
+			<div class="fitem">
+				<label>会员卡名称:</label> <input name="name" id="name" class="easyui-textbox"/>
+			</div>
+			<div class="fitem">
+				<label>类&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型:</label> 
+				<select id="type" name="type" class="easyui-combobox" style="width:164px;" data-options="">
+					<option value="cycle">时效卡</option>
+					<option value="times">次数卡</option>
+				</select>
+			</div>
+			<div class="fitem" id="cycleDiv" style="display:none;">
+				<label>时&nbsp;&nbsp;&nbsp;&nbsp;效&nbsp;&nbsp;&nbsp;卡:</label> 
+				<select id="cycle" name="cycle" class="easyui-combobox" style="width:164px;"data-options="">
+					<option value="1天">1天</option>
+					<option value="7天">7天</option>
+					<option value="1月">1月</option>
+					<option value="3月">3月</option>
+					<option value="1年">1年</option>
+					<option value="2年">2年</option>
+					<option value="3年">3年</option>
+					<option value="永久">永久</option>
+				</select>
+			</div>
+			<div class="fitem" id="timesDiv">
+				<label>次&nbsp;数卡(次):</label> 
+				<select id="times" name="times" class="easyui-combobox" style="width:164px;"data-options="">
+					<option value="40">40</option>
+					<option value="50">50</option>
+				</select>
+			</div>
+			<div class="fitem">
+				<label>价&nbsp;&nbsp;&nbsp;&nbsp;格(元):</label> <input name="price" id="price" class="easyui-textbox"/>
+			</div>
+			<div class="fitem" style="position:relative;height:80px;margin-bottom:0px;">
+				<label>会员卡展示:</label> <input name="image" id="image"type="hidden">
+				<div id="showImgDiv"style="position:absolute;width: 160px; height:80px;left: 85px;top:0px;cursor: pointer;">
+					<img id="imghead" class=""src="images/yun.png" alt="会员卡图片"style="width:auto;max-width: 100%;height:100%;cursor: pointer;" onclick="chooseImage2('file_title_img')" title="点击选择图片"/>
+				</div>
+			</div>
+			<div class="fitem" style="display:none;">
+				<label>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位:</label> <input name="unit" id="unit" class="easyui-textbox"/>
+			</div>
+		</form>
+		<form id="title_img_form" method="post"enctype="multipart/form-data">
+			<input type="file" class="owntext" style="display:none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+		</form>
+		<div class="button" style="width:100%;height:50px;padding-top:20px;text-align:left;">
+			<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveMemberCard()" style="width:90px;margin-left:99px;margin-right:45px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;">确定</span></a>
+			<a href="javascript:void(0)" class="easyui-linkbutton"onclick="javascript:$('#dlg').dialog('close')"style="width: 90px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;">取消</span></a>
+		</div>
+	</div>
+			</div>
+		</div>
+	</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/easyui-lang-zh_CN.js"></script>
+<script src="js/format.utils.js"></script>
+<script src="js/datagrid.common.js"></script>
+<script src="js/biz/zk_main.js"></script>
+<script src="js/echarts-plain.js"></script>
+<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/flowplayer-3.2.6.min.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<script src="js/jquery.datagridtip.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/msgbox/msgbox.js"></script>
+<script type="text/javascript">
+//var setInt = self.setInterval("isOk()",300);
+function localTime(){
+	//setTimeout('localTime()',50);
+}
+function loginTimeout(){
+    window.top.location.replace('index.html?redirect=' + encodeURIComponent(location.href));
+}
+$(function(){
+	$('body').css('height',$(window).height());//设置body的高度
+	$('body').css('width',$(window).width());
+	var height1 = $(window).height();
+	var width1 = $(window).width();
+	$('#center-region').css({'width':width1});
+	$('#showMessage').css({'width':'100%','height':$(window).height()});
+	if(parseInt($('#showMessage').css('width'))>660)$('#filter').css({'padding-left':parseInt($('#showMessage').css('width'))-660});
+	$(window).resize(function(){
+		$('body').css('height',$(window).height());//设置body的高度
+		$('body').css('width',$(window).width());
+		var height0 = $(window).height();
+		var width0 = $(window).width();
+		$('#center-region').css({'width':width0});
+		$('#showMessage').css({'width':'100%','height':height0});
+		$('.datagrid-view2').css({'width':'100%'});
+		$('.datagrid-view2').children('.datagrid-header').children('.datagrid-header-inner').children('.datagrid-htable').children('tbody').children('.datagrid-header-row').css({'width':parseInt($('#showMessage').css('width'))-30});
+		if(parseInt($('#showMessage').css('width'))>660)$('#filter').css({'padding-left':parseInt($('#showMessage').css('width'))-660});
+	});
+	$('#hideDiv').hide();
+	$('#dg').datagrid({
+		onLoadSuccess: function(data){
+			if (data.total == 0 && data.ERROR == 'No Login!') {
+				$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '登录超时,请重新登录!', 'error');
+				relogin();
+			}
+			$('#dg12345').datagrid('doCellTip', {
+                onlyShowInterrupt: false,     //是否只有在文字被截断时才显示tip，默认值为false             
+                position: 'bottom',   //tip的位置，可以为top,botom,right,left
+                cls: { 'background-color': '#FFF' },  //tip的样式D1EEEE
+                delay: 100   //tip 响应时间
+	        });
+			
+			//图片弹出层
+			 $("a.popImage").fancybox({
+		            openEffect  : 'elastic',
+		            closeEffect: 'elastic'    
+		     });
+		},
+		onLoadError : function() {
+			//alert('出错啦');
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '出错啦！');
+		},
+		onHeaderContextMenu: function(e, field){
+			e.preventDefault();
+			if (!cmenu){
+				createColumnMenu();
+			}
+			cmenu.menu('show', {
+				left:e.pageX,
+				top:e.pageY
+			});
+	}
+	});
+	
+});
+
+$('#type').combobox({
+	onChange: function (n,o) {
+		if(n == "cycle"){
+			$('#cycleDiv').show();
+			$('#timesDiv').hide();
+			$("#unit").textbox('setValue','day');
+			$("#cycle").combobox('setValue','');
+			//alert($("#times").combobox('getValues'));
+			//$("#times").combobox('setValue',$("#times").combobox('getValue'));
+			//alert($('#type').combobox('getValue'));
+		}else if(n =="times"){
+			$('#cycleDiv').hide();
+			$('#timesDiv').show();
+			$("#unit").textbox('setValue','number');
+			//$("#times").attr("value",0);
+			$("#times").combobox('setValue','');
+			//$("#cycle").combobox('setValue',$("#cycle").combobox('getValue'));
+			//alert($('#times').combobox('getValue'));
+		}
+	}
+});
+
+function onOver(id){
+	$('#'+id).css({color:'#FFD600'});
+}
+function toOut(id){
+	$('#'+id).css({color:'#fff'});
+}
+function newMemberCard(){
+	
+	 $('#fm').form('clear');
+     $('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;添加会员卡信息');
+     $("#imghead").attr("src", 'images/yun.png');
+     //url = 'MemberCardAction!createOrUpdate.zk';
+     url = 'MemberCardAction!save.zk';
+}
+
+function editMemberCard(){
+	 var row = $('#dg').datagrid('getSelected');
+     if (row){
+         $('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;编辑会员卡信息');
+         $('#fm').form('load',row);
+         if(row.type=="times"){
+        	$('#cycleDiv').hide();
+ 			$('#timesDiv').show();
+         }else{
+        	$('#cycleDiv').show();
+  			$('#timesDiv').hide();
+         }
+         $("#times").combobox('setText',row.times);
+         $("#cycle").combobox('setText',row.cycle);
+         if(row.image==''||!row.image){
+        	 $("#imghead").attr("src", 'images/yun.png');
+        	 $("#image").val('');
+         }else{
+        	 var imgURL = "../file/FileCenter!showImage2.zk?name=" + row.image;
+      		 $("#imghead").attr("src", imgURL);
+      		$("#image").val(row.image);
+         }
+         url = 'MemberCardAction!update.zk?id='+row.id;
+     }else{
+		   $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请先选择要编辑的会员卡!');
+ 	}
+
+}
+function chooseImage2(id) {
+	document.getElementById(id).click();
+}
+//上传图片
+function uploadImage() {
+	var viewFiles = document.getElementById("file_title_img");
+	//是否为图片类型            
+	if (/image\/\w+/.test(viewFiles.files[0].type)) {
+		//最大图片文件大小 500KB
+		var imgSizeLimit = 5000 * 1024;
+		if (viewFiles.files[0].size <= imgSizeLimit) {
+			//上传图片
+			$("#title_img_form")
+					.ajaxSubmit(
+							{
+								type : 'post',
+								url : '../file/FileCenter!uploadImage2.zk',
+								success : function(data) {
+									data = $.parseJSON(data);
+									if (data.name) {
+										var imgURL = "../file/FileCenter!showImage2.zk?name="+ data.name;
+										$("#imghead").attr("src",imgURL);
+										$("#image").val(data.name);
+									} else {
+										//alert("上传图片出错！");
+										$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','上传图片出错！');
+									}
+									$("#title_img_form").resetForm();
+								},
+								error : function(XmlHttpRequest,textStatus, errorThrown) {
+									//alert("error");
+									$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','error');
+								}
+							});
+		} else {
+			//alert("图片大小不能超过" + (imgSizeLimit / 1024) + "KB!");
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示',"图片大小不能超过" + (imgSizeLimit / 1024) + "KB!");
+		}
+	} else {
+		//alert('请选择图片类型的文件!');
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请选择图片类型的文件!');
+	}
+}
+
+function destroyMemberCard(){
+	var row = $('#dg').datagrid('getSelected');
+	if(row){
+		if(true){
+			$.getJSON('MemberCardAction!delete.zk',{id:row.id},function(data){
+				if(data.STATUS){
+					$('#dg').datagrid('reload');
+					//showTip("删除成功!");
+					$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;信息','删除成功!');
+				}else {
+					//showTip("删除失败!");
+					if('No Login!' == data.ERROR){
+		                loginTimeout();return;
+		            }
+					$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','删除失败!');
+				}
+			});
+		}
+	}else{
+   	 	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请先选择会员卡!');
+    }
+}
+
+function saveMemberCard(){
+	if(checkForm()){
+		var id = $('#id').val();
+		var name =$('#name').textbox('getValue');
+		var type =$('#type').combobox('getValue');
+		var cycle =$('#cycle').combobox('getText');
+		var times =$('#times').combobox('getText');
+		var price =$('#price').textbox('getValue');
+		var unit =$('#unit').textbox('getValue');
+		var image = $('#image').val();
+		$.post(url,{id:id,name:name,type:type,cycle:cycle,times:times,price:price,unit:unit,image:image},function(data){
+ 				if (data.STATUS){
+                    $('#dlg').dialog('close');        // close the dialog
+                    $('#dg').datagrid('reload');    // reload the user data
+                } else {
+                	if('No Login!' == data.ERROR){
+                        loginTimeout();return;
+                    }
+                	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','保存失败!');
+                    /*$.messager.show({
+                        title: '错误',
+                        msg: '系统繁忙！'
+                    });*/
+                }
+		},'json');
+		
+		/*
+				 $('#fm').form('submit',{
+	                 url: url,
+	                 onSubmit: function(){
+	                     return checkForm();
+	                 },
+	                 success: function(result){
+	                	 var result = eval('('+result+')');
+	                     if (result.STATUS){
+	                         $('#dlg').dialog('close');        // close the dialog
+	                         $('#dg').datagrid('reload');    // reload the user data
+	                     } else {
+	                         $.messager.show({
+	                             title: '错误',
+	                             msg: '系统繁忙！'
+	                         });
+	                     }
+	                 }
+	             });*/	
+	}
+}
+
+function checkForm(){
+	var name = $.trim($("#name").val());
+	if(name==''){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','会员卡名称不能为空!');
+		$("#name").focus();
+		return false;
+	}
+	if(name.length>30){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','会员卡名称长度太长!');
+		$("#name").focus();
+		return false;
+	}
+	var type = $.trim($('#type').combobox('getValue'));
+	if(type==''){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','会员卡类型不能为空!');
+		$("#type").focus();
+		return false;
+	}
+	if(type=='cycle'){
+		var cycle = $.trim($('#cycle').combobox('getText'));
+		if(cycle==''){
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','会员卡时效不能为空!');
+			$("#cycle").focus();
+			return false;
+		}
+	}else{
+		var times = $.trim($('#times').combobox('getText'));
+		if(times==''){
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','会员卡次数不能为空!');
+			$("#times").focus();
+			return false;
+		}
+	}
+	var price = $.trim($("#price").textbox('getValue'));
+	if(isNaN(price)){
+		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','价格必须为数值!');
+		$("#price").focus();
+		return false;
+	}
+	
+	return true;
+}
+
+function formatAdd(value,row){
+	switch (row.type) {
+		case 'times': return row.times ? (row.times + '次') : '';
+		case "cycle": return row.cycle ? (row.cycle) : '' ;
+		default:return '';
+	}
+}
+
+
+function formatType(value){
+	switch (value) {
+		case "cycle": return '时效卡' ;
+		case "times": return '次数卡' ;
+		default:return '';
+		}
+}
+function formatImage(value){
+	if(value==''||!value)
+		return '暂无图片';
+	else{
+		return "<a class=\"popImage\" href='../file/FileCenter!showImage2.zk?name="+value+"'>"
+				+"<img title='图片' style='width:30px;height:20px;margin-top:0px;cursor:pointer;' src='../file/FileCenter!showImage2.zk?name="+value+"'/>"+"</a>";
+	}
+		
+}
+//用户筛选事件,自动搜索
+$("#memberCard").combobox({
+	onChange: function (n,o) { 
+		searchMemberCard();
+	},
+	onSelect: function (rec) {
+		searchMemberCard();
+	}
+});
+
+function searchMemberCard(){
+	var type = $("#memberCard").combobox("getValue");
+	var name = $("#txt_word").searchbox("getValue"); 
+	$("#dg").datagrid('load',{name:name,type:type});
+	$("#txt_word").searchbox("setValue",'');
+}
+    </script>
+</body>
+</html>

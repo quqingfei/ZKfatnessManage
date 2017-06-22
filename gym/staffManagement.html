@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>员工管理</title>
+    <link rel="stylesheet" href="css/easyui2.min.css"></link>
+    <link rel="stylesheet" href="css/icon.css"></link>
+    <link rel="stylesheet" href="css/new.css" />
+    <link rel="stylesheet" href="css/gymNew.css"></link>
+    <link rel="stylesheet" href="css/staffManagement.css"></link>
+</head>
+<body onselectstart="return false" oncontextmenu="return false">
+    <div class="easyui-layout curLocation" data-options="fit:true">
+        <div class="showTable">
+            <!-- 表格 -->
+            <div class="curHeader">
+                <img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt=""> 当前位置：高级 > 员工管理
+            </div>
+            <div class="course_title">
+                <div class="title_right">
+                    <div class="coach_tel">
+                        <label for="searchRole">角色</label>
+                        <input name="searchRole" id="searchRole" class="easyui-combobox" value="" style="width:100px;height:32px;" data-options="editable:false,prompt:'请选择'">
+                    </div>
+                    <div class="coach_tel">
+                        <label for="searchName">姓名/电话</label>
+                        <input type="text" name="searchName" id="searchName" class="searchInput" value="" placeholder="请输入" />
+                    </div>
+                    <!-- <div class="coach_tel">
+                        <label for="">员工手机号</label>
+                        <input type="text" maxlength="11" name="searchPhone" id="searchPhone" class="searchInput" value="" placeholder="请输入" />
+                    </div> -->
+                    <div class="search_btn">
+                        <button onclick="searchStaff()" id="staffSearch"><span class="">搜索</span></button>
+                    </div>
+                    <!-- <div class="search_btn">
+                        <button id="staffNew"><img src="images/icon_newly_build.png"><span class="">&nbsp;&nbsp;&nbsp;&nbsp;新建</span></button>
+                    </div> -->
+                </div>
+                <div id="sendTd" class="sendMessage" onclick="openMessage()">
+                    <img alt="" class="sendImg" src="images/message.png">
+                    <span>发送通知</span>
+                </div>
+                <div id="staffDel" onclick="dgDelete('../ngym/GymEmployeesAction!delete.zk')" class="sendMessage" style="">
+                    <img alt="" class="sendImg" src="images/deleteNew.png">
+                    <span>删除员工</span>
+                </div>
+                <div id="staffEdit" onclick="staffEdit()" class="sendMessage" style="">
+                    <img alt="" class="sendImg" src="images/editNew.png">
+                    <span>编辑员工</span>
+                </div>
+                <div id="staffNew" class="sendMessage" style="">
+                    <img alt="" class="sendImg" src="images/addNew.png">
+                    <span>新建员工</span>
+                </div>
+                <div id="getInfo" class="sendMessage" style="">
+                    <img alt="" class="sendImg" src="images/message.png">
+                    <span>设为客服</span>
+                </div>
+            </div>
+            <!-- <div class="curAction">
+                
+            </div> -->
+            <table id="dg" style="width:100%;height:100%;" data-options="fitColumns:true,nowrap:true,rownumbers:'true',singleSelect:false,pagination:true,url:'../ngym/GymEmployeesAction!list.zk',pageSize:'30',method:'post'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'userId',resizable:'true',align:'center',checkbox:true">全选</th>
+                        <th style="white-space: nowrap;" data-options="field:'realName',align:'center',resizable:'true'">姓名</th>
+                        <th style="white-space: nowrap;" data-options="field:'phone',align:'center',resizable:'true'">电话</th>
+                        <th style="white-space: nowrap;" data-options="field:'duty',align:'center',resizable:'true'">角色</th>
+                        <th style="white-space: nowrap;" data-options="field:'coachWeight',align:'center',resizable:'true'">教练排序</th>
+                        <th style="white-space: nowrap;" data-options="field:'gmtCreate',align:'center',resizable:'true',formatter:formatTime">创建时间</th>
+                        <!-- <th style="white-space: nowrap;" data-options="field:'id',align:'center',resizable:'true',formatter:formatControl">操作</th> -->
+                    </tr>
+                </thead>
+            </table>
+            <!-- 发送消息 -->
+            <div id="dlg0" class="easyui-dialog" style="width:400px;padding:20px 20px" closed="true" data-options="modal:true">
+                <!-- buttons="#dlg-buttons" -->
+                <div id="sendTheMessage" class="fitem" style="width:100%;height:auto;margin-bottom:0px;">
+                    <div style="width:358px;height:100%;">
+                        <textarea id="toAllMessage" style="width:358px;height:96px;border:1px solid #ccc;border-radius:3px;
+                        margin:0px;padding:0px;line-height:24px;box-sizing: border-box;padding: 0px 5px;text-align:left;outline:medium;outline-style:none;resize:none;" placeholder="请输入信息内容"></textarea>
+                        <small style="float:right;color:#B1B1B1">限200字符</small>
+                        <div class="button" style="width:100px;height:100%;margin:20px auto 0px auto;text-align:center;">
+                            <a id="sendMessageA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="sendAllMessage();" style="width:80px;background:#3fc370; color: #fff;border-radius:3px;"><span style="color:white;">发&nbsp;&nbsp;送</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="sendSuccess" style="width:100%;margin-bottom:0px;display:none;">
+                    <img id="showSuccess" src="images/success.png" style="width:80px;height:80px;margin:0px auto 0 140px;"></img>
+                    <div style="width:100%;height:20px;margin-top:10px;line-height:20px;text-align:center;">发送成功</div>
+                    <div class="button" style="width:100px;height:30px;margin:10px auto 0px auto;text-align:center;">
+                        <a id="successedA" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="successed();" style="width:80px;background:#3fc371; border-radius:4px;"><span style="color:#fff;">确&nbsp;&nbsp;定</span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑 -->
+            <div id="dlgConfirm" class="easyui-dialog" style="width: 400px; max-height: 300px; padding:20px" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;编辑" data-options="modal:true">
+                <!--  buttons="#dlg-buttons" -->
+                <form id="fmEdit" method="post">
+                    <div style="width:100%;" class="">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">员工姓名：</label>
+                        <input type="text" class="new-input" id="emNameEd" name="emNameEd" style="">
+                    </div>
+                    <div style="width:100%;" class="">
+                        <label style="margin:0 20px 20px 0; width:80px; display:inline-block;text-align:right;">员工手机号：</label>
+                        <input type="text" maxlength="11" class="new-input" id="emPhoneEd" disabled="disabled" name="emPhoneEd" style="">
+                    </div>
+                    <div style="width:100%;" class="">
+                        <label style="margin:0px 20px 20px 0;width:80px; display:inline-block;text-align:right;">角色：</label>
+                        <!--<select id="type" name="type" class="easyui-combobox" style="width:200px;" data-options="editable:false">
+                            </select>-->
+                        <input name="roleSel" id="roleSel" class="easyui-combobox" value="" style="height: 26px;line-height: 26px;width: 200px;padding-left:5px;" data-options="editable:false,prompt:'请选择'">
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">等级：</label>
+                        <select id="coachLevelEd" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '明星教练',
+                                value: '0'
+                            },{
+                                text: '口碑教练',
+                                value: '1'
+                            },{
+                                text: '实习教练',
+                                value: '2'
+                            },{
+                                text: '教练经理',
+                                value: '3'
+                            }],prompt:'请选择教练等级'" style="height: 26px;line-height: 26px;width: 200px;"></select>
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">排序：</label>
+                        <select id="coachStarEd" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',prompt:'请设置教练排序'" style="height: 26px;line-height: 26px;width: 200px;"></select>
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;vertical-align:top;">形象照：</label>
+                        <div id="" style="display:inline-block;max-width:200px;height:80px;">
+                            <img id="imgheadEd" class="" src="images/yun.png" alt="会员卡图片" style="display: inline-block;width:auto;max-width: 100%;height:100%;cursor: pointer;" onclick="chooseImage2('file_title_img_ed','new')" title="点击选择图片" />
+                            <div style="color:#999;margin: 10px 0;">建议正方形照片，最多6张。</div>
+                        </div>
+                        <input name="imageEd" id="imageEd" value="" type="hidden">
+                    </div>
+                    <div style="width:100%;margin-top: 10px;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">工作时间：</label>
+                        <!--<input name="courseTime" id="courseTime" class="easyui-textbox"/>-->
+                        <!-- <input name="courseTime1" id="coachStart" class="easyui-timespinner" style="width:76px;height:26px;"> -->
+                        <select id="coachStartEd" class="easyui-combobox" data-options="editable:false,valueField: 'value',prompt:'上班时间'" style="height: 26px;line-height: 26px;width: 80px;"></select>
+                        <span style="line-height: 26px;">-</span>
+                        <select id="coachEndEd" class="easyui-combobox" data-options="editable:false,valueField: 'value',prompt:'下班时间'" style="height: 26px;line-height: 26px;width: 80px;"></select>
+                    </div>
+                    <div style="width:100%;margin-top: 10px;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">简介：</label>
+                        <input name="" id="coachIntroduceEd" class="new-textarea" placeholder="请填写10字及以内的简短介绍"></input>
+                    </div>
+                    <div style="width:100%;margin-top: 10px;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;vertical-align:top;">个人介绍：</label>
+                        <textarea name="" id="coachDetailEd" class="new-textarea" rows="10" placeholder="请填写个人介绍"></textarea>
+                    </div>
+                    <div class="button" style="width:100%;padding-top:20px;text-align:center;">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlgConfirm').dialog('close')" style="width: 90px;margin-right:45px;background:#ddd;border-radius:3px;"><span style="color:#666;">取消</span></a>
+                        <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveEditStaff()" style="width:90px;background:#3fc370;border-radius:3px;"><span style="color:#fff;">保存</span></a>
+                    </div>
+                </form>
+                <form id="title_img_form_ed" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img_ed" name="name" onchange="uploadImageEd()" accept="image/*" />
+                </form>
+            </div>
+            
+            <!-- 新建 -->
+            <div id="dlgNewCons" class="easyui-dialog" style="width: 400px;max-height: 300px; padding:20px;" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;新建" data-options="modal:true">
+                <!--  buttons="#dlg-buttons" -->
+                <form id="fmNew" method="post">
+                    <div style="width:100%;" class="">
+                        <label style="margin:0px 20px 20px 0; width:80px; display:inline-block;text-align:right;">识别码：</label>
+                        <input type="text" class="new-input" id="emCode" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="emCode" style="" placeholder="请扫描/输入条码/手机号码">
+                    </div>
+                    <div style="width:100%;" class="">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">员工姓名：</label>
+                        <input type="text" class="new-input" id="emName" name="emName" style="" placeholder="自动获取">
+                    </div>
+                    <div style="width:100%;" class="">
+                        <label style="margin:0 20px 20px 0; width:80px; display:inline-block;text-align:right;">员工手机号：</label>
+                        <input type="text" maxlength="11" class="new-input" id="emPhone" name="emPhone" disabled="disabled" style="" placeholder="自动获取">
+                    </div>
+                    <div style="width:100%;" class="">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">角色：</label>
+                        <input name="roleNew" id="roleNew" class="easyui-combobox" value="" style="height: 26px;line-height: 26px;width: 200px;" data-options="editable:false,prompt:'请选择员工角色'">
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">等级：</label>
+                        <select id="coachLevel" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',
+                            data: [{
+                                text: '明星教练',
+                                value: '0'
+                            },{
+                                text: '口碑教练',
+                                value: '1'
+                            },{
+                                text: '实习教练',
+                                value: '2'
+                            }],prompt:'请选择教练等级'" style="height: 26px;line-height: 26px;width: 200px;"></select>
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">排序：</label>
+                        <select id="coachStar" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+                            textField: 'text',prompt:'请设置教练排序'" style="height: 26px;line-height: 26px;width: 200px;"></select>
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;vertical-align:top;">形象照：</label>
+                        <div id="" style="display:inline-block;max-width:200px;height:80px;">
+                            <img id="imghead" class="" src="images/yun.png" alt="会员卡图片" style="display: inline-block;width:auto;max-width: 100%;height:100%;cursor: pointer;" onclick="chooseImage2('file_title_img','new')" title="点击选择图片" />
+                            <div style="color:#999;margin: 10px 0;">建议正方形照片，最多6张。</div>
+                        </div>
+                        <input name="image" id="image" value="" type="hidden">
+                    </div>
+                    <div style="width:100%;margin-top: 10px;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">工作时间：</label>
+                        <!--<input name="courseTime" id="courseTime" class="easyui-textbox"/>-->
+                        <!-- <input name="courseTime1" id="coachStart" class="easyui-timespinner" style="width:76px;height:26px;"> -->
+                        <select id="coachStart" class="easyui-combobox" data-options="editable:false,valueField: 'value',prompt:'上班时间'" style="height: 26px;line-height: 26px;width: 80px;"></select>
+                        <span style="line-height: 26px;">-</span>
+                        <select id="coachEnd" class="easyui-combobox" data-options="editable:false,valueField: 'value',prompt:'下班时间'" style="height: 26px;line-height: 26px;width: 80px;"></select>
+                    </div>
+                    <div style="width:100%;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;">简介：</label>
+                        <input name="" id="coachIntroduce" class="new-textarea" placeholder="请填写10字及以内的简短介绍"></input>
+                    </div>
+                    <div style="width:100%;margin-top: 10px;" class="coachMode">
+                        <label style="margin:0 20px 20px 0;width:80px; display:inline-block;text-align:right;vertical-align:top;">个人介绍：</label>
+                        <textarea name="" id="coachDetail" class="new-textarea" rows="10" placeholder="请填写个人介绍"></textarea>
+                    </div>
+                    <div class="button" style="width:100%;padding-top:20px;text-align:center;">
+                        <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveNewStaff()" style="width:90px;background:#3fc370; color:white;border-radius:3px;"><span style="color:#fff;">保存</span></a>
+                    </div>
+                </form>
+                <form id="title_img_form" method="post" enctype="multipart/form-data">
+                    <input type="file" class="owntext" style="display:none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+                </form>
+            </div>
+            <!-- 删除员工 -->
+            <div id="dlgDeleteFail" class="easyui-dialog" style="width: 400px; height: 200px; padding: 10px 20px" closed="true" title="&nbsp;&nbsp;&nbsp;&nbsp;请确认" data-options="modal:true">
+                <!--  buttons="#dlg-buttons" -->
+                <div class="messager-body panel-body panel-body-noborder window-body" style="text-align: center;">
+                    <p class="">删除员工，请确认</p>
+                </div>
+                <div class="button" style="width:100%;height:50px;padding-top:20px;text-align:center;">
+                    <a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="delStaff()" style="width:90px;margin-right:45px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;">确认</span></a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlgDeleteFail').dialog('close')" style="width: 90px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;">取消</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hideDiv" class="hideDiv" style="background:#fff;z-index:9999;">
+        <div style="width:32px;height:32px;margin:250px auto auto auto;">
+            <img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+        </div>
+    </div>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/jquery.easyui.min1.js"></script>
+    <script src="js/easyui-lang-zh_CN.js"></script>
+    <script src="js/format.utils.js"></script>
+    <script src="js/datagrid.common.js"></script>
+    <script src="js/jquery.form.js"></script>
+    <script src="js/flowplayer-3.2.6.min.js"></script>
+    <script src="js/jquery.easyui.patch.js"></script>
+    <script src="js/jquery.datagridtip.js"></script>
+    <script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/staffManagement.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

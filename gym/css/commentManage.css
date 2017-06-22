@@ -1,0 +1,418 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Microsoft Yahei', 'Hiragino Sans GB', Helvetica, 'Helvetica Neue', '微软雅黑', Tahoma, Arial, sans-serif;
+    width: 100%;
+    min-width: 700px;
+    height: 100%;
+}
+
+.datagrid-view1,
+.datagrid-view1 .datagrid-header,
+.datagrid-view1 .datagrid-header-rownumber,
+.datagrid-view1 .datagrid-cell-rownumber {
+    width: auto !important;
+}
+
+.datagrid-view1 .datagrid-body,
+.datagrid-view1 .datagrid-footer {
+    width: auto !important;
+    padding-left: 5px !important;
+}
+
+.comment-record {
+    width: 100%;
+    height: 100%;
+}
+
+.comment-header {
+    font-size: 14px;
+    line-height: 40px;
+    height: 40px;
+    padding-bottom: 10px;
+    color: #000;
+}
+
+.comment-bar {
+    position: relative;
+    height: 40px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #222;
+    border-radius: 5px 5px 0 0;
+    background: #373737;
+}
+
+.comment-kind {
+    font-size: 14px;
+    line-height: 30px;
+    display: inline-block;
+    float: right;
+    height: 30px;
+    margin-left: 10px;
+    padding: 5px 0;
+    vertical-align: top;
+}
+
+.comment-kind .textbox-text.validatebox-text {
+    /*height: 30px;
+	width: 90px;*/
+    vertical-align: top;
+}
+
+.comment-kind .textbox.combo {
+    padding: 0 3px;
+    vertical-align: top;
+    border: 0;
+    /*border-radius: 5px;*/
+}
+
+.comment-code {
+    position: relative;
+    display: inline-block;
+}
+
+.comment-code > img {
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    height: 30px;
+}
+
+#commentCode {
+    font-size: 14px;
+    line-height: 40px;
+    width: 250px;
+    height: 40px;
+    padding: 0 0 0 40px;
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+
+.comment-search {
+    font-size: 14px;
+    display: inline-block;
+    height: 30px;
+    padding: 5px 0;
+    vertical-align: middle;
+    /*margin-left: 30px;*/
+}
+
+#commentSearch {
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+    margin-right: 20px;
+    padding-left: 10px;
+    vertical-align: top;
+    border: 0;
+    border-radius: 5px;
+}
+
+#commentSearchSubmit {
+    font-size: 14px;
+    line-height: 30px;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin-left: 10px;
+    text-align: center;
+    color: #363636;
+    border-radius: 5px;
+    background: #fed430;
+}
+
+#commentSearchSubmit:hover {
+    background: #dfba29;
+}
+
+#commentAll {
+    border-right: 0;
+}
+
+.comment-control {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.comment-control a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 0 3px;
+    /*color: #000000;*/
+}
+
+.comment-control a:hover {
+    /*border-bottom: 1px solid #000000;*/
+    color: #666;
+}
+
+#dlgSubmit {
+    font-size: 14px;
+    width: 200px;
+    padding: 10px 20px;
+}
+
+#dlgCheck {
+    font-size: 14px;
+    width: 500px;
+}
+
+#dlgRemark {
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
+#dlgRemark textarea {
+    padding: 5px;
+    resize: none;
+    outline: none;
+}
+
+.dlg-item {
+    /*height: 30px;
+	line-height: 30px;*/
+    padding: 8px 0;
+}
+
+.dlg-item span {
+    display: inline-block;
+    width: 80px;
+    vertical-align: top;
+}
+
+.dlg-item i {
+    display: inline-block;
+}
+
+.dlg-button {
+    padding: 10px 0 0 0;
+    text-align: center;
+}
+
+.dlg-button a {
+    width: 60px;
+    padding: 0 10px;
+    border-radius: 3px;
+    background: #3fc370;
+}
+
+.dlg-button a span {
+    color: white;
+}
+
+.comment-search .datebox {
+    font-size: 14px;
+    line-height: 29px;
+    display: inline-block;
+    width: 100px;
+    height: 32px;
+    margin-bottom: 1px;
+    margin-left: 5px;
+    padding-left: 5px;
+    vertical-align: middle;
+    color: #666;
+    border-width: 0;
+    /* Firefox */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    /* Safari 和 Chrome */
+    border-radius: 5px;
+    background-color: #fff;
+    /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+
+.comment-search .textbox .textbox-text {
+    font-size: 14px;
+    margin-bottom: 3px;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}
+
+.comment-search .combo {
+    vertical-align: top;
+    border-width: 0;
+}
+
+.dateInput {
+    font-size: 14px;
+    line-height: 30px;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    /*color:#666666;*/
+    margin-left: 5px;
+    padding-left: 5px;
+    border-width: 0;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.showTable {
+    /*margin:88px 0px 0px;*/
+    position: absolute;
+    top: 106px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.clientSearch {
+    display: inline-block;
+    float: right;
+    width: auto;
+    height: 30px;
+    vertical-align: top;
+}
+
+.sendMessage {
+    font-size: 14px;
+    line-height: 20px;
+    float: right;
+    /*width:100px;*/
+    height: 20px;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.sendMessage:hover {
+    background: #2c2c2c;
+}
+
+.sendMessage:active {
+    background: #222;
+}
+
+img.sendImg {
+    position: relative;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+.dialog-head {
+    padding: 5px 0;
+    border-top: 1px solid #222;
+    background-color: #383838;
+}
+
+.dialog-head span {
+    color: #fff;
+}
+
+.dialog-body {
+    overflow-y: auto;
+    height: 280px;
+    padding:0 10px;
+}
+
+.head-item {
+    line-height: 20px;
+    display: inline-block;
+    padding: 0 15px;
+    text-align: center;
+    border-right: 1px solid #222;
+}
+
+.head-item h3 {
+    color: #3fc371;
+}
+
+.head-item span {
+    font-size: 12px;
+}
+
+#commentTotal h3 {
+    color: #fcba48;
+}
+
+#serviceStar {
+    border-right: 0;
+}
+
+.control {
+    float: right;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+}
+
+.control a{
+    color: #3fc371;
+    padding:0 5px;
+}
+
+.control a:hover{
+    color: #999;
+}
+
+.comment-item{
+	padding:10px 0;
+}
+
+.item-col {
+    display: inline-block;
+    width: 200px;
+}
+
+.item-row {
+    padding: 5px 10px;
+}
+
+.item-row b {
+    display: inline-block;
+    color: #333;
+    width: 75px;
+    line-height: 20px;
+}
+
+.item-row span {
+    display: inline-block;
+    max-width: 370px;
+    line-height: 20px;
+    vertical-align: top;
+    color: #666;
+}
+.item-pics {
+    display: inline-block;
+
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+
+    background: #ccc;
+}
+.duibibtn{
+    float:right;font-size:14px;height:34px;border-radius:3px;line-height:34px;background:#3fc370;padding: 0 10px;cursor:pointer
+}
+.duibibtn:hover{
+    background-color: #38B165;
+}
+.duibikuang{
+    margin: 10px auto;
+    width: 96%;
+    height: 300px;
+}
+.duibikuang table{
+    width: 100%;
+}
+.duibikuang thead th, .duibikuang tbody td{
+    width: 25%;
+    text-align: center;
+    height: 34px;
+}
+.chose{
+    float: left;
+    color: white;
+    line-height: 24px;
+    margin-left: 10px;
+    cursor: pointer;
+} 
+.chose:hover{
+    color: #ccc;
+}

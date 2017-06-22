@@ -1,0 +1,233 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+::-webkit-scrollbar {
+	width: 0px;
+	height: 6px;
+}
+
+html {
+    /*height: 100%;*/
+}
+
+body{
+	position: relative;
+	background: #1F1F1D url('../images/regist_bg.jpg') no-repeat center top;
+    background-size: cover;
+    background-attachment:fixed;
+	width: 100%;
+}
+
+.regist-cont h2{
+	color: #3fc370;
+	margin:100px 0 20px 0;
+}
+
+.regist-item h2{
+	display: inline-block;
+	color: #fff;
+	line-height: 30px;
+	margin-bottom:50px;
+}
+
+.regist-item img{
+	display: inline-block;
+	height: 30px;
+	vertical-align: top;
+}
+
+.regist-item,
+.regist-cont h2{
+	padding: 5px 0;
+	width: auto;
+	text-align: center;
+}
+
+#warning{
+	font-size: 12px;
+	color: #999999;
+	line-height: 30px;
+}
+
+#warning a{
+	color: #3fc370;
+}
+
+.regist-label{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	border-radius: 5px 0 0 5px;
+	border: 1px solid rgba(255,255,255,0.1);
+	border-right: 0;
+	vertical-align: top;
+	text-align: center;
+}
+
+#cam{
+	border-radius: 5px;
+	border: 1px solid rgba(255,255,255,0.1);
+}
+
+#camButton{
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	width: 277px;
+	border-radius: 5px;
+	border: 1px solid RGBA(253, 186, 72, 0.4);
+	font-size: 13px;
+	color: RGBA(253, 186, 72, 1);
+	cursor: pointer;
+	margin-left: 10px;
+	transition: all 0.2s linear;
+}
+
+#camButton:hover{
+	background: rgba(255,255,255,0.1);
+	transition: all 0.2s linear;
+}
+
+#licenseShow{
+	height: 110px;
+	width: 160px;
+	margin-left: 52px;
+}
+
+.regist-item p{
+	display: inline-block;
+	vertical-align: top;
+	width: 105px;
+	line-height: 18px;
+	color: #999999;
+	font-size: 13px;
+	text-align: left;
+	margin-left: 10px;
+}
+
+.regist-label img{
+	height: 24px;
+	margin-top: 8px;
+}
+
+.regist-info{
+	margin-right: -300px;
+    width: 300px;
+    line-height: 42px;
+    display: inline-block;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
+    transition: all 0.2s linear;
+}
+
+.regist-info img{
+	height: 16px;
+	margin: 13px 5px 0 10px;
+	margin-top: 13px;
+	vertical-align: top;
+}
+
+.regist-input{
+	height: 42px;
+	line-height: 42px;
+	width: 280px;
+	padding-left: 10px;
+	font-size: 13px;
+	outline: none;
+	background: rgba(255,255,255,0.1);
+	color: #fff;
+	border-radius: 0 5px 5px 0;
+	border: 0;
+	vertical-align: top;
+}
+
+#codePass{
+	width: 140px;
+}
+
+#codeGet{
+	position: relative;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	width: 124px;
+	border-radius: 5px;
+	border: 1px solid RGBA(61, 195, 112, 0.4);
+	font-size: 13px;
+	color: #3fc370;
+	text-decoration:none;
+	margin-left: 14px;
+	background: rgba(255,255,255,0);
+	transition: all 0.2s linear;
+}
+
+#codeGet:hover{
+	background: rgba(255,255,255,0.1);
+	transition: all 0.2s linear;
+}
+#btn-hover{
+	position: relative;
+	display: inline-block;
+}
+#btn-hover div{
+	position: absolute;
+	display: none;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	/*background: rgba(255,255,255,0.1);*/
+}
+
+#backTo,
+#finish{
+	display: inline-block;
+	height: 42px;
+	line-height: 42px;
+	width: 150px;
+	border-radius: 5px;
+	font-size: 14px;
+	color: #fff;
+	text-decoration:none;
+	margin-bottom: 10px;
+}
+
+#succs{
+	display: inline-block;
+	height: 42px;
+	line-height: 42px;
+	width: 150px;
+	border-radius: 5px;
+	font-size: 14px;
+	color: #fff;
+	text-decoration:none;
+	/*margin-bottom: 10px;*/
+}
+
+#backTo{
+	background: rgba(255,255,255,0.1);
+	margin-right: 27px;
+	transition: all 0.2s linear;
+}
+#backTo:hover{
+	/*background: rgba(255,255,255,0.2);*/
+	color:#3fc370;
+	transition: all 0.2s linear;
+}
+#finish,
+#succs{
+	background: #3fc370;
+	transition: all 0.2s linear;
+}
+#finish:hover,
+#succs:hover{
+	background: #40cf75;
+	transition: all 0.2s linear;
+}
+
+.succ{
+	display: none;
+	margin-top: 220px;
+}

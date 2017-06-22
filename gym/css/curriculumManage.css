@@ -1,0 +1,42 @@
+.week-lesson {
+    padding: 15px 0;
+    line-height: 26px;
+    cursor: pointer;
+    color: #666;
+    border-bottom: 1px solid #eee;
+}
+
+.week-center {
+    width: auto;
+    display: inline-block;
+    text-align: left;
+}
+
+.week-lesson:hover {
+    background: #D7EBDD;
+}
+
+.week-img {
+    width: 30px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.week-img img {
+    height: 14px;
+    vertical-align: text-bottom;
+}
+
+#editLesson {
+    background: #3fc371;
+    color: #fff;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+table tr th {
+    font-size: 16px;
+    height: 35px;
+}

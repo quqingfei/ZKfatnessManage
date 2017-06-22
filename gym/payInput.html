@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>消费</title>
+		<link rel="stylesheet" href="css/easyui2.min.css"></link>
+		<link rel="stylesheet" href="css/icon.css"></link>
+		<link rel="stylesheet" href="css/theme-simple.css" />
+		<link rel="stylesheet" href="css/new.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+		<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" />
+		<link rel="stylesheet" href="css/gymNew.css" />
+		<link rel="stylesheet" type="text/css" href="css/payInput.css" />
+	</head>
+
+	<body onselectstart="return false" oncontextmenu="return false">
+		<div class="pay-input">
+			<div class="pay-header">
+				<img style="display: inline-block;width: 20px;margin-right: 5px;margin-top: 10px;vertical-align: top;" src="img/location.png" alt="">
+				当前位置：消费管理 > 消费
+			</div>
+			<div class="pay-bar">
+				<div class="pay-kind">
+					<label for="payKind">消费类型：</label>
+					<select id="payKind" class="easyui-combobox" name="payKind" style="width: 80px;height: 32px;" data-options="editable:false">
+						<option>储值消费</option>
+						<option>现金消费</option>
+					</select>
+				</div>
+				<div class="pay-code">
+					<img style="position: absolute;height: 26px;top: 7px;left: 8px;" src="images/newCode.png" />
+            		<img style="position: absolute;height: 20px;top: 10px;left: 310px;" src="images/newSearch.png" alt="">
+					<input type="text" onkeyup="isnum(this)" onafterpaste="delunum(this)" name="payCode" id="payCode" value="" placeholder="请扫描/输入条码/手机号码" />
+				</div>
+			</div>
+			<div class="pay-form" id="payForm">
+				<div class="pay-form-row pay-user">
+					
+					<label for="payName">昵称：</label>
+					<input class="pay-form-input" type="text" name="payName" id="payName" readonly="readonly" value="" placeholder="自动获取" />
+					<span class="pay-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="pay-form-row pay-phone">
+					
+					<label for="payMobile">手机号码：</label>
+					<input class="pay-form-input" type="text" name="payMobile" id="payMobile" readonly="readonly" value="" placeholder="自动获取" />
+					<span class="pay-form-star"><img src="img/star.png"/></span>
+				</div>
+				<!--<div class="pay-form-row pay-saler">
+					<span class="pay-form-star"></span>
+					<label for="payMaker">销售人：</label>
+					<input name="payMaker" id="payMaker" class="easyui-combobox" value="" style="height: 32px;line-height: 32px;width: 312px;" data-options="editable:false,prompt:'请选择'">
+				</div>-->
+				
+				<div class="pay-form-row">
+					
+					<label for="payVolumeShould">应付金额：</label>
+					<input class="pay-form-input" onkeyup="isnum(this)" onafterpaste="delunum(this)" type="text" name="payVolumeShould" id="payVolumeShould" value="" placeholder="请输入应付金额" />
+					<span class="pay-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="pay-form-row">
+					
+					<label for="payVolumeReal">实付金额：</label>
+					<input class="pay-form-input" onkeyup="isnum(this)" onafterpaste="delunum(this)" type="text" name="payVolumeReal" id="payVolumeReal" value="" placeholder="请输入实付金额" />
+					<span class="pay-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="pay-form-row">
+					
+					<label for="payItem">商品名称：</label>
+					<!-- <textarea rows="3" name="payItem" id="payItem" value="" placeholder="必填，最多32个字"></textarea> -->
+					<input class="pay-form-input" type="text" name="payItem" id="payItem" value="" placeholder="请输入商品名称">
+					<!-- <small style="color:#ccc">&nbsp;&nbsp;选填，最多32个字符</small> -->
+					<span class="pay-form-star"><img src="img/star.png"/></span>
+				</div>
+				<div class="pay-form-row">
+					
+					<label for="payRemark">备注：</label>
+					<!--<textarea rows="5" id="payRemark" value="" placeholder="必填，最多32个字"></textarea>-->
+					<!-- <textarea rows="3" name="payRemark" id="payRemark" value="" placeholder="选填，最多32个字"></textarea> -->
+					<input class="pay-form-input" type="text" name="payRemark" id="payRemark" value="" placeholder="请输入备注信息">
+					<small style="color:#ccc">&nbsp;&nbsp;选填，最多20个字符</small><span class="pay-form-star"></span>
+				</div>
+				<div class="pay-form-row">
+					<a href="javascript:;" class="btn-save" id="paySubmit">提交</a>
+				</div>
+			</div>
+		</div>
+		<div class="easyui-dialog" id="dlgCheck" title="&nbsp;&nbsp;&nbsp;&nbsp;请确认" closed="true" data-options="modal:true">
+			<div class="dlg-item dlg-0">
+				<span>昵称：</span>
+				<i id="checkName"></i>
+			</div>
+			<div class="dlg-item dlg-0">
+				<span>手机：</span>
+				<i id="checkPhone"></i>
+			</div>
+			<div class="dlg-item">
+				<span>应付金额：</span>
+				<i id="checkShould"></i>
+			</div>
+			<div class="dlg-item">
+				<span>实付金额：</span>
+				<i id="checkReal"></i>
+			</div>
+			<!--<div class="dlg-item dlg-1">
+				<span>操作人：</span>
+				<i id="checkMan"></i>
+			</div>-->
+			<div class="dlg-item">
+				<span>商品名称：</span>
+				<i id="checkItem"></i>
+			</div>
+			<div class="dlg-item">
+				<span>备注：</span>
+				<i id="checkRemark"></i>
+			</div>
+			<div class="dlg-button">
+				<a href="javascript:;" id="inputSure">确认</a>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/header.js"></script>
+		<script src="js/accordion.js"></script>
+		<script src="js/jquery.easyui.min1.js"></script>
+		<script src="js/easyui-lang-zh_CN.js"></script>
+		<script src="js/format.utils.js"></script>
+		<script src="js/datagrid.common.js"></script>
+		<!--<script src="js/biz/zk_main.js"></script>-->
+		<script src="js/echarts-plain.js"></script>
+		<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/flowplayer-3.2.6.min.js"></script>
+		<script src="js/jquery.easyui.patch.js"></script>
+		<script src="js/jquery.datagridtip.js"></script>
+		<script src="js/jquery.tmpl.min.js"></script>
+		<script src="js/msgbox/msgbox.js"></script>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/md5.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/payInput.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

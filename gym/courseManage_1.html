@@ -1,0 +1,1661 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>健身场所管理系统</title>
+<link rel="stylesheet" href="css/easyui2.min.css"></link>
+<link rel="stylesheet" href="css/icon.css"></link>
+<link rel="stylesheet" href="css/theme-simple.css" />
+<link rel="stylesheet" href="css/new.css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="js/msgbox/msgbox.css"></link>
+<link rel="stylesheet" href="js/fancybox/jquery.fancybox.css"/>
+<style type="text/css">
+
+		.panel-header{
+			background:#D6D6D6;
+		}
+		#toolbar .textbox{
+			border-radius:4px;
+		}
+
+		.textbox .textbox-text {
+			font-size:13px;
+		}
+		ul li{
+			font-size:13.5px;
+			color:#666666;
+		}
+		.panel-header-noborder{
+			background:#383838;
+		}
+       #fm{
+            margin:0;
+            /*padding:10px 30px;*/
+        }
+        .ftitle{
+            font-size:14px;
+            font-weight:bold;
+            padding:5px 0;
+            margin-bottom:10px;
+            border-bottom:1px solid #ccc;
+        }
+        .fitem{
+        	float:left;
+        	margin-left:auto;
+        	margin-right:auto;
+            margin-bottom:15px;
+        }
+        .fitem label{
+        	width:60px;
+        	display: inline-block;
+            text-align:right;
+        }
+        .fitem input{
+            width:150px;
+        }
+		.pugong{position: relative; width:60px; height:40px; display:block; float:right;margin-left:5px; margin-bottom:5px; margin-top:4px; border:1px solid #f1f1f1;}
+		.divX
+		{
+   			z-index:100;
+    		border-style:solid;
+    		border-width:1px;
+    		border-color:#d8d8d8;
+    		background-color:#ffffff;
+    		line-height:12px;
+    		text-align:center;
+    		font-weight:bold;
+    		width:10px;
+    		cursor:pointer;
+    		font-size:5px;
+    		color:#666;
+    		display: none;
+		}
+        .certificateList{
+			width:218px;
+			height:45px;
+		}
+		.certificateName{
+			width:130px;
+			height:30px;
+			margin-top:7.5px;
+			margin-bottom:7.5px;
+			display:block;
+			float:left;
+		}
+		.add{
+			width:47px;
+			height:40px;
+			border:1px solid blue;
+			margin-right:2px;
+			float:right;
+		}
+		.img{
+			max-width: 100%;
+			width: 100%;
+			max-height: 100%;
+			height: 100%;
+		}
+		.accordionNew .linkNew{
+			height:45px;
+			display: block;
+			/*padding: 10px 15px 10px 42px;*/
+			padding:0px
+			color:#C8CAC9;
+			line-height:23px;
+			font-size: 12px;
+			border-bottom: 2px solid #272C30;
+			position: relative;
+		}
+		.courseDay{
+			width:90px;
+			height:24px;
+			float:left;
+			position:absolute;
+			top:0px;
+			cursor:pointer;
+		}
+		.courses{
+			width:500px;
+			height:auto;
+			min-height:300px;
+			margin-left:auto;
+			margin-right:auto;
+			display:none;
+			overflow-x:hidden;
+			overflow-y:hidden;
+		}
+		.addCourse{
+			float:left;
+			width:70px;
+			height:70px;
+			margin-top:10px;
+			margin-left:15px;
+			cursor: pointer;
+			background:url(images/yun.png) no-repeat;
+			background-size:cover;
+		}
+		.materialDiv{
+			float:left;
+			width:70px;
+			height:70px;
+			margin-top:10px;
+			margin-left:15px;
+			cursor: pointer;
+			background-size:cover;
+			position: relative;
+		}
+		.textDiv{
+			width:40px;
+			height:24px;
+			line-height:24px;
+			font-size:13px;
+			text-align:center;
+			margin-left:30px;
+			float:left;
+		}
+		.deleteDiv{
+			width:12px;
+			height:12px;
+			line-height:12px;
+			font-size:12px;
+			cursor:pointer;
+			display:none;
+			float:right;
+			/*
+			position:absolute;
+			top:0px;
+			left:0px;*/
+		}
+		.tip{
+			display: inline;
+			padding: .2em .6em .3em;
+			font-size: 75%;
+			font-weight: 700;
+			line-height: 1;
+			color: #fff;
+			text-align: center;
+			white-space: nowrap;
+			vertical-align: baseline;
+			background-color: #337ab7;
+			border-radius: .25em;
+		}
+    </style>
+<script>
+
+</script>
+</head>
+<body style="position:relative;" onselectstart="return false" oncontextmenu="return false">
+	
+	<div id = "hideDiv" class="center-region" style="position:absolute;top:0px;left:0px;background:#fff;z-index:9999;">
+		<div style="width:32px;height:32px;margin:250px auto auto auto;">
+			<img src="images/loadData.gif" style="width:32px;height:32px;"></img>
+		</div>
+	</div>
+	
+	<div id="center-region" class="center-region">
+		<div style="background-color:#E8E8E8;">
+			<div id="showMessage" style="width:100%;height:100%;">
+				<!-- body -->
+				<table id="dg" title='<div style="width:100%;height:40px;color:#000;">
+			<ul class="breadcrumb" style="float:left;">
+				<li>当前位置：</li>
+				<!--  <li><a href="#">后台管理</a> <span class="divider">/</span></li> -->
+				<li class="active">后台管理 <span class="divider" style="color:#4D4D4D;">></span></li>
+				<li class="active">课程管理</li>
+			</ul>
+		</div>'style="width:100%;height:100%;max-width:100%;" data-options="rownumbers:true,singleSelect:true,pagination:true,pageSize:'30',url:'CourseAction!list.zk',method:'post',toolbar:'#toolbar'">
+					<thead>
+						<tr>
+							<!--<th data-options="field:'id',checkbox:true,width:($('#showMessage').width()-30)*0.02" ></th>-->
+							<th style="white-space: nowrap" data-options="field:'name',align:'center',">标题</th><!--width:(($('#showMessage').width()-30)-30)*0.15  -->
+							<th style="white-space: nowrap" data-options="field:'description',align:'center',">描述</th><!-- width:($('#showMessage').width()-30)*0.2 -->
+							<th style="white-space: nowrap" data-options="field:'type',align:'center',formatter: formatType,">类型</th><!-- width:($('#showMessage').width()-30)*0.1 -->
+							<th style="white-space: nowrap" data-options="field:'coachNames',align:'center',">教练</th><!--width:($('#showMessage').width()-30)*0.05 -->
+							<th style="white-space: nowrap" data-options="field:'cycle',align:'center',">周期(天)</th><!-- width:($('#showMessage').width()-30)*0.05 -->
+							<th style="white-space: nowrap" data-options="field:'price',align:'center',">价格<span style="font-size:8px;">(元)</span></th><!-- width:($('#showMessage').width()-30)*0.05 -->
+							<th style="white-space: nowrap" data-options="field:'totalUser',align:'center',">学员数(人)</th><!-- width:($('#showMessage').width()-30)*0.05 -->
+							<th style="white-space: nowrap" data-options="field:'state',align:'center',formatter: formatState,">状态</th><!-- width:($('#showMessage').width()-30)*0.05 -->
+							<th style="white-space: nowrap" data-options="field:'gmtCreate',align:'center',formatter: formatDate,">创建时间</th><!-- width:($('#showMessage').width()-30)*0.15 -->
+							<th style="white-space: nowrap" data-options="field:'gmtModify',align:'center',formatter: formatDate,">修改时间</th><!-- width:($('#showMessage').width()-30)*0.15 -->
+							<!--<th data-options="field:'videoUrl',formatter:formatCourseAction,align:'center',width:($('#showMessage').width()-30)*0.07">操作</th>-->
+						</tr>
+					</thead>
+				</table>
+    <div id="toolbar">
+    <table>
+    	<tr>
+    		<td class="zk-td"><a href="javascript:void(0)" class="easyui-linkbutton zk-linkbutton" iconCls="icon-add" plain="true" onclick="newCourse()">添加</a></td>
+    		<td class="zk-td"><a href="javascript:void(0)" class="easyui-linkbutton zk-linkbutton" iconCls="icon-edit" plain="true" onclick="editCourse()">编辑</a></td>
+    		<td class="zk-td"><a href="javascript:void(0)" class="easyui-linkbutton zk-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCourse()">删除</a></td>
+    		<!--<td><div class="datagrid-btn-separator"></div></td>-->
+    		<!-- url:'productAction!productNameCombobox.zk',method:'post',valueField:'id',textField:'text' -->
+    		<td id="filter" style="padding-right:10px;"><!--筛选：--><select id="course" class="easyui-combobox" data-options="editable:false,valueField: 'value',
+		textField: 'text',
+		data: [{
+			text: '全部',
+			value: ''
+		},{
+			text: '线上',
+			value: 1
+		},{
+			text: '线下',
+			value: 2
+		}]"style="width: 100px;height:30px;border-radius:5px;">
+				<!--
+    			<option value="0" selected="selected">全部</option>
+				<option value="1">线上</option>
+				<option value="2">线下</option>
+				-->
+    		</select></td>
+    		<td><input id="txt_word" class="easyui-searchbox" style="width:250px;height:30px;border-radius:5px;" data-options="prompt:'请输入课程名',searcher:searchCourse" /></td>
+    	</tr>
+    </table> 
+    </div>
+    
+    
+    <div id="dlg" class="easyui-dialog" style="width:550px;height:490px;padding:10px 25px;" closed="true" data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+        <!--<div class="ftitle">教练信息</div>-->
+        <form id="fm" method="post" novalidate>
+        	<input id="id" type="hidden"/>
+        	<div class="fitem">
+                <label>标题:</label>
+                <input name="name" id = "name" class="easyui-textbox"style="width:368px;">
+            </div>
+            <div style="clear:both;"></div>
+            <div class="fitem" style="position:relative;height:100px;">
+				<label>封面:</label> <input name="cover" id="cover"type="hidden">
+				<div style="position:absolute;width: 370px; height: 100px;left: 65px;top:0px;cursor: pointer;"onclick="chooseImage('file_title_img')" title="点击选择图片">
+					<img id="imghead" src="images/yun.png" alt=""style="width: 100px; max-height: 100%; height: auto" />
+				</div>
+			</div>
+            <div style="clear:both;"></div>
+             <div class="fitem">
+                <label>类型:</label>
+               <select name="type" id="type" class="easyui-combobox" data-options="editable:false"
+						style="width: 150px;">
+							<option value="1" selected="selected">线上课程</option>
+							<option value="2" >线下课程</option>
+				</select>
+            </div>
+        	
+             <div class="fitem" style="position:relative;">
+                <label>价格:</label>
+                <input name="price" id = "price" class="easyui-textbox" style="width:150px;">
+                <div style="position:absolute;top:4px;left:195px;">元</div>
+            </div>
+           
+            <div style="clear:both;"></div>
+             <div class="fitem">
+                <label>器械:</label>
+                 <select name="tools" id="tools" class="easyui-combobox"  data-options="editable:false"style="width: 150px;">
+					<option>无器械</option>
+					<option>小器械</option>
+					<option>健身房器械</option>
+				</select>
+            </div>
+             <div class="fitem">
+                <label>功效:</label>
+                 <select name="effect" id="effect" class="easyui-combobox"  data-options="editable:false"style="width: 150px;">
+							<option value="增肌" selected="selected">增肌</option>
+							<option value="减脂" selected="selected">减脂</option>
+							<option value="塑性" selected="selected">塑性</option>
+							<option value="拉伸" selected="selected">拉伸</option>
+				</select>
+            </div>
+             <div style="clear:both;"></div>
+             <div class="fitem">
+                <label>部位:</label>
+                <select name="effectPlace" id="effectPlace" class="easyui-combobox"  data-options="editable:false"style="width: 150px;">
+							<option>全身</option>
+							<option>胸部</option>
+							<option>肩部</option>
+							<option>背部</option>
+							<option>手臂</option>
+							<option>颈部</option>
+							<option>腿部</option>
+							<option>臀部</option>
+							<option>腹部</option>
+							<option>腰部</option>
+				</select>
+            </div>
+            <div class="fitem" style="position:relative;">
+                <label>周期:</label>
+                <input name="cycle" id = "cycle" class="easyui-textbox" style="width:150px;">
+                <div style="position:absolute;top:4px;left:195px;">天</div>
+            </div>
+             <div style="clear:both;"></div>
+            <div class="fitem">
+               <label>教练:</label>
+               <!--<input name="coachName" id = "coachName" class="easyui-combobox" style="width:150px;" data-options="editable:false">-->
+               <select name="coachName" id="coachName" class="easyui-combobox"  style="width: 150px;"data-options="editable:false, url:'CoachAction!getCoachs.zk',
+                    method:'get',
+                    valueField:'coachId',
+                    textField:'coachName',
+                    multiple:true
+                    "><!-- panelHeight:'auto' -->
+				</select>
+            </div>
+            <div class="fitem" style="position:relative;">
+               <label>消耗:</label>
+               <input name="calorie" id = "calorie" class="easyui-textbox" style="width:150px;">
+               <div style="position:absolute;top:4px;left:182px;">Kcal</div>
+            </div>
+            <div style="clear:both;"></div>
+             <div class="fitem">
+                <label>简介:</label>
+                <input name="description" id = "description" data-options="multiline:true"class="easyui-textbox"style="width:370px;height:75px;">
+            </div>
+            <div style="clear:both;"></div>
+            <!--
+            <div class="fitem">
+                <label>封面:</label>
+                    <input name="cover" id = "cover"  type="hidden">                    
+            </div>
+            -->
+        </form>
+        	<form id="title_img_form" method="post"  enctype="multipart/form-data">
+				<input type="file" style="display: none;" id="file_title_img" name="name" onchange="uploadImage()" accept="image/*" />
+            </form>
+            <!--                   
+            <div style="width: 100px; height: 100px; margin-left:65px; margin-top:0px;cursor: pointer;" onclick="chooseImage('file_title_img')" title="点击选择图片">
+				<img id="imghead" src="images/yun.png" alt="" style="max-width: 100%; width: auto; max-height: 100%; height: auto" />
+            </div>
+            --> 
+            <div id="onLine"class="button" style="float:right;width:50%;height:30px;padding-top:0px;text-align:right;">
+				<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="next()" style="width:80px;margin-right:65px;background:#383838;"><span style="color:#F8CF01;">下一步</span></a>
+		    </div>
+		     <div id="outLine"class="button" style="float:right;width:50%;height:30px;padding-top:0px;text-align:right;display:none;">
+				<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveCourse()" style="width:80px;margin-right:65px;background:#383838;"><span style="color:#F8CF01;">保存</span></a>
+		    </div> 
+    </div>
+				
+				<div id="dlg1" class="easyui-dialog" style="width:600px;height:490px;padding:0px 0px;overflow:hidden;" closed="true" data-options="modal:true"><!-- buttons="#dlg-buttons" -->
+       				<input id="materialMessages" type="hidden"/>
+       				<input id="editDays" type="hidden"/>
+       				<div class="fitem" style="position:relative;width:100%;">
+       				<div id="days" style="width:540px;height:26px;margin-left:auto;margin-right:auto;">
+       					<div  id="addDays" style="position:relative;width:auto;height:26px;overflow-x:hidden;overflow-y:hidden;">
+							<div id="addDay" style="position:absolute;top:0px;left:0px;float:left;width:18px;height:18px;margin-top:4px;padding-right:15px;cursor: pointer;background:url(images/addDays.png) no-repeat;background-size:18px 18px;" onclick="addDay()"></div>	
+						</div>
+       				</div>
+       				<div class="leftTo" style="position:absolute;width:10px;height:18px;left:10px;top:4px;cursor: pointer;background:url(images/left.png) no-repeat;background-size:100% 100%;" onclick="leftTo()"></div>
+					<div class="rightTo" style="position:absolute;width:10px;height:18px;left:580px;top:4px;cursor: pointer;background:url(images/right.png) no-repeat;background-size:100% 100%;" onclick="rightTo()"></div>
+            		</div>
+            		<div class="fitem"style="">
+            			 <label >重复第</label>
+                		<select name="repeatDay" id="repeatDay" class="easyui-combobox"  data-options="editable:false,valueField:'id',textField:'text'"style="width: 80px;" onclick="loadDays()">
+						</select>
+						<label style="text-align:left;">天的课程</label>
+            		</div>
+            		<div  class="fitem"style="width:100%;">
+            			<div id="coursesDiv" style="width:100%;height:300px;overflow-x:hidden;overflow-y:auto;">
+            				<div id = "nullDiv" style="width:500px;height:300px;margin-left:auto;margin-right:auto;display:block;"></div>
+            			</div>
+            		</div>
+            		<div class="fitem button" style="width:100%;height:30px;padding-top:0px;text-align:right;">
+						<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="pre()" style="width:80px;margin-right:30px;background:#383838; color: #EDC609;"><span style="color:#FFFFFF;">上一步</span></a>
+						<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="saveCourse()" style="width:80px;margin-right:62px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;">保存</span></a>
+		    		</div> 
+    			</div>
+				<div id="dlg2" class="easyui-dialog" style="width:300px;height:150px;padding:0px 25px" closed="true" data-options="modal:true">
+					<div id="insertTxt" style="width:200px;height:30px;line-height:30px;padding:10px 0px 30px;margin:auto;text-align:center;"></div>
+					<div class="button" style="float:right;width:100%;height:30px;padding-top:0px;text-align:center;">
+						<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="insertDay()" style="width:80px;margin-right:40px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;">确定</span></a>
+						<a href="javascript:void(0)" class="easyui-linkbutton c6" onclick="javascript:$('#dlg').dialog('close')" style="width:80px;background:#383838; color: #FFFFFF;"><span style="color:#FFFFFF;">取消</span></a>
+		    		</div> 
+				</div>
+				<div id="dlg3" class="easyui-dialog" style="width:450px;height:380px;padding:15px 50px 0px;z-index:9999;" closed="true" data-options="modal:true">
+					<div class="fitem">
+            			 <label >内容:</label>
+                		<select name="materialType" id="materialType" class="easyui-combobox"  data-options="editable:false,valueField:'id',textField:'text'"style="width: 250px;">
+							<option value="1" selected="selected">视频素材</option>
+							<option value="2" selected="selected">间隙</option>
+						</select>
+            		</div>
+            		<div class="fitem">
+            			<label >名称:</label>
+                		<input name="materialName" id = "materialName" data-options="" class="easyui-textbox" style="width:250px;">
+            		</div>
+            		<div class="fitem" style="position:relative;height:150px;">
+            			<label >视频:</label>
+            			<input id="upfile" type="hidden"/>
+            			<input id="fileId" type="hidden"/>
+                		<div id = "upcontainer" style="position:absolute;width:250px;height:150px;left:65px;top:0px;cursor: pointer;">
+              				<img id="" alt="" src="" style="display:none;width:100%;height:100%;">
+                			<video id = "" style="width:100%;height:100%;display:none;" controls="controls" onclick="click1()"><source src="" type="video/mp4"></video>
+                			<audio id="" style="width:100%;height:100%;display:none;" controls="controls"><source src="" type=""></audio>
+                			<div id=""style="margin-top:50px;display:none;" onclick="click1()">
+                				<span id="fileName"></span>
+                				<b></b>
+								<div class="progress" style="width:250px;height:10px;">
+									<div class="progress-bar" style="width: 0%;height:100%;background:green;"></div>
+								</div>
+							</div>
+                		</div>
+                		<div id="upImg"style="position:absolute;width:250px;height:150px;left:65px;top:0px;cursor: pointer;">
+                			<img id="" alt="" src="images/yun.png" style="width:100%;height:100%;">
+                		</div>
+            		</div>
+            		<div class="fitem" style="position:relative;">
+               			<label>持续:</label>
+               			<input name="continue" id = "continue" class="easyui-textbox" style="width:250px;">
+               			<div style="position:absolute;top:4px;left:300px;">s</div>
+            		</div>
+            		<div class="fitem button" style="width:100%;height:30px;text-align:right;">
+						<a id = "toUp" href="javascript:void(0)" class="easyui-linkbutton c6" onclick="toUp()" style="width:80px;margin-right:35px;background:#383838; color: #EDC609;"><span style="color:#F8CF01;">确认</span></a>
+		    		</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 屏蔽层 -->
+	<div id="shield" style="position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:9000;display:none;background:#A3ADB2;opacity:0.6;filter: alpha(opacity=60);" onclick="shield()">
+	</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/header.js"></script>
+<script src="js/accordion.js"></script>
+<script src="js/jquery.easyui.min1.js"></script>
+<script src="js/easyui-lang-zh_CN.js"></script>
+<script src="js/format.utils.js"></script>
+<script src="js/datagrid.common.js"></script>
+<script src="js/biz/zk_main.js"></script>
+<script src="js/echarts-plain.js"></script>
+<script src="js/fancybox/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.form.js"></script>
+<script src="js/flowplayer-3.2.6.min.js"></script>
+<script src="js/jquery.easyui.patch.js"></script>
+<script src="js/jquery.datagridtip.js"></script>
+<script src="js/jquery.tmpl.min.js"></script>
+<script src="js/msgbox/msgbox.js"></script>
+<script src="js/plupload-2.1.2/js/plupload.full.min.js"></script>
+<script src="js/oss.uploader.js"></script>
+<script type="text/javascript">
+//var setInt = self.setInterval("isOk()",300);
+function localTime(){
+	setTimeout('localTime()',50);
+}
+
+$(function(){
+	$('#materialMessages').attr('value','');
+	$('#editDays').attr('value',0);
+	
+	$('body').css('height',$(window).height());//设置body的高度
+	$('body').css('width',$(window).width());
+	var height1 = $(window).height();
+	var width1 = $(window).width();
+	$('#center-region').css({'width':width1});
+	$('#showMessage').css({'width':'100%','height':$(window).height()});
+	if(parseInt($('#showMessage').css('width'))>660)$('#filter').css({'padding-left':parseInt($('#showMessage').css('width'))-660});
+	$(window).resize(function(){
+		$('body').css('height',$(window).height());//设置body的高度
+		$('body').css('width',$(window).width());
+		var height0 = $(window).height();
+		var width0 = $(window).width();
+		$('#center-region').css({'width':width0});
+		$('#showMessage').css({'width':'100%','height':height0});
+		$('.datagrid-view2').css({'width':'100%'});
+		$('.datagrid-view2').children('.datagrid-header').children('.datagrid-header-inner').children('.datagrid-htable').children('tbody').children('.datagrid-header-row').css({'width':parseInt($('#showMessage').css('width'))-30});
+		if(parseInt($('#showMessage').css('width'))>660)$('#filter').css({'padding-left':parseInt($('#showMessage').css('width'))-660});
+	});
+	$('#hideDiv').hide();
+	$('#dg').datagrid({
+		onLoadSuccess: function(data){
+			if (data.total == 0 && data.ERROR == 'No Login!') {
+				$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '登录超时,请重新登录!', 'error');
+				relogin();
+			}
+			$('#dg12345').datagrid('doCellTip', {
+                onlyShowInterrupt: false,     //是否只有在文字被截断时才显示tip，默认值为false             
+                position: 'bottom',   //tip的位置，可以为top,botom,right,left
+                cls: { 'background-color': '#FFF' },  //tip的样式D1EEEE
+                delay: 100   //tip 响应时间
+	        });
+			
+			//图片弹出层
+			 $("a.popImage").fancybox({
+		            openEffect  : 'elastic',
+		            closeEffect: 'elastic'    
+		     });
+		},
+		onLoadError : function() {
+			//alert('出错啦');
+			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示', '出错啦');
+		},
+		onHeaderContextMenu: function(e, field){
+			e.preventDefault();
+			if (!cmenu){
+				createColumnMenu();
+			}
+			cmenu.menu('show', {
+				left:e.pageX,
+				top:e.pageY
+			});
+	}
+	});
+	
+	$("#coachName").combobox({
+		onChange: function (n,o) {
+			//alert(n);
+		},
+		onSelect:function(rec){
+			selectCoachIds.push(rec.coachId);
+			//alert(JSON.stringify(selectCoachIds));
+		},
+		onUnselect:function(rec){
+			selectCoachIds.splice($.inArray(rec.coachId,selectCoachIds),1);
+			//alert(JSON.stringify(selectCoachIds));
+		}
+		});
+	/*
+	$("#type").combobox({
+		onSelect:function(rec){
+			alert(1);
+			$('#onLine').show();
+			$('#outLine').hide();
+			alert(typeof $("#type").combobox('getValue'));
+			if($("#type").combobox('getValue')==2){
+				$('#onLine').hide();
+				$('#outLine').show();
+			}
+				
+		}
+		});
+	*/
+	$("#repeatDay").combobox({
+		onChange: function (n,o) {
+			//alert(1);
+		},
+		onSelect:function(rec){
+			copyCourse(rec.text);
+		}
+		
+		});
+	});
+	
+$("#type").combobox({
+	onSelect:function(rec){
+		$('#onLine').show();
+		$('#outLine').hide();
+		if($("#type").combobox('getValue')=='2'){
+			$('#onLine').hide();
+			$('#outLine').show();
+		}
+			
+	}
+	});
+		//响应重复天数的点击
+		function loadDays(){
+			dayData=[];
+			for(var num=1;num<thisDay;num++)
+				dayData.push({"id":num,'text':''+num});
+            $('#repeatDay').combobox('loadData', dayData);
+		}
+		function click1(){
+			event.stopPropagation();
+			//alert(1);
+			return false;
+		}
+
+		//新增
+		function newCourse(){
+			$('#materialMessages').attr('value','');
+			$('#editDays').attr('value','0');
+			materialMessages=[];
+	 		$("#imghead").attr("src", 'images/yun.png');
+	 		//$("#coachCertificate").show();
+	 		$('#fm').form('clear');
+	 		/*$("#image_container").empty();*/
+     		$('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;添加课程信息');
+     		$('#onLine').show();
+    		$('#outLine').hide();
+	 		//删除天数
+     		 var div = document.getElementById("addDays");
+    		 while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+   			 {
+    			if(div.firstChild.id=="addDay")
+    			{
+    				div.firstChild.style.left = 0;
+    				thisDay = 1;
+    				dayData = [];
+    				$('#repeatDay').combobox('loadData', dayData);
+    				break;
+    			}
+    			div.removeChild(div.firstChild);
+        		//div.style.left='0px';
+   			 }
+    		 //删除课程列表
+    		 div = document.getElementById("coursesDiv");
+    		 //alert(div.ChildNodes.length);
+    		 while($(div).children().length>1) //当div下还存在子节点时 循环继续div.hasChildNodes()&&(div.ChildNodes.length>1)
+   			 {	
+    			//if(div.firstChild.id=="nullDiv")continue;
+        		div.removeChild(div.lastChild);
+   			 }
+	 		$('#nullDiv').show();
+     		url = 'CourseAction!createOrUpdate.zk';
+   
+		}
+		var selectCoachIds = [];//保存选中的教练id
+		var isStatu='';//编辑或新增
+		//编辑
+		function editCourse(){
+			$('#materialMessages').attr('value','');
+			$('#editDays').attr('value','0');
+			materialMessages=[];
+			//删除天数
+    		var div = document.getElementById("addDays");
+   		 	while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+  			 {
+   			if(div.firstChild.id=="addDay")
+   			{
+   				div.firstChild.style.left = 0;
+   				thisDay = 1;
+   				dayData = [];
+   				$('#repeatDay').combobox('loadData', dayData);
+   				break;
+   			}
+   			div.removeChild(div.firstChild);
+       		//div.style.left='0px';
+  			 }
+   		 //删除课程列表
+   		 div = document.getElementById("coursesDiv");
+   		 //alert(div.ChildNodes.length);
+   		 while($(div).children().length>1) //当div下还存在子节点时 循环继续div.hasChildNodes()&&(div.ChildNodes.length>1)
+  			 {	
+   			//if(div.firstChild.id=="nullDiv")continue;
+       		div.removeChild(div.lastChild);
+  			 }
+	 		$('#nullDiv').show();
+	 		var row = $('#dg').datagrid('getSelected');
+     		if (row){
+         		$('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;编辑课程信息');
+         		url = 'CourseAction!createOrUpdate.zk?id='+row.id;
+         		$("#id").val(row.id);
+         		$('#fm').form('load',row);
+         		var imgURL = "../file/FileCenter!showImage2.zk?name=" + row.cover;
+         		$("#imghead").attr("src", imgURL);
+         		$('#onLine').show();
+        		$('#outLine').hide();
+        		if($("#type").combobox('getValue')=='2'){
+        			$('#onLine').hide();
+        			$('#outLine').show();
+        		}
+         		//$('#coachName').combobox('setValue','');
+         		selectCoachIds = [];
+         		var coachNames="";
+        		$.post('CourseAction!getCourseCoachByCourseId.zk',{courseId:row.id},function(data){
+        			var ccs = data.courseCoachs;
+        			//alert(ccs.length);
+        	    	for(var i = 0 ;i<ccs.length;i++){
+        	    		var row1 = ccs[i];
+        	    		var j=0;
+            	    	while(j<500){
+            	    		if($('#_easyui_combobox_i9_'+j).text()==row1.coachName){
+            	    			$('#_easyui_combobox_i9_'+j).click(function(){});
+            	    			$('#_easyui_combobox_i9_'+j).trigger('click');
+            	    			break;
+            	    		};
+            	    		//alert(j);
+            	    		j++;
+            	    	}
+        	    	}
+        	    	
+        		},'json');
+         		$.post('CourseAction!getCourseDetails.zk',{courseId:row.id},function(data){
+        	      if(data.details){
+        	    	var details=[];
+        	    	var materialMessages1=[];
+        			details = data.details;
+        			for(var i = 0; i<details.length;i++){
+        				var steps = [];
+        				steps = details[i].steps;
+        				//新建课程是第几天
+        				addDayNew(details[i].sectionId);
+        				for(var j = 0 ;j<steps.length;j++){
+        					var step = {};
+        					step = steps[j];
+        					step.name = step.stepName;
+        					//step.stepId = step.stepId ;
+        					materialMessages1.push(step);
+        					//新建课程列表
+        					addMaterialNew(step);
+        				}
+        			}
+        			$('#materialMessages').attr('value',JSON.stringify(materialMessages1));
+        			$('#editDays').attr('value',details.length+'');
+        			//alert($('#editDays').attr('value'));
+        			//alert(JSON.stringify(materialMessages));
+        			console.log('details:'+data.details);
+        	      }
+        			//alert(JSON.stringify(data.details));
+        			//$('#courseStep2').empty();
+        			//$.tmpl($("#courseStep2Tmpl").html(), details ).appendTo("#courseStep2");
+        			//$.parser.parse('#courseStep2');
+        		},'json').complete(function(){
+        			thisDay=thisDay+parseInt($('#editDays').attr('value'));
+        			//materialMessages = eval( '('+$('#materialMessages').attr('value')+')' );
+        			materialMessages = eval('('+$('#materialMessages').attr('value')+')');
+        			loadDays();
+        		});
+     		}else{
+    	 		$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请先选择要编辑的教练!');
+     		}
+   			isStatu="edit";
+		}
+
+
+		//屏蔽事件
+		function shield(){
+			event.stopPropagation();
+			return false;
+		}
+		//显示删除图标
+		function showDeleteDiv(id,color){
+    		$("#"+id+"DIV").css({"display":"block",'color':color});
+    		event.stopPropagation();
+		}
+		function hideDeleteDiv(resourceCode){
+    		$("#"+resourceCode+"DIV").css("display","none");
+		}
+
+		//移除图片
+		function removeImage(id) {
+			var value = $("#"+id).attr('value');
+    		
+    		//alert($('#'+id.split('_')[0]+'_course').children('div').length);
+    		var delId = parseInt(id.split('_')[0]);
+    		var tmp=[]
+    		for(var i = 0 ;i<materialMessages.length;i++){
+	    		var step = materialMessages[i];
+	    		if(delId != step.sectionId){
+	    			tmp.push(step);
+	    			if((delId)<(step.sectionId)){
+	    				step.sectionId=parseInt(step.sectionId)-1;
+	    			}
+	    			//alert(delId+'----------'+JSON.stringify(step));
+	    		}
+	    	}
+	    	materialMessages = tmp ;
+	    	//alert(JSON.stringify(materialMessages));
+	    	$("#"+id).detach();
+    		$('#'+id.split('_')[0]+'_course').detach();
+    		event.stopPropagation();
+    		var div = $('#addDays');
+    		div.children().each(function(i,n){
+        	var obj = $(n);
+        	if(parseInt(obj.attr('value'))&&(parseInt(obj.attr('value'))>value)){
+        		
+        		$('#'+parseInt(obj.attr('value'))+'textDiv').text('第'+(parseInt(obj.attr('value'))-1)+'天');
+				$('#'+parseInt(obj.attr('value'))+'textDiv').attr({
+				'id' :(parseInt(obj.attr('value'))-1)+'textDiv'
+			});
+        		$('#'+(parseInt(obj.attr('value')))+'DIV').attr({
+    				'id' :(parseInt(obj.attr('value'))-1)+'DIV',
+    				'onclick':'removeImage("'+(parseInt(obj.attr('value'))-1)+'_day'+'")',
+    				'onmouseover':'showDeleteDiv("'+(parseInt(obj.attr('value'))-1)+'",\'#D6B60D\')',
+    				'onmouseout':'hideDeleteDiv("'+(parseInt(obj.attr('value'))-1)+'")'
+    			});
+        		//删除course的div
+        		$('#'+parseInt(obj.attr('value'))+'_addCourse').attr({
+					'id' :(parseInt(obj.attr('value'))-1)+'_addCourse',//
+					'onclick':'chooseMaterial("'+(parseInt(obj.attr('value'))-1)+'_course'+'")'
+				});
+    			
+        		$('#'+parseInt(obj.attr('value'))+'_course').attr({
+					'id' :(parseInt(obj.attr('value'))-1)+'_course',
+					'value':(parseInt(obj.attr('value'))-1)
+				});
+        		
+        		obj.css('left',parseInt(obj.css('left'))-90);
+        		obj.attr({
+    				'id' :(parseInt(obj.attr('value'))-1)+'_day',
+    				'onmouseup':'clickDay("'+(parseInt(obj.attr('value'))-1)+'_day'+'")',
+    				'onmouseover':'showDeleteDiv("'+(parseInt(obj.attr('value'))-1)+'",\'#929292\')',
+    				'onmouseout':'hideDeleteDiv("'+(parseInt(obj.attr('value'))-1)+'")',
+    				'value':(parseInt(obj.attr('value'))-1)
+    			});
+        		
+        		
+        		
+        	}
+       		});
+    		var add = $('#addDay');
+			add.css('left',parseInt(add.css('left'))-90);
+			/* dayData.splice(dayData.length-1,1);
+            $('#repeatDay').combobox('loadData', dayData); */
+			thisDay=thisDay-1;
+            loadDays();
+			if(thisDay>1){
+				showCourseDiv('1_course');
+			}else{
+				showCourseDiv('nullDiv');
+			}
+		}
+		//删除素材
+		function removeMaterial(id) {
+			var value = $("#"+id).attr('value');
+			var tmp = [];
+			var delId = id.split('_')[0];
+	    	for(var i = 0 ;i<materialMessages.length;i++){
+	    		var step = materialMessages[i];
+	    		if(delId != step.stepId){
+	    			tmp.push(step);
+	    			//alert(delId+'----------'+JSON.stringify(step));
+	    		}
+	    	}
+	    	materialMessages = tmp ;
+	    	//alert(JSON.stringify(materialMessages));
+    		$("#"+id).detach();
+    		event.stopPropagation();
+		}
+		function next(){
+			//$('#dlg').hide();
+			//$('#dlg1').show();
+			$('#dlg').dialog('close');
+			$('#dlg1').dialog('open').dialog('setTitle','&nbsp;&nbsp;编辑课程信息');
+		}
+		function pre(){
+			$('#dlg1').dialog('close');
+			$('#dlg').dialog('open').dialog('setTitle','&nbsp;&nbsp;编辑课程信息');
+		}
+		
+		 function leftTo(){
+	        	var addDays = $('#addDays');
+	        	var add = $('#addDay');
+	        	if(addDays.scrollLeft()>0)addDays.scrollLeft(addDays.scrollLeft()-90);
+	        }
+	        function rightTo(){
+	        	var addDays = $('#addDays');
+	        	var add = $('#addDay');
+	        	//alert(container.scrollLeft());
+	        	if(addDays.scrollLeft()<(parseInt(add.css('left'))-450))addDays.scrollLeft(addDays.scrollLeft()+90);
+	        }
+	        
+	      function showCourseDiv(id){
+	    	  //var div = $('#'+id);
+	    	  if(curCourse==null){
+	    		  $('#nullDiv').css('display','none');
+	    		  $('#'+id).css('display','block');
+	    	  }else if(id!=='nullDiv'){
+	    		  $('#nullDiv').css('display','none');
+	    		  $('#'+curCourse).css('display','none');
+	    		  $('#'+id).css('display','block');
+	    	  }else{
+	    		  $('#'+curCourse).css('display','none');
+	    		  $('#'+id).css('display','block');
+	    	  }
+	    	  $('#'+id.split('_')[0]+'_day').parent().children().each(function(i,n){
+					var obj = $(n);
+					$(obj.children()[0]).css({'border-bottom':'0px solid #FFD600'});
+				});
+			  $($('#'+id.split('_')[0]+'_day').children()[0]).css({'border-bottom':'2px solid #FFD600'});
+	    	  curCourse = id;
+	    	  //alert(curCourse);
+	      }  
+	     //选择素材
+	    function chooseMaterial(id){
+	    	var index = $($('#dlg3').parent()).css('z-index');
+	    	$("#shield").css({"z-index":index-1});
+	    	$("#shield").show();
+	    	$('#dlg3').dialog('open').dialog('setTitle','&nbsp;&nbsp;添加');
+	    	$('#upfile').attr('value','');
+	    	$('#materialType').combobox('setValues','');
+			$('#materialName').textbox('setValue','');
+			$('#continue').textbox('setValue','');
+			$($('#upcontainer').children('video')[0]).attr({
+        		'id':'',
+        		'src':""
+        	});
+			$($('#upcontainer').children('audio')[0]).attr({
+        		'id':'',
+        		'src':""
+        	});
+			$($('#upcontainer').children('video')[0]).css({'display':'none'});
+			$($('#upcontainer').children('audio')[0]).css({'display':'none'});
+			$($('#upcontainer').children('img')[0]).css({'display':'none'});
+			//if($('#upImg1'))$('#upImg1').attr('id','upImg');
+			$('#upImg').show();
+			isAdd = "";
+	    }
+	    //编辑素材
+	    function editMaterial(id){
+	    	var message = eval('('+$('#'+id).attr('value')+')');
+	    	var index = $($('#dlg3').parent()).css('z-index');
+	    	$("#shield").css({"z-index":index-1});
+	    	$("#shield").show();
+	    	$('#dlg3').dialog('open').dialog('setTitle','&nbsp;&nbsp;编辑');
+	    	
+	    	$('#upImg').hide();
+	    	$($('#upcontainer').children('video')[0]).css({'display':'none'});
+			$($('#upcontainer').children('audio')[0]).css({'display':'none'});
+			$($('#upcontainer').children('img')[0]).css({'display':'none'});
+	    	//$('#upImg').attr('id','upImg1');
+	    	$('#upfile').attr('value' ,message.file);
+	    	$('#materialType').combobox('setValue',message.type);
+	    	if(message.type=='1'){
+	    		var array = message.file.split('.');
+	    		var type = array[array.length-1];//'video/'+
+	    		$($('#upcontainer').children('video')[0]).css({'display':'block'});
+	    		$($('#upcontainer').children('video')[0]).attr({
+	        		'id':message.id,
+	        		'src':message.file,
+	        		'type':type
+	        	});	
+	    	}else{
+	    		$($('#upcontainer').children('img')[0]).css({'display':'block'});
+	    		$($('#upcontainer').children('img')[0]).attr({
+	        		'id':message.id,
+	        		'src':message.file
+	        	});	
+	    	}
+	    	//alert(message.type);
+			$('#materialName').textbox('setValue',message.name);
+			$('#continue').textbox('setValue',message.time);
+			//$($('#upcontainer').children('video')[0]).detach();
+			//$('#upcontainer').html('<video id = "'+file.id+'"style="width:100%;height:100%;" controls="controls"><source src="'+src+'" type="video/mp4"></video>');
+			
+			event.stopPropagation();
+			isAdd = id;
+			//isAdd = "edit";
+			//return false;
+	    }
+	    //检查素材信息是否完全
+	    function checkMaterial(){
+	    	var type = $.trim($('#materialType').combobox('getValue'));
+	    	if(type==''){
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','素材类型不能为空!');
+    			$("#materialType").focus();
+    			return false;
+    		}
+	    	var name = $.trim($('#materialName').textbox('getValue'));
+    		if(name==''){
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','素材名称不能为空!');
+    			$("#materialName").focus();
+    			return false;
+    		}
+    		var file = $.trim($('#upfile').attr('value'));
+    		if(file==''){
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请选择素材');
+    			//$("#materialName").focus();
+    			return false;
+    		}
+    		return true;
+	    }
+	   //确认素材选择完成
+	   var materialMessage = {};
+	   var materialMessages = [];
+	   var isAdd="";//edit or add
+	   function toUp(){
+		   //materialMessage.push({"id":});
+		   //保存素材信息
+		   if(checkMaterial()){
+			   	materialMessage = {};
+			   	materialMessage.sectionId = curCourse.split('_')[0];//课程所属的天数
+            	if($('#upcontainer').attr('value')=='video'){
+            		materialMessage.stepId = $($('#upcontainer').children('video')[0]).attr('id');
+            	}else if($('#upcontainer').attr('value')=='img'){
+            		materialMessage.stepId = $($('#upcontainer').children('img')[0]).attr('id');
+            	}
+		   		materialMessage.file =  $('#upfile').attr('value');
+		   		materialMessage.type = $('#materialType').combobox('getValue');
+		   		materialMessage.name = $('#materialName').textbox('getValue');
+		   		materialMessage.time = $('#continue').textbox('getValue');
+		   		$('#dlg3').dialog('close');
+		   		$("#shield").hide();
+		   		addMaterial();
+		   		materialMessages.push(materialMessage);
+		   		//alert(JSON.stringify(materialMessages));
+		   }
+		}
+		var thisDay=1;
+		var dayData = [];//保存已经添加的天数
+		var curCourse=null;//标识当前显示的课程
+		function addDay(){
+			var fatherDiv = document.getElementById("addDays");
+        	var addDiv = document.getElementById("addDay");
+        	var div = document.createElement("div");
+			$(div).attr({
+				'id' :thisDay+'_day',
+				'class' : 'courseDay',
+				'onmouseup':'clickDay("'+thisDay+'_day'+'")',
+				'onmouseover':'showDeleteDiv("'+thisDay+'",\'#929292\')',
+				'onmouseout':'hideDeleteDiv("'+thisDay+'")',
+				'value':thisDay
+			});
+			//fatherDiv.appendChild(div);
+			fatherDiv.insertBefore(div,addDiv);
+			var textDiv = document.createElement("div");
+			$(textDiv).attr({
+				'id' :thisDay+'textDiv',
+				'class' : 'textDiv'
+			});
+			div.appendChild(textDiv);
+			$(textDiv).text('第'+thisDay+'天');
+			//$(div).text('第'+thisDay+'天');
+			var add = $('#addDay');
+			$(div).css('left',parseInt(add.css('left')));
+			add.css('left',parseInt(add.css('left'))+90);
+			var addDays = $('#addDays');
+			if(parseInt(add.css('left'))>=540)addDays.scrollLeft(parseInt(add.css('left'))-450);
+			//增加删除图标
+			var $image = $("#"+thisDay+'_day');
+			var divObj=$("<div onclick=removeImage('"+thisDay+"_day')  onmouseover=\"showDeleteDiv('"+thisDay+"',\'#D6B60D\')\""+" onmouseout=\"hideDeleteDiv('"+thisDay+"')\">×</div>");
+            divObj.addClass("deleteDiv");
+            divObj.attr("id",thisDay+"DIV");
+            divObj.attr("title","删除本天");
+            //divObj.css({'left':parseInt($(div).css('width'))-12});
+            //alert($image.position());
+            //divObj.css({position:"absolute",cursor:"pointer", color:"red",border:"1px solid #c1c1c1", width:"12px", height:"12px",left:46, top:0});
+            //$image.parent().append(divObj);
+            $image.append(divObj);
+           	/* dayData.push({"id":thisDay,'text':''+thisDay})
+            $('#repeatDay').combobox('loadData', dayData); */
+            //添加课程div
+            var coursesDiv = document.getElementById("coursesDiv");
+            var addCourse = document.createElement("div");
+            var courdiv = document.createElement("div");
+			$(courdiv).attr({
+				'id' :thisDay+'_course',
+				'class' : 'courses',
+				//'onclick':'chooseMaterial("'+thisDay+'_course'+'")',
+				'value':thisDay
+			});
+			//$(courdiv).css({"overflow-x":'hidden','overflow-y':'auto'});
+			coursesDiv.appendChild(courdiv);
+			$(addCourse).attr({
+				'id' :thisDay+'_addCourse',
+				'class' : 'addCourse',
+				'onclick':'chooseMaterial("'+thisDay+'_course'+'")'
+			});
+			courdiv.appendChild(addCourse);
+			showCourseDiv($(courdiv).attr('id'));
+            thisDay=thisDay+1;
+            loadDays();
+		}
+		//编辑时用来创建第几天
+		function addDayNew(num){
+			var fatherDiv = document.getElementById("addDays");
+        	var addDiv = document.getElementById("addDay");
+        	var div = document.createElement("div");
+			$(div).attr({
+				'id' :num+'_day',
+				'class' : 'courseDay',
+				'onmouseup':'clickDay("'+num+'_day'+'")',
+				'onmouseover':'showDeleteDiv("'+num+'",\'#929292\')',
+				'onmouseout':'hideDeleteDiv("'+num+'")',
+				'value':num
+			});
+			//fatherDiv.appendChild(div);
+			fatherDiv.insertBefore(div,addDiv);
+			var textDiv = document.createElement("div");
+			$(textDiv).attr({
+				'id' :num+'textDiv',
+				'class' : 'textDiv'
+			});
+			div.appendChild(textDiv);
+			$(textDiv).text('第'+num+'天');
+			//$(div).text('第'+num+'天');
+			var add = $('#addDay');
+			$(div).css('left',parseInt(add.css('left')));
+			add.css('left',parseInt(add.css('left'))+90);
+			var addDays = $('#addDays');
+			if(parseInt(add.css('left'))>=540)addDays.scrollLeft(parseInt(add.css('left'))-450);
+			//增加删除图标
+			var $image = $("#"+num+'_day');
+			var divObj=$("<div onclick=removeImage('"+num+"_day')  onmouseover=\"showDeleteDiv('"+num+"',\'#D6B60D\')\""+" onmouseout=\"hideDeleteDiv('"+num+"')\">×</div>");
+            divObj.addClass("deleteDiv");
+            divObj.attr("id",num+"DIV");
+            divObj.attr("title","删除本天");
+            //divObj.css({'left':parseInt($(div).css('width'))-12});
+            //alert($image.position());
+            //divObj.css({position:"absolute",cursor:"pointer", color:"red",border:"1px solid #c1c1c1", width:"12px", height:"12px",left:46, top:0});
+            //$image.parent().append(divObj);
+            $image.append(divObj);
+            /* dayData.push({"id":num,'text':''+num})
+            $('#repeatDay').combobox('loadData', dayData); */
+            //添加课程div
+            var coursesDiv = document.getElementById("coursesDiv");
+            var addCourse = document.createElement("div");
+            var courdiv = document.createElement("div");
+			$(courdiv).attr({
+				'id' :num+'_course',
+				'class' : 'courses',
+				//'onclick':'chooseMaterial("'+num+'_course'+'")',
+				'value':num
+			});
+			//$(courdiv).css({"overflow-x":'hidden','overflow-y':'auto'});
+			coursesDiv.appendChild(courdiv);
+			$(addCourse).attr({
+				'id' :num+'_addCourse',
+				'class' : 'addCourse',
+				'onclick':'chooseMaterial("'+num+'_course'+'")'
+			});
+			courdiv.appendChild(addCourse);
+			showCourseDiv($(courdiv).attr('id'));
+			loadDays();
+		}
+		
+		var insertId="";
+		function clickDay(id){
+			if(event.button==0){//鼠标左键
+				//alert("left");
+				$('#'+id).parent().children().each(function(i,n){
+					var obj = $(n);
+					$(obj.children()[0]).css({'border-bottom':'0px solid #FFD600'});
+				});
+				$($('#'+id).children()[0]).css({'border-bottom':'2px solid #FFD600'});//,'border-bottom-width':"30px"
+				var coursediv = id.split('_')[0]+'_course';
+				showCourseDiv(coursediv);
+			}else if(event.button==2){//鼠标右键
+				 //event.stopPropagation();
+				 $(document).bind('contextmenu',function(){
+		                return false;
+		         });
+				 $('#dlg2').dialog('open').dialog('setTitle','&nbsp;&nbsp;插入');
+				 var it = id.split("_")[0];//在该天前插入
+				 $('#insertTxt').text('在第'+it+'天前插入');
+				 insertId = id;
+			}
+		}
+		//插入一天的数据
+		function insertDay(){
+			var fatherDiv = document.getElementById("addDays");
+        	var addDiv = document.getElementById(insertId);
+        	var div = document.createElement("div");
+        	var insert = $('#'+insertId);
+        	curCourse= (parseInt(insertId.split('_')[0])+1)+'_course';
+        	//alert(curCourse);
+        	var value = parseInt(insert.attr('value'));
+        	var left = parseInt(insert.css('left'));
+        	var addDays = $('#addDays');
+        	var addId = parseInt(insert.attr('value'));
+    		for(var k1 = 0 ;k1<materialMessages.length;k1++){
+	    		var step = materialMessages[k1];
+	    		//alert(addId+'-------'+parseInt(step.sectionId));
+	    		if(parseInt(step.sectionId)>=addId){
+	    			step.sectionId=parseInt(step.sectionId)+1;
+	    		}
+	    	}
+        	//addDays.children().each(function(i,n){
+        	//var obj = $(n);
+        	var i=addDays.children().length;
+        	var list = addDays.children();
+        	while(i>0){
+        		var obj = $(list[i-1]);
+        		if(parseInt(obj.attr('value'))&&(parseInt(obj.attr('value'))>=value)){
+        				$('#'+parseInt(obj.attr('value'))+'textDiv').text('第'+(parseInt(obj.attr('value'))+1)+'天');
+    					$('#'+parseInt(obj.attr('value'))+'textDiv').attr({
+    					'id' :(parseInt(obj.attr('value'))+1)+'textDiv'
+    				});
+    				//alert($(obj.children()[0]).attr('id'));
+        			$('#'+parseInt(obj.attr('value'))+'DIV').attr({
+    					'id' :(parseInt(obj.attr('value'))+1)+'DIV',//
+    					'onclick':'removeImage("'+(parseInt(obj.attr('value'))+1)+'_day'+'")',
+    					'onmouseover':'showDeleteDiv("'+(parseInt(obj.attr('value'))+1)+'",\'#D6B60D\')',
+    					'onmouseout':'hideDeleteDiv("'+(parseInt(obj.attr('value'))+1)+'")'
+    				});
+        			//alert($(obj.children()[0]).attr('id'));
+        			obj.css('left',parseInt(obj.css('left'))+90);
+        			obj.attr({
+    					'id' :(parseInt(obj.attr('value'))+1)+'_day',
+    					'onmouseup':'clickDay("'+(parseInt(obj.attr('value'))+1)+'_day'+'")',
+    					'onmouseover':'showDeleteDiv("'+(parseInt(obj.attr('value'))+1)+'",\'#929292\')',
+    					'onmouseout':'hideDeleteDiv("'+(parseInt(obj.attr('value'))+1)+'")',
+    					'value':(parseInt(obj.attr('value'))+1)
+    				});
+        			//obj.text('第'+(parseInt(obj.attr('value')))+'天');
+      
+        		}
+        		i=i-1;
+        	}
+        	i=$('#coursesDiv').children().length;
+        	list = $('#coursesDiv').children();
+        	while(i>0){
+        		var obj = $(list[i-1]);
+        		if(parseInt(obj.attr('value'))&&(parseInt(obj.attr('value'))>=value)){
+        			
+    				//alert($(obj.children()[0]).attr('id'));
+        			$('#'+parseInt(obj.attr('value'))+'_addCourse').attr({
+    					'id' :(parseInt(obj.attr('value'))+1)+'_addCourse',//
+    					'onclick':'chooseMaterial("'+(parseInt(obj.attr('value'))+1)+'_course'+'")'
+    				});
+        			
+        			obj.attr({
+    					'id' :(parseInt(obj.attr('value'))+1)+'_course',
+    					'value':(parseInt(obj.attr('value'))+1)
+    				});
+        			//obj.text('第'+(parseInt(obj.attr('value')))+'天');
+      
+        		}
+        		
+        		i=i-1;
+        	}
+       		//});
+        	
+    		var add = $('#addDay');
+			add.css('left',parseInt(add.css('left'))+90);
+			$(div).attr({
+				'id' :value+'_day',
+				'class' : 'courseDay',
+				'onmouseup':'clickDay("'+value+'_day'+'")',
+				'onmouseover':'showDeleteDiv("'+value+'",\'#929292\')',
+				'onmouseout':'hideDeleteDiv("'+value+'")',
+				'value':value
+			});
+			//$(div).text('第'+value+'天');
+			fatherDiv.insertBefore(div,addDiv);
+			$(div).css('left',left);
+			if(parseInt(add.css('left'))>=540)addDays.scrollLeft(parseInt(add.css('left'))-450);
+			var textDiv = document.createElement("div");
+			$(textDiv).attr({
+				'id' :value+'textDiv',
+				'class' : 'textDiv',
+			});
+			div.appendChild(textDiv);
+			$(textDiv).text('第'+value+'天');
+			//增加删除图标
+			var $image = $("#"+value+'_day');
+			var divObj=$("<div onclick=removeImage('"+value+"_day')  onmouseover=\"showDeleteDiv('"+value+"',\'#D6B60D\')\""+" onmouseout=\"hideDeleteDiv('"+value+"')\">×</div>");
+            divObj.addClass("deleteDiv");
+            divObj.attr("id",value+"DIV");
+            divObj.attr("title","删除本天");
+            $image.append(divObj);
+          /*   dayData.push({"id":thisDay,'text':''+thisDay})
+            $('#repeatDay').combobox('loadData', dayData);//更新下拉框 */
+          //添加课程div
+            var coursesDiv = document.getElementById("coursesDiv");
+            var addCourse = document.createElement("div");
+            var courdiv = document.createElement("div");
+			$(courdiv).attr({
+				'id' :value+'_course',
+				'class' : 'courses',
+				//'onclick':'chooseMaterial("'+value+'_course'+'")',
+				'value':value
+			});
+			//$(courdiv).css({"overflow-x":'hidden','overflow-y':'auto'});
+			coursesDiv.appendChild(courdiv);
+			$(addCourse).attr({
+				'id' :value+'_addCourse',
+				'class' : 'addCourse',
+				'onclick':'chooseMaterial("'+value+'_course'+'")'
+			});
+			courdiv.appendChild(addCourse);
+			showCourseDiv($(courdiv).attr('id'));
+            thisDay=thisDay+1;
+            loadDays();
+            $('#dlg2').dialog('close')
+		}
+		
+		//复制选中天数的课程
+		function copyCourse(theDay){
+			var value = curCourse.split('_')[0];
+			var div = document.getElementById(curCourse);
+			var addDiv = document.getElementById(value+"_addCourse");
+			//删除本天
+			var delId = parseInt(value);
+    		var tmp=[];
+    		//alert(value);
+    		for(var k1 = 0 ;k1<materialMessages.length;k1++){
+	    		var step = materialMessages[k1];
+	    		if(delId != step.sectionId){
+	    			tmp.push(step);
+	    		}
+	    	}
+	    	materialMessages = tmp ;
+	    	
+	    	//复制选中当天的课程
+	    	var cpId = parseInt(theDay);
+    		for(var k2 = 0 ;k2<materialMessages.length;k2++){
+	    		var step = materialMessages[k2];
+	    		if(cpId == step.sectionId){
+	    			var step_cp = {};
+	    			step_cp.file = step.file
+	    			step_cp.type = step.type
+	    			step_cp.name = step.name
+	    			step_cp.time = step.time
+	    			step_cp.sectionId=parseInt(curCourse.split('_')[0]);
+	    			step_cp.stepId = 'v'+($.now()+k2);
+	    			materialMessages.push(step_cp);
+	    		}
+	    	}
+    		while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+   			{
+    			if(div.firstChild.id==(value+"_addCourse"))break;
+        		div.removeChild(div.firstChild);
+   			}
+    		var i=0;
+        	var list = $('#'+theDay+'_course').children();
+        	while(i<$('#'+theDay+'_course').children().length){
+        		var obj = $(list[i]);
+        		if(obj.attr('id')!=(theDay+"_addCourse")){
+        			var clone = obj.clone(true);
+        			clone.insertBefore(addDiv);
+        			var video = $(clone.children()[0]);
+        			//alert(parseInt(video.attr('id')));
+        			var id = parseInt(video.attr('id'))+1//$.now();
+        			video.attr({
+        				'id':id//+'_cp'
+        			});
+        			var del = $(clone.children('div')[0]);
+        			del.attr({
+        				'id':id+'DIV',
+        				'onclick':'removeImage("'+id+'_div")',
+    					'onmouseover':'showDeleteDiv("'+id+'",\'#D6B60D\')',
+    					'onmouseout':'hideDeleteDiv("'+id+'")'
+        			});
+        			var string1 = eval('('+clone.attr('value')+')');
+        			
+        			string1.id = id ;//+ 'cp';
+      				//插入到数组中保存
+    		   		//materialMessages.push({'sectionId':value,'stepId':string1.id,'file':string1.src,'type':string1.type,'name':string1.name,'time':string1.time});
+        			string1 = JSON.stringify(string1);
+        			clone.attr({
+        				'id' :id+'_div',
+    					'onclick':'editMaterial("'+id+'_div")',
+    					'onmouseover':'showDeleteDiv("'+id+'",\'#929292\')',
+    					'onmouseout':'hideDeleteDiv("'+id+'")',
+    					'value':string1
+        			});
+        			
+        		}	
+        		i=i+1;
+        	}
+        	$('#repeatDay').combobox('setValue','');
+			//$("#"+curCourse).detach();
+			
+		}
+		
+		function addMaterial(){
+			var string = JSON.stringify(materialMessage);
+			if(isAdd==""){
+			var fatherDiv = document.getElementById(curCourse);
+        	var addDiv = document.getElementById(curCourse.split('_')[0]+"_addCourse");
+        	var div = document.createElement("div");
+			$(div).attr({
+				'id' :materialMessage.stepId+'_div',
+				'class' : 'materialDiv',
+				'onclick':'editMaterial("'+materialMessage.stepId+'_div")',
+				'onmouseover':'showDeleteDiv("'+materialMessage.stepId+'",\'#929292\')',
+				'onmouseout':'hideDeleteDiv("'+materialMessage.stepId+'")',
+				'value':string
+			});
+			//fatherDiv.appendChild(div);
+			fatherDiv.insertBefore(div,addDiv);
+			if(materialMessage.type=="1"){
+				var array = materialMessage.file.split('.');
+	    		var typeNew = array[array.length-1];//'video/'+
+				$(div).html('<video id = "'+materialMessage.stepId+'"style="width:100%;height:100%;" title=\"'+materialMessage.name+'\" ><source src="'+materialMessage.file+'" type="video/'+typeNew+'"></video>');
+			}
+			else
+				$(div).html('<img id = "'+materialMessage.stepId+'"style="width:100%;height:100%;" title=\"'+materialMessage.name+'\" src="'+materialMessage.file+'"/>');
+			//增加删除图标
+			var $image = $("#"+materialMessage.stepId+'_div');
+			var divObj=$("<div onclick=removeMaterial('"+materialMessage.stepId+"_div')  onmouseover=\"showDeleteDiv('"+materialMessage.stepId+"',\'#D6B60D\')\""+" onmouseout=\"hideDeleteDiv('"+materialMessage.stepId+"')\">×</div>");
+            divObj.addClass("deleteDiv");
+            divObj.attr("id",materialMessage.stepId+"DIV");
+            divObj.attr("title","删除素材");
+            //alert($image.position().left);
+            divObj.css({'position':'absolute','left':60,'top':0});
+            $image.append(divObj);
+			}else{
+				$('#'+isAdd).attr({
+					'id' :materialMessage.stepId+'_div',
+					'onclick':'editMaterial("'+materialMessage.stepId+'_div")',
+					'onmouseover':'showDeleteDiv("'+materialMessage.stepId+'",\'#929292\')',
+					'onmouseout':'hideDeleteDiv("'+materialMessage.stepId+'")',
+					'value':string
+				});
+				$('#'+isAdd.split('_')[0]+'DIV').attr({
+					'id' :materialMessage.stepId+'DIV',
+					'onclick':'removeMaterial("'+materialMessage.stepId+'_div")',
+					'onmouseover':'showDeleteDiv("'+materialMessage.stepId+'",\'#D6B60D\')',
+					'onmouseout':'hideDeleteDiv("'+materialMessage.stepId+'")'
+				});
+			}
+		}
+		
+		
+     	//编辑时新建课程列表
+     	function addMaterialNew(step){
+     		var string = JSON.stringify(step);
+			var fatherDiv = document.getElementById(curCourse);
+        	var addDiv = document.getElementById(curCourse.split('_')[0]+"_addCourse");
+        	var div = document.createElement("div");
+			$(div).attr({
+				'id' :step.stepId+'_div',
+				'class' : 'materialDiv',
+				'onclick':'editMaterial("'+step.stepId+'_div")',
+				'onmouseover':'showDeleteDiv("'+step.stepId+'",\'#929292\')',
+				'onmouseout':'hideDeleteDiv("'+step.stepId+'")',
+				'value':string
+			});
+			//fatherDiv.appendChild(div);
+			fatherDiv.insertBefore(div,addDiv);
+			if(step.type==1)
+				$(div).html('<video id = "'+step.stepId+'"style="width:100%;height:100%;" title=\"'+step.name+'\" ><source src="'+step.file+'" type="video/mp4"></video>');
+			else if(step.type==2)
+				$(div).html('<img id = "'+step.stepId+'"style="width:100%;height:100%;" title=\"'+step.name+'\"  src="'+step.file+'"></img>');
+			//增加删除图标
+			var $image = $("#"+step.stepId+'_div');
+			var divObj=$("<div onclick=removeMaterial('"+step.stepId+"_div')  onmouseover=\"showDeleteDiv('"+step.stepId+"',\'#D6B60D\')\""+" onmouseout=\"hideDeleteDiv('"+step.stepId+"')\">×</div>");
+            divObj.addClass("deleteDiv");
+            divObj.attr("id",step.stepId+"DIV");
+            divObj.attr("title","删除素材");
+            //alert($image.position().left);
+            divObj.css({'position':'absolute','left':60,'top':0});
+            $image.append(divObj);
+		}
+		
+        //上传封面图片
+        function uploadImage(){
+        	//alert('upload');
+            var viewFiles = document.getElementById("file_title_img");
+            //是否为图片类型            
+            if(/image\/\w+/.test(viewFiles.files[0].type)){
+                //最大图片文件大小 500KB
+                var imgSizeLimit = 5000 * 1024;
+                if(viewFiles.files[0].size<=imgSizeLimit){
+                    //上传图片
+                     $("#title_img_form").ajaxSubmit({
+                         type : 'post',
+                         url : '../file/FileCenter!uploadImage2.zk',
+                         success : function(data) {
+                             data = $.parseJSON(data);
+                             if (data.name) {
+                                // alert(data.name);
+                             	var imgURL = "../file/FileCenter!showImage2.zk?name=" + data.name;
+                                $("#imghead").attr("src", imgURL);
+                                $("#cover").val(data.name);
+                                
+                             } else {
+                                 //alert("上传图片出错！");
+                            	 $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','上传图片出错！');
+                             }
+                             $("#title_img_form").resetForm();
+                         },
+                         error : function(XmlHttpRequest, textStatus, errorThrown) {
+                             //alert("error");
+                        	 $.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','error');
+                         }
+                     });
+                }else{
+                    //alert("图片大小不能超过"+(imgSizeLimit/1024)+"KB!");
+                	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示',"图片大小不能超过"+(imgSizeLimit/1024)+"KB!");
+                }
+            }else{
+                //alert('请选择图片类型的文件!');
+            	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请选择图片类型的文件!');
+            } 
+        }
+        
+
+      
+      
+     //课程类型转换
+       function formatType(value){
+       	switch (value) {
+   		case 1: return '线上课程' ;
+   		case 2: return '线下课程' ;
+   		default:return '';
+   		}
+       }
+        //状态转换
+       function formatState(value){
+    	   switch (value) {
+      		case 1: return '已上线' ;
+      		case 2: return '未上线' ;
+      		default:return '';
+      		}
+       }
+       
+       function chooseImage(id) {
+           document.getElementById(id).click();
+      }
+      //check form
+    	function checkForm(){
+    		var name = $.trim($("#name").val());
+    		if(name==''){
+    			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','课程标题不能为空!');
+    			$("#name").focus();
+    			return false;
+    		}
+    		/*
+    		var list = document.getElementById("image_container").getElementsByTagName("input");
+            if(list.length>0){
+            	//alert(list.length);
+            	var i=0;
+            	while(i<list.length){
+            		var id = list.item(i).id;
+            		if($.trim($("#"+id).val())==''){
+            			alert('证书名称为空！');
+                        $("#"+id).focus();
+                        return ;
+            		}
+            		i=i+1;
+            	}
+            	
+            }*/
+            
+    		return true;
+    	}
+        
+        function saveCourse(){
+        	//uploadImage();
+        	if(checkForm()){
+        		var name = $("#name").textbox('getValue');
+        		var type = $("#type").combobox('getValue');
+        		var description = $("#description").textbox('getValue');
+        		var price = $("#price").textbox('getValue');
+        		var cycle = $("#cycle").textbox('getValue');
+        		var cover = $("#cover").val();
+        		//var coachIds = selectCoachIds.join(',');
+        		var id = $("#id").val();
+        		var tools = $("#tools").combobox('getValue');
+        		var effect = $("#effect").combobox('getValue');
+        		var effectPlace = $("#effectPlace").combobox('getValue');
+        		var calorie = $("#calorie").textbox('getValue');
+        		/*
+        		//alert(JSON.stringify(materialMessages));
+        			materialMessage.sectionId = curCourse.split('_')[0];//课程所属的天数
+            	if($('#upcontainer').attr('value')=='video'){
+            		materialMessage.stepId = $($('#upcontainer').children('video')[0]).attr('id');
+            	}else if($('#upcontainer').attr('value')=='img'){
+            		materialMessage.stepId = $($('#upcontainer').children('img')[0]).attr('id');
+            	}
+		   		materialMessage.file =  $('#upfile').attr('value');
+		   		materialMessage.type = $('#materialType').combobox('getValue');
+		   		materialMessage.name = $('#materialName').textbox('getValue');
+		   		materialMessage.time = $('#continue').textbox('getValue');
+		   		var list = $('#coursesDiv').children('div');
+        		for(var i=0;i<list.length;i++){
+        			var child = (list[i]);
+        			if(child.id!="nullDiv"){
+        				var childList = child.children('div');
+        				var num = child.id.split('_')[0];
+        				for(var j=0;j<childList.length;j++){
+        					if(childList[i].id!=(num+'_addCourse')){
+        						
+        					}
+        				}
+        			}
+        			
+        		}*/
+        		var postData = {
+        							id : id,
+        							type : type,
+        							name : name,
+        							description : description,
+        							cover : cover ,
+        							price : price ,
+        							cycle : cycle ,
+        							//coachIds : coachIds ,
+        							tools : tools,
+        							effect : effect ,
+        							effectPlace : effectPlace,
+        							calorie : calorie ,
+        							data : JSON.stringify(materialMessages)
+        						};
+        		console.log(postData);
+             	$.post('CourseAction!createOrUpdate.zk',postData,function(data){
+            		if(data.STATUS){
+            			$('#dlg').dialog('close');
+            			$('#dlg1').dialog('close');
+            			$('#dg').datagrid('reload');
+            		}else{
+            			$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示',data.INFO);
+            		}
+            	},'json').complete(function(){
+            		 $("#image_container").empty();
+		        	 $("#imghead").attr("src", 'images/yun.png');
+            		
+            	});
+    					 
+    					
+    				}
+            		
+    			
+        
+        }
+        
+        
+        function destroyCourse(){
+        	var row = $('#dg').datagrid('getSelected');
+    		if(row){
+    			if(confirm("确定删除该课程信息?")){
+    				$.getJSON('CourseAction!delete.zk',{id:row.id},function(data){
+    					if(data.STATUS){
+    						$('#dg').datagrid('reload');
+    						showTip("删除成功!");
+    					}else {
+    						showTip("删除失败!");
+    					}
+    				});
+    			}
+    		}else{
+           	 	$.messager.alert('&nbsp;&nbsp;&nbsp;&nbsp;提示','请先选择课程!');
+            }
+        }
+      //用户筛选事件,自动搜索
+    	$("#course").combobox({
+    		onChange: function (n,o) {
+    			searchCourse();
+    		},
+    		onSelect: function (rec) {
+    			//var type = $("#txt_word").searchbox("getName"); 
+    			searchCourse();
+    		}
+    	});
+        function searchCourse(){
+        	var type = $("#course").combobox("getValue");
+    		var name = $("#txt_word").searchbox("getValue");
+        	$("#dg").datagrid('load',{name:name,type:type});
+        	$("#txt_word").searchbox("setValue",'');
+        	//$("#course").combobox("unselect",type);
+        	//$("#course").combobox("setValue",type+' ');
+        }
+    </script>
+</body>
+</html>

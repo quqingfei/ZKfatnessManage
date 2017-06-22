@@ -1,0 +1,465 @@
+.showTable {
+    position: absolute;
+    top: 153px;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+}
+.datagrid-cell {
+    display: inline-block !important;
+}
+.codeImg {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+
+    height: 30px;
+}
+.userCode {
+    font-size: 14px;
+    line-height: 40px;
+
+    width: 250px;
+    height: 40px;
+    padding-left: 40px;
+
+    color: #000;
+    border: 0;
+    background: #fff;
+}
+.clientSearch {
+    display: inline-block;
+    float: right;
+
+    width: auto;
+    height: 30px;
+    /*float:right;*/
+    padding: 4px 0;
+}
+.byPhone {
+    float: left;
+
+    width: auto;
+    height: 100%;
+}
+.phoneLable {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    height: 100%;
+    margin-left: 10px;
+
+    color: #fff;
+}
+.firstLable {
+    margin-left: 0;
+}
+.phoneSearch {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 100%;
+    margin-left: 10px;
+    padding: 0;
+    padding-left: 5px;
+
+    color: #666;
+    border-width: 0;
+    -webkit-border-radius: 5px; /* Safari 和 Chrome */
+       -moz-border-radius: 5px; /* Firefox */
+            border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+    background-color: #fff;
+}
+.dateLable {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    height: 30px;
+    margin-left: 10px;
+
+    color: #fff;
+}
+.dateInput {
+    line-height: 22px;
+    display: inline-block;
+    width: 136px;
+    height: 26px;
+    box-sizing: border-box;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+.clientSearch .textbox,
+.clientSearch .combo,
+.clientSearch .datebox {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 100px;
+    height: 32px;
+    margin-bottom: 1px;
+    margin-left: 10px;
+
+    color: #666;
+    border-width: 0;
+    background-color: #fff;
+}
+.clientSearch .textbox .textbox-text {
+    margin-bottom: 3px;
+}
+#dlgserch .combo{
+    border-color: #ccc;
+}
+#dlgHj .combo,
+#dlgJl .combo {
+    font-size: 14px;
+
+    display: inline-block;
+
+    margin-left: 10px;
+
+    border-color: #ccc;
+}
+.connection {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: auto;
+    height: 30px;
+    margin-left: 10px;
+
+    color: #fff;
+}
+.searchSubmit {
+    font-size: 14px;
+    line-height: 30px;
+
+    display: inline-block;
+
+    width: 60px;
+    height: 30px;
+    margin-left: 30px;
+
+    text-align: center;
+
+    color: #666;
+    -webkit-border-radius: 5px; /* Safari 和 Chrome */
+       -moz-border-radius: 5px; /* Firefox */
+            border-radius: 5px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+    background-color: #ffd600;
+}
+
+#clientSearchSubmit:hover {
+    background-color: #ffd699;
+}
+
+.userChoose {
+    font-family: 'Microsoft YaHei','Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+
+    float: left;
+
+
+    height: 24px;
+    margin: 8px auto 0;
+    padding: 0 10px 0;
+
+    cursor: pointer;
+    text-align: center;
+
+    color: #fff;
+    border-right: 1px solid #202020;
+}
+.userChoose a {
+    font-family: 'Microsoft YaHei','Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+    text-decoration: none;
+    text-decoration: none;
+
+    color: #fff;
+}
+.userChoose a:hover {
+    text-decoration: none;
+
+    color: #edcd00;
+}
+.sendMessage {
+    font-size: 14px;
+    line-height: 20px;
+
+    float: right;
+
+    height: 20px;
+    margin: 5px 2px;
+    padding: 5px;
+
+    cursor: pointer;
+
+    border-radius: 5px;
+}
+.sendMessage:hover {
+    background: #2c2c2c;
+}
+
+.sendMessage:active {
+    background: #222;
+}
+.sendImg {
+    height: 17px;
+    vertical-align: text-bottom;
+}
+.action {
+    width: auto;
+    margin: 0 auto;
+
+    text-align: center;
+}
+.action a {
+    display: inline-block;
+
+    margin-right: 10px;
+    /*color: #000000;*/
+}
+
+.action a:hover {
+    color: #666;
+}
+.searchform {
+    overflow: hidden;
+
+    width: 100%;
+}
+.searchOne {
+    float: left;
+    overflow: hidden;
+
+    width: 50%;
+    margin-bottom: 8px;
+}
+.searchTwo {
+    float: left;
+    overflow: hidden;
+
+    box-sizing: border-box;
+    width: 50%;
+    margin-bottom: 8px;
+}
+.oneLeft {
+    line-height: 24px;
+
+    float: left;
+
+    width: 32%;
+
+    text-align: center;
+}
+.searchInput {
+    float: left;
+    border-radius: 3px;
+    box-sizing: border-box;
+    width: 136px;
+    height: 26px;
+}
+.datagrid-view1,
+.datagrid-view1 .datagrid-header,
+.datagrid-view1 .datagrid-header-rownumber,
+.datagrid-view1 .datagrid-cell-rownumber {
+    width: auto !important;
+}
+.datagrid-view1 .datagrid-body,
+.datagrid-view1 .datagrid-footer {
+    width: auto !important;
+    padding-left: 5px !important;
+}
+.topDiv{
+    padding:0px 25px 15px;
+    border-bottom:1px solid #666666;
+}
+.bottomDiv{
+    position:relative;
+    padding:0px 25px;
+}
+.messageDiv{
+    width:auto;
+    height:25px;
+    padding:15px 0px 0px;
+}
+.messageDiv .remind{
+    line-height:25px;
+    color:#666666;
+    font-size:13px;
+    margin-left:15px;
+}
+.messageDiv .textbox,.combo{
+    width:200px;
+    height:25px;
+}
+.messageDiv .textbox-text{
+    height:23px;
+    line-height:23px;
+    padding-left:10px;
+    margin-top:-3px;
+}
+.messageLableL{
+    display:inline-block;
+    margin-right: 10px;
+    width:75px;
+    height:100%;
+    line-height:25px;
+    font-size:13px;
+    color:#666666;
+    text-align: right;
+}
+.messageLableR{
+    display:inline-block;
+    margin-right:10px;
+    width:75px;
+    height:100%;
+    line-height:25px;
+    font-size:13px;
+    margin-left:30px;
+    color:#666666;
+    text-align: right;
+}
+.firstLable{
+    margin-left:0px;
+}
+.messageInput{
+    display:inline-block;
+    width:188px;
+    height:24px;
+    line-height:24px;
+    font-size:13px;
+    /*color:#666666;*/
+    padding:0px;
+    padding-left:10px;
+    background-color:#fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.messageInputLong{
+    display:inline-block;
+    width:428px;
+    height:23px;
+    line-height:23px;
+    font-size:13px;
+    color:#666666;
+    padding:0px;
+    padding-left:10px;
+    background-color:#fff;
+    border: 1px solid #999999;
+}
+.messageIcon{
+    position:absolute;
+    width:auto;
+    height:115px;
+    top:35px;
+    left:355px;
+    padding:0px;
+    margin:0px;
+    background: #fff;
+}
+.headIcon{
+    width:151px;
+    height:113px;
+    float:left;
+    border:1px solid #ccc;
+}
+.iconVideo{
+    width:151px;
+    height:113px;
+    float:left;
+    display:none;
+    border:1px solid #999999;
+}
+.iconCanvas{
+    width:640px;
+    height:480px;
+    display:none;
+}
+.iconAction{
+    display: inline-block;
+    vertical-align: top;
+    /*width:80px;*/
+    /*height:105px;*/
+    margin-top:0px;
+    margin-left:38px;
+    /*float:left;*/
+}
+.photograph{
+    display:inline-block;
+    vertical-align: top;
+    width:73px;
+    height:25px;
+    font-size:12px;
+    line-height:25px;
+    text-align:center;
+    color: #fff;
+    background: #3fc371;
+    margin-right: 7px;
+    border-radius: 4px;
+}
+.submitMessage{
+    display: block;
+    width: 160px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+    background-color: #3FC371;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+.submitMessage:hover{
+    background: #29844C;
+}
+.tongzhi{
+    float: left;
+    font-size: 14px;
+    cursor: pointer;
+    height: 31px;
+    line-height: 31px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.tongzhi a{
+    color: white;
+    font-size: 14px;
+    display: block;
+    height: 100%;
+    padding: 0 8px;
+}
+.chooseded{
+    display: inline-block;width: 370px;
+    margin-left:2px;
+    display: none;
+}
+.chooseded .timeds{width: 80px;padding-left: 2px;}
+.chooseded label{color:#666;font-size: 14px}
+.chooseded a{font-size: 14px;display: inline-block;padding:2px 8px;background-color: #666;color: white;margin:0 5px 0 2px;border-radius: 4px;}
+.chooseded a:hover{background-color: #7E7D7D;}
